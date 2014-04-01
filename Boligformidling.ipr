@@ -27,6 +27,7 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="IdProvider" IDEtalkID="FECF8EC59CA0DF0DA407AED92F5EE3D5" />
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Boligformidling.iml" filepath="$PROJECT_DIR$/Boligformidling.iml" />
