@@ -12,14 +12,14 @@ abstract class Bolig implements Serializable
 
     public Bolig(){}
 
-    public Bolig(String ad, int b, int r, int by, int u, Date l)
+    public Bolig(String ad, int b, int r, int by, int u)
     {
         adresse = ad;
         boareal = b;
         rom = r;
         byggAr = by;
         utleiepris = u;
-        lagtUt = l;
+        lagtUt = new Date();
     }
 
 
