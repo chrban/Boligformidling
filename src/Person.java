@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by mac on 01.04.14.
  */
-abstract class Person implements serielizable
+abstract class Person implements Serializable
 {
 
     private String navn;
