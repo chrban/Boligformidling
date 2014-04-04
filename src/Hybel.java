@@ -20,4 +20,7 @@ public class Hybel implements Serializable {
     public int getKjøkkenDelesMed(){
         return kjøkkenDelesMed;
     }
+    public String toString(){
+        return super.toString() + "Bad deles med: " + badDelesMed + "\nKjøkken deles med: " + kjøkkenDelesMed + "\n";
+    }
 }
