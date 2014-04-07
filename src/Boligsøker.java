@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Boligsøker extends Person implements Serializable
 {
     int[] Krav;
+    Boligsøker neste;
 
     public Person (){}
 
