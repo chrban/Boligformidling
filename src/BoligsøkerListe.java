@@ -25,13 +25,14 @@ public class BoligsøkerListe implements Serializable {
             return true;
         }
         else{
-            Boligsøker løper = første;
+            løper = første;
             while( løper.neste != null ){
                 løper = løper.neste;
                 løper.neste = b;
                 return true;
             }
         }
+        return false;
     }
 
     public boolean fjernSøker(String n){
