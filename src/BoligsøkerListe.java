@@ -4,7 +4,7 @@ public class BoligsøkerListe implements Serializable {
     private Boligsøker første;
 
     public BoligsøkerListe(){
-
+        første = null;
     }
 
     public boolean settInnNy(Boligsøker b){
