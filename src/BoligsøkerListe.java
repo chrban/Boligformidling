@@ -70,6 +70,6 @@ public class BoligsøkerListe {
         if( !info.equals(""))
             return info;
         else
-            return "Ingen boligsøkere registrert!"
+            return "Ingen boligsøkere registrert!";
     }
 }
