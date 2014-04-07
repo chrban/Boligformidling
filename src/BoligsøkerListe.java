@@ -1,7 +1,6 @@
-/**
- * Created by Emil on 07.04.2014.
- */
-public class BoligsøkerListe {
+import java.io.*;
+
+public class BoligsøkerListe implements Serializable {
     private Boligsøker første;
 
     public BoligsøkerListe(){
