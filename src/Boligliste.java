@@ -1,15 +1,17 @@
+import java.io.Serializable;
 import java.util.*;
-
 /**
- * Created by Kristoffer on 16.04.2014.
+ * Created by Kristoffer on 23.04.2014.
  */
-public class Boligliste {
+public class Boligliste implements Serializable {
+
     private SortedSet<Enebolig> eneboliger;
     private SortedSet<Leilighet> leiligheter;
 
+    private SortedSet<? extends Bolig> boliger;
 
-    private Boligliste()
+    public Boligliste()
     {
-        eneboliger = new TreeSet<>(); // er dette riktig?
+        boliger = new TreeSet<>();
     }
 }
