@@ -1,7 +1,8 @@
+import java.io.*;
 /**
  * Created by Kristoffer on 02.04.2014.
  */
-public class Enebolig extends Bolig implements serializable
+public class Enebolig extends Bolig implements Serializable
 {
     private int etasjer;
     private boolean harKjeller;
