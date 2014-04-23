@@ -1,19 +1,36 @@
 import java.io.Serializable;
 import java.util.*;
 
-
-/**
- * Created by Kristoffer on 23.04.2014.
- */
 public class Boligliste implements Serializable {
 
     private SortedSet<Enebolig> eneboliger;
     private SortedSet<Leilighet> leiligheter;
+    private SortedSet<Hybel> hybler;
+    private SortedSet<Rekkehus> rekkehus;
 
-    private SortedSet<? extends Bolig> boliger;
+
+   // private SortedSet<? extends Bolig> boliger;
+    public Boligliste(){}
 
     public Boligliste()
     {
-        boliger = new TreeSet<>();
+        eneboliger = new TreeSet<>();
+        leiligheter = new TreeSet<>();
+        hybler = new TreeSet<>();
+        rekkehus = new TreeSet<>();
     }
+
+    public void leggTilBolig(Bolig b)
+    {
+
+    }
+
+    public void finnBolig()
+    {
+
+    }
+
+    public void duvet(){}
+
+
 }
