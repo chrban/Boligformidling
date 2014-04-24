@@ -29,6 +29,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
     {
         return adresse;
     }
+    public int getSted(){
+        return sted;
+    }
     public int getBoareal()
     {
         return boareal;
@@ -47,6 +50,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     }
     public void lesObjektFraFil(DataInputStream in) throws IOException{
         adresse = in.readUTF();
+        sted = in.readInt();
         boareal = in.readInt();
         rom = in.readInt();
         byggAr = in.readInt();
@@ -57,6 +61,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     }
     public void skrivTilFil(DataOutputStream out)throws IOException{
         out.writeUTF(adresse);
+        out.writeInt(sted);
         out.writeInt(boareal);
         out.writeInt(rom);
         out.writeInt(byggAr);
