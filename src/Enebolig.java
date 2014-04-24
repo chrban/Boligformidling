@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.Comparator;
+
 /**
  * Created by Kristoffer on 02.04.2014.
  */
@@ -17,11 +19,18 @@ public class Enebolig extends Bolig implements Serializable
         harKjeller = k;
         tomtstørrelse = t;
     }
+
+    public int compareTo(Enebolig b)
+    {
+        return super.compareTo(b);
+    }
+
+
    /*
     public datatype[] specs()
     {
         returner array med spesifikasjoner om boligen(både fra super- og subklassen) for sammenlikning med boligsøkers krav.
     }
     */
-    
+
 }

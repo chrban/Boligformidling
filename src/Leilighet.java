@@ -18,4 +18,9 @@ public class Leilighet extends Bolig implements Serializable
         balkong = bal;
         heis = h;
     }
+
+    public int compareTo(Enebolig b)
+    {
+        return super.compareTo(b);
+    }
 }
