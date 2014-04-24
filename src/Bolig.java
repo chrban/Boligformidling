@@ -1,4 +1,4 @@
-import java.io.Serializable;
+import java.io.*;
 import java.util.Date;
 
 abstract class Bolig implements Serializable
@@ -42,6 +42,25 @@ abstract class Bolig implements Serializable
     public Date getLagtUt()
     {
         return lagtUt;
+    }
+    public void lesObjektFraFil(DataInputStream in) throws IOException{
+        adresse = in.readUTF();
+        boareal = in.readInt();
+        rom = in.readInt();
+        byggAr = in.readInt();
+        utleiepris = in.readInt();
+        long dato = in.readLong();
+        lagtUt = new Date(dato * 1000);
+
+    }
+    public void skrivTilFil(DataOutputStream out)throws IOException{
+        out.writeUTF(adresse);
+        out.writeInt(boareal);
+        out.writeInt(rom);
+        out.writeInt(byggAr);
+        out.writeInt(utleiepris);
+        long dato = lagtUt.getTime();
+        out.writeLong(dato);
     }
 
     public String toString()
