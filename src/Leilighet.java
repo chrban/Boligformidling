@@ -8,6 +8,7 @@ public class Leilighet extends Bolig implements Serializable
     private int etasje;
     private boolean balkong;
     private boolean heis;
+    private int[] specArray;
 
     public Leilighet(){}
 
@@ -39,5 +40,24 @@ public class Leilighet extends Bolig implements Serializable
     }
     public boolean getHeis(){
         return heis;
+    }
+
+    public int[] getSpecArray(){
+        specArray = new int[7];
+        specArray[0] = super.getSted();
+        specArray[1] = super.getBoareal();
+        specArray[2] = super.getRom();
+        specArray[3] = super.getUtleiepris();
+        specArray[4] = etasje;
+        if (balkong)
+            specArray[5] = 1;
+        else
+            specArray[5] = 0;
+        if(heis)
+            specArray[6] = 1;
+        else
+            specArray[6] = 0;
+
+        return specArray;
     }
 }
