@@ -4,6 +4,7 @@ import java.util.Date;
 abstract class Bolig implements Serializable
 {
     private String adresse;
+    private int sted;
     private int boareal;
     private int rom;
     private int byggAr;
@@ -12,9 +13,10 @@ abstract class Bolig implements Serializable
 
     public Bolig(){}
 
-    public Bolig(String ad, int b, int r, int by, int u)
+    public Bolig(String ad,int s, int b, int r, int by, int u)
     {
         adresse = ad;
+        sted = s;
         boareal = b;
         rom = r;
         byggAr = by;
