@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Date;
 
-abstract class Bolig implements Serializable
+abstract class Bolig implements Serializable, Comparable<Object>
 {
     private String adresse;
     private int sted;
@@ -63,6 +63,17 @@ abstract class Bolig implements Serializable
         out.writeInt(utleiepris);
         long dato = lagtUt.getTime();
         out.writeLong(dato);
+    }
+
+    public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
+    {
+        Bolig b = (Bolig) o;
+        if(b.getUtleiepris()> utleiepris)
+            return new Integer(1);
+        else if(b.getUtleiepris() == utleiepris)
+            return new Integer(0);
+        else
+            return new Integer(-1);
     }
 
     public String toString()

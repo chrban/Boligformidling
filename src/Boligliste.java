@@ -10,7 +10,7 @@ public class Boligliste implements Serializable {
 
 
    // private SortedSet<? extends Bolig> boliger;
-    public Boligliste(){}
+
 
     public Boligliste()
     {
@@ -20,17 +20,24 @@ public class Boligliste implements Serializable {
         rekkehus = new TreeSet<>();
     }
 
-    public void leggTilBolig(Bolig b)
+   /* public <? extends Bolig> void leggTilBolig(Bolig b)// kan dette gå?
     {
 
-    }
+    }*/
 
     public void finnBolig()
     {
 
     }
 
-    public void duvet(){}
+    public void duvet()
+    {
 
+    }
+
+    public TreeSet<? extends Bolig> getBoligerAvType(int  t)
+    {
+
+    }
 
 }
