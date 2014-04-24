@@ -18,13 +18,13 @@ public class Gui extends JFrame
         setLocationByPlatform(true);
 
 
-        // FANE #1 - Utleier
+        // FANA #1 - Utleier
 
         JPanel panel1 = new JPanel(layout);
         fane.addTab("Ny utleier", null, panel1, "Registrering");
 
 
-        // FANE #2 - Boligsøker
+        // FANA #2 - Boligsøker
 
         JPanel panel2 = new JPanel(layout);
         fane.addTab("Ny boligsøker", null, panel2, "registrerer boligsøker");

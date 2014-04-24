@@ -1,7 +1,9 @@
+import java.io.*;
+
 /**
  * Created by mac on 02.04.14.
  */
-public class Utleier extends Person implements serializable
+public class Utleier extends Person implements Serializable
 {
     private String firma;
     public Utleier neste;
