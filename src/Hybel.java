@@ -5,13 +5,14 @@ public class Hybel extends Bolig implements Serializable {
     private int kjøkkenDelesMed;
     private int[] specArray;
 
-    public Hyble(String ad,int s, int b, int r, int by, int u, int e, int bad, int kj) {
+    public Hybel(){
+
+    }
+
+    public Hybel(String ad,int s, int b, int r, int by, int u, int e, int bad, int kj) {
         super(ad, s, b, r, by, u);
         badDelesMed= bad;
         kjøkkenDelesMed = kj;
-    }
-    public Hybel(){
-
     }
 
     public void lesObjektFraFil(DataInputStream in) throws IOException{
