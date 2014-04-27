@@ -14,6 +14,7 @@ public class Gui extends JFrame
     private JButton knapp1, knapp2, knapp3;
     private JTextField fornavn, etternavn, adresse, mail;
     private JTextArea infonavn;
+    private JMenuBar menybar = new JMenuBar();
 
 
     public Gui()
@@ -24,11 +25,51 @@ public class Gui extends JFrame
         setLocationByPlatform(true);
 
 
+
+
+
+        //MENYBAR
+        setJMenuBar(menybar);
+
+        JMenu fil = new JMenu("Fil");
+        add(fil);
+
+        JMenuItem lagre = new JMenuItem("Lagre");
+        fil.add(lagre);
+
+        fil.addSeparator();
+
+        JMenuItem avslutt = new JMenuItem("Avslutt");
+        fil.add(avslutt);
+
+        JMenu rediger = new JMenu("Rediger");
+        add(rediger);
+
+        JMenuItem angre = new JMenuItem("Angre");
+        rediger.add(angre);
+
+
+
+
+
+
+
+
+
+
         // FANA #1 - Utleier
 
         JPanel panel1 = new JPanel(layout);
         fane.addTab("Ny utleier", null, panel1, "Registrering");
+
+
             c.insets = new Insets(5,5,5,5);
+
+
+
+
+
+
 
         // border
         Border ramme = BorderFactory.createLineBorder(Color.BLACK);
