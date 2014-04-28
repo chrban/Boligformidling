@@ -22,6 +22,6 @@ public class
         });
 
 
-        System.out.println("HELLOE PIKKK!");
+        System.out.println("Main kjører altså");
     }
 }

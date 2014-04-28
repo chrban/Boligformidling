@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -8,6 +11,7 @@ import javax.swing.event.ChangeListener;
 /**
  * Created by mac on 02.04.14.
  */
+
 public class Gui extends JFrame
 {
     private JTabbedPane fane = new JTabbedPane();
@@ -17,14 +21,16 @@ public class Gui extends JFrame
     private JTextField fornavn, etternavn, adresse, mail, firma;
     private JTextArea infonavn;
     private JMenuBar menybar = new JMenuBar();
-    private JRadioButton personType;
+    private JRadioButton utleier, boligsøker;
     private JPanel panel1, bspanel, utpanel;
     private JComboBox boligtypeBox,byBox,romBox;
     private JSlider minPrisSlider,maxPrisSlider;
     private String[] boligtypeValg = {"Enebolig","Hybel", "Leilighet","Rekkehus"};
     private String[] byvalg = {"Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
     private String[] romValg = {"1","2","3","4","5","6"};
-
+    private PersonTypeLytter radioLytter;
+    private ButtonGroup radioPerson;
+    private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
     /* TEMP ROT og SØPPEL
 
@@ -45,18 +51,25 @@ public class Gui extends JFrame
 
     public Gui()
     {
+        super("Boligformidling for svaksynte");
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
-        setSize(skjerm);
+        int bredde = skjerm.width;
+        int høyde = skjerm.height;
+
+        setSize(bredde / 2, høyde / 2);
         setLocationByPlatform(true);
+        //todo Finne en fin skjermstørrelse
 
 
 
 
 
         //MENYBAR
+    /*    menybar = new JMenuBar();
         setJMenuBar(menybar);
 
+        add(menybar);
         JMenu fil = new JMenu("Fil");
         add(fil);
 
@@ -73,9 +86,14 @@ public class Gui extends JFrame
 
         JMenuItem angre = new JMenuItem("Angre");
         rediger.add(angre);
+*/
 
 
-
+        utpanel = new JPanel(layout);
+        bspanel = new JPanel(layout);
+        bspanel.setVisible(false);
+        utpanel.setVisible(false);
+        //todo rydd dette
 
 
 
@@ -85,12 +103,9 @@ public class Gui extends JFrame
         fane.addTab("Registrer persion", null, panel1, "Registrering av boligsøker/uleier");
 
 
+
+
         //  c.insets = new Insets(5,5,5,5); // gjelder alle til den nulstilles
-
-
-        // esktra panelø
-        utpanel = new JPanel(layout);
-        bspanel = new JPanel(layout);
 
 
 
@@ -107,58 +122,98 @@ public class Gui extends JFrame
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 100;
         panel1.add(fornavn, c);
 
 
 
         c.gridx = 0;
         c.gridy = 1;
+        c.ipadx = 0;
         panel1.add(new JLabel("Etternavn: "), c);
 
         etternavn = new JTextField();
         c.gridx = 1;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 100;
         panel1.add(etternavn, c);
 
 
         c.gridx = 0;
         c.gridy = 2;
+        c.ipadx = 0;
         panel1.add(new JLabel("Adresse: "), c);
 
         adresse = new JTextField();
         c.gridx = 1;
         c.gridy = 2;
+        c.ipadx = 100;
         c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(adresse, c);
 
         c.gridx = 0;
         c.gridy = 3;
+        c.ipadx = 0;
         panel1.add(new JLabel("Mail: "), c);
 
         mail = new JTextField();
         c.gridx = 1;
         c.gridy = 3;
+        c.ipadx = 100;
         c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(mail, c);
 
+
+
+
+
+        radioLytter = new PersonTypeLytter();
+        radioPerson = new ButtonGroup();
+        utleier = new JRadioButton("Utleier",false);
+
+        utleier.addActionListener(radioLytter);
+        c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 4;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(utleier,c);
+
+
+
+        c.gridy = 5;
+        boligsøker = new JRadioButton("Boligsøker",false);
+        boligsøker.addActionListener(radioLytter);
+        panel1.add(boligsøker,c);
+
+        radioPerson.add(utleier);
+        radioPerson.add(boligsøker);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        c.gridx = 0;
+        c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         utpanel.add(new JLabel("Firma: "), c);
 
         firma = new JTextField();
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         utpanel.add(firma, c);
 
 
-        // IF utleier, then ADD denne:
-        c.gridx = 0;
-        c.gridy = 1;
-        panel1.add(utpanel);
-        // TODO <-
+
 
 
         //BOLISØKER PANEL (bspanel)
@@ -223,7 +278,7 @@ public class Gui extends JFrame
         minPrisSlider.addChangeListener(new minPrisLytter());
 
         bspanel.add(minPrisSlider, c);
-
+        //todo koble riktige verdier
 
 
         c.gridx = 1;
@@ -252,22 +307,7 @@ public class Gui extends JFrame
         bspanel.add(maxPrisSlider, c);
 
 
-
-
-
-
-
-
-
-
-        //IF BOLIGSØKER ADD DENNE::
-        c.gridx = 5;
-        c.gridy = 1;
-        panel1.add(bspanel);
-        //TODO <<---
-
-
-
+        //todo legge til resten av komponents
 
 
             /*
@@ -323,9 +363,14 @@ public class Gui extends JFrame
         JPanel panel4 = new JPanel(layout);
         fane.addTab("MatchMaking!", null, panel4, "Match hus og menneske");
 
-
-
-
+//todo fikse posisjoneringen
+        bspanel.setBorder(ramme);
+        c.gridx = 0;
+        c.gridy = 6;
+        c.insets = new Insets (5,5,50,50);
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        panel1.add(bspanel, c);
+        panel1.add(utpanel, c);
         add(fane);
     }
 
@@ -346,6 +391,34 @@ public class Gui extends JFrame
             int maxPris = maxPrisSlider.getValue();
         }
     }
+
+    private class PersonTypeLytter implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if(utleier.isSelected())
+            {
+                utpanel.setVisible(true);
+                bspanel.setVisible(false);
+                revalidate();
+                repaint();
+            }
+            else if(boligsøker.isSelected())
+            {
+                bspanel.setVisible(true);
+                utpanel.setVisible(false);
+                revalidate();
+                repaint();
+
+            }
+
+
+        }
+    }
+
+
+
+
 
 
     public void regBoligsøker()
