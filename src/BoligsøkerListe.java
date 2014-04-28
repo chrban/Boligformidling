@@ -26,13 +26,12 @@ public class BoligsøkerListe implements Serializable {
         }
         else{
             løper = første;
-            while( løper.neste != null ){
+            while( løper.neste != null )
                 løper = løper.neste;
-                løper.neste = b;
-                return true;
-            }
+            løper.neste = b;
+            return true;
+
         }
-        return false;
     }
 
     public boolean fjernSøker(String n){
