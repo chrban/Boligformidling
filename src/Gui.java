@@ -121,6 +121,7 @@ public class Gui extends JFrame
         add(fane);
     }
 
+
     public void regBoligsøker()
     {
         /*
@@ -130,6 +131,8 @@ public class Gui extends JFrame
         *
         * */
     }
+
+
 
     public void regBolig()
     {
@@ -141,6 +144,7 @@ public class Gui extends JFrame
         */
     }
 
+
     public void regUtleier()
     {
         /*
@@ -150,6 +154,7 @@ public class Gui extends JFrame
         */
     }
 
+
     public void mekkKontrakt()
     {
         /*
@@ -158,6 +163,8 @@ public class Gui extends JFrame
         - mekk en kontrakt med info fra begge.
         */
     }
+
+
 
     public void matchPåKrav()
     {
@@ -184,6 +191,8 @@ public class Gui extends JFrame
         */
     }
 
+
+
     public void visBoligsøkere()
     {
         /*
@@ -192,10 +201,30 @@ public class Gui extends JFrame
         /
     }
 
-    public void visBoliger(){} // få til sanntid-endringer mht endringer i innfeltene?
 
-    public void visKontrakter(){}
+    public void visBoliger()
+    {
+     /*
+     - Skal vi kunne vise alle boligene samtidig eller bare en type om gangen? en type er vel absolutt lettest.
+     -
+     */
+    } // få til sanntid-endringer mht endringer i innfeltene?
 
-    public void slettBoligsøker(){} //  var det dette som vi skulle kunne slette, eller noe annet?
+
+
+    public void visKontrakter()
+    {
+        /*
+        - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
+
+        */
+    }
+
+
+
+    public void slettBoligsøker()
+    {
+
+    } //  var det dette som vi skulle kunne slette, eller noe annet?
 
 }

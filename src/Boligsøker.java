@@ -31,10 +31,10 @@ public class Boligsøker extends Person implements Serializable
 
    public int[] getKrav()
    {
-       Krav[0]= boligtype;  Krav[0] = by;          Krav[1] = rom;        Krav[2] = minPris;
-       Krav[3] = maxPris;   Krav[4] = parkering;   Krav[5] = antEtasjer; Krav[6] = kjeller;
-       Krav[7] = minTomt;   Krav[8] = maxTomt;     Krav[9] = heis;       Krav[10] = balkong;
-       Krav[11] = delerBadMed; Krav[12] = delerKjøkkenMed;
+       Krav[0]= boligtype;  Krav[1] = by;          Krav[2] = rom;        Krav[3] = minPris;
+       Krav[4] = maxPris;   Krav[5] = parkering;   Krav[6] = antEtasjer; Krav[7] = kjeller;
+       Krav[8] = minTomt;   Krav[9] = maxTomt;     Krav[10] = heis;       Krav[11] = balkong;
+       Krav[12] = delerBadMed; Krav[13] = delerKjøkkenMed;
 
        return Krav;
    }
@@ -49,17 +49,26 @@ public class Boligsøker extends Person implements Serializable
 //Visualisering av kravArray:
 // krav = {by, rom, minPris, maksPris, prakering, antEtasjer, kjeller, minTomt, maxTomt, heis, balkong, delerBadMed, delerKjøkkenMed}
     /*
-    0 by
-    1 rom
-    2 minPris
-    3 maxPris
-    4 parkering
-    5 antEtasjer
-    6 kjeller
-    7 minTomt
-    8 maxTomt
-    9 heis
-    10 balkong
-    11 delerBadMed
-    12 delerKjøkkenMed
+    0 Boligtype
+    1 by
+    2 rom
+    3 minPris
+    4 maxPris
+    5 parkering
+    6 antEtasjer
+    7 kjeller
+    8 minTomt
+    9 maxTomt
+    10 heis
+    11 balkong
+    12 delerBadMed
+    13 delerKjøkkenMed
+
+
+
+    Boligtyper:
+    1 Enebolig
+    2 Rekkehus
+    3 Leilighet
+    4 Hybel
     */
