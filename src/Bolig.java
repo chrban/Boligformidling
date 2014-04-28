@@ -59,7 +59,6 @@ abstract class Bolig implements Serializable, Comparable<Object>
         utleiepris = in.readInt();
         long dato = in.readLong();
         lagtUt = new Date(dato * 1000);
-        eier = in.readFully();
 
     }
     public void skrivTilFil(DataOutputStream out)throws IOException{
@@ -71,7 +70,6 @@ abstract class Bolig implements Serializable, Comparable<Object>
         out.writeInt(utleiepris);
         long dato = lagtUt.getTime();
         out.writeLong(dato);
-        out.write(eier);
     }
 
     public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
