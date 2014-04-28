@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 /**
@@ -12,9 +14,33 @@ public class Gui extends JFrame
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
     private JButton knapp1, knapp2, knapp3;
-    private JTextField fornavn, etternavn, adresse, mail;
+    private JTextField fornavn, etternavn, adresse, mail, firma;
     private JTextArea infonavn;
     private JMenuBar menybar = new JMenuBar();
+    private JRadioButton personType;
+    private JPanel panel1, bspanel, utpanel;
+    private JComboBox boligtypeBox,byBox,romBox;
+    private JSlider minPrisSlider,maxPrisSlider;
+    private String[] boligtypeValg = {"Enebolig","Hybel", "Leilighet","Rekkehus"};
+    private String[] byvalg = {"Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
+    private String[] romValg = {"1","2","3","4","5","6"};
+
+
+    /* TEMP ROT og SØPPEL
+
+    Registrere boligsøker/utleier
+    Registrer bolig
+
+
+
+        border
+        Border ramme = BorderFactory.createLineBorder(Color.BLACK);
+        panel1.setBorder(ramme);
+
+
+    End søppppel
+    */
+
 
 
     public Gui()
@@ -50,75 +76,275 @@ public class Gui extends JFrame
 
 
 
-        // FANA #1 - Utleier
+
+
+
+        // FANA #1 - Registrering av personer (boligsøker/utleier)
 
         JPanel panel1 = new JPanel(layout);
-        fane.addTab("Ny utleier", null, panel1, "Registrering");
+        fane.addTab("Registrer persion", null, panel1, "Registrering av boligsøker/uleier");
 
 
-            c.insets = new Insets(5,5,5,5);
+        //  c.insets = new Insets(5,5,5,5); // gjelder alle til den nulstilles
+
+
+        // esktra panelø
+        utpanel = new JPanel(layout);
+        bspanel = new JPanel(layout);
 
 
 
 
-        // border
-        Border ramme = BorderFactory.createLineBorder(Color.BLACK);
-        panel1.setBorder(ramme);
+
 
 
         //Inndatafelt
-            c.gridx = 0;
-            c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = 0;
         panel1.add(new JLabel("Fornavn: "), c);
 
         fornavn = new JTextField();
-            c.gridx = 1;
-            c.gridy = 0;
-            c.fill = GridBagConstraints.BOTH;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(fornavn, c);
-        fornavn.setBorder(ramme);
 
 
-            c.gridx = 0;
-            c.gridy = 1;
+
+        c.gridx = 0;
+        c.gridy = 1;
         panel1.add(new JLabel("Etternavn: "), c);
 
         etternavn = new JTextField();
-            c.gridx = 1;
-            c.gridy = 1;
-            c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(etternavn, c);
 
 
-            c.gridx = 0;
-            c.gridy = 2;
+        c.gridx = 0;
+        c.gridy = 2;
         panel1.add(new JLabel("Adresse: "), c);
 
         adresse = new JTextField();
-            c.gridx = 1;
-            c.gridy = 2;
-            c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(adresse, c);
 
-            c.gridx = 0;
-            c.gridy = 3;
+        c.gridx = 0;
+        c.gridy = 3;
         panel1.add(new JLabel("Mail: "), c);
 
         mail = new JTextField();
-            c.gridx = 1;
-            c.gridy = 3;
-            c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(mail, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        utpanel.add(new JLabel("Firma: "), c);
+
+        firma = new JTextField();
+        c.gridx = 1;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        utpanel.add(firma, c);
+
+
+        // IF utleier, then ADD denne:
+        c.gridx = 0;
+        c.gridy = 1;
+        panel1.add(utpanel);
+        // TODO <-
+
+
+        //BOLISØKER PANEL (bspanel)
+
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("Boligtype: "), c);
+
+        boligtypeBox = new JComboBox(boligtypeValg);
+        c.gridx = 2;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(boligtypeBox, c);
+
+
+        c.gridx = 1;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("By: "), c);
+
+        byBox = new JComboBox(byvalg);
+        c.gridx = 2;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(byBox, c);
+
+
+
+        c.gridx = 1;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("Rom: "), c);
+
+        romBox = new JComboBox(romValg);
+        c.gridx = 2;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(romBox, c);
+
+
+
+
+        c.gridx = 1;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("min Pris: "), c);
+
+        c.gridx = 2;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+
+
+        minPrisSlider = new JSlider();
+        minPrisSlider.setMinimum(0);
+        minPrisSlider.setMaximum(50000);
+        minPrisSlider.setValue(250);
+        minPrisSlider.setMajorTickSpacing(10000);
+        minPrisSlider.setPaintTicks(true);
+        minPrisSlider.setPaintLabels(true);
+        minPrisSlider.addChangeListener(new minPrisLytter());
+
+        bspanel.add(minPrisSlider, c);
+
+
+
+        c.gridx = 1;
+        c.gridy = 4;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("max Pris: "), c);
+
+
+
+        c.gridx = 2;
+        c.gridy = 4;
+        c.gridwidth = 3;
+        c.ipadx = 100;
+        c.fill = GridBagConstraints.HORIZONTAL;
+
+        maxPrisSlider = new JSlider();
+        maxPrisSlider.setMinimum(0);
+        maxPrisSlider.setMaximum(50000);
+        maxPrisSlider.setValue(250);
+        maxPrisSlider.setMajorTickSpacing(10000);
+        maxPrisSlider.setPaintTicks(true);
+        maxPrisSlider.setPaintLabels(true);
+        maxPrisSlider.addChangeListener(new maxPrisLytter());
+
+        bspanel.add(maxPrisSlider, c);
+
+
+
+
+
+
+
+
+
+
+        //IF BOLIGSØKER ADD DENNE::
+        c.gridx = 5;
+        c.gridy = 1;
+        panel1.add(bspanel);
+        //TODO <<---
+
+
+
+
+
+            /*
+      Boligtype
+    0 by
+    1 rom
+    2 minPris
+    3 maxPris
+    4 parkering
+    5 antEtasjer
+    6 kjeller
+    7 minTomt
+    8 maxTomt
+    9 heis
+    10 balkong
+    11 delerBadMed
+    12 delerKjøkkenMed
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // FANA #2 - Boligsøker
 
         JPanel panel2 = new JPanel(layout);
-        fane.addTab("Ny boligsøker", null, panel2, "registrerer boligsøker");
+        fane.addTab("Ny bolig", null, panel2, "registrerer ny bolig");
+
+        JPanel panel3 = new JPanel(layout);
+        fane.addTab("Vis tabell", null, panel3, "Liste over bloiger og personer");
+
+        JPanel panel4 = new JPanel(layout);
+        fane.addTab("MatchMaking!", null, panel4, "Match hus og menneske");
+
 
 
 
         add(fane);
+    }
+
+// LYTTERE
+
+    private class minPrisLytter implements ChangeListener
+    {
+        public void stateChanged(ChangeEvent e)
+        {
+            int minPris = minPrisSlider.getValue();
+        }
+    }
+
+    private class maxPrisLytter implements ChangeListener
+    {
+        public void stateChanged(ChangeEvent e)
+        {
+            int maxPris = maxPrisSlider.getValue();
+        }
     }
 
 
@@ -198,7 +424,7 @@ public class Gui extends JFrame
         /*
         - vis de.
         */
-        /
+
     }
 
 
