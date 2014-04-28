@@ -32,12 +32,9 @@ public class KontrakListe {
         if(løper == null)
             return "Finner ingen registrerte kontrakter";
 
-        else if(løper.neste == null)
-            ut += løper;
-
         while(løper != null)
         {
-            ut += løper;
+            ut += løper.toString();
             løper = løper.neste;
         }
      
