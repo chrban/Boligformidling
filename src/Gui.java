@@ -50,13 +50,6 @@ public class Gui extends JFrame
 
 
 
-
-
-
-
-
-
-
         // FANA #1 - Utleier
 
         JPanel panel1 = new JPanel(layout);
@@ -64,9 +57,6 @@ public class Gui extends JFrame
 
 
             c.insets = new Insets(5,5,5,5);
-
-
-
 
 
 
@@ -131,15 +121,56 @@ public class Gui extends JFrame
         add(fane);
     }
 
-    public void regBoligsøker(){}
+    public void regBoligsøker()
+    {
+        /*
+        - les inn fra gui og legg i variabler
+        - opprett og send til register?
+        *  ikke verre enn det?
+        *
+        * */
+    }
 
-    public void regBolig(){}
+    public void regBolig()
+    {
+        /*
+        - Les inn fra gui og legg i varz.
+        - test på type
+        - opprett og send til register. siden vi allerede her bestemmer type, kan vi ha en legg til metode for hver ty
+          type bolig i registerklassen. det er easymode, kan prøve oss på nope litt mer expert senere.
+        */
+    }
 
-    public void regUtleier(){}
+    public void regUtleier()
+    {
+        /*
+        - Les inn til varz
+        - opprett og legg i liste? lag liste først.
+        - hvordan registrere boliger som er knyttet til utleieren?
+        */
+    }
 
-    public void mekkKontrakt(){}
+    public void mekkKontrakt()
+    {
+        /*
+        - Les inn identifiserende informasjon om søker og utleier fra gui
+        - finn og returner begge objektene.
+        - mekk en kontrakt med info fra begge.
+        */
+    }
 
-    public void matchPåKrav(){}
+    public void matchPåKrav()
+    {
+        /*
+        - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
+            - Velge fra liste i gui?(liker denne best, sikkert mulig å få til med JTable)
+            - skrive inn kundenummer eller noe?
+
+        - Finne boligsøker og få tak i kravene
+        - 
+
+        */
+    }
 
     public void visBoligsøkere(){}
 
