@@ -32,6 +32,12 @@ public class Kontrakter {
     public String getBoligsøkerNavn(){
         return leier.getNavn();
     }
+    public Date getKontraktStart(){
+        return start;
+    }
+    public Date getKontraktSlutt(){
+        return slutt;
+    }
     public String toString(){
         return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getNavn() + "\n";
     }
