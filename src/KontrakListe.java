@@ -23,4 +23,24 @@ public class KontrakListe {
             return true;
         }
     }
+
+    public String toString()
+    {
+        String ut = "";
+        Kontrakter løper = første;
+
+        if(løper == null)
+            return "Finner ingen registrerte kontrakter";
+
+        else if(løper.neste == null)
+            ut += løper;
+
+        while(løper != null)
+        {
+            ut += løper;
+            løper = løper.neste;
+        }
+     
+        return ut;
+    }
 }
