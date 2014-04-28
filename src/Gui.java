@@ -167,14 +167,34 @@ public class Gui extends JFrame
             - skrive inn kundenummer eller noe?
 
         - Finne boligsøker og få tak i kravene
-        - 
+        - test på boligtype
+            - Hent liste til riktig boligtype, mekk iterator
+            - Løkke(For gjennomgang av boliglisten)
+                - Løkke(For gjennomløping av krav og specs)
+                    - Hvis match, legg til poeng
+                    - hvis null, reg som blankt felt
 
+                - kalkuler matchkoefisient og lagre den et sted. Hvor? jeg vet ikke.
+
+            Må på en måte skrive ut en sortert liste av boliger som har høy nok matchkoefisient.
+                - Kan lagre koefisienten i boligobjektet og endre den naturlige sorteringen til å ta hensyn på
+                  koefisienten, ikke på prisen.
+                - Kan lagre bolignr og score i todimmensjonell array, sortere den på score og så lage en turskrift ved
+                  å kalle opp toString for hver bolig i rekkefølgen definert av arrayen.
         */
     }
 
-    public void visBoligsøkere(){}
+    public void visBoligsøkere()
+    {
+        /*
+        - vis de.
+        */
+        /
+    }
 
     public void visBoliger(){} // få til sanntid-endringer mht endringer i innfeltene?
+
+    public void visKontrakter(){}
 
     public void slettBoligsøker(){} //  var det dette som vi skulle kunne slette, eller noe annet?
 
