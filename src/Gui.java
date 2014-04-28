@@ -121,20 +121,6 @@ public class Gui extends JFrame
         panel1.add(mail, c);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // FANA #2 - Boligsøker
 
         JPanel panel2 = new JPanel(layout);
@@ -142,12 +128,23 @@ public class Gui extends JFrame
 
 
 
-
-
-
-
-
         add(fane);
     }
+
+    public void regBoligsøker(){}
+
+    public void regBolig(){}
+
+    public void regUtleier(){}
+
+    public void mekkKontrakt(){}
+
+    public void matchPåKrav(){}
+
+    public void visBoligsøkere(){}
+
+    public void visBoliger(){} // få til sanntid-endringer mht endringer i innfeltene?
+
+    public void slettBoligsøker(){} //  var det dette som vi skulle kunne slette, eller noe annet?
 
 }
