@@ -36,10 +36,13 @@ public class Gui extends JFrame
     private ButtonGroup radioPerson;
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
+    private UtleierListe utleiere;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
+
+        utleiere = new UtleierListe();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
@@ -514,8 +517,104 @@ public class Gui extends JFrame
     public void regBoligsøker()
     {
 
+        /*int blgtp, int b, int r, int
+                  map, int mip, int p, int ae, int k, int mit, int mat, int h,
+                  int blkng, int dbm, int dkm
+
+                   0 Boligtype
+    1 by
+    2 rom
+    3 minPris
+    4 maxPris
+    5 parkering
+    6 antEtasjer
+    7 kjeller
+    8 minTomt
+    9 maxTomt
+    10 heis
+    11 balkong
+    12 delerBadMed
+    13 delerKjøkkenMed*/
+
         if(boligsøker.isSelected())
         {
+            int bt, by, rom, minPris, maxPris, park, antE, kjeller, minTomt, maxTomt, heis, balkong, dbm, dkm;
+            String fnavn = fornavn.getText();
+            String enavn = etternavn.getText();
+            String ad = adresse.getText();
+            // String tlf = tlffelt!
+            String email = mail.getText();
+
+            // Bestemm Boligtype
+            String bType = (String) boligtypeBox.getSelectedIndex();
+            switch (bType)
+            {
+                case "Enebolig" : bt = 1;
+                    break;
+                case "Rekkehus" : bt = 2;
+                    break;
+                case "Leilighet" : bt = 3;
+                    break;
+                case "Hybel" : bt = 4;
+                    break;
+                default: bt = 0;
+                    break;
+            }
+
+            // Bestem by "Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
+            String byInn = (String) byBox.getSelectedIndex();
+
+            switch(byInn){
+                case "Oslo":        by = 1;
+                    break;
+                case "Bergen":      by = 2;
+                    break;
+                case "Stavanger":   by = 3;
+                    break;
+                case "Trondheim":   by = 4;
+                    break;
+                case "Kristiansand":by = 5;
+                    break;
+                case "Tromsø":      by = 6;
+                    break;
+                default:            by = 0;
+                    break;
+            }
+
+            rom = Integer.parseInt((String)romBox.getSelectedItem());
+
+            minPris = (int) minPrisSlider.getValue();
+
+            maxPris = (int) maxPrisSlider.getValue();
+
+            antE = Integer.parseInt((String)etasjeBox.getSelectedItem());
+
+            park = 0;
+            heis = 0;
+            balkong = 0;
+            dbm = 0;
+            dkm = 0;
+            kjeller = 0;
+
+            if(garasjeValg.isSelected())
+                park = 1;
+            if(heisValg.isSelected())
+                heis = 1;
+            if(kjellerValg.isSelected())
+                kjeller = 0;
+            if(badValg.isSelected())
+                dbm = 1;
+            if(kjøkkenValg.isSelected())
+                dkm = 1;
+
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
+                return;
+                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+            }
+
+
 
         }
         else if(utleier.isSelected())
@@ -523,19 +622,19 @@ public class Gui extends JFrame
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
+            // String tlf = tlffelt!
             String email = mail.getText();
-            String firma = firma.getText();
+            String firm = firma.getText();
 
-            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firma.equals("")){
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals("")){
                 JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
                 return;
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
 
-            Utleier ny = new Utleier(String n, String a, String t, String e, String f))
-
-
-
+            Utleier ny = new Utleier(fnavn, enavn, ad, /*TELEFON*/, email, firm);
+            utleiere.settInn(ny);
+            return;
         }
         JOptionPane.showMessageDialog(null, "du må velge en av typene person yo");
 
