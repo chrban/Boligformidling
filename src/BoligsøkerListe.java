@@ -15,7 +15,7 @@ public class BoligsøkerListe implements Serializable {
         Boligsøker løper = første;
 
         while( løper!=null ){
-            if( løper.getNavn().equals(b.getNavn()))
+            if( løper.getFornavn().equals(b.getFornavn()))
                 return false;
             løper = løper.neste;
         }
@@ -38,7 +38,7 @@ public class BoligsøkerListe implements Serializable {
 
         Boligsøker løper = første;
 
-        if( første != null && første.getNavn().equals(n)){
+        if( første != null && første.getFornavn().equals(n)){
             if( løper.neste != null ){
                 første = løper.neste;
                 return true;
@@ -49,7 +49,7 @@ public class BoligsøkerListe implements Serializable {
             }
         }
         while( løper != null ){
-            if( løper.neste != null && løper.neste.getNavn().equals(n)){
+            if( løper.neste != null && løper.neste.getFornavn().equals(n)){
                 løper.neste = løper.neste.neste;
                 return true;
             }

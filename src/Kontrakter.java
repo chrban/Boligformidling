@@ -30,7 +30,7 @@ public class Kontrakter {
         return eier.getNavn();
     }
     public String getBoligsøkerNavn(){
-        return leier.getNavn();
+        return leier.getFornavn();
     }
     public Date getKontraktStart(){
         return start;
@@ -39,6 +39,6 @@ public class Kontrakter {
         return slutt;
     }
     public String toString(){
-        return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getNavn() + "\n";
+        return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\n";
     }
 }
