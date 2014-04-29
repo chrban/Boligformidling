@@ -40,12 +40,17 @@ public class Gui extends JFrame
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
     private UtleierListe utleiere;
+    private BoligsøkerListe boligsøkere;
+    private knappLytter lytter;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
 
         utleiere = new UtleierListe();
+        boligsøkere = new BoligsøkerListe();
+
+        lytter = new knappLytter();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
@@ -391,30 +396,24 @@ public class Gui extends JFrame
 
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridheight = 1;
+        c.gridwidth = 1;
 
-
-/*
-        adresse = ad;
-        sted = s;
-        boareal = b;
-        rom = r;
-        byggAr = by;
-        utleiepris = u;
-        lagtUt = new Date();
-        eierID = e;
-  */
 
 
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Boligtype: "), c);
+        bopanel.add(new JLabel("Adresse: "), c);
 
-        boligtypeBox = new JComboBox(boligtypeValg);
+        adresse = new JTextField();
         c.gridx = 1;
         c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(boligtypeBox, c);
+        bopanel.add(adresse,c);
 
 
         c.gridx = 0;
@@ -429,29 +428,30 @@ public class Gui extends JFrame
         bopanel.add(byBox, c);
 
 
-
         c.gridx = 0;
         c.gridy = 2;
+        bopanel.add(new JLabel("Boareal"),c);
+
+        boareal = new JTextField();
+        c.gridx = 1;
+        c.gridy = 2;
+        bopanel.add(boareal,c);
+
+        c.gridx = 0;
+        c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Rom: "), c);
 
         romBox = new JComboBox(romValg);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(romBox, c);
 
 
 
-
-
-
-
-
-
-
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 4;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Ant Etasjer: "), c);
@@ -459,9 +459,24 @@ public class Gui extends JFrame
 
         etasjeBox = new JComboBox(etasjeValg);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(etasjeBox, c);
+
+
+        c.gridx = 0;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(new JLabel("Boligtype: "), c);
+
+        boligtypeBox = new JComboBox(boligtypeValg);
+        c.gridx = 1;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(boligtypeBox, c);
+
+
+
 
         garasjeValg = new JCheckBox("Garasje");
         c.gridx = 0;
@@ -494,7 +509,69 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(kjøkkenValg,c);
 
+
+        c.gridx = 0;
+        c.gridy = 9;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(new JLabel("Utleiepris:"),c);
+
+        pris = new JTextField();
+        c.gridx = 1;
+        c.gridy = 9;
+        bopanel.add(pris,c);
+
+
+        c.gridx = 0;
+        c.gridy = 10;
+        bopanel.add(new JLabel("Byggår"),c);
+
+        byggår = new JTextField();
+        c.gridx = 1;
+        c.gridy = 10;
+        bopanel.add(byggår,c );
+
+
+        c.gridx = 0;
+        c.gridy = 11;
+        bopanel.add(new JLabel("Beskrivelse:"),c);
+
+        beskrivelse = new JTextArea("Skriv da..",5,10);
+        JScrollPane scroll = new JScrollPane(beskrivelse);
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        bopanel.add(scroll,c);
+
+        regBoligKnapp = new JButton("Registrer");
+        regBoligKnapp.addActionListener(lytter);
+        c.gridx = 3;
+        c.gridy = 15;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(10,5,5,5);
+        bopanel.add(regBoligKnapp,c);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // FANE 3 - VIS TABELL   *********************************************************
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0,0,0,0);
+        c.gridwidth = 1;
 
 
 
@@ -507,7 +584,11 @@ public class Gui extends JFrame
 
 
 
-    add(fane, BorderLayout.PAGE_START);
+
+
+
+
+        add(fane, BorderLayout.PAGE_START);
 
 /*
 
@@ -525,6 +606,15 @@ public class Gui extends JFrame
     }
 
 // LYTTERE
+    private class knappLytter implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() == regBoligKnapp)
+                regBolig();
+        }
+    }
+
 
     private class minPrisLytter implements ChangeListener
     {
@@ -596,7 +686,7 @@ public class Gui extends JFrame
 
         if(boligsøker.isSelected())
         {
-            int bt, by, rom, minPris, maxPris, park, antE, kjeller, minTomt, maxTomt, heis, balkong, dbm, dkm;
+            int bt, by, rom, minPris, maxPris, park, antE, kjeller, minTomt, maxTomt, heis, balkong, dbm, dkm, plan;
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
@@ -664,6 +754,10 @@ public class Gui extends JFrame
                 dbm = 1;
             if(kjøkkenValg.isSelected())
                 dkm = 1;
+            if(balkongValg.isSelected())
+                balkong = 1;
+
+            plan = Integer.parseInt((String)planBox.getSelectedItem());
 
             if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
             {
@@ -672,9 +766,11 @@ public class Gui extends JFrame
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
 
-
-
+            Boligsøker ny = new Boligsøker(fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
+            boligsøkere.settInnNy(ny);
         }
+
+
         else if(utleier.isSelected())
         {
             String fnavn = fornavn.getText();
@@ -694,23 +790,25 @@ public class Gui extends JFrame
             utleiere.settInn(ny);
             return;
         }
-        JOptionPane.showMessageDialog(null, "du må velge en av typene person yo");
-
-        String fnavn = fornavn.getText();
-        String enavn = etternavn.getText();
-        String ad = adresse.getText();
-        String email = mail.getText();
-
-        if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") ){
-
-        }
-
+        JOptionPane.showMessageDialog(null, "du må velge en av typene...");
     }
-
 
 
     public void regBolig()
     {
+        JOptionPane.showMessageDialog(null, "Regbolig kjører");
+        String adr = adresse.getText();
+        int areal = Integer.parseInt(boareal.getText());
+        int år = Integer.parseInt(byggår.getText());
+        int upris = Integer.parseInt(pris.getText());
+
+        // disse må knyttes til felter senere
+        // todo christe rædd feltene
+        int eid = 34;
+        int tomtareal = 100;
+        int plan = 3;
+        boolean balko = false;
+
         String valg = (String)boligtypeBox.getSelectedItem();
         int btype = 0;
         switch(valg){
@@ -744,7 +842,7 @@ public class Gui extends JFrame
             default:            byvalg = 1;
                                 break;
         }
-        int antrom = Integer.parseInt((String)romBox.getSelectedItem());
+        int rom = Integer.parseInt((String)romBox.getSelectedItem());
         int antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
 
         int kjellerInt = 0;
@@ -766,19 +864,27 @@ public class Gui extends JFrame
 
         Bolig ny = null;
 
+
+        //todo dette er en dum måte å gjøre dette på, må¨finne på noe annet
+        boolean kjeller = false;
+        if(kjellerInt == 1)
+            kjeller = true;
+
+        boolean hei = false;
+        if(heisInt == 1)
+            hei = true;
+
+
         switch(btype){
-            case 1: ny = new Enebolig();
+            case 1: ny = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
                          break;
-            case 2: ny = new Hybel();
+            case 2: ny = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
                          break;
-            case 3: ny = new Leilighet();
+            case 3: ny = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, hei);
                          break;
-            case 4: ny = new Rekkehus();
+            case 4: ny = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
                          break;
         }
-
-
-
     }
 
 
