@@ -587,7 +587,42 @@ public class Gui extends JFrame
             default:            byvalg = 1;
                                 break;
         }
-        int antrom = Integer.parseInt((String)romBox.getSelectedItem());    }
+        int antrom = Integer.parseInt((String)romBox.getSelectedItem());
+        int antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
+
+        int kjellerInt = 0;
+        int heisInt = 0;
+        int garasjeInt = 0;
+        int badInt = 0;
+        int kjøkkenInt = 0;
+
+        if(kjellerValg.isSelected())
+            kjellerInt = 1;
+        if(heisValg.isSelected())
+            heisInt = 1;
+        if(garasjeValg.isSelected())
+            garasjeInt = 1;
+        if(badValg.isSelected())
+            badInt = 1;
+        if(kjøkkenValg.isSelected())
+            kjøkkenInt = 1;
+
+        Bolig ny = null;
+
+        switch(btype){
+            case 1: ny = new Enebolig();
+                         break;
+            case 2: ny = new Hybel();
+                         break;
+            case 3: ny = new Leilighet();
+                         break;
+            case 4: ny = new Rekkehus();
+                         break;
+        }
+
+
+
+    }
 
 
     public void regUtleier()
