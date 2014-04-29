@@ -39,12 +39,16 @@ public class Gui extends JFrame
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
     private UtleierListe utleiere;
+    private BoligsøkerListe boligsøkere;
+    private KontrakListe kontrakter;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
 
         utleiere = new UtleierListe();
+        boligsøkere = new BoligsøkerListe();
+        kontrakter = new KontrakListe();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
@@ -831,10 +835,8 @@ public class Gui extends JFrame
 
     public void visBoligsøkere()
     {
-        /*todo
-        - vis de.
-        */
-
+        String visAlleBoligsøkere = boligsøkere.toString();
+        //Kan vises i et display eller et annet sted der det var ment
     }
 
 
@@ -850,10 +852,7 @@ public class Gui extends JFrame
 
     public void visKontrakter()
     {
-        /*
-        - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
-
-        */
+        String visAlleKontrakter = kontrakter.toString();
     }
 
 

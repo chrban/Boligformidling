@@ -19,9 +19,16 @@ public class UtleierSammenlikner implements Comparator<Utleier>, Serializable{
         }
     }
     public int compare(Utleier u1, Utleier u2){
-        String n1 = u1.getNavn();
-        String n2 = u2.getNavn();
+        String n1 = u1.getFornavn();
+        String n2 = u2.getFornavn();
+        String e1 = u1.getEtternavn();
+        String e2 = u2.getEtternavn();
         int d = kollator.compare(n1,n2);
-        return d;
+        if( d != 0 )
+            return d;
+        else{
+            d = kollator.compare(e1,e2);
+            return d;
+        }
     }
 }

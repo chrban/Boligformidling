@@ -29,7 +29,7 @@ public class UtleierListe {
         String utleiere = "";
         Iterator<Utleier> iterator = liste.iterator();
         while ( iterator.hasNext() ){
-            utleiere += iterator.next().getNavn() + "\n";
+            utleiere += iterator.next().toString() + "\n";
         }
         return utleiere;
     }

@@ -17,7 +17,7 @@ public class Utleier extends Person implements Serializable
 
     public String getNavn()
     {
-        return super.getNavn();
+        return super.getFornavn();
     }
 
     public String getEmail()
