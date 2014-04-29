@@ -17,14 +17,14 @@ public class Gui extends JFrame
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton knapp1, knapp2, knapp3;
-    private JTextField fornavn, etternavn, adresse, mail, firma, tlf;
+    private JButton regBoligKnapp;
+    private JTextField fornavn, etternavn, adresse, mail, firma, tlf,boareal,pris,byggår;
     private JLabel minPris,maxPris;
-    private JTextArea infonavn;
+    private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker;
     private JPanel panel1, bspanel, utpanel, panel2,bopanel, panel3, panel4;
-    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox, balkongBox;
+    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg;
     private JSlider minPrisSlider,maxPrisSlider;
     private String[] boligtypeValg = {"Enebolig","Hybel", "Leilighet","Rekkehus"};
@@ -33,6 +33,7 @@ public class Gui extends JFrame
     private String[] etasjeValg = {"1","2","3"};
     private String[] planValg = {"1","2","3","4","5","6","7"};
     private JTable tabell;
+    private JScrollPane scroll;
 
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson;
@@ -390,30 +391,24 @@ public class Gui extends JFrame
 
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridheight = 1;
+        c.gridwidth = 1;
 
-
-/*
-        adresse = ad;
-        sted = s;
-        boareal = b;
-        rom = r;
-        byggAr = by;
-        utleiepris = u;
-        lagtUt = new Date();
-        eierID = e;
-  */
 
 
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Boligtype: "), c);
+        bopanel.add(new JLabel("Adresse: "), c);
 
-        boligtypeBox = new JComboBox(boligtypeValg);
+        adresse = new JTextField();
         c.gridx = 1;
         c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(boligtypeBox, c);
+        bopanel.add(adresse,c);
 
 
         c.gridx = 0;
@@ -428,29 +423,30 @@ public class Gui extends JFrame
         bopanel.add(byBox, c);
 
 
-
         c.gridx = 0;
         c.gridy = 2;
+        bopanel.add(new JLabel("Boareal"),c);
+
+        boareal = new JTextField();
+        c.gridx = 1;
+        c.gridy = 2;
+        bopanel.add(boareal,c);
+
+        c.gridx = 0;
+        c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Rom: "), c);
 
         romBox = new JComboBox(romValg);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(romBox, c);
 
 
 
-
-
-
-
-
-
-
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 4;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Ant Etasjer: "), c);
@@ -458,9 +454,24 @@ public class Gui extends JFrame
 
         etasjeBox = new JComboBox(etasjeValg);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(etasjeBox, c);
+
+
+        c.gridx = 0;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(new JLabel("Boligtype: "), c);
+
+        boligtypeBox = new JComboBox(boligtypeValg);
+        c.gridx = 1;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(boligtypeBox, c);
+
+
+
 
         garasjeValg = new JCheckBox("Garasje");
         c.gridx = 0;
@@ -493,7 +504,68 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(kjøkkenValg,c);
 
+
+        c.gridx = 0;
+        c.gridy = 9;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(new JLabel("Utleiepris:"),c);
+
+        pris = new JTextField();
+        c.gridx = 1;
+        c.gridy = 9;
+        bopanel.add(pris,c);
+
+
+        c.gridx = 0;
+        c.gridy = 10;
+        bopanel.add(new JLabel("Byggår"),c);
+
+        byggår = new JTextField();
+        c.gridx = 1;
+        c.gridy = 10;
+        bopanel.add(byggår,c );
+
+
+        c.gridx = 0;
+        c.gridy = 11;
+        bopanel.add(new JLabel("Beskrivelse:"),c);
+
+        beskrivelse = new JTextArea("Skriv da..",5,10);
+        JScrollPane scroll = new JScrollPane(beskrivelse);
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        bopanel.add(scroll,c);
+
+        regBoligKnapp = new JButton("Registrer");
+        c.gridx = 3;
+        c.gridy = 15;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(10,5,5,5);
+        bopanel.add(regBoligKnapp,c);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // FANE 3 - VIS TABELL   *********************************************************
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0,0,0,0);
+        c.gridwidth = 1;
 
 
 
@@ -506,7 +578,11 @@ public class Gui extends JFrame
 
 
 
-    add(fane, BorderLayout.PAGE_START);
+
+
+
+
+        add(fane, BorderLayout.PAGE_START);
 
 /*
 
