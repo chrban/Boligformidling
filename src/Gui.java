@@ -47,12 +47,13 @@ public class Gui extends JFrame
         int høyde = skjerm.height;
 
         setSize(bredde / 2, høyde / 2);
-        setLocationByPlatform(true);
+       // setLocationByPlatform(true);
         //todo Finne en fin skjermstørrelse
 
 
 
         //Oppretter panelene
+
         panel1 = new JPanel(layout);
         panel2 = new JPanel(layout);
         panel3 = new JPanel(layout);
@@ -64,9 +65,12 @@ public class Gui extends JFrame
             c.gridx = 2;
             c.gridy = 0;
             c.gridwidth = 2;
+            c.gridheight = 9;
             c.insets = new Insets(5,5,5,5);
-
+            c.anchor = GridBagConstraints.FIRST_LINE_START;
         panel1.add(bspanel, c);
+            c.gridheight = 1;
+
         panel1.add(utpanel, c);
         panel2.add(bopanel, c);
         bopanel.setVisible(true);
@@ -85,10 +89,12 @@ public class Gui extends JFrame
 
 
         // Reseter
+        c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.insets = new Insets(0,0,0,0);
+        c.gridheight = 1;
 
 
 
@@ -244,9 +250,12 @@ public class Gui extends JFrame
         minPrisSlider.setMaximum(50000);
         minPrisSlider.setValue(250);
         minPrisSlider.setMajorTickSpacing(10000);
+        minPrisSlider.setMinorTickSpacing(5000);
         minPrisSlider.setPaintTicks(true);
         minPrisSlider.setPaintLabels(true);
         minPrisSlider.addChangeListener(new minPrisLytter());
+        minPrisSlider.setSnapToTicks(true);
+
 
         bspanel.add(minPrisSlider, c);
         //todo koble riktige verdier
@@ -270,9 +279,11 @@ public class Gui extends JFrame
         maxPrisSlider.setMaximum(50000);
         maxPrisSlider.setValue(250);
         maxPrisSlider.setMajorTickSpacing(10000);
+        maxPrisSlider.setMinorTickSpacing(5000);
         maxPrisSlider.setPaintTicks(true);
         maxPrisSlider.setPaintLabels(true);
         maxPrisSlider.addChangeListener(new maxPrisLytter());
+        maxPrisSlider.setSnapToTicks(true);
         bspanel.add(maxPrisSlider, c);
 
         c.gridx = 0;
@@ -321,6 +332,19 @@ public class Gui extends JFrame
 
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
+
+
+/*
+        adresse = ad;
+        sted = s;
+        boareal = b;
+        rom = r;
+        byggAr = by;
+        utleiepris = u;
+        lagtUt = new Date();
+        eierID = e;
+  */
+
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -360,52 +384,11 @@ public class Gui extends JFrame
 
 
 
-        c.gridx = 0;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("min Pris: "), c);
-
-        c.gridx = 1;
-        c.gridy = 3;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
 
 
-        minPrisSlider = new JSlider();
-        minPrisSlider.setMinimum(0);
-        minPrisSlider.setMaximum(50000);
-        minPrisSlider.setValue(250);
-        minPrisSlider.setMajorTickSpacing(10000);
-        minPrisSlider.setPaintTicks(true);
-        minPrisSlider.setPaintLabels(true);
-        minPrisSlider.addChangeListener(new minPrisLytter());
-
-        bopanel.add(minPrisSlider, c);
-        //todo koble riktige verdier
 
 
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("max Pris: "), c);
 
-//todo - Koble sliders til TextField
-
-        c.gridx = 1;
-        c.gridy = 4;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        maxPrisSlider = new JSlider();
-        maxPrisSlider.setMinimum(0);
-        maxPrisSlider.setMaximum(50000);
-        maxPrisSlider.setValue(250);
-        maxPrisSlider.setMajorTickSpacing(10000);
-        maxPrisSlider.setPaintTicks(true);
-        maxPrisSlider.setPaintLabels(true);
-        maxPrisSlider.addChangeListener(new maxPrisLytter());
-        bopanel.add(maxPrisSlider, c);
 
         c.gridx = 0;
         c.gridy = 5;
