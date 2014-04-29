@@ -3,6 +3,9 @@ import java.io.*;
 import javax.swing.JOptionPane;
 
 public class UtleierListe {
+
+    public UtleierListe(){}
+
     private List<Utleier> liste = new LinkedList<>();
 
     public void settInn( Utleier u ){
