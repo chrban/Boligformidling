@@ -554,13 +554,40 @@ public class Gui extends JFrame
 
     public void regBolig()
     {
-        /*todo
-        - Les inn fra gui og legg i varz.
-        - test på type
-        - opprett og send til register. siden vi allerede her bestemmer type, kan vi ha en legg til metode for hver ty
-          type bolig i registerklassen. det er easymode, kan prøve oss på nope litt mer expert senere.
-        */
-    }
+        String valg = (String)boligtypeBox.getSelectedItem();
+        int btype = 0;
+        switch(valg){
+            case "Enebolig":    btype = 1;
+                                break;
+            case "Hybel":       btype = 2;
+                                break;
+            case "Leilighet":   btype = 3;
+                                break;
+            case "Rekkehus":    btype = 4;
+                                break;
+            default:            btype = 1;
+                                break;
+        }
+
+        String by = (String)byBox.getSelectedItem();
+        int byvalg = 0;
+        switch(by){
+            case "Oslo":        byvalg = 1;
+                                break;
+            case "Bergen":      byvalg = 2;
+                                break;
+            case "Stavanger":   byvalg = 3;
+                                break;
+            case "Trondheim":   byvalg = 4;
+                                break;
+            case "Kristiansand":byvalg = 5;
+                                break;
+            case "Tromsø":      byvalg = 6;
+                                break;
+            default:            byvalg = 1;
+                                break;
+        }
+        int antrom = Integer.parseInt((String)romBox.getSelectedItem());    }
 
 
     public void regUtleier()
