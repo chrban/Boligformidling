@@ -513,6 +513,32 @@ public class Gui extends JFrame
 
     public void regBoligsøker()
     {
+
+        if(boligsøker.isSelected())
+        {
+
+        }
+        else if(utleier.isSelected())
+        {
+            String fnavn = fornavn.getText();
+            String enavn = etternavn.getText();
+            String ad = adresse.getText();
+            String email = mail.getText();
+            String firma = firma.getText();
+
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firma.equals("")){
+                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
+                return;
+                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+            }
+
+            Utleier ny = new Utleier(String n, String a, String t, String e, String f))
+
+
+
+        }
+        JOptionPane.showMessageDialog(null, "du må velge en av typene person yo");
+
         String fnavn = fornavn.getText();
         String enavn = etternavn.getText();
         String ad = adresse.getText();

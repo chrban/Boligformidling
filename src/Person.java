@@ -6,16 +6,18 @@ import java.io.Serializable;
 abstract class Person implements Serializable
 {
 
-    private String navn;
+    private String fnavn;
+    private String enavn;
     private String adresse;
     private String tlf;
     private String eMail;
 
     public Person(){}
 
-    public Person(String n, String a, String t, String e)
+    public Person(String fn, String en, String a, String t, String e)
     {
-        navn = n;
+        fnavn = fn;
+        enavn = en;
         adresse = a;
         tlf = t;
         eMail = e;

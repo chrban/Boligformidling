@@ -9,9 +9,9 @@ public class Utleier extends Person implements Serializable
     public Utleier neste;
     public Boligliste boliger;
 
-    public Utleier(String n, String a, String t, String e, String f)
+    public Utleier(String fn, String en, String a, String t, String e, String f)
     {
-        super(n, a, t, e);
+        super(fn, en, a, t, e);
         firma = f;
     }
 

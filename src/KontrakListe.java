@@ -37,7 +37,7 @@ public class KontrakListe {
             ut += løper.toString();
             løper = løper.neste;
         }
-     
+
         return ut;
     }
 }
