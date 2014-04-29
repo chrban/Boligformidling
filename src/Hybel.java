@@ -9,7 +9,7 @@ public class Hybel extends Bolig implements Serializable {
 
     }
 
-    public Hybel(String ad,int s, int b, int r, int by, int u,int id, int e, int bad, int kj) {
+    public Hybel(String ad,int s, int b, int r, int by, int u,int id, int bad, int kj) {
         super(ad, s, b, r, by, u, id);
         badDelesMed= bad;
         kjøkkenDelesMed = kj;

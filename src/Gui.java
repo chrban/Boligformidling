@@ -17,14 +17,14 @@ public class Gui extends JFrame
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton knapp1, knapp2, knapp3;
-    private JTextField fornavn, etternavn, adresse, mail, firma, tlf;
+    private JButton regBoligKnapp;
+    private JTextField fornavn, etternavn, adresse, mail, firma, tlf,boareal,pris,byggår;
     private JLabel minPris,maxPris;
-    private JTextArea infonavn;
+    private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker;
     private JPanel panel1, bspanel, utpanel, panel2,bopanel, panel3, panel4;
-    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox, balkongBox;
+    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg;
     private JSlider minPrisSlider,maxPrisSlider;
     private String[] boligtypeValg = {"Enebolig","Hybel", "Leilighet","Rekkehus"};
@@ -33,22 +33,19 @@ public class Gui extends JFrame
     private String[] etasjeValg = {"1","2","3"};
     private String[] planValg = {"1","2","3","4","5","6","7"};
     private JTable tabell;
+    private JScrollPane scroll;
 
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson;
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
     private UtleierListe utleiere;
-    private BoligsøkerListe boligsøkere;
-    private KontrakListe kontrakter;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
 
         utleiere = new UtleierListe();
-        boligsøkere = new BoligsøkerListe();
-        kontrakter = new KontrakListe();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
@@ -835,8 +832,10 @@ public class Gui extends JFrame
 
     public void visBoligsøkere()
     {
-        String visAlleBoligsøkere = boligsøkere.toString();
-        //Kan vises i et display eller et annet sted der det var ment
+        /*todo
+        - vis de.
+        */
+
     }
 
 
@@ -852,7 +851,10 @@ public class Gui extends JFrame
 
     public void visKontrakter()
     {
-        String visAlleKontrakter = kontrakter.toString();
+        /*
+        - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
+
+        */
     }
 
 
