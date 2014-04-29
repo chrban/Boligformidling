@@ -26,7 +26,7 @@ abstract class Person implements Serializable
 
     public String getNavn()
     {
-        return navn;
+        return fnavn;
     }
 
     public String getEmail()
@@ -36,6 +36,6 @@ abstract class Person implements Serializable
 
     public String toString()
     {
-        return "Informasjon om " + navn +"\n\n";
+        return "Informasjon om " + fnavn +"\n\n";
     }
 }

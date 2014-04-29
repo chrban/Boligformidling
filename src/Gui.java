@@ -599,11 +599,11 @@ public class Gui extends JFrame
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
-            // String tlf = tlffelt!
+            String t = tlf.getText();
             String email = mail.getText();
 
             // Bestemm Boligtype
-            String bType = (String) boligtypeBox.getSelectedIndex();
+            String bType = (String) boligtypeBox.getSelectedItem();
             switch (bType)
             {
                 case "Enebolig" : bt = 1;
@@ -619,7 +619,7 @@ public class Gui extends JFrame
             }
 
             // Bestem by "Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
-            String byInn = (String) byBox.getSelectedIndex();
+            String byInn = (String) byBox.getSelectedItem();
 
             switch(byInn){
                 case "Oslo":        by = 1;
@@ -664,7 +664,7 @@ public class Gui extends JFrame
             if(kjøkkenValg.isSelected())
                 dkm = 1;
 
-            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals(""))
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
             {
                 JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
                 return;
@@ -679,7 +679,7 @@ public class Gui extends JFrame
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
-            // String tlf = tlffelt!
+            String t = tlf.getText();
             String email = mail.getText();
             String firm = firma.getText();
 
@@ -689,7 +689,7 @@ public class Gui extends JFrame
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
 
-            Utleier ny = new Utleier(fnavn, enavn, ad, /*TELEFON*/, email, firm);
+            Utleier ny = new Utleier(fnavn, enavn, ad ,t ,email, firm);
             utleiere.settInn(ny);
             return;
         }
