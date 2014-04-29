@@ -18,18 +18,20 @@ public class Gui extends JFrame
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
     private JButton knapp1, knapp2, knapp3;
-    private JTextField fornavn, etternavn, adresse, mail, firma;
+    private JTextField fornavn, etternavn, adresse, mail, firma, tlf;
+    private JLabel minPris,maxPris;
     private JTextArea infonavn;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker;
     private JPanel panel1, bspanel, utpanel, panel2,bopanel, panel3, panel4;
-    private JComboBox boligtypeBox,byBox,romBox, etasjeBox;
-    private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg;
+    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox, balkongBox;
+    private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg;
     private JSlider minPrisSlider,maxPrisSlider;
     private String[] boligtypeValg = {"Enebolig","Hybel", "Leilighet","Rekkehus"};
     private String[] byvalg = {"Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
     private String[] romValg = {"1","2","3","4","5","6"};
     private String[] etasjeValg = {"1","2","3"};
+    private String[] planValg = {"1","2","3","4","5","6","7"};
     private JTable tabell;
 
     private PersonTypeLytter radioLytter;
@@ -65,7 +67,7 @@ public class Gui extends JFrame
         bspanel = new JPanel(layout);
         bopanel = new JPanel(layout);
         panel1.setVisible(true);
-            c.gridx = 2;
+            c.gridx = 8;
             c.gridy = 0;
             c.gridwidth = 2;
             c.gridheight = 9;
@@ -76,16 +78,23 @@ public class Gui extends JFrame
 
         panel1.add(utpanel, c);
         panel2.add(bopanel, c);
+
+       // add(utpanel,BorderLayout.LINE_END);
+        //add(bspanel,BorderLayout.LINE_END);
+
+
+
+        //til hit
         bopanel.setVisible(true);
         bspanel.setVisible(false); // endre tilbake til, false
         utpanel.setVisible(false);
 
         //oppretter Fanene
 
-        fane.addTab("Registrer Person",null,panel1,"Registrere ny boligsøker eller utleier");
-        fane.addTab("Registrer nby bolig",null,panel2,"Registrere ny boligsøker eller utleier");
-        fane.addTab("Vis tabell",null,panel3,"Registrere ny boligsøker eller utleier");
-        fane.addTab("MatchMaking",null,panel4,"Registrere ny boligsøker eller utleier");
+        fane.addTab("Registrer Person",null,panel1 ,"Registrere ny boligsøker eller utleier");
+        fane.addTab("Registrer bolig",null,panel2,"Registrere ny bolig");
+        fane.addTab("Vis tabell",null,panel3,"Show tabell");
+        fane.addTab("MatchMaking",null,panel4,"Tinde");
 
 
 
@@ -155,6 +164,29 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(mail, c);
 
+        c.gridx = 0;
+        c.gridy = 4;
+        c.ipadx = 0;
+        panel1.add(new JLabel("Telefon: "), c);
+
+        tlf = new JTextField();
+        c.gridx = 1;
+        c.gridy = 4;
+        c.ipadx = 100;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(tlf, c);
+
+
+
+
+
+
+
+
+
+
+
+
 
         radioLytter = new PersonTypeLytter();
         radioPerson = new ButtonGroup();
@@ -163,12 +195,12 @@ public class Gui extends JFrame
         utleier.addActionListener(radioLytter);
         c.ipadx = 0;
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(utleier,c);
 
         c.ipadx = 0;
-        c.gridx = 0;
+        c.gridx = 1;
         c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
 
@@ -236,11 +268,13 @@ public class Gui extends JFrame
 
 
 
-
+        minPris = new JLabel("");
         c.gridx = 0;
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bspanel.add(new JLabel("min Pris: "), c);
+        bspanel.add(minPris, c);
+
+
 
         c.gridx = 1;
         c.gridy = 3;
@@ -253,7 +287,7 @@ public class Gui extends JFrame
         minPrisSlider.setMaximum(50000);
         minPrisSlider.setValue(250);
         minPrisSlider.setMajorTickSpacing(10000);
-        minPrisSlider.setMinorTickSpacing(5000);
+        minPrisSlider.setMinorTickSpacing(2500);
         minPrisSlider.setPaintTicks(true);
         minPrisSlider.setPaintLabels(true);
         minPrisSlider.addChangeListener(new minPrisLytter());
@@ -263,12 +297,12 @@ public class Gui extends JFrame
         bspanel.add(minPrisSlider, c);
         //todo koble riktige verdier
 
-
+        maxPris = new JLabel("");
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bspanel.add(new JLabel("max Pris: "), c);
+        bspanel.add(maxPris, c);
 
 //todo - Koble sliders til TextField
 
@@ -333,6 +367,27 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         bspanel.add(kjøkkenValg,c);
 
+        balkongValg = new JCheckBox("Balkong");
+        c.gridx = 1;
+        c.gridy = 8;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(balkongValg,c);
+
+
+        c.gridx = 0;
+        c.gridy = 9;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(new JLabel("Plan: "), c);
+
+
+        planBox = new JComboBox(planValg);
+        c.gridx = 1;
+        c.gridy = 9;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bspanel.add(planBox, c);
+
+
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
 
@@ -347,6 +402,7 @@ public class Gui extends JFrame
         lagtUt = new Date();
         eierID = e;
   */
+
 
         c.gridx = 0;
         c.gridy = 0;
@@ -473,7 +529,8 @@ public class Gui extends JFrame
     {
         public void stateChanged(ChangeEvent e)
         {
-            int minPris = minPrisSlider.getValue();
+            minPris.setText("Min Pris: " + minPrisSlider.getValue());
+
         }
     }
 
@@ -481,7 +538,7 @@ public class Gui extends JFrame
     {
         public void stateChanged(ChangeEvent e)
         {
-            int maxPris = maxPrisSlider.getValue();
+            maxPris.setText("Max Pris :" + maxPrisSlider.getValue());
         }
     }
 

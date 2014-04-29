@@ -12,6 +12,7 @@ abstract class Person implements Serializable
     private String tlf;
     private String eMail;
 
+
     public Person(){}
 
     public Person(String fn, String en, String a, String t, String e)
