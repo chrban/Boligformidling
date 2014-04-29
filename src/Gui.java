@@ -530,12 +530,15 @@ public class Gui extends JFrame
 
     public void regBoligsøker()
     {
-        /*todo
-        - les inn fra gui og legg i variabler
-        - opprett og send til register?
-        *  ikke verre enn det?
-        *
-        * */
+        String fnavn = fornavn.getText();
+        String enavn = etternavn.getText();
+        String ad = adresse.getText();
+        String email = mail.getText();
+
+        if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") ){
+
+        }
+
     }
 
 

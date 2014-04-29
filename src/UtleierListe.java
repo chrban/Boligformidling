@@ -9,6 +9,15 @@ public class UtleierListe {
         liste.add( u );
         sorter();
     }
+    public void fjernUtleier( String navn ){
+        Iterator<Utleier> iterator = liste.iterator();
+        while ( iterator.hasNext() ){
+            if ( iterator.next().getNavn().equals(navn)) {
+                liste.remove(iterator);
+                return;
+            }
+        }
+    }
     public void sorter(){
         Collections.sort(liste, new UtleierSammenlikner());
     }
