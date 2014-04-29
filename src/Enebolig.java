@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 /**
  * Created by Kristoffer on 02.04.2014.
@@ -17,6 +18,7 @@ public class Enebolig extends Bolig implements Serializable
         etasjer = e;
         harKjeller = k;
         tomtstørrelse = t;
+        JOptionPane.showMessageDialog(null, "eneboligkonsturkltæøwert");// todo pikk
     }
     public void lesObjektFraFil(DataInputStream in) throws IOException{
         etasjer = in.readInt();
