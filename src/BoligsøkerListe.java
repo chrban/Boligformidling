@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 
 public class BoligsøkerListe implements Serializable {
@@ -15,13 +16,16 @@ public class BoligsøkerListe implements Serializable {
         Boligsøker løper = første;
 
         while( løper!=null ){
-            if( løper.getFornavn().equals(b.getFornavn()))
+            if( løper.getFornavn().equals(b.getFornavn())) {
+                JOptionPane.showMessageDialog(null, b.toString());
                 return false;
+            }
             løper = løper.neste;
         }
 
         if( første == null ){
             første = b;
+            JOptionPane.showMessageDialog(null, b.toString());
             return true;
         }
         else{
@@ -29,6 +33,7 @@ public class BoligsøkerListe implements Serializable {
             while( løper.neste != null )
                 løper = løper.neste;
             løper.neste = b;
+            JOptionPane.showMessageDialog(null, b.toString());
             return true;
 
         }
@@ -41,6 +46,7 @@ public class BoligsøkerListe implements Serializable {
         if( første != null && første.getFornavn().equals(n)){
             if( løper.neste != null ){
                 første = løper.neste;
+
                 return true;
             }
             else{

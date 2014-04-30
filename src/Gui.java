@@ -17,7 +17,7 @@ public class Gui extends JFrame
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp;
+    private JButton regBoligKnapp,regPersonKnapp;
     private JTextField fornavn, etternavn, adresse,adresseFane2, mail, firma, tlf,boareal,pris,byggår,tomtAreal,utleierId;
     private JLabel minPris,maxPris;
     private JTextArea beskrivelse;
@@ -42,6 +42,7 @@ public class Gui extends JFrame
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private knappLytter lytter;
+    private Boligliste boliger;
 
     public Gui()
     {
@@ -49,6 +50,7 @@ public class Gui extends JFrame
 
         utleiere = new UtleierListe();
         boligsøkere = new BoligsøkerListe();
+        boliger = new Boligliste();
 
         lytter = new knappLytter();
 
@@ -231,6 +233,13 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         utpanel.add(firma, c);
 
+        regPersonKnapp = new JButton("Registrer");
+        regPersonKnapp.addActionListener(lytter);
+        c.gridx = 3;
+        c.gridy = 15;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(10,5,5,5);
+        utpanel.add(regPersonKnapp,c);
 
 
         //BOLISØKER PANEL (bspanel)
@@ -386,6 +395,13 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         bspanel.add(new JLabel("Plan: "), c);
 
+        regPersonKnapp = new JButton("Registrer");
+        regPersonKnapp.addActionListener(lytter);
+        c.gridx = 3;
+        c.gridy = 15;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(10,5,5,5);
+        bspanel.add(regPersonKnapp,c);
 
         planBox = new JComboBox(planValg);
         c.gridx = 1;
@@ -515,7 +531,6 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(balkongValgFane2,c);
 
-
         c.gridx = 0;
         c.gridy = 9;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -535,9 +550,6 @@ public class Gui extends JFrame
         c.gridx = 1;
         c.gridy = 10;
         bopanel.add(byggår,c );
-
-
-
 
 
         c.gridx = 0;
@@ -616,8 +628,6 @@ public class Gui extends JFrame
 
 
 
-
-
         // FANE 3 - VIS TABELL   *********************************************************
         //RESETER
         c.gridx = 0;
@@ -666,6 +676,8 @@ public class Gui extends JFrame
         {
             if(e.getSource() == regBoligKnapp)
                 regBolig();
+            else if(e.getSource() == regPersonKnapp)
+                regPerson();
         }
     }
 
@@ -716,7 +728,7 @@ public class Gui extends JFrame
 
 
 
-    public void regBoligsøker()
+    public void regPerson()
     {
 
         /*int blgtp, int b, int r, int
@@ -746,7 +758,7 @@ public class Gui extends JFrame
             String ad = adresse.getText();
             String t = tlf.getText();
             String email = mail.getText();
-
+            JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig ting i feltene når du skal regge en boligsøker" + fnavn + enavn + ad + email);
             // Bestemm Boligtype
             String bType = (String) boligtypeBox.getSelectedItem();
             switch (bType)
@@ -815,11 +827,11 @@ public class Gui extends JFrame
 
             if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
             {
-                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
+                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig ting i feltene når du skal regge en boligsøker" + fnavn + enavn + ad + email);
                 return;
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
-
+            JOptionPane.showMessageDialog(null, "Reg person, helt nederst i boligsøker");
             Boligsøker ny = new Boligsøker(fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
             boligsøkere.settInnNy(ny);
         }
@@ -858,7 +870,6 @@ public class Gui extends JFrame
 
         // disse må knyttes til felter senere
         // todo christe rædd feltene
-
         int eid = 34;
         int tomtareal = 100;
         int plan = 3;
@@ -931,13 +942,17 @@ public class Gui extends JFrame
 
 
         switch(btype){
-            case 1: ny = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
+            case 1: Enebolig ene = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
+                         boliger.leggTil(ene);
                          break;
-            case 2: ny = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
+            case 2: Rekkehus rekke = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
+                         boliger.leggTil(rekke);
                          break;
-            case 3: ny = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, hei);
+            case 3: Leilighet lei = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, hei);
+                         boliger.leggTil(lei);
                          break;
-            case 4: ny = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
+            case 4: Hybel hyb = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
+                         boliger.leggTil(hyb);
                          break;
         }
     }

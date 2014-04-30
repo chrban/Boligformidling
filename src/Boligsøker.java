@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.Serializable;
 
 /**
@@ -21,7 +22,7 @@ public class Boligsøker extends Person implements Serializable
                       int blkng, int dbm, int dkm )
     {
         super(fn, en, a, t, e);
-
+        JOptionPane.showMessageDialog(null, "boligsøkerkonstruktøse");
         // krav
         boligtype = blgtp; by = b; rom = r; minPris = mip; maxPris = map; parkering = p; antEtasjer = ae;
         kjeller = k; heis = h; balkong = blkng;

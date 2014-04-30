@@ -20,11 +20,26 @@ public class Boligliste implements Serializable {
         rekkehus = new TreeSet<>();
     }
 
-   /* public <? extends Bolig> void leggTilBolig(Bolig b)// kan dette gå?
+    public void leggTil(Enebolig e)// kan dette gå?
     {
+        eneboliger.add(e);
+    }
 
+    public void leggTil(Rekkehus r)// kan dette gå?
+    {
+        rekkehus.add(r);
+    }
 
-    }*/
+    public void leggTil(Leilighet l)// kan dette gå?
+    {
+        leiligheter.add(l);
+    }
+
+    public void leggTil(Hybel h)// kan dette gå?
+    {
+        hybler.add(h);
+    }
+
 
     public void finnBolig()
     {
