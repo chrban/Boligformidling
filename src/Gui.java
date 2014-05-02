@@ -17,7 +17,7 @@ public class Gui extends JFrame
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp,regPersonKnapp;
+    private JButton regBoligKnapp,regPersonKnapp, regUtleierKnapp;
     private JTextField fornavn, etternavn, adresse,adresseFane2, mail, firma, tlf,boareal,pris,byggår,tomtAreal,utleierId;
     private JLabel minPris,maxPris;
     private JTextArea beskrivelse;
@@ -233,13 +233,13 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         utpanel.add(firma, c);
 
-        regPersonKnapp = new JButton("Registrer");
-        regPersonKnapp.addActionListener(lytter);
+        regUtleierKnapp = new JButton("Registrer");
+        regUtleierKnapp.addActionListener(lytter);
         c.gridx = 3;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10,5,5,5);
-        utpanel.add(regPersonKnapp,c);
+        utpanel.add(regUtleierKnapp,c);
 
 
         //BOLISØKER PANEL (bspanel)
@@ -678,6 +678,8 @@ public class Gui extends JFrame
                 regBolig();
             else if(e.getSource() == regPersonKnapp)
                 regPerson();
+            else if(e.getSource() == regUtleierKnapp)
+                regPerson();
         }
     }
 
@@ -834,11 +836,13 @@ public class Gui extends JFrame
             JOptionPane.showMessageDialog(null, "Reg person, helt nederst i boligsøker");
             Boligsøker ny = new Boligsøker(fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
             boligsøkere.settInnNy(ny);
+            return;
         }
 
-
+        // regger utleier
         else if(utleier.isSelected())
         {
+            JOptionPane.showMessageDialog(null, "du har helt klart valgt utleier nå");
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
@@ -853,6 +857,7 @@ public class Gui extends JFrame
             }
 
             Utleier ny = new Utleier(fnavn, enavn, ad ,t ,email, firm);
+            JOptionPane.showMessageDialog(null, "nederst på utleier, rett over add");
             utleiere.settInn(ny);
             return;
         }

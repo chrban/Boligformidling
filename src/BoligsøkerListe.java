@@ -17,7 +17,7 @@ public class BoligsøkerListe implements Serializable {
 
         while( løper!=null ){
             if( løper.getFornavn().equals(b.getFornavn())) {
-                JOptionPane.showMessageDialog(null, b.toString());
+                JOptionPane.showMessageDialog(null, b.toString()+"\n finnes fra før");
                 return false;
             }
             løper = løper.neste;
@@ -25,7 +25,7 @@ public class BoligsøkerListe implements Serializable {
 
         if( første == null ){
             første = b;
-            JOptionPane.showMessageDialog(null, b.toString());
+            JOptionPane.showMessageDialog(null, b.toString() +"på første plass");
             return true;
         }
         else{
@@ -33,7 +33,7 @@ public class BoligsøkerListe implements Serializable {
             while( løper.neste != null )
                 løper = løper.neste;
             løper.neste = b;
-            JOptionPane.showMessageDialog(null, b.toString());
+            JOptionPane.showMessageDialog(null, b.toString()+"ikke på første plass...");
             return true;
 
         }
