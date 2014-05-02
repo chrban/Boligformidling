@@ -96,8 +96,15 @@ public class Gui extends JFrame
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
-        int bredde = skjerm.width;
-        int høyde = skjerm.height;
+        int bredde = (int) (Math.round(skjerm.width*0.80));
+        int høyde = (int) (Math.round(skjerm.height*0.80));
+
+
+        setSize(bredde,høyde);
+        setLocationByPlatform(true);
+        //todo Finne en fin skjermstørrelse, er nå 80% av skjermstr.
+        System.out.println("bredde " + bredde );
+        System.out.println("høyde " + høyde );
 
 
         //Oppretter panelene
@@ -597,7 +604,7 @@ public class Gui extends JFrame
         bopanel.add(new JLabel("Beskrivelse:"),c);
 
         beskrivelse = new JTextArea("Skriv da..",5,10);
-        JScrollPane scroll = new JScrollPane(beskrivelse);
+        scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
