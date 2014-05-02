@@ -1059,7 +1059,7 @@ public class Gui extends JFrame
 
 
 
-        */
+        *//*
         Int[] krav = en array;
         int[] specs = en annen array;
 
@@ -1070,7 +1070,7 @@ public class Gui extends JFrame
 
 
 
-        }
+        }*/
     }
 
 

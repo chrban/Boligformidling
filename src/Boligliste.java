@@ -42,7 +42,7 @@ public class Boligliste implements Serializable {
         hybler.add(h);
     }
 
-    public String[] matchPåKrav(int[] krav)
+    /*public String[] matchPåKrav(int[] krav)
     {
         if(krav[0] == 1)
         {
@@ -63,7 +63,7 @@ public class Boligliste implements Serializable {
             }
 
         }
-    }
+    }*/
 
 
     public void finnBolig()
