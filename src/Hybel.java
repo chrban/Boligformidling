@@ -35,13 +35,17 @@ public class Hybel extends Bolig implements Serializable {
     }
 
     public int[]getSpecArray(){
-        specArray = new int[6];
-        specArray[0] = super.getSted();
-        specArray[1] = super.getBoareal();
+        specArray = new int[Konstanter.SPEC_LENGDE];
+        specArray[1] = super.getSted();
         specArray[2] = super.getRom();
-        specArray[3] = super.getUtleiepris();
-        specArray[4] = badDelesMed;
-        specArray[5] = kjøkkenDelesMed;
+        specArray[3] = Konstanter.URELEVANT;
+        specArray[4] = Konstanter.URELEVANT;
+        specArray[5] = Konstanter.URELEVANT;
+        specArray[6] = Konstanter.URELEVANT;
+        specArray[7] = Konstanter.URELEVANT;
+        specArray[8] = badDelesMed;
+        specArray[9] = kjøkkenDelesMed;
+        specArray[10] = super.getUtleiepris();
 
         return specArray;
     }

@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.Iterator;
+import java.util.SortedSet;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -878,7 +880,7 @@ public class Gui extends JFrame
         int eid = 34;
         int tomtareal = 100;
         int plan = 3;
-        boolean balko = false;
+        int balko = -1;
 
         String valg = (String)boligtypeBox.getSelectedItem();
         int btype = 0;
@@ -916,18 +918,21 @@ public class Gui extends JFrame
         int rom = Integer.parseInt((String)romBox.getSelectedItem());
         int antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
 
-        int kjellerInt = 0;
-        int heisInt = 0;
-        int garasjeInt = 0;
-        int badInt = 0;
-        int kjøkkenInt = 0;
+        int kjeller = -1;
+        int heis = -1;
+        int garasje = -1;
+        int badInt = -1;
+        int kjøkkenInt = -1;
+        int balkong = -1;
 
         if(kjellerValg.isSelected())
-            kjellerInt = 1;
+            kjeller = 1;
         if(heisValg.isSelected())
-            heisInt = 1;
+            heis = 1;
         if(garasjeValg.isSelected())
-            garasjeInt = 1;
+            garasje = 1;
+        if(balkongValgFane2.isSelected())
+            balkong = 1;
         if(badValg.isSelected())
             badInt = 1;
         if(kjøkkenValg.isSelected())
@@ -936,41 +941,23 @@ public class Gui extends JFrame
         Bolig ny = null;
 
 
-        //todo dette er en dum måte å gjøre dette på, må¨finne på noe annet
-        boolean kjeller = false;
-        if(kjellerInt == 1)
-            kjeller = true;
-
-        boolean hei = false;
-        if(heisInt == 1)
-            hei = true;
-
-
         switch(btype){
-            case 1: Enebolig ene = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
-                         boliger.leggTil(ene);
+            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, garasje, kjeller, tomtareal);
+                         boliger.leggTil(nyEnebolig);
                          break;
-            case 2: Rekkehus rekke = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
-                         boliger.leggTil(rekke);
+            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer,garasje, kjeller, tomtareal);
+                         boliger.leggTil(nyttRekkehus);
                          break;
-            case 3: Leilighet lei = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, hei);
-                         boliger.leggTil(lei);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, heis);
+                         boliger.leggTil(nyLeilighet);
                          break;
-            case 4: Hybel hyb = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
-                         boliger.leggTil(hyb);
+            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
+                         boliger.leggTil(nyHybel);
                          break;
         }
     }
 
 
-    public void regUtleier()
-    {
-        /*todo
-        - Les inn til varz
-        - opprett og legg i liste? lag liste først.
-        - hvordan registrere boliger som er knyttet til utleieren?
-        */
-    }
 
 
     public void mekkKontrakt()
@@ -1006,7 +993,22 @@ public class Gui extends JFrame
                   koefisienten, ikke på prisen.
                 - Kan lagre bolignr og score i todimmensjonell array, sortere den på score og så lage en turskrift ved
                   å kalle opp toString for hver bolig i rekkefølgen definert av arrayen.
+
+
+
+
         */
+        Int[] krav = en array;
+        int[] specs = en annen array;
+
+        if(krav[0] == 1)
+        {
+            SortedSet<Enebolig> eneboliger = boliger.getEneboliger();
+            Iterator<Enebolig> iter = eneboliger.iterator();
+
+
+
+        }
     }
 
 
