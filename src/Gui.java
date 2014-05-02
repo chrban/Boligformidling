@@ -4,9 +4,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.rmi.server.UID;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.awt.event.KeyEvent;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -1006,12 +1010,28 @@ pepanel.setBackground(Color.YELLOW);
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
 
+            idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
             Utleier ny = new Utleier(fnavn, enavn, ad ,t ,email, firm);
             JOptionPane.showMessageDialog(null, "nederst på utleier, rett over add");
             utleiere.settInn(ny);
             return;
         }
         JOptionPane.showMessageDialog(null, "du må velge en av typene...");
+    }
+
+
+    private String idGenerator(String f, String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
+    {
+        String firma = f;
+        String eNavn = en;
+        String fNavn = fn;
+
+       String id = f.substring(0,2).toUpperCase()+en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+
+        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
+
+        return id;
+
     }
 
 
@@ -1104,6 +1124,7 @@ pepanel.setBackground(Color.YELLOW);
                          break;
         }
     }
+
 
 
 
