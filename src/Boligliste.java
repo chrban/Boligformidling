@@ -42,6 +42,29 @@ public class Boligliste implements Serializable {
         hybler.add(h);
     }
 
+    public String[] matchPåKrav(int[] krav)
+    {
+        if(krav[0] == 1)
+        {
+            Iterator<Enebolig> iter = eneboliger.iterator();
+
+            while(iter.hasNext())// gjønogang av listen
+            {
+                int[] specs = iter.next().getSpecArray();
+
+                if(krav[10] < specs[pris] && krav[11]> specs[pris] ) {
+
+                    for (int i = 1; i < 13; i++)// av krav
+                    {
+
+
+                    }
+                }
+            }
+
+        }
+    }
+
 
     public void finnBolig()
     {
