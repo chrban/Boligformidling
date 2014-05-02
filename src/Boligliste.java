@@ -20,6 +20,8 @@ public class Boligliste implements Serializable {
         rekkehus = new TreeSet<>();
     }
 
+    public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
+
     public void leggTil(Enebolig e)// kan dette gå?
     {
         eneboliger.add(e);

@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.Iterator;
+import java.util.SortedSet;
+import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -17,7 +20,7 @@ public class Gui extends JFrame
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp,regPersonKnapp;
+    private JButton regBoligKnapp,regPersonKnapp, regUtleierKnapp;
     private JTextField fornavn, etternavn, adresse,adresseFane2, mail, firma, tlf,boareal,pris,byggår,tomtAreal,utleierId;
     private JLabel minPris,maxPris;
     private JTextArea beskrivelse;
@@ -33,8 +36,7 @@ public class Gui extends JFrame
     private String[] etasjeValg = {"1","2","3"};
     private String[] planValg = {"1","2","3","4","5","6","7"};
     private JTable tabell;
-    private JScrollPane scroll;
-//todo: Christer- Endre så ikke  arrayvalgene er samme
+    private JScrollPane scroll,mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson;
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
@@ -42,27 +44,60 @@ public class Gui extends JFrame
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private knappLytter lytter;
+    private menyLytter øre;
     private Boligliste boliger;
+    private JMenuBar menylinje;
+    private JMenu filmeny,rediger;
+    private JMenuItem om, lagre,angre;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
 
+        filmeny = new JMenu("Fil");
+        filmeny.setMnemonic('F');
+
+
+        om = new JMenuItem("Om..");
+       // om.setMnemonic('O');
+        om.addActionListener(øre);
+
+
+        lagre = new JMenuItem("Lagre");
+        lagre.addActionListener(øre);
+
+
+        rediger = new JMenu("Rediger");
+
+        angre = new JMenuItem("Angre");
+        angre.addActionListener(øre);
+
+
+        rediger.add(angre);
+        filmeny.add(om);
+        filmeny.add(lagre);
+
+        // add(filmeny);
+
+
+        menylinje = new JMenuBar();
+        setJMenuBar(menylinje);
+        menylinje.add(filmeny);
+        menylinje.add(rediger);
+
+
+//menyslutt
+
+
         utleiere = new UtleierListe();
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
-
         lytter = new knappLytter();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
         int bredde = skjerm.width;
         int høyde = skjerm.height;
-
-        setSize(bredde / 2, høyde / 2);
-       // setLocationByPlatform(true);
-        //todo Finne en fin skjermstørrelse
-
 
 
         //Oppretter panelene
@@ -103,7 +138,11 @@ public class Gui extends JFrame
         fane.addTab("Registrer bolig",null,panel2,"Registrere ny bolig");
         fane.addTab("Vis tabell",null,panel3,"Show tabell");
         fane.addTab("MatchMaking",null,panel4,"Tinde");
-
+        fane.setMnemonicAt(0, KeyEvent.VK_1);
+        fane.setMnemonicAt(1, KeyEvent.VK_2);
+        fane.setMnemonicAt(2, KeyEvent.VK_3);
+        fane.setMnemonicAt(3, KeyEvent.VK_4);
+        //todo- OSEN: Funker dette på windows?
 
 
 
@@ -233,13 +272,13 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         utpanel.add(firma, c);
 
-        regPersonKnapp = new JButton("Registrer");
-        regPersonKnapp.addActionListener(lytter);
+        regUtleierKnapp = new JButton("Registrer");
+        regUtleierKnapp.addActionListener(lytter);
         c.gridx = 3;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10,5,5,5);
-        utpanel.add(regPersonKnapp,c);
+        utpanel.add(regUtleierKnapp,c);
 
 
         //BOLISØKER PANEL (bspanel)
@@ -418,6 +457,7 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridheight = 1;
         c.gridwidth = 1;
+        c.insets = new Insets(0,0,0,0);
 
 
 
@@ -646,13 +686,15 @@ public class Gui extends JFrame
 
 
 
+        fane.setBackground(Color.red);
+        panel1.setBackground(Color.BLUE);
 
 
 
 
 
-
-        add(fane, BorderLayout.PAGE_START);
+        fane.setPreferredSize(new Dimension(getSize()));
+        add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
 /*
 
@@ -678,8 +720,32 @@ public class Gui extends JFrame
                 regBolig();
             else if(e.getSource() == regPersonKnapp)
                 regPerson();
+            else if( e.getSource() == om )
+                JOptionPane.showMessageDialog(null,"Dette er et program" );
+            else if(e.getSource() == lagre)
+                JOptionPane.showMessageDialog(null,"Save the rave" );
+            else if(e.getSource() == regUtleierKnapp)
+                regPerson();
         }
     }
+
+
+
+    private class menyLytter implements ActionListener
+    {
+        public void actionPerformed(ActionEvent o)
+        {
+            if( o.getSource() == om )
+            JOptionPane.showMessageDialog(null,"Dette er et program" );
+           else if(o.getSource() == lagre)
+            JOptionPane.showMessageDialog(null,"Save the rave" );
+        }
+    }
+
+
+
+
+
 
 
     private class minPrisLytter implements ChangeListener
@@ -834,11 +900,13 @@ public class Gui extends JFrame
             JOptionPane.showMessageDialog(null, "Reg person, helt nederst i boligsøker");
             Boligsøker ny = new Boligsøker(fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
             boligsøkere.settInnNy(ny);
+            return;
         }
 
-
+        // regger utleier
         else if(utleier.isSelected())
         {
+            JOptionPane.showMessageDialog(null, "du har helt klart valgt utleier nå");
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
@@ -853,6 +921,7 @@ public class Gui extends JFrame
             }
 
             Utleier ny = new Utleier(fnavn, enavn, ad ,t ,email, firm);
+            JOptionPane.showMessageDialog(null, "nederst på utleier, rett over add");
             utleiere.settInn(ny);
             return;
         }
@@ -873,7 +942,7 @@ public class Gui extends JFrame
         int eid = 34;
         int tomtareal = 100;
         int plan = 3;
-        boolean balko = false;
+        int balko = -1;
 
         String valg = (String)boligtypeBox.getSelectedItem();
         int btype = 0;
@@ -911,18 +980,21 @@ public class Gui extends JFrame
         int rom = Integer.parseInt((String)romBox.getSelectedItem());
         int antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
 
-        int kjellerInt = 0;
-        int heisInt = 0;
-        int garasjeInt = 0;
-        int badInt = 0;
-        int kjøkkenInt = 0;
+        int kjeller = -1;
+        int heis = -1;
+        int garasje = -1;
+        int badInt = -1;
+        int kjøkkenInt = -1;
+        int balkong = -1;
 
         if(kjellerValg.isSelected())
-            kjellerInt = 1;
+            kjeller = 1;
         if(heisValg.isSelected())
-            heisInt = 1;
+            heis = 1;
         if(garasjeValg.isSelected())
-            garasjeInt = 1;
+            garasje = 1;
+        if(balkongValgFane2.isSelected())
+            balkong = 1;
         if(badValg.isSelected())
             badInt = 1;
         if(kjøkkenValg.isSelected())
@@ -931,41 +1003,23 @@ public class Gui extends JFrame
         Bolig ny = null;
 
 
-        //todo dette er en dum måte å gjøre dette på, må¨finne på noe annet
-        boolean kjeller = false;
-        if(kjellerInt == 1)
-            kjeller = true;
-
-        boolean hei = false;
-        if(heisInt == 1)
-            hei = true;
-
-
         switch(btype){
-            case 1: Enebolig ene = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
-                         boliger.leggTil(ene);
+            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, garasje, kjeller, tomtareal);
+                         boliger.leggTil(nyEnebolig);
                          break;
             case 2: Rekkehus rekke = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer, kjeller, tomtareal);
                          boliger.leggTil(rekke);
                          break;
-            case 3: Leilighet lei = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, hei);
-                         boliger.leggTil(lei);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, heis);
+                         boliger.leggTil(nyLeilighet);
                          break;
-            case 4: Hybel hyb = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
-                         boliger.leggTil(hyb);
+            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
+                         boliger.leggTil(nyHybel);
                          break;
         }
     }
 
 
-    public void regUtleier()
-    {
-        /*todo
-        - Les inn til varz
-        - opprett og legg i liste? lag liste først.
-        - hvordan registrere boliger som er knyttet til utleieren?
-        */
-    }
 
 
     public void mekkKontrakt()
@@ -1001,7 +1055,22 @@ public class Gui extends JFrame
                   koefisienten, ikke på prisen.
                 - Kan lagre bolignr og score i todimmensjonell array, sortere den på score og så lage en turskrift ved
                   å kalle opp toString for hver bolig i rekkefølgen definert av arrayen.
+
+
+
+
         */
+        Int[] krav = en array;
+        int[] specs = en annen array;
+
+        if(krav[0] == 1)
+        {
+            SortedSet<Enebolig> eneboliger = boliger.getEneboliger();
+            Iterator<Enebolig> iter = eneboliger.iterator();
+
+
+
+        }
     }
 
 

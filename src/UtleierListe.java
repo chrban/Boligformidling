@@ -10,6 +10,7 @@ public class UtleierListe {
 
     public void settInn( Utleier u ){
         liste.add( u );
+        JOptionPane.showMessageDialog(null, toString() + "setter inn utleier");
         sorter();
     }
     public void fjernUtleier( String navn ){
