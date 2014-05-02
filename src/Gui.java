@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.SortedSet;
+import java.awt.event.KeyEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -35,8 +36,7 @@ public class Gui extends JFrame
     private String[] etasjeValg = {"1","2","3"};
     private String[] planValg = {"1","2","3","4","5","6","7"};
     private JTable tabell;
-    private JScrollPane scroll;
-//todo: Christer- Endre så ikke  arrayvalgene er samme
+    private JScrollPane scroll,mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson;
     private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
@@ -44,27 +44,60 @@ public class Gui extends JFrame
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private knappLytter lytter;
+    private menyLytter øre;
     private Boligliste boliger;
+    private JMenuBar menylinje;
+    private JMenu filmeny,rediger;
+    private JMenuItem om, lagre,angre;
 
     public Gui()
     {
         super("Boligformidling for svaksynte");
 
+        filmeny = new JMenu("Fil");
+        filmeny.setMnemonic('F');
+
+
+        om = new JMenuItem("Om..");
+       // om.setMnemonic('O');
+        om.addActionListener(øre);
+
+
+        lagre = new JMenuItem("Lagre");
+        lagre.addActionListener(øre);
+
+
+        rediger = new JMenu("Rediger");
+
+        angre = new JMenuItem("Angre");
+        angre.addActionListener(øre);
+
+
+        rediger.add(angre);
+        filmeny.add(om);
+        filmeny.add(lagre);
+
+        // add(filmeny);
+
+
+        menylinje = new JMenuBar();
+        setJMenuBar(menylinje);
+        menylinje.add(filmeny);
+        menylinje.add(rediger);
+
+
+//menyslutt
+
+
         utleiere = new UtleierListe();
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
-
         lytter = new knappLytter();
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
         int bredde = skjerm.width;
         int høyde = skjerm.height;
-
-        setSize(bredde / 2, høyde / 2);
-       // setLocationByPlatform(true);
-        //todo Finne en fin skjermstørrelse
-
 
 
         //Oppretter panelene
@@ -105,7 +138,11 @@ public class Gui extends JFrame
         fane.addTab("Registrer bolig",null,panel2,"Registrere ny bolig");
         fane.addTab("Vis tabell",null,panel3,"Show tabell");
         fane.addTab("MatchMaking",null,panel4,"Tinde");
-
+        fane.setMnemonicAt(0, KeyEvent.VK_1);
+        fane.setMnemonicAt(1, KeyEvent.VK_2);
+        fane.setMnemonicAt(2, KeyEvent.VK_3);
+        fane.setMnemonicAt(3, KeyEvent.VK_4);
+        //todo- OSEN: Funker dette på windows?
 
 
 
@@ -420,6 +457,7 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridheight = 1;
         c.gridwidth = 1;
+        c.insets = new Insets(0,0,0,0);
 
 
 
@@ -648,13 +686,15 @@ public class Gui extends JFrame
 
 
 
+        fane.setBackground(Color.red);
+        panel1.setBackground(Color.BLUE);
 
 
 
 
 
-
-        add(fane, BorderLayout.PAGE_START);
+        fane.setPreferredSize(new Dimension(getSize()));
+        add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
 /*
 
@@ -680,10 +720,32 @@ public class Gui extends JFrame
                 regBolig();
             else if(e.getSource() == regPersonKnapp)
                 regPerson();
+            else if( e.getSource() == om )
+                JOptionPane.showMessageDialog(null,"Dette er et program" );
+            else if(e.getSource() == lagre)
+                JOptionPane.showMessageDialog(null,"Save the rave" );
             else if(e.getSource() == regUtleierKnapp)
                 regPerson();
         }
     }
+
+
+
+    private class menyLytter implements ActionListener
+    {
+        public void actionPerformed(ActionEvent o)
+        {
+            if( o.getSource() == om )
+            JOptionPane.showMessageDialog(null,"Dette er et program" );
+           else if(o.getSource() == lagre)
+            JOptionPane.showMessageDialog(null,"Save the rave" );
+        }
+    }
+
+
+
+
+
 
 
     private class minPrisLytter implements ChangeListener
