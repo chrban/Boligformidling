@@ -42,10 +42,10 @@ public class Boligliste implements Serializable {
         hybler.add(h);
     }
 
-    public String[] matchPåKrav(int[] krav)
+    public String[][] matchPåKrav(int[] krav)
     {
-        String ut[];
-        ut = new String[eneboliger.size()];
+        String ut[][];
+        ut = new String[eneboliger.size()][2];
         int plass = 0;
         int[] specs;
         int matches = 0;
@@ -70,7 +70,8 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= 4)
                     {
-                        ut[plass++] += enebolig.toString();
+                        ut[plass][0] = enebolig.toString();
+                        ut[plass++][1] = enebolig.getBildesti();
                     }
                 }
             }
@@ -95,7 +96,8 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= 4)
                     {
-                        ut[plass++] += rekkehus.toString();
+                        ut[plass][0] = rekkehus.toString();
+                        ut[plass++][1] = rekkehus.getBildesti();
                     }
                 }
             }
@@ -120,7 +122,8 @@ public class Boligliste implements Serializable {
                             matches++;
 
                     if (matches >= 3) {
-                        ut[plass++] += leilighet.toString();
+                        ut[plass][0] = leilighet.toString();
+                        ut[plass++][1] = leilighet.getBildesti();
                     }
                 }
             }
@@ -140,7 +143,8 @@ public class Boligliste implements Serializable {
                         }
                     }
                     if (matches >= 4) {
-                        ut[plass++] += hybel.toString();
+                        ut[plass][0] = hybel.toString();
+                        ut[plass++][1] = hybel.getBildesti();
                     }
                 }
             }

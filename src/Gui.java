@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.rmi.server.UID;
 import java.util.Date;
 import java.util.Iterator;
@@ -24,8 +25,8 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp;
-    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti;
     private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
@@ -656,11 +657,23 @@ public class Gui extends JFrame {
         c.gridy = 14;
         bopanel.add(utleierId, c);
 
+        bildesti = new JTextField();
+        c.gridx = 1;
+        c.gridy = 15;
+        bildesti.setEditable(false);
+        c.fill = GridBagConstraints.NONE;
+        bopanel.add(bildesti,c);
+
+        finnBildeKnapp = new JButton("Finn bilde");
+        finnBildeKnapp.addActionListener(lytter);
+        c.gridx = 2;
+        c.gridy = 15;
+        bopanel.add(finnBildeKnapp,c);
 
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
         c.gridx = 3;
-        c.gridy = 15;
+        c.gridy = 16;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10, 5, 5, 5);
         bopanel.add(regBoligKnapp, c);
@@ -754,6 +767,8 @@ pepanel.setBackground(Color.YELLOW);
                 JOptionPane.showMessageDialog(null,"Save the rave" );
             else if(e.getSource() == regUtleierKnapp)
                 regPerson();
+            else if(e.getSource()== finnBildeKnapp)
+                finnBilde();
         }
     }
 
@@ -1048,7 +1063,7 @@ pepanel.setBackground(Color.YELLOW);
         int plan = 3;
         int balko = -1;
 
-        String valg = (String)boligtypeBox.getSelectedItem();
+        String valg = (String)boligtypeBoxFane2.getSelectedItem();
         int btype = 0;
         switch(valg){
             case "Enebolig":    btype = 1;
@@ -1065,7 +1080,7 @@ pepanel.setBackground(Color.YELLOW);
                                 break;
         }
 
-        String by = (String)byBox.getSelectedItem();
+        String by = (String)byBoxFane2.getSelectedItem();
         int byvalg = 0;
         switch(by){
             case "Oslo":        byvalg = 1;
@@ -1087,16 +1102,16 @@ pepanel.setBackground(Color.YELLOW);
         }
 
         int rom;
-        if(romBox.getSelectedItem().equals("Velg ant. rom."))
+        if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
             rom = 0;
         else
-            rom = Integer.parseInt((String)romBox.getSelectedItem());
+            rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
         int antetasjer;
-        if(etasjeBox.getSelectedItem().equals("Velg ant. etg.."))
+        if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
             antetasjer = 0;
         else
-            antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
+            antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
 
 
         int kjeller = -1;
@@ -1121,24 +1136,39 @@ pepanel.setBackground(Color.YELLOW);
 
         Bolig ny = null;
 
+        String sti = bildesti.getText();
+
+
 
         switch(btype){
-            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, antetasjer, garasje, kjeller, tomtareal);
+            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, sti, antetasjer, garasje, kjeller, tomtareal);
                          boliger.leggTil(nyEnebolig);
                          break;
-            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, antetasjer,garasje, kjeller, tomtareal);
+            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, sti, antetasjer,garasje, kjeller, tomtareal);
                          boliger.leggTil(nyttRekkehus);
                          break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, plan, balko, heis);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, sti, plan, balko, heis);
                          boliger.leggTil(nyLeilighet);
                          break;
-            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, eid, badInt, kjøkkenInt);
+            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, eid, sti, badInt, kjøkkenInt);
                          boliger.leggTil(nyHybel);
                          break;
         }
     }
 
+    public void finnBilde()
+    {
+        JFileChooser filvelger = new JFileChooser();
+        filvelger.setCurrentDirectory( new File( "." ) );
+        int resultat = filvelger.showOpenDialog( this );
 
+        if(resultat == JFileChooser.APPROVE_OPTION)
+        {
+            File f = filvelger.getSelectedFile();
+            String filsti = f.getPath();
+            bildesti.setText(filsti);
+        }
+    }
 
 
 

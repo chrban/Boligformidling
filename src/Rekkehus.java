@@ -14,9 +14,9 @@ import java.io.*;
 
         public Rekkehus(){}
 
-        public Rekkehus(String ad,int s, int b, int r, int by, int u,int id, int e, int p, int k, int t)
+        public Rekkehus(String ad,int s, int b, int r, int by, int u,int id, String sti, int e, int p, int k, int t)
         {
-            super(ad,s, b, r, by, u,id);
+            super(ad,s, b, r, by, u,id, sti);
             etasjer = e;
             parkering = p;
             kjeller = k;

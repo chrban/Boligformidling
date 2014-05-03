@@ -11,10 +11,11 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private int utleiepris;
     private Date lagtUt;
     private int eierID;
+    private String bildesti;
 
     public Bolig(){}
 
-    public Bolig(String ad,int s, int b, int r, int by, int u, int e)
+    public Bolig(String ad,int s, int b, int r, int by, int u, int e, String sti)
     {
         adresse = ad;
         sted = s;
@@ -24,6 +25,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         utleiepris = u;
         lagtUt = new Date();
         eierID = e;
+        bildesti = sti;
     }
 
 
@@ -50,6 +52,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     {
         return lagtUt;
     }
+    public String getBildesti(){return bildesti;}
     public void lesObjektFraFil(DataInputStream in) throws IOException{
         adresse = in.readUTF();
         sted = in.readInt();
