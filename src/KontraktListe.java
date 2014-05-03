@@ -1,16 +1,16 @@
 
-public class KontrakListe {
-    private Kontrakter første;
+public class KontraktListe {
+    private Kontrakt første;
 
-    public KontrakListe(){
+    public KontraktListe(){
         første = null;
     }
 
-    public boolean leggInnKontrakt(Kontrakter ny){
+    public boolean leggInnKontrakt(Kontrakt ny){
         if(ny == null)
             return false;
 
-        Kontrakter løper = første;
+        Kontrakt løper = første;
 
         if ( første == null ){
             første = ny;
@@ -27,7 +27,7 @@ public class KontrakListe {
     public String toString()
     {
         String ut = "";
-        Kontrakter løper = første;
+        Kontrakt løper = første;
 
         if(løper == null)
             return "Finner ingen registrerte kontrakter";

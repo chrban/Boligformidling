@@ -111,13 +111,15 @@ public class Boligliste implements Serializable {
                 specs = leilighet.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10])
                 {
-                    for (int i = 1; i <= 5; i++)// av krav
-                    {
-                        if (specs[i] == krav[i]) {
+                    for(int i = 1; i <= 2; i++)// av krav
+                        if (specs[i] == krav[i])
                             matches++;
-                        }
-                    }
-                    if (matches >= 4) {
+
+                    for(int i =6; i <= 8;i++)
+                        if(specs[i] == krav[i])
+                            matches++;
+
+                    if (matches >= 3) {
                         ut[plass++] += leilighet.toString();
                     }
                 }

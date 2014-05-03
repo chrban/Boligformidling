@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.rmi.server.UID;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.awt.event.KeyEvent;
@@ -47,6 +48,8 @@ public class Gui extends JFrame
 
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
+    private KontraktListe kontrakter;
+
     private knappLytter lytter;
     private menyLytter øre;
     private Boligliste boliger;
@@ -96,7 +99,9 @@ public class Gui extends JFrame
         utleiere = new UtleierListe();
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
+        kontrakter = new KontraktListe();
         lytter = new knappLytter();
+
 
 
         //alt dette bare for skjermstørrelsen hehehe
@@ -1061,7 +1066,9 @@ pepanel.setBackground(Color.YELLOW);
                                 break;
             case "Rekkehus":    btype = 4;
                                 break;
-            default:            btype = 1;
+            case "Velg boligtype..": btype = 0;
+                                break;
+            default:            btype = 0;
                                 break;
         }
 
@@ -1080,11 +1087,24 @@ pepanel.setBackground(Color.YELLOW);
                                 break;
             case "Tromsø":      byvalg = 6;
                                 break;
-            default:            byvalg = 1;
+            case "Velg by..":   byvalg = 0;
+                                break;
+            default:            byvalg = 0;
                                 break;
         }
-        int rom = Integer.parseInt((String)romBox.getSelectedItem());
-        int antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
+
+        int rom;
+        if(romBox.getSelectedItem().equals("Velg ant. rom."))
+            rom = 0;
+        else
+            rom = Integer.parseInt((String)romBox.getSelectedItem());
+
+        int antetasjer;
+        if(etasjeBox.getSelectedItem().equals("Velg ant. etg.."))
+            antetasjer = 0;
+        else
+            antetasjer = Integer.parseInt((String)etasjeBox.getSelectedItem());
+
 
         int kjeller = -1;
         int heis = -1;
@@ -1129,12 +1149,45 @@ pepanel.setBackground(Color.YELLOW);
 
 
 
-    public void mekkKontrakt()
-    {
-        /*todo
-        - Les inn identifiserende informasjon om søker og utleier fra gui
-        - finn og returner begge objektene.
-        - mekk en kontrakt med info fra begge.
+    public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
+    {/*
+        Boligsøker leietaker;
+        Utleier utleier;
+        Bolig bolig;
+        int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
+
+        try{
+            sluttår = Integer.parseInt((String) sluttÅrFelt.getText());
+            sluttmåned = Integer.parseInt((String) sluttMånedFelt.getText());
+            sluttdag = Integer.parseInt((String) sluttDagFelt.getText());
+            startår = Integer.parseInt((String) StarÅrFelt.getText());
+            startmåned = Integer.parseInt((String) startMånedFelt.getText());
+            startdag = Integer.parseInt((String) startDagFelt.getText());
+        }
+
+        catch(NumberFormatException nfe)
+        {
+            JOptionPane.showMessageDialog(null, "Du må skrive inn ordentlige tall i datofeltene");
+            return;
+        }
+
+        if(startdag <= 31   &&   startdag > 0   &&   startmåned <= 12   &&   startmåned > 0   &&   startår >=2014   &&  startår <= 2020 &&
+           sluttdag <= 31   &&   sluttdag > 0   &&   sluttmåned <= 12   &&   sluttmåned > 0   &&   sluttår >=2014   &&  sluttår <= 2020)
+        {
+            Date start = new Date(startår, startmåned, startdag);
+            Date slutt = new Date(sluttår, sluttmåned, sluttdag);
+
+            if(start.before(slutt))
+            {
+                Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
+                kontrakter.leggTilNy(ny);
+                JOptionPane.showMessageDialog(null,"Kontrakt lagret");
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
+            return;
+        }
+        JOptionPane.showMessageDialog(null,"Du må skriver gyldige tall i datofeltene!");
         */
     }
 
@@ -1166,18 +1219,9 @@ pepanel.setBackground(Color.YELLOW);
 
 
 
-        *//*
-        Int[] krav = en array;
-        int[] specs = en annen array;
-
-        if(krav[0] == 1)
-        {
-            SortedSet<Enebolig> eneboliger = boliger.getEneboliger();
-            Iterator<Enebolig> iter = eneboliger.iterator();
+     */
 
 
-
-        }*/
     }
 
 

@@ -27,14 +27,14 @@ public class Boligsøker extends Person implements Serializable
         boligtype = blgtp; by = b; rom = r; minPris = mip; maxPris = map; parkering = p; antEtasjer = ae;
         kjeller = k; heis = h; balkong = blkng;
         delerBadMed = dbm; delerKjøkkenMed= dkm;
-        Krav = new int[11];
+        Krav = new int[12];
     }
 
    public int[] getKrav()
    {
-       Krav[0]= boligtype;  Krav[1] = by;          Krav[2] = rom;        Krav[3] = minPris;
-       Krav[4] = maxPris;   Krav[5] = parkering;   Krav[6] = antEtasjer; Krav[7] = kjeller;
-       Krav[8] = heis;       Krav[9] = balkong;    Krav[10] = delerBadMed; Krav[11] = delerKjøkkenMed;
+       Krav[0]= boligtype;   Krav[1] = by;             Krav[2] = rom;      Krav[3] = parkering;
+       Krav[4] = antEtasjer; Krav[5] = kjeller;        Krav[6] = heis;     Krav[7] = balkong;
+       Krav[8] = delerBadMed;Krav[9] = delerKjøkkenMed;Krav[10] = minPris; Krav[11] = maxPris;
 
        return Krav;
    }

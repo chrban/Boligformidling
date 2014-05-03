@@ -1,15 +1,15 @@
 import java.util.Date;
 
-public class Kontrakter {
+public class Kontrakt{
     private Utleier eier;
     private Boligsøker leier;
     private Bolig bolig;
-    Kontrakter neste;
+    Kontrakt neste;
     private Date start;
     private Date slutt;
 
 
-    public Kontrakter(Utleier e, Boligsøker l, Bolig b, Date s, Date sl){
+    public Kontrakt(Utleier e, Boligsøker l, Bolig b, Date s, Date sl){
         eier = e;
         leier = l;
         bolig = b;
