@@ -40,7 +40,7 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private JTable tabell;
+    private JTable tabell1,tabell2;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson, testgruppe;
@@ -59,11 +59,10 @@ public class Gui extends JFrame {
 
 
 
-
-
-
     public Gui() {
         super("Boligformidling for svaksynte");
+
+        øre = new menyLytter();
 
         // temp, start filmeny
         filmeny = new JMenu("Fil");
@@ -103,6 +102,7 @@ public class Gui extends JFrame {
         boliger = new Boligliste();
         kontrakter = new KontraktListe();
         lytter = new knappLytter();
+
 
 
 
@@ -688,8 +688,11 @@ public class Gui extends JFrame {
 
 
 
-        tabellFabrikk();
 
+
+        //personTabellFabrikk();
+        panel3.add(new JScrollPane(tabell1));
+        panel3.add(new JScrollPane(tabell2));
 
 
 
@@ -715,77 +718,6 @@ pepanel.setBackground(Color.YELLOW);
 
 
 
-    public void tabellFabrikk()
-    {
-
-
-        //HERIFRA
-        String[] kolonnenavn =
-                {
-                        "Navn", "Høyde", "Alder", "Awesome", "Hudfarge"
-                };
-
-        Object[][] celler =
-                {
-
-                        {"Christer", new Double(186), new Integer(23), Boolean.TRUE, "Tæn"},
-                        {"Venus", new Double(6052), new Integer(0), Boolean.FALSE, Color.yellow},
-                        {"Jorda", new Double(6378), new Integer(1), Boolean.FALSE, Color.blue},
-                        {"Mars", new Double(3397), new Integer(2), Boolean.FALSE, Color.red},
-                        {"Jupiter", new Double(71492), new Integer(16), Boolean.TRUE, Color.orange},
-                        {"Saturn", new Double(60268), new Integer(18), Boolean.TRUE, Color.orange},
-                        {"Uranus", new Double(25559), new Integer(17), Boolean.TRUE, Color.blue},
-                        {"Neptun", new Double(24766), new Integer(8), Boolean.TRUE, Color.blue},
-                        {"Pluto", new Double(1137), new Integer(1), Boolean.FALSE, Color.black}
-
-                };
-
-
-
-
-
-
-
-
-        //TIL HIT = BARE PISSS OG BLOD
-
-        JTable tabell1 = new JTable(celler, kolonnenavn);
-        JTable tabell2 = new JTable(celler, kolonnenavn);
-        panel3.add(new JScrollPane(tabell1));
-        panel3.add(new JScrollPane(tabell2));
-
-        revalidate();
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -803,10 +735,6 @@ pepanel.setBackground(Color.YELLOW);
                 regBolig();
             else if(e.getSource() == regPersonKnapp)
                 regPerson();
-            else if( e.getSource() == om )
-                JOptionPane.showMessageDialog(null,"Dette er et program" );
-            else if(e.getSource() == lagre)
-                JOptionPane.showMessageDialog(null,"Save the rave" );
             else if(e.getSource() == regUtleierKnapp)
                 regPerson();
             else if(e.getSource()== finnBildeKnapp)
@@ -816,14 +744,29 @@ pepanel.setBackground(Color.YELLOW);
 
 
 
+
+
+
     private class menyLytter implements ActionListener
     {
-        public void actionPerformed(ActionEvent o)
+        public void actionPerformed(ActionEvent e)
         {
-            if( o.getSource() == om )
+            if( e.getSource() == om )
             JOptionPane.showMessageDialog(null,"Dette er et program" );
-           else if(o.getSource() == lagre)
-            JOptionPane.showMessageDialog(null,"Save the rave" );
+           else if(e.getSource() == lagre) {
+                System.out.println("Trykka på lagre");
+
+                JOptionPane.showMessageDialog(null,boligsøkere.toString());
+               // personTabellFabrikk();
+
+
+
+
+            }
+            else if(e.getSource() == angre) {
+                System.out.println("du anger på at du tryka på angre");
+
+            }
         }
     }
 
