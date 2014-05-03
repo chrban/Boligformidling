@@ -45,11 +45,9 @@ public class Gui extends JFrame {
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson, testgruppe;
     private Border ramme = BorderFactory.createLineBorder(Color.BLACK);
-
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private KontraktListe kontrakter;
-
     private knappLytter lytter;
     private menyLytter øre;
     private Boligliste boliger;
@@ -721,18 +719,31 @@ pepanel.setBackground(Color.YELLOW);
     {
 
 
-
-
         //HERIFRA
         String[] kolonnenavn =
                 {
-                        "Planet", "Radius", "Antall måner", "Gassplanet", "Fargekode"
+                        "Navn", "Høyde", "Alder", "Awesome", "Hudfarge"
                 };
+
         Object[][] celler =
                 {
-                        {"Merkur", new Double(2440), new Integer(0), Boolean.FALSE, Color.yellow}, {"Venus", new Double(6052), new Integer(0), Boolean.FALSE, Color.yellow}, {"Jorda", new Double(6378), new Integer(1), Boolean.FALSE, Color.blue}, {"Mars", new Double(3397), new Integer(2), Boolean.FALSE, Color.red}, {"Jupiter", new Double(71492), new Integer(16), Boolean.TRUE, Color.orange}, {"Saturn", new Double(60268), new Integer(18), Boolean.TRUE, Color.orange}, {"Uranus", new Double(25559), new Integer(17), Boolean.TRUE, Color.blue}, {"Neptun", new Double(24766), new Integer(8), Boolean.TRUE, Color.blue}, {"Pluto", new Double(1137), new Integer(1), Boolean.FALSE, Color.black}
+
+                        {"Christer", new Double(186), new Integer(23), Boolean.TRUE, "Tæn"},
+                        {"Venus", new Double(6052), new Integer(0), Boolean.FALSE, Color.yellow},
+                        {"Jorda", new Double(6378), new Integer(1), Boolean.FALSE, Color.blue},
+                        {"Mars", new Double(3397), new Integer(2), Boolean.FALSE, Color.red},
+                        {"Jupiter", new Double(71492), new Integer(16), Boolean.TRUE, Color.orange},
+                        {"Saturn", new Double(60268), new Integer(18), Boolean.TRUE, Color.orange},
+                        {"Uranus", new Double(25559), new Integer(17), Boolean.TRUE, Color.blue},
+                        {"Neptun", new Double(24766), new Integer(8), Boolean.TRUE, Color.blue},
+                        {"Pluto", new Double(1137), new Integer(1), Boolean.FALSE, Color.black}
 
                 };
+
+
+
+
+
 
 
 
@@ -745,9 +756,40 @@ pepanel.setBackground(Color.YELLOW);
 
         revalidate();
 
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // fakkkkk
 
 
 
