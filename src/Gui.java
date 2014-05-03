@@ -1188,31 +1188,19 @@ pepanel.setBackground(Color.YELLOW);
 
     public void matchPåKrav()
     {
-        /*todo
-        - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
-            - Velge fra liste i gui?(liker denne best, sikkert mulig å få til med JTable)
-            - skrive inn kundenummer eller noe?
+        /*
+        - velge boligsøker:
+            - ved hjelp av jtable
+            - ved hjelp av navn eller id.
 
-        - Finne boligsøker og få tak i kravene
-        - test på boligtype
-            - Hent liste til riktig boligtype, mekk iterator
-            - Løkke(For gjennomgang av boliglisten)
-                - Løkke(For gjennomløping av krav og specs)
-                    - Hvis match, legg til poeng
-                    - hvis null, reg som blankt felt
-
-                - kalkuler matchkoefisient og lagre den et sted. Hvor? jeg vet ikke.
-
-            Må på en måte skrive ut en sortert liste av boliger som har høy nok matchkoefisient.
-                - Kan lagre koefisienten i boligobjektet og endre den naturlige sorteringen til å ta hensyn på
-                  koefisienten, ikke på prisen.
-                - Kan lagre bolignr og score i todimmensjonell array, sortere den på score og så lage en turskrift ved
-                  å kalle opp toString for hver bolig i rekkefølgen definert av arrayen.
+        - hente fram boligsøker sin kravarray.
+        - sende denne med til boliglisten.
+        - det returneres en string her som kan skrives ut i et felt.
+        - hva vi gjør med bilder, vet jeg ikke enda altså. 
 
 
+        */
 
-
-     */
 
 
     }
@@ -1243,6 +1231,10 @@ pepanel.setBackground(Color.YELLOW);
         /*
         - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
 
+        */
+        /*
+        String ut = kontrakter.toString();
+        utområde.append(ut);
         */
     }
 
