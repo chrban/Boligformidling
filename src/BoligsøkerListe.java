@@ -75,4 +75,44 @@ public class BoligsøkerListe implements Serializable {
         else
             return "Ingen boligsøkere registrert!";
     }
+
+    /*//todo Christer, finn riktig måte din maddafakka
+    public Object[][] fyllTabell()
+    {
+        Boligsøker runner = første;
+        int teller = 0;
+
+        while (runner != null) {
+            teller++;
+            runner = runner.neste;
+        }
+
+
+        int i = 0;
+        int k = 0;
+
+        Boligsøker løper = første;
+        Object[][] personCeller = new Object[teller][2];
+
+        System.out.println("teller: "+teller);
+
+
+        while(løper != null) {
+            personCeller[i][k++] = løper.getFornavn();
+            personCeller[i][k++] = løper.getEtternavn();
+            personCeller[i][k] = løper.getEmail();
+            k++;
+            i++;
+
+
+        }//end while
+
+        return personCeller;
+
+    }//end fylla
+    */
 }
+
+
+
+

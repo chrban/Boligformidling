@@ -751,13 +751,15 @@ pepanel.setBackground(Color.YELLOW);
     {
         public void actionPerformed(ActionEvent e)
         {
-            if( e.getSource() == om )
-            JOptionPane.showMessageDialog(null,"Dette er et program" );
+            if( e.getSource() == om ) {
+                JOptionPane.showMessageDialog(null, boligsøkere.toString());
+            }
            else if(e.getSource() == lagre) {
-                System.out.println("Trykka på lagre");
 
-                JOptionPane.showMessageDialog(null,boligsøkere.toString());
-               // personTabellFabrikk();
+                System.out.println("Trykka på lagre");
+                //personTabellFabrikk();
+
+
 
 
 
@@ -877,6 +879,37 @@ pepanel.setBackground(Color.YELLOW);
         }
     }
 
+
+
+/* //todo Christer, Åpne fabrikken
+    public void personTabellFabrikk()
+    {
+
+        String[] kolonnenavn ={"Fornavn", "Etternavn","Mail"};
+
+        Object[][] celler =
+                {
+
+                        {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
+                        {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
+                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
+                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
+                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
+
+                };
+
+
+
+       tabell1 = new JTable(boligsøkere.fyllTabell(),kolonnenavn );
+       // tabell1 = new JTable(celler, kolonnenavn);
+        tabell2 = new JTable(celler, kolonnenavn);
+        panel3.add(new JScrollPane(tabell1));
+        panel3.add(new JScrollPane(tabell2));
+
+        revalidate();
+
+    } // end personTabellFabrikk
+*/
 
 
 
