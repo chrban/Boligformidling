@@ -20,31 +20,30 @@ import javax.swing.event.ChangeListener;
  * Created by mac on 02.04.14.
  */
 
-public class Gui extends JFrame
-{
+public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp,regPersonKnapp, regUtleierKnapp;
-    private JTextField fornavn, etternavn, adresse,adresseFane2, mail, firma, tlf,boareal,pris,byggår,tomtAreal,utleierId;
-    private JLabel minPris,maxPris,firmaLabel;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId;
+    private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker;
-    private JPanel panel1, bspanel, utpanel, panel2,bopanel, panel3, panel4,pepanel;
-    private JComboBox boligtypeBox,byBox,romBox, etasjeBox,planBox,boligtypeBoxFane2,byBoxFane2,romBoxFane2, etasjeBoxFane2,planBoxFane2;
-    private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg,kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
-    private JSlider minPrisSlider,maxPrisSlider;
-    private String[] boligtypeValg = {"Velg boligtype..","Enebolig","Hybel", "Leilighet","Rekkehus"};
-    private String[] byvalg = {"Velg by..","Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
-    private String[] romValg = {"Velg ant. rom..","1","2","3","4","5","6"};
-    private String[] etasjeValg = {"Velg ant. etg..","1","2","3"};
-    private String[] planValg = {"Velg ant. plan","1","2","3","4","5","6","7"};
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel;
+    private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
+    private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
+    private JSlider minPrisSlider, maxPrisSlider;
+    private String[] boligtypeValg = {"Velg boligtype..", "Enebolig", "Hybel", "Leilighet", "Rekkehus"};
+    private String[] byvalg = {"Velg by..", "Oslo", "Bergen", "Stavanger", "Trondheim", "Kristiansand", "Tromsø"};
+    private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
+    private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
+    private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private JTable tabell;
-    private JScrollPane scroll,mainScroll;
+    private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
-    private ButtonGroup radioPerson,testgruppe;
-    private  Border ramme = BorderFactory.createLineBorder(Color.BLACK);
+    private ButtonGroup radioPerson, testgruppe;
+    private Border ramme = BorderFactory.createLineBorder(Color.BLACK);
 
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
@@ -54,20 +53,26 @@ public class Gui extends JFrame
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny,rediger;
-    private JMenuItem om, lagre,angre;
+    private JMenu filmeny, rediger;
+    private JMenuItem om, lagre, angre;
 
-    public Gui()
-    {
+
+
+
+
+
+
+
+    public Gui() {
         super("Boligformidling for svaksynte");
 
- // temp, start filmeny
+        // temp, start filmeny
         filmeny = new JMenu("Fil");
         filmeny.setMnemonic('F');
 
 
         om = new JMenuItem("Om..");
-       // om.setMnemonic('O');
+        // om.setMnemonic('O');
         om.addActionListener(øre);
 
 
@@ -84,8 +89,6 @@ public class Gui extends JFrame
         rediger.add(angre);
         filmeny.add(om);
         filmeny.add(lagre);
-
-
 
 
         menylinje = new JMenuBar();
@@ -108,19 +111,18 @@ public class Gui extends JFrame
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
-        int bredde = (int) (Math.round(skjerm.width*0.80));
-        int høyde = (int) (Math.round(skjerm.height*0.80));
-        setSize(bredde,høyde);
+        int bredde = (int) (Math.round(skjerm.width * 0.80));
+        int høyde = (int) (Math.round(skjerm.height * 0.80));
+        setSize(bredde, høyde);
         setLocationByPlatform(true);
         //todo Finne en fin skjermstørrelse, er nå 80% av skjermstr.
-        System.out.println("Skjermstr: " + bredde+"x"+høyde);
-
+        System.out.println("Skjermstr: " + bredde + "x" + høyde);
 
 
         //Oppretter panelene
 
-       panel1 = new JPanel(new GridLayout(2,2));  // FANE panel
-       // panel1 = new JPanel(new BorderLayout());  // FANE panel
+        panel1 = new JPanel(new GridLayout(2, 2));  // FANE panel
+        // panel1 = new JPanel(new BorderLayout());  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
         panel3 = new JPanel(layout);  // FANE panel
         panel4 = new JPanel(layout);  // FANE panel
@@ -147,7 +149,7 @@ public class Gui extends JFrame
         */
 
 
-        panel1.add(pepanel,BorderLayout.LINE_START);
+        panel1.add(pepanel, BorderLayout.LINE_START);
 
         panel1.add(bspanel);
         panel1.add(utpanel);
@@ -156,13 +158,7 @@ public class Gui extends JFrame
         panel2.add(bopanel);
 
 
-
-
-
-
-
 //todo-Christer: sett min/maxpris label til å initie så den har verdiiii
-
 
 
         //til hit
@@ -173,10 +169,10 @@ public class Gui extends JFrame
 
         //oppretter Fanene
 
-        fane.addTab("Registrer Person",null,panel1 ,"Registrere ny boligsøker eller utleier");
-        fane.addTab("Registrer bolig",null,panel2,"Registrere ny bolig");
-        fane.addTab("Vis tabell",null,panel3,"Show tabell");
-        fane.addTab("MatchMaking",null,panel4,"Tinde");
+        fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
+        fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
+        fane.addTab("Vis tabell", null, panel3, "Show tabell");
+        fane.addTab("MatchMaking", null, panel4, "Tinde");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
         fane.setMnemonicAt(1, KeyEvent.VK_2);
         fane.setMnemonicAt(2, KeyEvent.VK_3);
@@ -184,16 +180,13 @@ public class Gui extends JFrame
         //todo- OSEN: Funker dette på windows?
 
 
-
-
         // Reseter
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
         c.gridheight = 1;
-
 
 
         //Inndatafelt
@@ -210,7 +203,6 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         //c.ipadx = ;
         pepanel.add(fornavn, c);
-
 
 
         c.gridx = 0;
@@ -263,36 +255,25 @@ public class Gui extends JFrame
         pepanel.add(tlf, c);
 
 
-
-
-
-
-
-
-
-
-
-
-
         radioLytter = new PersonTypeLytter();
         radioPerson = new ButtonGroup();
-        utleier = new JRadioButton("Utleier",false);
+        utleier = new JRadioButton("Utleier", false);
 
         utleier.addActionListener(radioLytter);
         c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
-        pepanel.add(utleier,c);
+        pepanel.add(utleier, c);
 
         c.ipadx = 0;
         c.gridx = 1;
         c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        boligsøker = new JRadioButton("Boligsøker",false);
+        boligsøker = new JRadioButton("Boligsøker", false);
         boligsøker.addActionListener(radioLytter);
-        pepanel.add(boligsøker,c);
+        pepanel.add(boligsøker, c);
 
         radioPerson.add(utleier);
         radioPerson.add(boligsøker);
@@ -318,9 +299,9 @@ public class Gui extends JFrame
         c.gridx = 3;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10,5,5,5);
+        c.insets = new Insets(10, 5, 5, 5);
         regUtleierKnapp.setVisible(false);
-        pepanel.add(regUtleierKnapp,c);
+        pepanel.add(regUtleierKnapp, c);
 
 
         //BOLISØKER PANEL (bspanel)
@@ -339,9 +320,6 @@ public class Gui extends JFrame
         boligtypeBox.addActionListener(new boligTypeLytter());
 
 
-
-
-
         c.gridx = 0;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -352,7 +330,6 @@ public class Gui extends JFrame
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         bspanel.add(byBox, c);
-
 
 
         c.gridx = 0;
@@ -367,13 +344,11 @@ public class Gui extends JFrame
         bspanel.add(romBox, c);
 
 
-
         minPris = new JLabel("Min Pris: 0");
         c.gridx = 0;
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bspanel.add(minPris, c);
-
 
 
         c.gridx = 1;
@@ -439,7 +414,7 @@ public class Gui extends JFrame
         c.gridy = 6;
         c.fill = GridBagConstraints.HORIZONTAL;
         garasjeValg.setVisible(false);
-        bspanel.add(garasjeValg,c);
+        bspanel.add(garasjeValg, c);
 
 
         kjellerValg = new JCheckBox("Kjeller");
@@ -447,35 +422,35 @@ public class Gui extends JFrame
         c.gridy = 6;
         c.fill = GridBagConstraints.HORIZONTAL;
         kjellerValg.setVisible(false);
-        bspanel.add(kjellerValg,c);
+        bspanel.add(kjellerValg, c);
 
         heisValg = new JCheckBox("Heis");
         c.gridx = 0;
         c.gridy = 8;
         c.fill = GridBagConstraints.HORIZONTAL;
         heisValg.setVisible(false);
-        bspanel.add(heisValg,c);
+        bspanel.add(heisValg, c);
 
         badValg = new JCheckBox("Eget Bad");
         c.gridx = 0;
         c.gridy = 7;
         c.fill = GridBagConstraints.HORIZONTAL;
         badValg.setVisible(false);
-        bspanel.add(badValg,c);
+        bspanel.add(badValg, c);
 
         kjøkkenValg = new JCheckBox("Eget kjøkken");
         c.gridx = 1;
         c.gridy = 7;
         c.fill = GridBagConstraints.HORIZONTAL;
         kjøkkenValg.setVisible(false);
-        bspanel.add(kjøkkenValg,c);
+        bspanel.add(kjøkkenValg, c);
 
         balkongValg = new JCheckBox("Balkong");
         c.gridx = 1;
         c.gridy = 8;
         c.fill = GridBagConstraints.HORIZONTAL;
         balkongValg.setVisible(false);
-        bspanel.add(balkongValg,c);
+        bspanel.add(balkongValg, c);
 
 
         c.gridx = 0;
@@ -489,8 +464,8 @@ public class Gui extends JFrame
         c.gridx = 3;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10,5,5,5);
-        bspanel.add(regPersonKnapp,c);
+        c.insets = new Insets(10, 5, 5, 5);
+        bspanel.add(regPersonKnapp, c);
 
         planBox = new JComboBox(planValg);
         c.gridx = 1;
@@ -507,8 +482,7 @@ public class Gui extends JFrame
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridheight = 1;
         c.gridwidth = 1;
-        c.insets = new Insets(0,0,0,0);
-
+        c.insets = new Insets(0, 0, 0, 0);
 
 
         c.gridx = 0;
@@ -519,7 +493,7 @@ public class Gui extends JFrame
         adresseFane2 = new JTextField();
         c.gridx = 1;
         c.gridy = 0;
-        bopanel.add(adresseFane2,c);
+        bopanel.add(adresseFane2, c);
 
 
         c.gridx = 0;
@@ -536,12 +510,12 @@ public class Gui extends JFrame
 
         c.gridx = 0;
         c.gridy = 2;
-        bopanel.add(new JLabel("Boareal"),c);
+        bopanel.add(new JLabel("Boareal"), c);
 
         boareal = new JTextField();
         c.gridx = 1;
         c.gridy = 2;
-        bopanel.add(boareal,c);
+        bopanel.add(boareal, c);
 
         c.gridx = 0;
         c.gridy = 3;
@@ -553,7 +527,6 @@ public class Gui extends JFrame
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(romBoxFane2, c);
-
 
 
         c.gridx = 0;
@@ -582,91 +555,89 @@ public class Gui extends JFrame
         bopanel.add(boligtypeBoxFane2, c);
 
 
-
-
         garasjeValgFane2 = new JCheckBox("Garasje");
         c.gridx = 0;
         c.gridy = 6;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(garasjeValgFane2,c);
+        bopanel.add(garasjeValgFane2, c);
 
 
         kjellerValgFane2 = new JCheckBox("Kjeller");
         c.gridx = 1;
         c.gridy = 6;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(kjellerValgFane2,c);
+        bopanel.add(kjellerValgFane2, c);
 
         heisValgFane2 = new JCheckBox("Heis");
         c.gridx = 0;
         c.gridy = 8;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(heisValgFane2,c);
+        bopanel.add(heisValgFane2, c);
 
         badValgFane2 = new JCheckBox("Eget Bad");
         c.gridx = 0;
         c.gridy = 7;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(badValgFane2,c);
+        bopanel.add(badValgFane2, c);
 
         kjøkkenValgFane2 = new JCheckBox("Eget kjøkken");
         c.gridx = 1;
         c.gridy = 7;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(kjøkkenValgFane2,c);
+        bopanel.add(kjøkkenValgFane2, c);
 
         balkongValgFane2 = new JCheckBox("Balkong");
         c.gridx = 1;
         c.gridy = 8;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(balkongValgFane2,c);
+        bopanel.add(balkongValgFane2, c);
 
         c.gridx = 0;
         c.gridy = 9;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Utleiepris:"),c);
+        bopanel.add(new JLabel("Utleiepris:"), c);
 
         pris = new JTextField();
         c.gridx = 1;
         c.gridy = 9;
-        bopanel.add(pris,c);
+        bopanel.add(pris, c);
 
 
         c.gridx = 0;
         c.gridy = 10;
-        bopanel.add(new JLabel("Byggår"),c);
+        bopanel.add(new JLabel("Byggår"), c);
 
         byggår = new JTextField();
         c.gridx = 1;
         c.gridy = 10;
-        bopanel.add(byggår,c );
+        bopanel.add(byggår, c);
 
 
         c.gridx = 0;
         c.gridy = 11;
-        bopanel.add(new JLabel("Beskrivelse:"),c);
+        bopanel.add(new JLabel("Beskrivelse:"), c);
 
-        beskrivelse = new JTextArea("Skriv da..",5,10);
+        beskrivelse = new JTextArea("Skriv da..", 5, 10);
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
-        bopanel.add(scroll,c);
+        bopanel.add(scroll, c);
 
 
         c.gridx = 0;
         c.gridy = 12;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("TomtArael:"),c);
+        bopanel.add(new JLabel("TomtArael:"), c);
 
         tomtAreal = new JTextField();
         c.gridx = 1;
         c.gridy = 12;
-        bopanel.add(tomtAreal,c);
+        bopanel.add(tomtAreal, c);
 
         c.gridx = 0;
         c.gridy = 13;
-        bopanel.add(new JLabel("Hilket plan?"),c);
+        bopanel.add(new JLabel("Hilket plan?"), c);
 
 
         planBoxFane2 = new JComboBox(planValg);
@@ -676,24 +647,14 @@ public class Gui extends JFrame
         bopanel.add(planBoxFane2, c);
 
 
-
-
-
-
-
-
-
         c.gridx = 0;
         c.gridy = 14;
-        bopanel.add(new JLabel("Utleier ID:"),c);
+        bopanel.add(new JLabel("Utleier ID:"), c);
 
         utleierId = new JTextField();
-        c.gridx =  1;
+        c.gridx = 1;
         c.gridy = 14;
-        bopanel.add(utleierId,c);
-
-
-
+        bopanel.add(utleierId, c);
 
 
         regBoligKnapp = new JButton("Registrer");
@@ -701,21 +662,8 @@ public class Gui extends JFrame
         c.gridx = 3;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10,5,5,5);
-        bopanel.add(regBoligKnapp,c);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        c.insets = new Insets(10, 5, 5, 5);
+        bopanel.add(regBoligKnapp, c);
 
 
         // FANE 3 - VIS TABELL   *********************************************************
@@ -724,8 +672,14 @@ public class Gui extends JFrame
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
         c.gridheight = 1;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
+
+
+
+        tabellFabrikk();
+
+
 
 
 
@@ -738,13 +692,52 @@ pepanel.setBackground(Color.YELLOW);
 */
 
 
-
-
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
         fane.setPreferredSize(new Dimension(getSize()));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
+
+    } // End GUI konstruktør
+
+
+
+
+
+
+    public void tabellFabrikk()
+    {
+
+
+
+
+        //HERIFRA
+        String[] kolonnenavn =
+                {
+                        "Planet", "Radius", "Antall måner", "Gassplanet", "Fargekode"
+                };
+        Object[][] celler =
+                {
+                        {"Merkur", new Double(2440), new Integer(0), Boolean.FALSE, Color.yellow}, {"Venus", new Double(6052), new Integer(0), Boolean.FALSE, Color.yellow}, {"Jorda", new Double(6378), new Integer(1), Boolean.FALSE, Color.blue}, {"Mars", new Double(3397), new Integer(2), Boolean.FALSE, Color.red}, {"Jupiter", new Double(71492), new Integer(16), Boolean.TRUE, Color.orange}, {"Saturn", new Double(60268), new Integer(18), Boolean.TRUE, Color.orange}, {"Uranus", new Double(25559), new Integer(17), Boolean.TRUE, Color.blue}, {"Neptun", new Double(24766), new Integer(8), Boolean.TRUE, Color.blue}, {"Pluto", new Double(1137), new Integer(1), Boolean.FALSE, Color.black}
+
+                };
+
+
+
+        //TIL HIT = BARE PISSS OG BLOD
+
+        JTable tabell1 = new JTable(celler, kolonnenavn);
+        JTable tabell2 = new JTable(celler, kolonnenavn);
+        panel3.add(new JScrollPane(tabell1));
+        panel3.add(new JScrollPane(tabell2));
+
+        revalidate();
+
+
+
     }
+
+
+
 
 // LYTTERE
     private class knappLytter implements ActionListener
