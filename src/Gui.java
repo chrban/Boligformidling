@@ -18,6 +18,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
+import java.lang.*;
 
 
 /**
@@ -56,7 +57,7 @@ public class Gui extends JFrame {
     private Boligliste boliger;
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
-    private JMenuItem om, lagre, angre;
+    private JMenuItem om, lagre, angre,tabell;
     private JTextArea utskriftsområde;
     //private Utvalgslytter lsm;
 
@@ -79,6 +80,9 @@ public class Gui extends JFrame {
         lagre = new JMenuItem("Lagre");
         lagre.addActionListener(øre);
 
+        tabell = new JMenuItem("Last tabell");//bate temp ass
+        tabell.addActionListener(øre);
+
 
         rediger = new JMenu("Rediger");
 
@@ -89,6 +93,7 @@ public class Gui extends JFrame {
         rediger.add(angre);
         filmeny.add(om);
         filmeny.add(lagre);
+        rediger.add(tabell);
 
 
         menylinje = new JMenuBar();
@@ -697,12 +702,7 @@ public class Gui extends JFrame {
         //panel3.add(new JScrollPane(tabell2));
 
 
-// TEMP - Farger for å identifisere paneler!
-
-/*  fane.setBackground(Color.red);
-panel1.setBackground(Color.BLUE);
-pepanel.setBackground(Color.YELLOW);
-*/
+        //panel3.add(new JScrollPane(tabell1));
 
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
@@ -735,14 +735,24 @@ pepanel.setBackground(Color.YELLOW);
             } else if (e.getSource() == lagre) {
 
                 System.out.println("Trykka på lagre");
-                //personTabellFabrikk();
-                lagTabellen();
 
 
             } else if (e.getSource() == angre) {
                 System.out.println("du anger på at du tryka på angre");
 
             }
+            else if(e.getSource() ==tabell){
+                System.out.println("Hente tabell");
+                panel3.remove(new JScrollPane(tabell1));
+                lagTabellen();
+                panel3.add(new JScrollPane(tabell1));
+                revalidate();
+                panel3.revalidate();
+                tabell.revalidate();
+
+            }
+
+
         }
     }
 
@@ -847,14 +857,23 @@ pepanel.setBackground(Color.YELLOW);
 
     private class personTabellFabrikk extends AbstractTableModel {
 
-        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon"};
-
-        String[][] celler = boligsøkere.tilTabell();
+      //  int  = boligsøkere.tellOpp();
 
 
+        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon","Firma"};
 
 
-        //                {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
+        String[][] bstabell = boligsøkere.tilTabell();
+        //JOine disse sammen.
+        String[][] uttabell = utleiere.tilTabell();
+
+
+        String[][] celler = utleiere.tilTabell();
+
+
+
+
+        // {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
 
 
 
@@ -904,6 +923,8 @@ pepanel.setBackground(Color.YELLOW);
 
 
 
+
+
     private void lagTabellen()
     {
 
@@ -913,56 +934,6 @@ pepanel.setBackground(Color.YELLOW);
         tabell1 = new JTable(tabellModell);
 
 
-
-        //JTextField navnVelger = new JTextField();
-        //navnVelger.add(new JTextField());
-
-        //TableCellEditor navnEditor = new DefaultCellEditor((navnVelger));
-        //slutt navn insta der ned
-
-
-
-
-        //ADRESSE EDITOR
-        JComboBox<Integer> adresseVelger = new JComboBox<>();
-        int min=0,maks=60;
-        for(int i=min;i<=maks;i++)
-        {
-            adresseVelger.addItem((new Integer(i)));
-        }
-
-
-        TableCellEditor adresseEditor = new DefaultCellEditor(adresseVelger);
-
-    //innstallerer editoren for adressekolonnen
-        TableColumnModel kolonnemodell = tabell1.getColumnModel();
-        TableColumn adresseekolonne = kolonnemodell.getColumn(2);
-        adresseekolonne.setCellEditor(adresseEditor);
-
-        // installere navnedit
-       // TableColumn navnkolonne = kolonnemodell.getColumn(0);
-       // navnkolonne.setCellEditor(navnEditor);
-
-
-
-
-
-        //lytte ting
-       /* tabell1.getModel()
-        tabell1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        ListSelectionModel lsm = tabell1.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter (tabell1.getModel()  , this ) );
-        utskriftsområde = new JTextArea(5,30);
-        utskriftsområde.setEditable(false);
-
-*/
-
-
-
-
-
-        //panel3.add(new JScrollPane(utskriftsområde));
-        panel3.add(new JScrollPane(tabell1));
     }
 
 

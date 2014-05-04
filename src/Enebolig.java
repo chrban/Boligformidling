@@ -50,7 +50,7 @@ public class Enebolig extends Bolig implements Serializable
 
         return specArray;
     }
-    public String[] tilTabell()
+    /*public String[] tilTabell()
     {
         
     }
