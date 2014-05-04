@@ -15,6 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.*;
 
 
 /**
@@ -40,7 +43,7 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private JTable tabell1,tabell2;
+    private JTable tabell1, tabell2;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson, testgruppe;
@@ -54,9 +57,8 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
     private JMenuItem om, lagre, angre;
-
-
-
+    private JTextArea utskriftsområde;
+    //private Utvalgslytter lsm;
 
 
     public Gui() {
@@ -102,8 +104,6 @@ public class Gui extends JFrame {
         boliger = new Boligliste();
         kontrakter = new KontraktListe();
         lytter = new knappLytter();
-
-
 
 
         //alt dette bare for skjermstørrelsen hehehe
@@ -660,13 +660,13 @@ public class Gui extends JFrame {
         c.gridy = 15;
         bildesti.setEditable(false);
         c.fill = GridBagConstraints.NONE;
-        bopanel.add(bildesti,c);
+        bopanel.add(bildesti, c);
 
         finnBildeKnapp = new JButton("Finn bilde");
         finnBildeKnapp.addActionListener(lytter);
         c.gridx = 2;
         c.gridy = 15;
-        bopanel.add(finnBildeKnapp,c);
+        bopanel.add(finnBildeKnapp, c);
 
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
@@ -687,15 +687,14 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-
+        utskriftsområde = new JTextArea("Pikk");
+        utskriftsområde.setSize(40,40);
+        panel3.add(new JScrollPane(utskriftsområde));
 
 
         //personTabellFabrikk();
-        panel3.add(new JScrollPane(tabell1));
-        panel3.add(new JScrollPane(tabell2));
-
-
-
+        //panel3.add(new JScrollPane(tabell1));
+        //panel3.add(new JScrollPane(tabell2));
 
 
 // TEMP - Farger for å identifisere paneler!
@@ -714,58 +713,33 @@ pepanel.setBackground(Color.YELLOW);
     } // End GUI konstruktør
 
 
-
-
-
-
-
-
-
-    // fakkkkk
-
-
-
-
-// LYTTERE
-    private class knappLytter implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            if(e.getSource() == regBoligKnapp)
+    // LYTTERE
+    private class knappLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == regBoligKnapp)
                 regBolig();
-            else if(e.getSource() == regPersonKnapp)
+            else if (e.getSource() == regPersonKnapp)
                 regPerson();
-            else if(e.getSource() == regUtleierKnapp)
+            else if (e.getSource() == regUtleierKnapp)
                 regPerson();
-            else if(e.getSource()== finnBildeKnapp)
+            else if (e.getSource() == finnBildeKnapp)
                 finnBilde();
         }
     }
 
 
-
-
-
-
-    private class menyLytter implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            if( e.getSource() == om ) {
+    private class menyLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == om) {
                 JOptionPane.showMessageDialog(null, boligsøkere.toString());
-            }
-           else if(e.getSource() == lagre) {
+            } else if (e.getSource() == lagre) {
 
                 System.out.println("Trykka på lagre");
                 //personTabellFabrikk();
+                lagTabellen();
 
 
-
-
-
-
-            }
-            else if(e.getSource() == angre) {
+            } else if (e.getSource() == angre) {
                 System.out.println("du anger på at du tryka på angre");
 
             }
@@ -788,6 +762,7 @@ pepanel.setBackground(Color.YELLOW);
 
 
     private class boligTypeLytter implements ActionListener { //Lytter som hører på BT-boksen og gjør som den sier!
+
         public void actionPerformed(ActionEvent e) {
             String typenTil = (String) boligtypeBox.getSelectedItem();
             switch (typenTil) {
@@ -825,38 +800,27 @@ pepanel.setBackground(Color.YELLOW);
                     break;
 
 
-
             }
         }
     }
 
 
-
-
-
-    private class minPrisLytter implements ChangeListener
-    {
-        public void stateChanged(ChangeEvent e)
-        {
+    private class minPrisLytter implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
             minPris.setText("Min Pris: " + minPrisSlider.getValue());
 
         }
     }
 
-    private class maxPrisLytter implements ChangeListener
-    {
-        public void stateChanged(ChangeEvent e)
-        {
+    private class maxPrisLytter implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
             maxPris.setText("Max Pris :" + maxPrisSlider.getValue());
         }
     }
 
-    private class PersonTypeLytter implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            if(utleier.isSelected())
-            {
+    private class PersonTypeLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (utleier.isSelected()) {
 
                 firma.setVisible(true);
                 firmaLabel.setVisible(true);
@@ -865,9 +829,7 @@ pepanel.setBackground(Color.YELLOW);
                 revalidate();
 
 
-            }
-            else if(boligsøker.isSelected())
-            {
+            } else if (boligsøker.isSelected()) {
                 bspanel.setVisible(true);
                 firma.setVisible(false);
                 firmaLabel.setVisible(false);
@@ -880,36 +842,206 @@ pepanel.setBackground(Color.YELLOW);
     }
 
 
+    //todo Christer, Åpne fabrikken
 
-/* //todo Christer, Åpne fabrikken
-    public void personTabellFabrikk()
+
+    private class personTabellFabrikk extends AbstractTableModel {
+
+        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon"};
+
+        String[][] celler = boligsøkere.tilTabell();
+
+
+
+
+        //                {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
+
+
+
+
+
+
+        /*tabell1=newJTable(boligsøkere.tilTabell(),kolonnenavn);
+        // tabell1 = new JTable(celler, kolonnenavn);
+        tabell2=newJTable(celler, kolonnenavn);
+        panel3.add(newJScrollPane(tabell1));
+        panel3.add(newJScrollPane(tabell2));*/
+
+
+
+
+
+      // THEM RULES
+
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+
+    }    // end personTabellFabrikk
+
+
+
+    private void lagTabellen()
     {
 
-        String[] kolonnenavn ={"Fornavn", "Etternavn","Mail"};
 
-        Object[][] celler =
-                {
 
-                        {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
-                        {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
-                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
-                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
-                        {"Emil", "Hemul", "Bisletgata 93", "emil@bisletkebab.no", "22225555"},
-
-                };
+        personTabellFabrikk tabellModell = new personTabellFabrikk(); //lager modellen
+        tabell1 = new JTable(tabellModell);
 
 
 
-       tabell1 = new JTable(boligsøkere.fyllTabell(),kolonnenavn );
-       // tabell1 = new JTable(celler, kolonnenavn);
-        tabell2 = new JTable(celler, kolonnenavn);
-        panel3.add(new JScrollPane(tabell1));
-        panel3.add(new JScrollPane(tabell2));
+        //JTextField navnVelger = new JTextField();
+        //navnVelger.add(new JTextField());
 
-        revalidate();
+        //TableCellEditor navnEditor = new DefaultCellEditor((navnVelger));
+        //slutt navn insta der ned
 
-    } // end personTabellFabrikk
+
+
+
+        //ADRESSE EDITOR
+        JComboBox<Integer> adresseVelger = new JComboBox<>();
+        int min=0,maks=60;
+        for(int i=min;i<=maks;i++)
+        {
+            adresseVelger.addItem((new Integer(i)));
+        }
+
+
+        TableCellEditor adresseEditor = new DefaultCellEditor(adresseVelger);
+
+    //innstallerer editoren for adressekolonnen
+        TableColumnModel kolonnemodell = tabell1.getColumnModel();
+        TableColumn adresseekolonne = kolonnemodell.getColumn(2);
+        adresseekolonne.setCellEditor(adresseEditor);
+
+        // installere navnedit
+       // TableColumn navnkolonne = kolonnemodell.getColumn(0);
+       // navnkolonne.setCellEditor(navnEditor);
+
+
+
+
+
+        //lytte ting
+       /* tabell1.getModel()
+        tabell1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = tabell1.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter (tabell1.getModel()  , this ) );
+        utskriftsområde = new JTextArea(5,30);
+        utskriftsområde.setEditable(false);
+
 */
+
+
+
+
+
+        //panel3.add(new JScrollPane(utskriftsområde));
+        panel3.add(new JScrollPane(tabell1));
+    }
+
+
+
+
+
+
+
+
+
+        //private TableModel tabellModell;
+        //private personTabellFabrikk vindu;
+/*
+        Utvalgslytter(TableModel m, personTabellFabrikk v)
+        {
+            tabellModell = m;
+            vindu = v;
+        }
+*/
+
+
+        /*
+        public void valueChanged(ListSelectionEvent e)
+        {
+            String utskrift = "";
+            if(e.getValueIsAdjusting()) //vent med handlig før valg er avsluttet
+                return;
+
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if(!lsm.isSelectionEmpty())
+            {
+                int valgtrad = lsm.getMinSelectionIndex();
+
+                utskrift += "Navn: " + (String) tabellModell.getValueAt(valgtrad, 0 );
+                utskrift += "EtterNavn: " + (String) tabellModell.getValueAt(valgtrad,1);
+            }
+            utskriftsområde.setText(utskrift);
+           // vindu.visNavndata(navndata)
+
+
+        }//end valuechange
+    }
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
