@@ -39,6 +39,19 @@ public class Boligsøker extends Person implements Serializable
        return Krav;
    }
 
+   public String[] tilTabell()
+   {
+       String[] ut = new String[5];
+
+       ut[0] = super.getFornavn();
+       ut[1] = super.getEtternavn();
+       ut[2] = super.getAdresse();
+       ut[3] = super.getEmail();
+       ut[4] = super.getTlf();
+
+       return ut;
+   }
+
    public String toString()
    {
        return super.toString() + " pikk";

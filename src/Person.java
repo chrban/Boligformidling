@@ -28,15 +28,18 @@ abstract class Person implements Serializable
     {
         return fnavn;
     }
-
     public String getEtternavn(){
         return enavn;
     }
+
+    public String getAdresse(){return adresse;}
 
     public String getEmail()
     {
         return eMail;
     }
+
+    public String getTlf(){return tlf;}
 
     public String toString()
     {
