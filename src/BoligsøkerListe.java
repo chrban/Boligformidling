@@ -75,9 +75,8 @@ public class BoligsøkerListe implements Serializable {
 
         while(løper != null)
         {
-            ut[i] = løper.tilTabell();
+            ut[i++] = løper.tilTabell();
             løper = løper.neste;
-            i++;
         }
         return ut;
     }

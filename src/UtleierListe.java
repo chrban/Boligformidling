@@ -25,6 +25,22 @@ public class UtleierListe {
     public void sorter(){
         Collections.sort(liste, new UtleierSammenlikner());
     }
+
+    public String[][] tilTabell()
+    {
+        String[][] ut = new String[liste.size()][6];
+        Utleier utleier;
+        Iterator<Utleier> iter = liste.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            utleier = iter.next();
+            ut[i++] = utleier.tilTabell();
+        }
+        return ut;
+    }
+
     public String toString(){
         sorter();
         String utleiere = "";
