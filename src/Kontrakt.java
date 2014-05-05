@@ -41,4 +41,15 @@ public class Kontrakt{
     public String toString(){
         return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\n";
     }
+
+    public String[] tilTabell()
+    {
+        String [] ut = new String[4];
+        ut[0] = eier.getNavn();
+        ut[1] = leier.getNavn();
+        ut[2] = start.toString();
+        ut[3] = slutt.toString();
+
+        return ut;
+    }
 }

@@ -15,7 +15,7 @@ public class Utleier extends Person implements Serializable
         firma = f;
     }
 
-    public String getNavn()
+    public String getFornavn()
     {
         return super.getFornavn();
     }
@@ -23,6 +23,11 @@ public class Utleier extends Person implements Serializable
     public String getEmail()
     {
         return super.getEmail();
+    }
+
+    public String getNavn()
+    {
+        return super.getFornavn() + " " + super.getEtternavn();
     }
 
     public String[] tilTabell()

@@ -38,6 +38,10 @@ public class Boligsøker extends Person implements Serializable
 
        return Krav;
    }
+   public String getNavn()
+   {
+       return super.getFornavn() + " " + super.getEtternavn();
+   }
 
    public String[] tilTabell()
    {
