@@ -29,8 +29,8 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter;
-    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
@@ -64,6 +64,7 @@ public class Gui extends JFrame {
     private JMenuItem om, lagre, angre,tabell;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
+    private JFrame velgUtleierVindu, velgLeietakerVindu;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -745,8 +746,122 @@ public class Gui extends JFrame {
 
 
         // fane 5?
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.ipady=2
+        ;
+        c.gridx = 1;
+        c.gridy = 1;
+
+        velgUtleierKnapp = new JButton("Velg en eier");
+        velgUtleierKnapp.addActionListener(lytter);
+        panel5.add(velgUtleierKnapp,c);
+
+
+        c.gridx = 2;
+        c.gridy = 1;
+        valgtUtleier = new JTextField(10);
+        valgtUtleier.setEditable(false);
+        valgtUtleier.setText("Ingen utleier valgt enda...");
+        panel5.add(valgtUtleier, c);
+
+
+
+        c.gridx = 1;
+        c.gridy = 4;
+        velgLeietakerKnapp = new JButton("Velg en Leietaker");
+        velgLeietakerKnapp.addActionListener(lytter);
+        panel5.add(velgLeietakerKnapp,c);
+
+        c.gridx = 2;
+        c.gridy = 4;
+        valgtLeietaker = new JTextField(10);
+        valgtLeietaker.setEditable(false);
+        valgtLeietaker.setText("Ingen leietaker valgt enda...");
+        panel5.add(valgtUtleier,c);
+
+
+
+
+        startDagFelt = new JTextField(10);
+        startMånedFelt = new JTextField(10);
+        startÅrFelt = new JTextField(10);
+        sluttDagFelt = new JTextField(10);
+        sluttMånedFelt = new JTextField(10);
+        sluttårFelt = new JTextField(10);
+
+
+        c.gridx = 1;
+        c.gridy = 6;
+        panel5.add(new JLabel("Kontrakten starter:"),c);
+
+        c.gridx = 1;
+        c.gridy = 7;
+        panel5.add(new JLabel("Dag(DD)"),c);
+
+        c.gridx = 2;
+        c.gridy = 7;
+        panel5.add(startDagFelt,c);
+
+        c.gridx = 1;
+        c.gridy = 8;
+        panel5.add(new JLabel("Måned(MM)"),c);
+
+        c.gridx = 2;
+        c.gridy = 8;
+        panel5.add((startMånedFelt),c);
+
+        c.gridx = 1;
+        c.gridy = 9;
+        panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
+
+        c.gridx = 2;
+        c.gridy = 9;
+        panel5.add((startÅrFelt),c);
+
+
+
+
+        c.gridx = 1;
+        c.gridy = 11;
+        panel5.add(new JLabel("Kontrakten Slutter"),c);
+
+        c.gridx = 1;
+        c.gridy = 12;
+        panel5.add(new JLabel("Dag(DD)"),c);
+
+        c.gridx = 2;
+        c.gridy = 12;
+        panel5.add((sluttDagFelt),c);
+
+        c.gridx = 1;
+        c.gridy = 13;
+        panel5.add(new JLabel("Måned(MM)"),c);
+
+        c.gridx = 2;
+        c.gridy = 13;
+        panel5.add((sluttMånedFelt),c);
+
+        c.gridx = 1;
+        c.gridy = 14;
+        panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
+
+        c.gridx = 2;
+        c.gridy = 14;
+        panel5.add((sluttårFelt),c);
+
+
+        c.gridx = 3;
+        c.gridy = 15;
+        lagreKontrakt = new JButton("Lagre kontrakt");
+        lagreKontrakt.addActionListener(lytter);
+        panel5.add(lagreKontrakt, c);
+
+
+        c.gridx = 3;
+        c.gridy = 17;
         oppdaterKontrakter = new JButton("Oppdater Register");
-        panel5.add(oppdaterKontrakter);
+        oppdaterKontrakter.addActionListener(lytter);
+        panel5.add(oppdaterKontrakter, c);
 
 
 
@@ -772,6 +887,12 @@ public class Gui extends JFrame {
                 regPerson();
             else if (e.getSource() == finnBildeKnapp)
                 finnBilde();
+            else if(e.getSource() == oppdaterKontrakter)
+                visKontrakter();
+            else if(e.getSource() == velgUtleierKnapp)
+                visVelgUtleierVindu();
+            else if(e.getSource() == velgLeietakerKnapp)
+                visVelgLeietakerVindu();
         }
     }
 
@@ -1556,7 +1677,26 @@ public class Gui extends JFrame {
 
     }
 
+    private void visVelgUtleierVindu()
+    {
 
+        velgUtleierVindu = new JFrame("Velg Eier");
+        velgUtleierVindu.setSize(600,600);
+        velgUtleierVindu.add(new JLabel("Her må vi legge inn utleiertabell, sånn at det går ann å velge en utleier"));
+        velgUtleierVindu.setVisible(true);
+        velgUtleierVindu.add(new JLabel("Her må vi legge inn utleiertabell, sånn at det går ann å velge en utleier"));
+
+    }
+    private void visVelgLeietakerVindu()
+    {
+
+        velgLeietakerVindu = new JFrame("Velg Leietaker");
+        velgLeietakerVindu.setSize(600,600);
+        velgLeietakerVindu.add(new JLabel("Her må vi legge inn boligsøkertabell, sånn at det går ann å velge en boligsøker"));
+        velgLeietakerVindu.setVisible(true);
+        velgLeietakerVindu.add(new JLabel("Her må vi legge inn boligsøkertabell, sånn at det går ann å velge en boliansøker"));
+
+    }
 
     public void visBoligsøkere()
     {
@@ -1579,6 +1719,13 @@ public class Gui extends JFrame {
 
     public void visKontrakter()
     {
+
+        JOptionPane.showMessageDialog(null, "Viskontakter-metoden kjører");
+
+        kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
+        c.gridx = 1;
+        c.gridy = 15;
+        panel5.add(kontraktHistorikkTabell, c);
         /*
         - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
 
