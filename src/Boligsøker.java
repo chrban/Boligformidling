@@ -41,13 +41,14 @@ public class Boligsøker extends Person implements Serializable
 
    public String[] tilTabell()
    {
-       String[] ut = new String[5];
+       String[] ut = new String[6];
 
        ut[0] = super.getFornavn();
        ut[1] = super.getEtternavn();
        ut[2] = super.getAdresse();
        ut[3] = super.getEmail();
        ut[4] = super.getTlf();
+       ut[5] = "";
 
        return ut;
    }

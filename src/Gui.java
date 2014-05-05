@@ -58,7 +58,9 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
     private JMenuItem om, lagre, angre,tabell;
-    private JTextArea utskriftsområde;
+    private JScrollPane tabellscroll;
+    //private JTextArea utskriftsområde;
+    private fanelytter faneøre;
     //private Utvalgslytter lsm;
 
 
@@ -80,7 +82,7 @@ public class Gui extends JFrame {
         lagre = new JMenuItem("Lagre");
         lagre.addActionListener(øre);
 
-        tabell = new JMenuItem("Last tabell");//bate temp ass
+        tabell = new JMenuItem("Last inn tabell på nytt");//bate temp ass
         tabell.addActionListener(øre);
 
 
@@ -109,6 +111,9 @@ public class Gui extends JFrame {
         boliger = new Boligliste();
         kontrakter = new KontraktListe();
         lytter = new knappLytter();
+        faneøre = new fanelytter();
+        tabellscroll = new JScrollPane(tabell1);
+
 
 
         //alt dette bare for skjermstørrelsen hehehe
@@ -181,6 +186,9 @@ public class Gui extends JFrame {
         fane.setMnemonicAt(1, KeyEvent.VK_2);
         fane.setMnemonicAt(2, KeyEvent.VK_3);
         fane.setMnemonicAt(3, KeyEvent.VK_4);
+
+        fane.addChangeListener(faneøre);
+
         //todo- OSEN: Funker dette på windows?
 
 
@@ -692,9 +700,8 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-        utskriftsområde = new JTextArea("Pikk");
-        utskriftsområde.setSize(40,40);
-        panel3.add(new JScrollPane(utskriftsområde));
+
+      //  panel3.add(tabellscroll = new JScrollPane(tabell1));
 
 
         //personTabellFabrikk();
@@ -742,16 +749,30 @@ public class Gui extends JFrame {
 
             }
             else if(e.getSource() ==tabell){
-                System.out.println("Hente tabell");
-                panel3.remove(new JScrollPane(tabell1));
+                System.out.println("Hente inn tabell på nytt");
+                panel3.remove(tabellscroll);
                 lagTabellen();
-                panel3.add(new JScrollPane(tabell1));
-                revalidate();
-                panel3.revalidate();
-                tabell.revalidate();
+                panel3.add(tabellscroll = new JScrollPane(tabell1));
+
 
             }
 
+
+        }
+    }
+
+
+
+    private class fanelytter implements ChangeListener{
+        public void stateChanged(ChangeEvent e) {
+            if(fane.getSelectedIndex()==2) {
+                System.out.println("Trykka på fane; vis tabell!");
+                panel3.remove(tabellscroll);
+                lagTabellen();
+                panel3.add(tabellscroll = new JScrollPane(tabell1));
+            }
+            System.out.println("byttet fane, derfor kjører jeg en repaint(), trengs egentlig ikke men..");
+            repaint();
 
         }
     }
@@ -855,6 +876,45 @@ public class Gui extends JFrame {
     //todo Christer, Åpne fabrikken
 
 
+    public String[][] joinArray() {
+        String[][] første =  boligsøkere.tilTabell();
+        String[][] andre =utleiere.tilTabell();
+
+
+      /*  String[][] tredje = {
+                {"Emil1", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","Firmaaa"},
+                {"Kemil2", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","ad"},
+                {"emil3", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","bghjk"},
+                {"emil4", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","d"},
+        };*/
+
+
+        String[][] joina = new String[første.length + andre.length /*+ tredje.length*/][6];
+
+
+        int i = 0;
+        while (i < første.length) {
+            joina[i] = første[i];
+            i++;
+        }
+        int k=0;
+        while(k<andre.length){
+            joina[i++]=andre[k];
+            k++;
+        }
+/*
+        int j=0;
+        while (j<tredje.length){
+            joina[i++]=tredje[j];
+            j++;
+        }
+*/
+
+        return joina;
+    }
+
+
+
     private class personTabellFabrikk extends AbstractTableModel {
 
       //  int  = boligsøkere.tellOpp();
@@ -862,37 +922,11 @@ public class Gui extends JFrame {
 
         String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon","Firma"};
 
-
-        String[][] bstabell = boligsøkere.tilTabell();
-        //JOine disse sammen.
-        String[][] uttabell = utleiere.tilTabell();
-
-
-        String[][] celler = utleiere.tilTabell();
+        String[][] celler = joinArray();
 
 
 
-
-        // {"Christer", "Bang", "Majorstuveien 18", "christer@bang.is", "93260054"},
-
-
-
-
-
-
-        /*tabell1=newJTable(boligsøkere.tilTabell(),kolonnenavn);
-        // tabell1 = new JTable(celler, kolonnenavn);
-        tabell2=newJTable(celler, kolonnenavn);
-        panel3.add(newJScrollPane(tabell1));
-        panel3.add(newJScrollPane(tabell2));*/
-
-
-
-
-
-      // THEM RULES
-
-
+      // THEM RULES for tabellen Altså tabellmodellen
         public int getRowCount() {
             return celler.length;
         }
@@ -901,11 +935,9 @@ public class Gui extends JFrame {
             return celler[0].length;
 
         }
-
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
-
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
@@ -922,26 +954,11 @@ public class Gui extends JFrame {
     }    // end personTabellFabrikk
 
 
-
-
-
     private void lagTabellen()
     {
-
-
-
         personTabellFabrikk tabellModell = new personTabellFabrikk(); //lager modellen
         tabell1 = new JTable(tabellModell);
-
-
     }
-
-
-
-
-
-
-
 
 
         //private TableModel tabellModell;

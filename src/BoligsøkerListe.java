@@ -67,7 +67,7 @@ public class BoligsøkerListe implements Serializable {
     public String[][] tilTabell()
     {
         Boligsøker løper = første;
-        String[][] ut = new String[tellOpp()][5];
+        String[][] ut = new String[tellOpp()][6];
         int i = 0;
 
         if(løper == null)
