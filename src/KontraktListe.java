@@ -31,7 +31,7 @@ public class KontraktListe {
         int i = 0;
 
         if(løper == null)
-            return i;
+            return 1;
 
         while(løper != null)
         {
@@ -68,7 +68,7 @@ public class KontraktListe {
 
         if(løper == null)
         {
-            ut[i][i] = "Ingen kontrakter lagret";
+            ut[0][0] = "Ingen kontrakter lagret";
             return ut;
         }
 

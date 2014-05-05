@@ -29,7 +29,7 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti;
     private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
@@ -93,7 +93,7 @@ public class Gui extends JFrame {
         tabell = new JMenuItem("Last inn tabell på nytt");//bate temp ass
         tabell.addActionListener(øre);
 
-        kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
+        //kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
 
         rediger = new JMenu("Rediger");
 
@@ -742,6 +742,17 @@ public class Gui extends JFrame {
 
 
         //SLUTT FANE 3
+
+
+        // fane 5?
+        oppdaterKontrakter = new JButton("Oppdater Register");
+        panel5.add(oppdaterKontrakter);
+
+
+
+
+
+
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
         fane.setPreferredSize(new Dimension(getSize()));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
