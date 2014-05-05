@@ -47,7 +47,7 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabell, kontraktHistorikkTabell;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -122,7 +122,7 @@ public class Gui extends JFrame {
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll= new JScrollPane(personTabell);
-        boligTabellScroll=new JScrollPane(boligTabell);
+        boligTabellScroll=new JScrollPane(boligTabellTabellen);
 
 
 
@@ -149,7 +149,7 @@ public class Gui extends JFrame {
         bspanel = new JPanel(layout); // Boligsøkerpanel
         bopanel = new JPanel(layout); // Boligpanel
         pepanel = new JPanel(layout); // PersonPanel
-        tapanel = new JPanel(layout);//tabellpanel
+        tapanel = new JPanel(new GridLayout(2,2));//tabellpanel
 
         panel5 = new JPanel(layout);
         //pepanel.setVisible(true);
@@ -730,8 +730,8 @@ public class Gui extends JFrame {
 
         boligtabell = new JRadioButton("Vis boliger:",false);
         boligtabell.addActionListener(radioTabellLytter);
-        c.gridx = 1;
-        c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = 1;
         panel3.add(boligtabell,c);
 
         radioTabell.add(persontabell);
@@ -795,7 +795,7 @@ public class Gui extends JFrame {
                 panel3.remove(boligTabellScroll);
                 lagTabellen();
                 panel3.add(personTabellScroll = new JScrollPane(personTabell),BorderLayout.LINE_END);
-                panel3.add(boligTabellScroll = new JScrollPane(boligTabell),BorderLayout.BEFORE_LINE_BEGINS);
+                panel3.add(boligTabellScroll = new JScrollPane(boligTabellTabellen),BorderLayout.BEFORE_LINE_BEGINS);
             }
 
 
@@ -932,11 +932,13 @@ public class Gui extends JFrame {
             if(boligtabell.isSelected()){
 
                 System.out.println("togla boligtabell " + boligtabell.isSelected() + "perta er" + persontabell.isSelected());
-             //   panel3.remove(personTabellScroll);
+            //   panel3.remove(personTabellScroll);
             //    panel3.remove(boligTabellScroll);
                 clearPanel3();
                 lagBoligTabellen();
                 tapanel.add(boligTabellScroll = new JScrollPane(boligTabell));
+
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
 
                 //repaint();
                 revalidate();
@@ -951,7 +953,7 @@ public class Gui extends JFrame {
               //  panel3.remove(boligTabellScroll);
                 clearPanel3();
                 lagTabellen();
-                panel3.add(personTabellScroll = new JScrollPane(personTabell));
+                tapanel.add(personTabellScroll = new JScrollPane(personTabell));
                 //repaint();
                 revalidate();
                 repaint();
@@ -970,7 +972,7 @@ public class Gui extends JFrame {
     private String[][] joinPersonArray() {
         String[][] første =  boligsøkere.tilTabell();
         String[][] andre =utleiere.tilTabell();
-        String[][] joina = new String[første.length + andre.length /*+ tredje.length*/][6];
+        String[][] joina = new String[første.length + andre.length][6];
 
 
         int i = 0;
@@ -1039,7 +1041,7 @@ public class Gui extends JFrame {
     private void lagBoligTabellen()
     {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
-        personTabell = new JTable(boligTabellModell);
+        boligTabellTabellen = new JTable(boligTabellModell);
     }
 
 
@@ -1087,16 +1089,17 @@ public class Gui extends JFrame {
 
     private String[][] joinBoligArray() {
         String[][] første = boliger.eneboligerTilTabell();
-      /*  String[][] andre = boliger.;
-        String[][] tredje = hybel.tilTabell();
-        String[][] fjerde = leilighet.tilTabell();*/
-        String[][] joina = new String[første.length /*+ andre.length + tredje.length + fjerde.length*/][8];
+        String[][] andre = boliger.hyblerTilTabell();
+        String[][] tredje = boliger.leiligheterTilTabell();
+        String[][] fjerde = boliger.rekkehusTilTabell();
+
+
+        String[][] joina = new String[første.length + andre.length + tredje.length + fjerde.length][8];
         int i = 0;
         while (i < første.length) {
             joina[i] = første[i];
             i++;
         }
-/*
         int j=0;
         while(j<andre.length){
             joina[i++]=andre[j];
@@ -1108,10 +1111,10 @@ public class Gui extends JFrame {
             k++;
         }
         int l=0;
-        while(l<fjerde.length){
-            joina[i++]=fjerde[l];
+        while(l<fjerde.length) {
+            joina[i++] = fjerde[l];
             l++;
-        }*/
+        }
         return joina;
     }
 
