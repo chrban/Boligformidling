@@ -34,7 +34,7 @@ public class Gui extends JFrame {
     private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
-    private JRadioButton utleier, boligsøker,persontabell,boligtabell;
+    private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5;
     //private JRadioButton utleier, boligsøker;
    // private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
@@ -143,32 +143,15 @@ public class Gui extends JFrame {
         panel1 = new JPanel(new GridLayout(2, 2));  // FANE panel
         // panel1 = new JPanel(new BorderLayout());  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
-        panel3 = new JPanel(layout);  // FANE panel
+        panel3 = new JPanel(new FlowLayout());  // FANE panel
         panel4 = new JPanel(layout);  // FANE panel
         utpanel = new JPanel(layout); // Utleierpanel
         bspanel = new JPanel(layout); // Boligsøkerpanel
         bopanel = new JPanel(layout); // Boligpanel
         pepanel = new JPanel(layout); // PersonPanel
-        tapanel = new JPanel(new GridLayout(2,2));//tabellpanel
+        tapanel = new JPanel(layout);//tabellpanel
 
         panel5 = new JPanel(layout);
-        //pepanel.setVisible(true);
-
-      /*  panel1.setVisible(true);
-            c.gridx = 8;
-            c.gridy = 0;
-            c.gridwidth = 2;
-            c.gridheight = 9;
-            c.insets = new Insets(5,5,5,5);
-            c.anchor = GridBagConstraints.FIRST_LINE_START;
-        panel1.add(bspanel, c);
-        panel1.add(pepanel);
-            c.gridheight = 1;
-
-        panel1.add(utpanel, c);
-        panel2.add(bopanel, c);
-
-        */
 
 
         panel1.add(pepanel, BorderLayout.LINE_START);
@@ -178,7 +161,7 @@ public class Gui extends JFrame {
 
 
         panel2.add(bopanel);
-        panel3.add(tapanel);
+        panel3.add(tapanel,BorderLayout.LINE_END);
 
 
 //todo-Christer: sett min/maxpris label til å initie så den har verdiiii
@@ -720,22 +703,22 @@ public class Gui extends JFrame {
 
         radioTabellLytter = new tabellTypeLytter();
         radioTabell = new ButtonGroup();
-        persontabell = new JRadioButton("Vis personer",false);
+        persontabellRadioknapp = new JRadioButton("Vis personer",false);
 
-        persontabell.addActionListener(radioTabellLytter);
+        persontabellRadioknapp.addActionListener(radioTabellLytter);
 
         c.gridx = 0;
         c.gridy = 0;
-        panel3.add(persontabell,c);
+        panel3.add(persontabellRadioknapp,c);
 
-        boligtabell = new JRadioButton("Vis boliger:",false);
-        boligtabell.addActionListener(radioTabellLytter);
+        boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
+        boligtabellRadioknapp.addActionListener(radioTabellLytter);
         c.gridx = 0;
         c.gridy = 1;
-        panel3.add(boligtabell,c);
+        panel3.add(boligtabellRadioknapp,c);
 
-        radioTabell.add(persontabell);
-        radioTabell.add(boligtabell);
+        radioTabell.add(persontabellRadioknapp);
+        radioTabell.add(boligtabellRadioknapp);
 
 
 
@@ -750,7 +733,7 @@ public class Gui extends JFrame {
 
 
 
-
+        tapanel.setBackground(Color.BLUE);
 
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
@@ -929,26 +912,36 @@ public class Gui extends JFrame {
     private class tabellTypeLytter implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(boligtabell.isSelected()){
+            if(boligtabellRadioknapp.isSelected()){
 
-                System.out.println("togla boligtabell " + boligtabell.isSelected() + "perta er" + persontabell.isSelected());
+                System.out.println("togla boligtabell " + boligtabellRadioknapp.isSelected() + "perta er" + persontabellRadioknapp.isSelected());
             //   panel3.remove(personTabellScroll);
             //    panel3.remove(boligTabellScroll);
                 clearPanel3();
                 lagBoligTabellen();
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabell));
+                //tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
 
                 tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
 
                 //repaint();
                 revalidate();
                 repaint();
+/*
 
+        c.gridx = 0;
+        c.gridy = 0;
+        panel3.add(persontabellRadioknapp,c);
 
+        boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
+        boligtabellRadioknapp.addActionListener(radioTabellLytter);
+        c.gridx = 0;
+        c.gridy = 1;
+        panel3.add(boligtabellRadioknapp,c);
+ */
 
             }
-            else if(persontabell.isSelected()){
-                System.out.println("Tolga persontabell " + persontabell.isSelected() + " boligtab er " + boligtabell.isSelected());
+            else if(persontabellRadioknapp.isSelected()){
+                System.out.println("Tolga persontabell " + persontabellRadioknapp.isSelected() + " boligtab er " + boligtabellRadioknapp.isSelected());
                 //panel3.remove(personTabellScroll);
               //  panel3.remove(boligTabellScroll);
                 clearPanel3();
@@ -958,14 +951,10 @@ public class Gui extends JFrame {
                 revalidate();
                 repaint();
 
-            }
 
+            }
         }
     }
-
-
-
-
     //todo Christer, Åpne fabrikken
 
 
