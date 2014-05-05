@@ -867,28 +867,14 @@ public class Gui extends JFrame {
                 regUtleierKnapp.setVisible(false);
                 revalidate();
             }
-
-
         }
     }
-
-
     //todo Christer, Åpne fabrikken
 
 
-    public String[][] joinArray() {
+    private String[][] joinPersonArray() {
         String[][] første =  boligsøkere.tilTabell();
         String[][] andre =utleiere.tilTabell();
-
-
-      /*  String[][] tredje = {
-                {"Emil1", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","Firmaaa"},
-                {"Kemil2", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","ad"},
-                {"emil3", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","bghjk"},
-                {"emil4", "Bdffdfsang", "Madfjorstuveien 18", "christer@bang.is", "93260054","d"},
-        };*/
-
-
         String[][] joina = new String[første.length + andre.length /*+ tredje.length*/][6];
 
 
@@ -897,23 +883,13 @@ public class Gui extends JFrame {
             joina[i] = første[i];
             i++;
         }
-        int k=0;
-        while(k<andre.length){
-            joina[i++]=andre[k];
-            k++;
-        }
-/*
         int j=0;
-        while (j<tredje.length){
-            joina[i++]=tredje[j];
+        while(j<andre.length){
+            joina[i++]=andre[j];
             j++;
         }
-*/
-
         return joina;
     }
-
-
 
     private class personTabellFabrikk extends AbstractTableModel {
 
@@ -922,7 +898,7 @@ public class Gui extends JFrame {
 
         String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon","Firma"};
 
-        String[][] celler = joinArray();
+        String[][] celler = joinPersonArray();
 
 
 
@@ -935,6 +911,8 @@ public class Gui extends JFrame {
             return celler[0].length;
 
         }
+
+
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
@@ -951,15 +929,95 @@ public class Gui extends JFrame {
             celler[rad][kolonne] = nyVerdi;
         }
 
+
+
+
     }    // end personTabellFabrikk
 
 
-    private void lagTabellen()
+    private void lagTabellen() // legge til boligTabell her ogsÅ?
     {
-        personTabellFabrikk tabellModell = new personTabellFabrikk(); //lager modellen
-        tabell1 = new JTable(tabellModell);
+        personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
+        tabell1 = new JTable(personTabellModell);
+        //boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
+        //tabell2 = new JTable(boligTabellModell);
     }
 
+
+/*
+
+    private class boligTabellFabrikk extends AbstractTableModel {
+
+
+        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Garasje"}; // endre når jeg peeker hva osen har putta inn
+
+        String[][] celler = joinBoligArray();
+
+
+        // THEM RULES for tabellen Altså tabellmodellen
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+
+
+    }    // end boligTabellFabrikk
+
+todo Åpne denne
+    private String[][] joinBoligArray() {
+        String[][] første =  enebolig.tilTabell();
+        String[][] andre = rekkehus.tilTabell();
+        String[][] tredje = hybel.tilTabell();
+        String[][] fjerde = leilighet.tilTabell();
+        String[][] joina = new String[første.length + andre.length + tredje.length + fjerde.length][8];
+        int i = 0;
+        while (i < første.length) {
+            joina[i] = første[i];
+            i++;
+        }
+
+        int j=0;
+        while(j<andre.length){
+            joina[i++]=andre[j];
+            j++;
+        }
+        int k=0;
+        while(k<tredje.length){
+            joina[i++]=tredje[k];
+            k++;
+        }
+        int l=0;
+        while(l<fjerde.length){
+            joina[i++]=fjerde[l];
+            l++;
+        }
+        return joina;
+    }
+
+
+
+*/
 
         //private TableModel tabellModell;
         //private personTabellFabrikk vindu;
