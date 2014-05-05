@@ -1265,10 +1265,36 @@ public class Gui extends JFrame {
     public void regBolig()
     {
         JOptionPane.showMessageDialog(null, "Regbolig kjører");
+
         String adr = adresse.getText();
-        int areal = Integer.parseInt(boareal.getText());
-        int år = Integer.parseInt(byggår.getText());
-        int upris = Integer.parseInt(pris.getText());
+        String arealString = boareal.getText();
+        String årString = byggår.getText();
+        String utPrisString = pris.getText();
+        int areal = 0;
+        int år = 0;
+        int upris = 0;
+
+
+        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Du må fylle ut alle feltene");
+            return;
+        }
+
+
+
+        try
+        {
+            areal = Integer.parseInt(arealString);
+            år = Integer.parseInt(årString);
+            upris = Integer.parseInt(utPrisString);
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
+        }
+
+
 
         // disse må knyttes til felter senere
         // todo christe rædd feltene

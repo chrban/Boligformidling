@@ -4,7 +4,7 @@ public class KontraktListe {
 
     public KontraktListe(){
         første = null;
-        
+
     }
 
     public boolean leggInnKontrakt(Kontrakt ny){
