@@ -35,7 +35,7 @@ public class Gui extends JFrame {
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -44,7 +44,8 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private JTable personTabell, boligTabell;
+    private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
+    private JTable personTabell, boligTabell, kontraktHistorikkTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson, testgruppe;
@@ -58,7 +59,7 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
     private JMenuItem om, lagre, angre,tabell;
-    private JScrollPane personTabellScroll,boligTabellScroll;
+    private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
     //private JTextArea utskriftsområde;
     private fanelytter faneøre;
     //private Utvalgslytter lsm;
@@ -114,6 +115,8 @@ public class Gui extends JFrame {
         faneøre = new fanelytter();
         personTabellScroll= new JScrollPane(personTabell);
         boligTabellScroll=new JScrollPane(boligTabell);
+        kontraktHistorikkTabellScroll = new JScrollPane(kontraktHistorikkTabell);
+
 
 
 
@@ -140,6 +143,7 @@ public class Gui extends JFrame {
         bspanel = new JPanel(layout); // Boligsøkerpanel
         bopanel = new JPanel(layout); // Boligpanel
         pepanel = new JPanel(layout); // PersonPanel
+        panel5 = new JPanel(layout);
         //pepanel.setVisible(true);
 
       /*  panel1.setVisible(true);
@@ -183,10 +187,12 @@ public class Gui extends JFrame {
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
         fane.addTab("Vis tabell", null, panel3, "Show tabell");
         fane.addTab("MatchMaking", null, panel4, "Tinde");
+        fane.addTab("Kontrakter", null, panel5, "Registrer og se kontrakter");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
         fane.setMnemonicAt(1, KeyEvent.VK_2);
         fane.setMnemonicAt(2, KeyEvent.VK_3);
         fane.setMnemonicAt(3, KeyEvent.VK_4);
+        fane.setMnemonicAt(4, KeyEvent.VK_5);
 
         fane.addChangeListener(faneøre);
 
@@ -701,7 +707,8 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-
+        kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(), kontraktTabellKolonneNavn);
+        panel5.add(kontraktHistorikkTabell);
       //  panel3.add(tabellscroll = new JScrollPane(tabell1));
 
 
