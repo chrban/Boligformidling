@@ -191,6 +191,53 @@ public class Boligliste implements Serializable {
         }
         return ut;
     }
+
+    public String[][] rekkehusTilTabell()
+    {
+        String[][] ut = new String[rekkehus.size()][8];
+        Rekkehus rekkehuset;
+        Iterator<Rekkehus> iter = rekkehus.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            rekkehuset = iter.next();
+            ut[i++] = rekkehuset.tilTabell();
+        }
+        return ut;
+    }
+
+    public String[][] leiligheterTilTabell()
+    {
+        String[][] ut = new String[leiligheter.size()][8];
+        Leilighet leilighet;
+        Iterator<Leilighet> iter = leiligheter.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            leilighet = iter.next();
+            ut[i++] = leilighet.tilTabell();
+        }
+        return ut;
+    }
+
+    public String[][] hyblerTilTabell()
+    {
+        String[][] ut = new String[hybler.size()][8];
+        Hybel hybel;
+        Iterator<Hybel> iter = hybler.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            hybel = iter.next();
+            ut[i++] = hybel.tilTabell();
+        }
+        return ut;
+    }
+
+
     /* public String[][] tilTabell()
     {
         String[][] ut = new String[liste.size()][6];

@@ -57,4 +57,50 @@ public class Leilighet extends Bolig implements Serializable
 
         return specArray;
     }
+
+    public String[] tilTabell()
+    {
+        String[] ut = new String[8];
+
+        ut[0] = sted();
+        ut[1] = getBoareal() + " m²";
+        ut[2] = getUtleiepris() + " kr/m";
+        ut[3] = getAdresse();
+        ut[4] = Integer.toString(super.getRom());
+        ut[5] = Integer.toString(balkong);
+        ut[6] = Integer.toString(heis);
+        ut[7] = super.getBildesti();
+
+        return ut;
+    }
+    public String sted()
+    {
+        String sted = "";
+
+        switch (super.getSted()) {
+            case 1:
+                sted = "Oslo";
+                break;
+            case 2:
+                sted = "Bergen";
+                break;
+            case 3:
+                sted = "Stavanger";
+                break;
+            case 4:
+                sted = "Trondheim";
+                break;
+            case 5:
+                sted = "Kristiansand";
+                break;
+            case 6:
+                sted = "Tromsø";
+                break;
+            default:
+                sted = "Ukjent";
+                break;
+        }
+        return sted;
+    }
+
 }
