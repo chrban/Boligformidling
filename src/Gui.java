@@ -756,7 +756,7 @@ public class Gui extends JFrame {
         }
     }
 
-
+//her er nfm
     private void togler() //Metode for å skjule alle BT-avhengige valg.
     {
         System.out.println("TOGLA!");
