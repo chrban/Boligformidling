@@ -93,6 +93,7 @@ public class Gui extends JFrame {
         tabell = new JMenuItem("Last inn tabell på nytt");//bate temp ass
         tabell.addActionListener(øre);
 
+        kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
 
         rediger = new JMenu("Rediger");
 
@@ -1335,7 +1336,7 @@ public class Gui extends JFrame {
     {
         JOptionPane.showMessageDialog(null, "Regbolig kjører");
 
-        String adr = adresse.getText();
+        String adr = adresseFane2.getText();
         String arealString = boareal.getText();
         String årString = byggår.getText();
         String utPrisString = pris.getText();
