@@ -50,11 +50,56 @@ public class Enebolig extends Bolig implements Serializable
 
         return specArray;
     }
-    /*public String[] tilTabell()
+    public String[] tilTabell()
     {
-        
+        String[] ut = new String[8];
+
+        ut[0] = sted();
+        ut[1] = getBoareal() + " m²";
+        ut[2] = getUtleiepris() + " kr/m";
+        ut[3] = getAdresse();
+        ut[4] = Integer.toString(super.getRom());
+        ut[5] = Integer.toString(parkering);
+        ut[6] = Integer.toString(kjeller);
+        ut[7] = super.getBildesti();
+
+        return ut;
     }
-   /*
+
+
+
+    public String sted()
+    {
+        String sted = "";
+
+        switch (super.getSted()) {
+            case 1:
+                sted = "Oslo";
+                break;
+            case 2:
+                sted = "Bergen";
+                break;
+            case 3:
+                sted = "Stavanger";
+                break;
+            case 4:
+                sted = "Trondheim";
+                break;
+            case 5:
+                sted = "Kristiansand";
+                break;
+            case 6:
+                sted = "Tromsø";
+                break;
+            default:
+                sted = "Ukjent";
+                break;
+        }
+        return sted;
+    }
+
+
+    /*
     public datatype[] specs()
     {
         returner array med spesifikasjoner om boligen(både fra super- og subklassen) for sammenlikning med boligsøkers krav.

@@ -177,6 +177,34 @@ public class Boligliste implements Serializable {
      */
     }
 
+    public String[][] eneboligerTilTabell()
+    {
+        String[][] ut = new String[eneboliger.size()][8];
+        Enebolig enebolig;
+        Iterator<Enebolig> iter = eneboliger.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            enebolig = iter.next();
+            ut[i++] = enebolig.tilTabell();
+        }
+        return ut;
+    }
+    /* public String[][] tilTabell()
+    {
+        String[][] ut = new String[liste.size()][6];
+        Utleier utleier;
+        Iterator<Utleier> iter = liste.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            utleier = iter.next();
+            ut[i++] = utleier.tilTabell();
+        }
+        return ut;
+    }*/
 
     public void finnBolig()
     {
