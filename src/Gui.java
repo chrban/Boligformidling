@@ -35,9 +35,9 @@ public class Gui extends JFrame {
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabell,boligtabell;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel;
-    private JRadioButton utleier, boligsøker;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5;
+    //private JRadioButton utleier, boligsøker;
+   // private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -66,7 +66,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
 
 
-    private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
+    //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
     //private JTextArea utskriftsområde;
     private fanelytter faneøre;
     //private Utvalgslytter lsm;
