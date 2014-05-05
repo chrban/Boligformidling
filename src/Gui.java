@@ -44,7 +44,7 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private JTable tabell1, tabell2;
+    private JTable personTabell, boligTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private ButtonGroup radioPerson, testgruppe;
@@ -58,7 +58,7 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
     private JMenuItem om, lagre, angre,tabell;
-    private JScrollPane tabellscroll;
+    private JScrollPane personTabellScroll,boligTabellScroll;
     //private JTextArea utskriftsområde;
     private fanelytter faneøre;
     //private Utvalgslytter lsm;
@@ -112,7 +112,8 @@ public class Gui extends JFrame {
         kontrakter = new KontraktListe();
         lytter = new knappLytter();
         faneøre = new fanelytter();
-        tabellscroll = new JScrollPane(tabell1);
+        personTabellScroll= new JScrollPane(personTabell);
+        boligTabellScroll=new JScrollPane(boligTabell);
 
 
 
@@ -750,11 +751,11 @@ public class Gui extends JFrame {
             }
             else if(e.getSource() ==tabell){
                 System.out.println("Hente inn tabell på nytt");
-                panel3.remove(tabellscroll);
+                panel3.remove(personTabellScroll);
+                panel3.remove(boligTabellScroll);
                 lagTabellen();
-                panel3.add(tabellscroll = new JScrollPane(tabell1));
-
-
+                panel3.add(personTabellScroll = new JScrollPane(personTabell));
+                panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
             }
 
 
@@ -767,9 +768,15 @@ public class Gui extends JFrame {
         public void stateChanged(ChangeEvent e) {
             if(fane.getSelectedIndex()==2) {
                 System.out.println("Trykka på fane; vis tabell!");
-                panel3.remove(tabellscroll);
+                panel3.remove(personTabellScroll);
+                panel3.remove(boligTabellScroll);
                 lagTabellen();
-                panel3.add(tabellscroll = new JScrollPane(tabell1));
+                lagBoligTabellen();
+                panel3.add(personTabellScroll = new JScrollPane(personTabell));
+                panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
+
+
+
             }
             System.out.println("byttet fane, derfor kjører jeg en repaint(), trengs egentlig ikke men..");
             repaint();
@@ -938,18 +945,23 @@ public class Gui extends JFrame {
     private void lagTabellen() // legge til boligTabell her ogsÅ?
     {
         personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
-        tabell1 = new JTable(personTabellModell);
-        //boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
-        //tabell2 = new JTable(boligTabellModell);
+        personTabell = new JTable(personTabellModell);
+
+    }
+    private void lagBoligTabellen()
+    {
+        boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
+        personTabell = new JTable(boligTabellModell);
     }
 
 
-/*
+
 
     private class boligTabellFabrikk extends AbstractTableModel {
 
 
-        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Garasje"}; // endre når jeg peeker hva osen har putta inn
+        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
+
 
         String[][] celler = joinBoligArray();
 
@@ -984,19 +996,19 @@ public class Gui extends JFrame {
 
     }    // end boligTabellFabrikk
 
-todo Åpne denne
+
     private String[][] joinBoligArray() {
-        String[][] første =  enebolig.tilTabell();
-        String[][] andre = rekkehus.tilTabell();
+        String[][] første = boliger.eneboligerTilTabell();
+      /*  String[][] andre = boliger.;
         String[][] tredje = hybel.tilTabell();
-        String[][] fjerde = leilighet.tilTabell();
-        String[][] joina = new String[første.length + andre.length + tredje.length + fjerde.length][8];
+        String[][] fjerde = leilighet.tilTabell();*/
+        String[][] joina = new String[første.length /*+ andre.length + tredje.length + fjerde.length*/][8];
         int i = 0;
         while (i < første.length) {
             joina[i] = første[i];
             i++;
         }
-
+/*
         int j=0;
         while(j<andre.length){
             joina[i++]=andre[j];
@@ -1011,13 +1023,12 @@ todo Åpne denne
         while(l<fjerde.length){
             joina[i++]=fjerde[l];
             l++;
-        }
+        }*/
         return joina;
     }
 
 
 
-*/
 
         //private TableModel tabellModell;
         //private personTabellFabrikk vindu;
