@@ -34,8 +34,8 @@ public class Gui extends JFrame {
     private JLabel minPris, maxPris, firmaLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
-    private JRadioButton utleier, boligsøker;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel;
+    private JRadioButton utleier, boligsøker,persontabell,boligtabell;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -47,7 +47,8 @@ public class Gui extends JFrame {
     private JTable personTabell, boligTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
-    private ButtonGroup radioPerson, testgruppe;
+    private tabellTypeLytter radioTabellLytter;
+    private ButtonGroup radioPerson, radioTabell;
     private Border ramme = BorderFactory.createLineBorder(Color.BLACK);
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
@@ -58,7 +59,10 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger;
     private JMenuItem om, lagre, angre,tabell;
-    private JScrollPane personTabellScroll,boligTabellScroll;
+    private JScrollPane personTabellScroll;
+    private JScrollPane boligTabellScroll;
+
+
     //private JTextArea utskriftsområde;
     private fanelytter faneøre;
     //private Utvalgslytter lsm;
@@ -140,6 +144,8 @@ public class Gui extends JFrame {
         bspanel = new JPanel(layout); // Boligsøkerpanel
         bopanel = new JPanel(layout); // Boligpanel
         pepanel = new JPanel(layout); // PersonPanel
+        tapanel = new JPanel(layout);//tabellpanel
+
         //pepanel.setVisible(true);
 
       /*  panel1.setVisible(true);
@@ -166,7 +172,7 @@ public class Gui extends JFrame {
 
 
         panel2.add(bopanel);
-
+        panel3.add(tapanel);
 
 //todo-Christer: sett min/maxpris label til å initie så den har verdiiii
 
@@ -176,6 +182,7 @@ public class Gui extends JFrame {
         bspanel.setVisible(false); // endre tilbake til, false
         utpanel.setVisible(false);
         pepanel.setVisible(true);
+        tapanel.setVisible(true);
 
         //oppretter Fanene
 
@@ -702,17 +709,30 @@ public class Gui extends JFrame {
 
 
 
-      //  panel3.add(tabellscroll = new JScrollPane(tabell1));
+        radioTabellLytter = new tabellTypeLytter();
+        radioTabell = new ButtonGroup();
+        persontabell = new JRadioButton("Vis personer",false);
+
+        persontabell.addActionListener(radioTabellLytter);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        panel3.add(persontabell,c);
+
+        boligtabell = new JRadioButton("Vis boliger:",false);
+        boligtabell.addActionListener(radioTabellLytter);
+        c.gridx = 1;
+        c.gridy = 0;
+        panel3.add(boligtabell,c);
+
+        radioTabell.add(persontabell);
+        radioTabell.add(boligtabell);
 
 
-        //personTabellFabrikk();
-        //panel3.add(new JScrollPane(tabell1));
-        //panel3.add(new JScrollPane(tabell2));
 
 
-        //panel3.add(new JScrollPane(tabell1));
 
-
+        //SLUTT FANE 3
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
         fane.setPreferredSize(new Dimension(getSize()));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
@@ -754,27 +774,28 @@ public class Gui extends JFrame {
                 panel3.remove(personTabellScroll);
                 panel3.remove(boligTabellScroll);
                 lagTabellen();
-                panel3.add(personTabellScroll = new JScrollPane(personTabell));
-                panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
+                panel3.add(personTabellScroll = new JScrollPane(personTabell),BorderLayout.LINE_END);
+                panel3.add(boligTabellScroll = new JScrollPane(boligTabell),BorderLayout.BEFORE_LINE_BEGINS);
             }
 
 
         }
     }
 
-
+    //tabellSplittPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,personTabellScroll,boligTabellScroll);
 
     private class fanelytter implements ChangeListener{
         public void stateChanged(ChangeEvent e) {
-            if(fane.getSelectedIndex()==2) {
+           if(fane.getSelectedIndex()==2) {
                 System.out.println("Trykka på fane; vis tabell!");
+/*
                 panel3.remove(personTabellScroll);
                 panel3.remove(boligTabellScroll);
                 lagTabellen();
                 lagBoligTabellen();
                 panel3.add(personTabellScroll = new JScrollPane(personTabell));
                 panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
-
+*/
 
 
             }
@@ -876,6 +897,51 @@ public class Gui extends JFrame {
             }
         }
     }
+    private void clearPanel3()
+    {
+       tapanel.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    private class tabellTypeLytter implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(boligtabell.isSelected()){
+
+                System.out.println("togla boligtabell " + boligtabell.isSelected() + "perta er" + persontabell.isSelected());
+             //   panel3.remove(personTabellScroll);
+            //    panel3.remove(boligTabellScroll);
+                clearPanel3();
+                lagBoligTabellen();
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabell));
+
+                //repaint();
+                revalidate();
+                repaint();
+
+
+
+            }
+            else if(persontabell.isSelected()){
+                System.out.println("Tolga persontabell " + persontabell.isSelected() + " boligtab er " + boligtabell.isSelected());
+                //panel3.remove(personTabellScroll);
+              //  panel3.remove(boligTabellScroll);
+                clearPanel3();
+                lagTabellen();
+                panel3.add(personTabellScroll = new JScrollPane(personTabell));
+                //repaint();
+                revalidate();
+                repaint();
+
+            }
+
+        }
+    }
+
+
+
+
     //todo Christer, Åpne fabrikken
 
 
@@ -960,29 +1026,29 @@ public class Gui extends JFrame {
     private class boligTabellFabrikk extends AbstractTableModel {
 
 
-        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
+        String[] boligkolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
 
 
-        String[][] celler = joinBoligArray();
+        String[][] boligceller = joinBoligArray();
 
 
         // THEM RULES for tabellen Altså tabellmodellen
         public int getRowCount() {
-            return celler.length;
+            return boligceller.length;
         }
 
         public int getColumnCount() {
-            return celler[0].length;
+            return boligceller[0].length;
 
         }
 
 
         public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
+            return boligceller[rad][kolonne];
         }
         public String getColumnName(int kolonne)//for kolonnenavn
         {
-            return kolonnenavn[kolonne];
+            return boligkolonnenavn[kolonne];
         }
         public boolean isCellEditable(int rad, int kolonne)
         {
@@ -990,7 +1056,7 @@ public class Gui extends JFrame {
         }
         public void setValueAt(String nyVerdi, int rad, int kolonne)
         {
-            celler[rad][kolonne] = nyVerdi;
+            boligceller[rad][kolonne] = nyVerdi;
         }
 
 
