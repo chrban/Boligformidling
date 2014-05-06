@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Kontrakt implements Serializable{
@@ -8,6 +10,7 @@ public class Kontrakt implements Serializable{
     Kontrakt neste;
     private Date start;
     private Date slutt;
+    private DateFormat df;
 
 
     public Kontrakt(Utleier e, Boligsøker l, Bolig b, Date s, Date sl){
@@ -16,6 +19,7 @@ public class Kontrakt implements Serializable{
         bolig = b;
         start = s;
         slutt = sl;
+        df = new SimpleDateFormat("MM/dd/yyyy");
     }
 
     public Utleier getUtleier(){
@@ -40,7 +44,7 @@ public class Kontrakt implements Serializable{
         return slutt;
     }
     public String toString(){
-        return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\n";
+        return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\nKontraktstart: " + df.format(start) + "\nKontraktslutt: " + df.format(slutt) + "\n";
     }
 
     public String[] tilTabell()

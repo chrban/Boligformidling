@@ -1754,7 +1754,7 @@ private class resultatTabellModell extends AbstractTableModel
             String ad = adresse.getText();
             String t = tlf.getText();
             String email = mail.getText();
-            JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig ting i feltene når du skal regge en boligsøker" + fnavn + enavn + ad + email);
+
             // Bestemm Boligtype
             String bType = (String) boligtypeBox.getSelectedItem();
             switch (bType)
@@ -1821,13 +1821,12 @@ private class resultatTabellModell extends AbstractTableModel
 
             plan = Integer.parseInt((String)planBox.getSelectedItem());
 
-            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
+            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
             {
-                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig ting i feltene når du skal regge en boligsøker" + fnavn + enavn + ad + email);
+                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
                 return;
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
-            JOptionPane.showMessageDialog(null, "Reg person, helt nederst i boligsøker");
 
             String id = idGenerator(enavn,fnavn);
 
@@ -1839,7 +1838,6 @@ private class resultatTabellModell extends AbstractTableModel
         // regger utleier
         else if(utleier.isSelected())
         {
-            JOptionPane.showMessageDialog(null, "du har helt klart valgt utleier nå");
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
@@ -1848,7 +1846,7 @@ private class resultatTabellModell extends AbstractTableModel
             String firm = firma.getText();
 
             if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals("")){
-                JOptionPane.showMessageDialog(null, "Fuck du må skrive inn ordentlig");
+                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
                 return;
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
@@ -1857,7 +1855,6 @@ private class resultatTabellModell extends AbstractTableModel
 
 
             Utleier ny = new Utleier(id, fnavn, enavn, ad ,t ,email, firm);
-            JOptionPane.showMessageDialog(null, "nederst på utleier, rett over add");
             utleiere.settInn(ny);
             return;
         }
@@ -1924,6 +1921,7 @@ private class resultatTabellModell extends AbstractTableModel
         catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
+            return;
         }
 
 
