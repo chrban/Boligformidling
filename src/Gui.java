@@ -475,7 +475,7 @@ public class Gui extends JFrame {
 
         regPersonKnapp = new JButton("Registrer");
         regPersonKnapp.addActionListener(lytter);
-        c.gridx = 3;
+        c.gridx = 2;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10, 5, 5, 5);
@@ -783,6 +783,7 @@ public class Gui extends JFrame {
         c.gridy = 0;
         panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
 
+
         visBoliger();
         c.gridx = 4;
         c.gridy = 1;
@@ -826,7 +827,7 @@ public class Gui extends JFrame {
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt enda...");
-        panel5.add(valgtUtleier,c);
+        panel5.add(valgtLeietaker,c);
 
 
 
@@ -1008,6 +1009,10 @@ public class Gui extends JFrame {
         balkongValg.setVisible(false);
         badValg.setVisible(false);
         kjøkkenValg.setVisible(false);
+        revalidate();
+    }
+    private void toglerFane2(){
+        System.out.println("Togla fane2 for faen");
         garasjeValgFane2.setVisible(false);
         kjellerValgFane2.setVisible(false);
         etasjeBoxFane2.setVisible(false);
@@ -1063,7 +1068,7 @@ public class Gui extends JFrame {
             }
             switch (boligTypeFane2){
                 case "Enebolig":
-                    togler();
+                    toglerFane2();
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -1073,7 +1078,7 @@ public class Gui extends JFrame {
                     revalidate();
                     break;
                 case "Rekkehus":
-                    togler();
+                    toglerFane2();
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -1083,20 +1088,20 @@ public class Gui extends JFrame {
                     revalidate();
                     break;
                 case "Leilighet":
-                    togler();
+                    toglerFane2();
                     heisValgFane2.setVisible(true);
                     balkongValgFane2.setVisible(true);
                     revalidate();
                     break;
                 case "Hybel":
-                    togler();
+                    toglerFane2();
                     badValgFane2.setVisible(true);
                     kjøkkenValgFane2.setVisible(true);
                     revalidate();
                     break;
                 default:
-                    System.out.println("Default");
-                    togler();
+                    System.out.println("DefaultFane2");
+                    toglerFane2();
                     revalidate();
                     break;
 
@@ -1211,16 +1216,30 @@ public class Gui extends JFrame {
                 return;
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if(!lsm.isSelectionEmpty())
-            {
-                int valgtRad = lsm.getMinSelectionIndex();
-                String id = (String)tabellmodell.getValueAt(valgtRad,0);
-                System.out.println("nå har programmet fått med seg at du har valgt noe");
-                valgtUtleier.setText(id);
+            if(tabellmodell instanceof utleierTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    System.out.println("nå har programmet fått med seg at du har valgt noe fra utleiertabbel");
+                    valgtUtleier.setText(id);
 
-                velgUtleierVindu.dispose();
+                    velgUtleierVindu.dispose();
+                    return;
+                }
             }
 
+            else if(tabellmodell instanceof boligsøkerTabellModell)
+            {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    System.out.println("nå har programmet fått med seg at du har valgt noe fra boligsøkertabbel");
+                    valgtLeietaker.setText(id);
+
+                    velgLeietakerVindu.dispose();
+                    return;
+                }
+            }
 
         }
     }
@@ -1230,10 +1249,42 @@ public class Gui extends JFrame {
 
 
     // UTLEIERTABELLMODELL
-    class utleierTabellModell extends AbstractTableModel
+    private class utleierTabellModell extends AbstractTableModel
     {
         String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         String [][] celler = utleiere.tilTabellMedId();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+    }
+
+
+    private class boligsøkerTabellModell extends AbstractTableModel
+    {
+        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
+        String [][] celler = boligsøkere.tilTabellMedId();
 
         public int getRowCount() {
             return celler.length;
@@ -1845,7 +1896,6 @@ public class Gui extends JFrame {
 
     private void visVelgUtleierVindu()
     {
-        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         velgUtleierVindu = new JFrame("Velg Eier");
         velgUtleierVindu.setSize(600,600);
        // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
@@ -1863,17 +1913,22 @@ public class Gui extends JFrame {
 
 
     }
+
+
+
     private void visVelgLeietakerVindu()
     {
-        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
         velgLeietakerVindu = new JFrame("Velg Leietaker");
-
-
         velgLeietakerVindu.setSize(600,600);
-        leietakerValgTabell = new JTable(boligsøkere.tilTabellMedId(), kolonnenavn);
+
+        boligsøkerTabellModell modell = new boligsøkerTabellModell();
+        leietakerValgTabell = new JTable(modell);
+        leietakerValgTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ListSelectionModel lsm = leietakerValgTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(modell));
+
         velgLeietakerVindu.add(leietakerValgTabell);
-
-
         velgLeietakerVindu.setVisible(true);
 
 
