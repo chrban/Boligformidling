@@ -15,6 +15,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
 
     public Bolig(){}
 
+
+
+
     public Bolig(String ad,int s, int b, int r, int by, int u, int e, String sti)
     {
         adresse = ad;

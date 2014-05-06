@@ -29,13 +29,14 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,finnMatch;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5;
+    ;
     //private JRadioButton utleier, boligsøker;
    // private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
@@ -47,7 +48,7 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell ;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -746,12 +747,54 @@ public class Gui extends JFrame {
 
 
 
-
-
         //SLUTT FANE 3
 
+        //FANE 4 - MATCHMAKING ************************************************************************************************************************************************************************
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
 
-        // fane 5?
+        boligsøkerOverskrift = new JLabel("Boligsøkere");
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        panel4.add(boligsøkerOverskrift,c);
+
+
+        visBoligsøkere();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        panel4.add(visBoligsøkereTabell,c);
+
+        finnMatch = new JButton("Finn Match!");
+        c.gridx = 2;
+        c.gridy = 1;
+        panel4.add(finnMatch,c);
+
+
+
+
+        c.gridx = 4;
+        c.gridy = 0;
+        panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
+
+        visBoliger();
+        c.gridx = 4;
+        c.gridy = 1;
+        panel4.add(visBoligTabell,c);
+
+
+
+
+
+
+        //Slutt fane 4
+        // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         c.anchor = GridBagConstraints.NORTHWEST;
         c.ipady=2
         ;
@@ -974,6 +1017,7 @@ public class Gui extends JFrame {
         kjøkkenValgFane2.setVisible(false);
         antEgtLabel.setVisible(false);
         tomtAreal.setVisible(false);
+        tomtArealLabel.setVisible(false);
         revalidate();
     }
 
@@ -1025,6 +1069,7 @@ public class Gui extends JFrame {
                     etasjeBoxFane2.setVisible(true);
                     antEgtLabel.setVisible(true);
                     tomtAreal.setVisible(true);
+                    tomtArealLabel.setVisible(true);
                     revalidate();
                     break;
                 case "Rekkehus":
@@ -1034,6 +1079,7 @@ public class Gui extends JFrame {
                     etasjeBoxFane2.setVisible(true);
                     antEgtLabel.setVisible(true);
                     tomtAreal.setVisible(true);
+                    tomtArealLabel.setVisible(true);
                     revalidate();
                     break;
                 case "Leilighet":
@@ -1336,43 +1382,6 @@ public class Gui extends JFrame {
 
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void regPerson()
@@ -1785,22 +1794,24 @@ public class Gui extends JFrame {
 
     }
 
-    public void visBoligsøkere()
-    {
-        /*todo
-        - vis de.
-        */
 
+
+    public void visBoligsøkere(){
+        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
+        visBoligsøkereTabell = new JTable(boligsøkere.tilTabell(),kolonnenavn);
     }
 
 
-    public void visBoliger()
-    {
-     /*
-     - Skal vi kunne vise alle boligene samtidig eller bare en type om gangen? en type er vel absolutt lettest.
-     -
-     */
-    } // få til sanntid-endringer mht endringer i innfeltene?
+
+
+    public void visBoliger() {
+
+        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
+        visBoligTabell = new JTable(joinBoligArray(),kolonnenavn);
+
+
+    }
+
 
 
 
