@@ -826,7 +826,7 @@ public class Gui extends JFrame {
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt enda...");
-        panel5.add(valgtUtleier,c);
+        panel5.add(valgtLeietaker,c);
 
 
 
@@ -1211,16 +1211,30 @@ public class Gui extends JFrame {
                 return;
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if(!lsm.isSelectionEmpty())
-            {
-                int valgtRad = lsm.getMinSelectionIndex();
-                String id = (String)tabellmodell.getValueAt(valgtRad,0);
-                System.out.println("nå har programmet fått med seg at du har valgt noe");
-                valgtUtleier.setText(id);
+            if(tabellmodell instanceof utleierTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    System.out.println("nå har programmet fått med seg at du har valgt noe fra utleiertabbel");
+                    valgtUtleier.setText(id);
 
-                velgUtleierVindu.dispose();
+                    velgUtleierVindu.dispose();
+                    return;
+                }
             }
 
+            else if(tabellmodell instanceof boligsøkerTabellModell)
+            {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    System.out.println("nå har programmet fått med seg at du har valgt noe fra boligsøkertabbel");
+                    valgtLeietaker.setText(id);
+
+                    velgLeietakerVindu.dispose();
+                    return;
+                }
+            }
 
         }
     }
@@ -1230,10 +1244,42 @@ public class Gui extends JFrame {
 
 
     // UTLEIERTABELLMODELL
-    class utleierTabellModell extends AbstractTableModel
+    private class utleierTabellModell extends AbstractTableModel
     {
         String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         String [][] celler = utleiere.tilTabellMedId();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+    }
+
+
+    private class boligsøkerTabellModell extends AbstractTableModel
+    {
+        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
+        String [][] celler = boligsøkere.tilTabellMedId();
 
         public int getRowCount() {
             return celler.length;
@@ -1845,7 +1891,6 @@ public class Gui extends JFrame {
 
     private void visVelgUtleierVindu()
     {
-        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         velgUtleierVindu = new JFrame("Velg Eier");
         velgUtleierVindu.setSize(600,600);
        // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
@@ -1863,17 +1908,22 @@ public class Gui extends JFrame {
 
 
     }
+
+
+
     private void visVelgLeietakerVindu()
     {
-        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
         velgLeietakerVindu = new JFrame("Velg Leietaker");
-
-
         velgLeietakerVindu.setSize(600,600);
-        leietakerValgTabell = new JTable(boligsøkere.tilTabellMedId(), kolonnenavn);
+
+        boligsøkerTabellModell modell = new boligsøkerTabellModell();
+        leietakerValgTabell = new JTable(modell);
+        leietakerValgTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ListSelectionModel lsm = leietakerValgTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(modell));
+
         velgLeietakerVindu.add(leietakerValgTabell);
-
-
         velgLeietakerVindu.setVisible(true);
 
 
