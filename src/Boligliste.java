@@ -42,13 +42,13 @@ public class Boligliste implements Serializable {
         hybler.add(h);
     }
 
-    public String[][] matchPåKrav(int[] krav)
+    public Object[][] matchPåKrav(int[] krav)
     {
-        String ut[][];
-        ut = new String[eneboliger.size()][2];
+
+        Object[][] ut = new Object[eneboliger.size()][10];
         int plass = 0;
         int[] specs;
-        int matches = 0;
+
 
 
         // enebol
@@ -61,6 +61,8 @@ public class Boligliste implements Serializable {
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
                 if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
                 {
+                    int matchkoeffisient;
+                    int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if(specs[i] == krav[i])
@@ -70,8 +72,9 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= 4)
                     {
-                        ut[plass][0] = enebolig.toString();
-                        ut[plass++][1] = enebolig.getBildesti();
+                        matchkoeffisient = matches/5;
+                        ut[plass] = enebolig.tilMatchTabell();
+                        ut[plass++][0] = matchkoeffisient;
                     }
                 }
             }
@@ -87,8 +90,11 @@ public class Boligliste implements Serializable {
                 specs = rekkehus.getSpecArray();
                 if(krav[10] < specs[10] && krav[11]> specs[10])
                 {
+                    int matchkoeffisient;
+                    int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
                     {
+
                         if(specs[i] == krav[i])
                         {
                             matches++;
@@ -96,8 +102,9 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= 4)
                     {
-                        ut[plass][0] = rekkehus.toString();
-                        ut[plass++][1] = rekkehus.getBildesti();
+                        matchkoeffisient = matches/5;
+                        ut[plass] = rekkehus.tilMatchTabell();
+                        ut[plass++][0] = matchkoeffisient;
                     }
                 }
             }
@@ -113,6 +120,9 @@ public class Boligliste implements Serializable {
                 specs = leilighet.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10])
                 {
+                    int matchkoeffisient;
+                    int matches = 0;
+
                     for(int i = 1; i <= 2; i++)// av krav
                         if (specs[i] == krav[i])
                             matches++;
@@ -122,8 +132,9 @@ public class Boligliste implements Serializable {
                             matches++;
 
                     if (matches >= 3) {
-                        ut[plass][0] = leilighet.toString();
-                        ut[plass++][1] = leilighet.getBildesti();
+                        matchkoeffisient = matches/4;
+                        ut[plass] = leilighet.tilMatchTabell();
+                        ut[plass++][0] = matchkoeffisient;
                     }
                 }
             }
@@ -136,6 +147,8 @@ public class Boligliste implements Serializable {
                 Hybel hybel = iter.next();
                 specs = hybel.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10]) {
+                    int matchkoeffisient;
+                    int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if (specs[i] == krav[i]) {
@@ -143,8 +156,9 @@ public class Boligliste implements Serializable {
                         }
                     }
                     if (matches >= 4) {
-                        ut[plass][0] = hybel.toString();
-                        ut[plass++][1] = hybel.getBildesti();
+                        matchkoeffisient = matches/5;
+                        ut[plass] = hybel.tilMatchTabell();
+                        ut[plass++][0] = matchkoeffisient;
                     }
                 }
             }

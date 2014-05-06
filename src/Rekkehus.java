@@ -11,12 +11,13 @@ import java.io.*;
         private int parkering;
         private int tomtstørrelse;
         private int[] specArray;
+        private static int id = 1000;
 
         public Rekkehus(){}
 
         public Rekkehus(String ad,int s, int b, int r, int by, int u,int id, String sti, int e, int p, int k, int t)
         {
-            super(ad,s, b, r, by, u,id, sti);
+            super(id++,ad,s, b, r, by, u,id, sti);
             etasjer = e;
             parkering = p;
             kjeller = k;
@@ -54,6 +55,25 @@ import java.io.*;
 
             return ut;
         }
+
+        public Object[] tilMatchTabell()
+        {
+            Object[] ut = new Object[10];
+
+            ut[0] = new Integer(0);
+            ut[1] = sted();
+            ut[2] = getBoareal() + " m²";
+            ut[3] = getUtleiepris() + " kr/m";
+            ut[4] = getAdresse();
+            ut[5] = Integer.toString(super.getRom());
+            ut[6] = Integer.toString(parkering);
+            ut[7] = Integer.toString(kjeller);
+            ut[8] = super.getBildesti();
+            ut[9] = id;
+
+            return ut;
+        }
+
         public String sted()
         {
             String sted = "";
