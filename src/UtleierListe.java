@@ -4,7 +4,13 @@ import javax.swing.JOptionPane;
 
 public class UtleierListe {
 
-    public UtleierListe(){}
+    public UtleierListe(){
+        Utleier en = new Utleier("PIKK", "Carl Ivar", "Haggen", "Fyllingen 8",  "666 666 66", "heiainnvandring@gmail.com","FRP");
+        Utleier to = new Utleier("HAKO", "Kong", "Harald", "Slottsplassen 1b", "00 00 00 01","sonjaxoxo@gmail.com", "Monarkiet");
+
+        settInn(en);
+        settInn(to);
+    }
 
     private List<Utleier> liste = new LinkedList<>();
 
@@ -28,6 +34,7 @@ public class UtleierListe {
 
     public String[][] tilTabell()
     {
+        JOptionPane.showMessageDialog(null, liste.size());
         String[][] ut = new String[liste.size()][6];
         Utleier utleier;
         Iterator<Utleier> iter = liste.iterator();
@@ -37,6 +44,21 @@ public class UtleierListe {
         {
             utleier = iter.next();
             ut[i++] = utleier.tilTabell();
+        }
+        return ut;
+    }
+    public String[][] tilTabellMedId()
+    {
+        JOptionPane.showMessageDialog(null, liste.size());
+        String[][] ut = new String[liste.size()][7];
+        Utleier utleier;
+        Iterator<Utleier> iter = liste.iterator();
+        int i = 0;
+
+        while(iter.hasNext())
+        {
+            utleier = iter.next();
+            ut[i++] = utleier.tilTabellMedId();
         }
         return ut;
     }

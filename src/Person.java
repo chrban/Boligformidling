@@ -5,7 +5,7 @@ import java.io.Serializable;
  */
 abstract class Person implements Serializable
 {
-
+    private String id;
     private String fnavn;
     private String enavn;
     private String adresse;
@@ -15,8 +15,9 @@ abstract class Person implements Serializable
 
     public Person(){}
 
-    public Person(String fn, String en, String a, String t, String e)
+    public Person(String i, String fn, String en, String a, String t, String e)
     {
+        id = i;
         fnavn = fn;
         enavn = en;
         adresse = a;
@@ -24,6 +25,7 @@ abstract class Person implements Serializable
         eMail = e;
     }
 
+    public String getId(){return id;}
     public String getFornavn()
     {
         return fnavn;

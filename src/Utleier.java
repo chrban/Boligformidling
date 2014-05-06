@@ -9,9 +9,9 @@ public class Utleier extends Person implements Serializable
     public Utleier neste;
     public Boligliste boliger;
 
-    public Utleier(String fn, String en, String a, String t, String e, String f)
+    public Utleier(String id, String fn, String en, String a, String t, String e, String f)
     {
-        super(fn, en, a, t, e);
+        super(id, fn, en, a, t, e);
         firma = f;
     }
 
@@ -32,14 +32,29 @@ public class Utleier extends Person implements Serializable
 
     public String[] tilTabell()
     {
-        String[] ut = new String[6];
+    String[] ut = new String[6];
 
-        ut[0] = super.getFornavn();
-        ut[1] = super.getEtternavn();
-        ut[2] = super.getAdresse();
-        ut[3] = super.getEmail();
-        ut[4] = super.getTlf();
-        ut[5] = firma;
+    ut[0] = super.getFornavn();
+    ut[1] = super.getEtternavn();
+    ut[2] = super.getAdresse();
+    ut[3] = super.getEmail();
+    ut[4] = super.getTlf();
+    ut[5] = firma;
+
+    return ut;
+    }
+
+    public String[] tilTabellMedId()
+    {
+        String[] ut = new String[7];
+
+        ut[0] = super.getId();
+        ut[1] = super.getFornavn();
+        ut[2] = super.getEtternavn();
+        ut[3] = super.getAdresse();
+        ut[4] = super.getEmail();
+        ut[5] = super.getTlf();
+        ut[6] = firma;
 
         return ut;
     }

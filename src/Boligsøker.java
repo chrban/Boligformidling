@@ -17,11 +17,11 @@ public class Boligsøker extends Person implements Serializable
 
     public Boligsøker (){}
 
-    public Boligsøker(String fn, String en, String a, String t, String e, int blgtp, int b, int r, int
+    public Boligsøker(String id, String fn, String en, String a, String t, String e, int blgtp, int b, int r, int
                       map, int mip, int p, int ae, int k, int h,
                       int blkng, int dbm, int dkm )
     {
-        super(fn, en, a, t, e);
+        super(id, fn, en, a, t, e);
         JOptionPane.showMessageDialog(null, "boligsøkerkonstruktøse");
         // krav
         boligtype = blgtp; by = b; rom = r; minPris = mip; maxPris = map; parkering = p; antEtasjer = ae;
@@ -56,6 +56,20 @@ public class Boligsøker extends Person implements Serializable
 
        return ut;
    }
+
+    public String[] tilTabellMedId()
+    {
+        String[] ut = new String[6];
+
+        ut[0] = super.getId();
+        ut[1] = super.getFornavn();
+        ut[2] = super.getEtternavn();
+        ut[3] = super.getAdresse();
+        ut[4] = super.getEmail();
+        ut[5] = super.getTlf();
+
+        return ut;
+    }
 
    public String toString()
    {

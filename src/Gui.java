@@ -47,7 +47,7 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -1409,7 +1409,10 @@ public class Gui extends JFrame {
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
             JOptionPane.showMessageDialog(null, "Reg person, helt nederst i boligsøker");
-            Boligsøker ny = new Boligsøker(fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
+
+            String id = idGenerator(enavn,fnavn);
+
+            Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
             boligsøkere.settInnNy(ny);
             return;
         }
@@ -1431,8 +1434,10 @@ public class Gui extends JFrame {
                 //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
             }
 
-            idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
-            Utleier ny = new Utleier(fnavn, enavn, ad ,t ,email, firm);
+            String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
+
+
+            Utleier ny = new Utleier(id, fnavn, enavn, ad ,t ,email, firm);
             JOptionPane.showMessageDialog(null, "nederst på utleier, rett over add");
             utleiere.settInn(ny);
             return;
@@ -1448,6 +1453,20 @@ public class Gui extends JFrame {
         String fNavn = fn;
 
        String id = f.substring(0,2).toUpperCase()+en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+
+        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
+
+        return id;
+
+    }
+
+    private String idGenerator(String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
+    {
+
+        String eNavn = en;
+        String fNavn = fn;
+
+        String id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
 
         JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
 
@@ -1671,10 +1690,11 @@ public class Gui extends JFrame {
 
     private void visVelgUtleierVindu()
     {
-
+        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         velgUtleierVindu = new JFrame("Velg Eier");
         velgUtleierVindu.setSize(600,600);
-        velgUtleierVindu.add(new JLabel("Her må vi legge inn utleiertabell, sånn at det går ann å velge en utleier"));
+        utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
+        velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.setVisible(true);
         velgUtleierVindu.add(new JLabel("Her må vi legge inn utleiertabell, sånn at det går ann å velge en utleier"));
 
