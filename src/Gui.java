@@ -475,7 +475,7 @@ public class Gui extends JFrame {
 
         regPersonKnapp = new JButton("Registrer");
         regPersonKnapp.addActionListener(lytter);
-        c.gridx = 3;
+        c.gridx = 2;
         c.gridy = 15;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10, 5, 5, 5);
@@ -783,6 +783,7 @@ public class Gui extends JFrame {
         c.gridy = 0;
         panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
 
+
         visBoliger();
         c.gridx = 4;
         c.gridy = 1;
@@ -1008,6 +1009,10 @@ public class Gui extends JFrame {
         balkongValg.setVisible(false);
         badValg.setVisible(false);
         kjøkkenValg.setVisible(false);
+        revalidate();
+    }
+    private void toglerFane2(){
+        System.out.println("Togla fane2 for faen");
         garasjeValgFane2.setVisible(false);
         kjellerValgFane2.setVisible(false);
         etasjeBoxFane2.setVisible(false);
@@ -1063,7 +1068,7 @@ public class Gui extends JFrame {
             }
             switch (boligTypeFane2){
                 case "Enebolig":
-                    togler();
+                    toglerFane2();
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -1073,7 +1078,7 @@ public class Gui extends JFrame {
                     revalidate();
                     break;
                 case "Rekkehus":
-                    togler();
+                    toglerFane2();
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -1083,20 +1088,20 @@ public class Gui extends JFrame {
                     revalidate();
                     break;
                 case "Leilighet":
-                    togler();
+                    toglerFane2();
                     heisValgFane2.setVisible(true);
                     balkongValgFane2.setVisible(true);
                     revalidate();
                     break;
                 case "Hybel":
-                    togler();
+                    toglerFane2();
                     badValgFane2.setVisible(true);
                     kjøkkenValgFane2.setVisible(true);
                     revalidate();
                     break;
                 default:
-                    System.out.println("Default");
-                    togler();
+                    System.out.println("DefaultFane2");
+                    toglerFane2();
                     revalidate();
                     break;
 
