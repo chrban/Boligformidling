@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Date;
 
+
 abstract class Bolig implements Serializable, Comparable<Object>
 {
     private String adresse;

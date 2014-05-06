@@ -24,7 +24,7 @@ public class BoligsøkerListe implements Serializable {
         Boligsøker løper = første;
 
         while (løper != null) {
-            if (løper.getFornavn().equals(b.getFornavn())) {
+            if (løper.getFornavn().equals(b.getFornavn()) && løper.getEtternavn().equals(b.getEtternavn())) {
                 JOptionPane.showMessageDialog(null, b.toString() + "\n finnes fra før");
                 return false;
             }
