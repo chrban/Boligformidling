@@ -1931,6 +1931,7 @@ public class Gui extends JFrame {
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
+            boliger = (Boligliste) in.readObject();
         }
         catch( ClassNotFoundException cnfe ){
             JOptionPane.showMessageDialog(null,"Ikke en drit lagra her da gut, fer væ koke i hop ein ny ein evon");
@@ -1947,6 +1948,7 @@ public class Gui extends JFrame {
             ut.writeObject(utleiere);
             ut.writeObject(boligsøkere);
             ut.writeObject(kontrakter);
+            ut.writeObject(boliger);
         }
         catch( NotSerializableException nse ){
             JOptionPane.showMessageDialog(null, "Ta oss en prell evon?");
