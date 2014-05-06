@@ -31,7 +31,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -520,154 +520,165 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(byBoxFane2, c);
 
-
         c.gridx = 0;
         c.gridy = 2;
-        bopanel.add(new JLabel("Boareal"), c);
-
-        boareal = new JTextField();
-        c.gridx = 1;
-        c.gridy = 2;
-        bopanel.add(boareal, c);
-
-        c.gridx = 0;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Rom: "), c);
-
-        romBoxFane2 = new JComboBox(romValg);
-        c.gridx = 1;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(romBoxFane2, c);
-
-
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Ant Etasjer: "), c);
-
-
-        etasjeBoxFane2 = new JComboBox(etasjeValg);
-        c.gridx = 1;
-        c.gridy = 4;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(etasjeBoxFane2, c);
-
-
-        c.gridx = 0;
-        c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Boligtype: "), c);
 
         boligtypeBoxFane2 = new JComboBox(boligtypeValg);
         c.gridx = 1;
-        c.gridy = 5;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 2;
+
+
+        boligtypeBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(boligtypeBoxFane2, c);
 
 
-        garasjeValgFane2 = new JCheckBox("Garasje");
         c.gridx = 0;
-        c.gridy = 6;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(garasjeValgFane2, c);
+        c.gridy = 3;
+        bopanel.add(new JLabel("Boareal"), c);
 
-
-        kjellerValgFane2 = new JCheckBox("Kjeller");
+        boareal = new JTextField();
         c.gridx = 1;
-        c.gridy = 6;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(kjellerValgFane2, c);
+        c.gridy = 3;
+        bopanel.add(boareal, c);
 
-        heisValgFane2 = new JCheckBox("Heis");
+        tomtArealLabel = new JLabel("TomtAreal:");
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(heisValgFane2, c);
+        tomtArealLabel.setVisible(false);
+        bopanel.add(tomtArealLabel, c);
 
-        badValgFane2 = new JCheckBox("Eget Bad");
-        c.gridx = 0;
-        c.gridy = 7;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(badValgFane2, c);
-
-        kjøkkenValgFane2 = new JCheckBox("Eget kjøkken");
+        tomtAreal = new JTextField();
         c.gridx = 1;
-        c.gridy = 7;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(kjøkkenValgFane2, c);
+        c.gridy = 4;
+        tomtAreal.setVisible(false);
+        bopanel.add(tomtAreal, c);
 
-        balkongValgFane2 = new JCheckBox("Balkong");
-        c.gridx = 1;
-        c.gridy = 8;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(balkongValgFane2, c);
 
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(new JLabel("Utleiepris:"), c);
 
         pris = new JTextField();
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 5;
         bopanel.add(pris, c);
 
 
         c.gridx = 0;
-        c.gridy = 10;
+        c.gridy = 6;
         bopanel.add(new JLabel("Byggår"), c);
 
         byggår = new JTextField();
         c.gridx = 1;
-        c.gridy = 10;
+        c.gridy = 6;
         bopanel.add(byggår, c);
 
 
+
+        c.gridx = 0;
+        c.gridy = 7;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(new JLabel("Rom: "), c);
+
+        romBoxFane2 = new JComboBox(romValg);
+        c.gridx = 1;
+        c.gridy = 7;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(romBoxFane2, c);
+
+        antEgtLabel = new JLabel("Ant Etasjer: ");
+        c.gridx = 0;
+        c.gridy = 8;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        antEgtLabel.setVisible(false);
+        bopanel.add(antEgtLabel, c);
+
+
+        etasjeBoxFane2 = new JComboBox(etasjeValg);
+        c.gridx = 1;
+        c.gridy = 8;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        etasjeBoxFane2.setVisible(false);
+        bopanel.add(etasjeBoxFane2, c);
+
+        c.gridx = 0;
+        c.gridy = 9;
+        bopanel.add(new JLabel("Hilket plan?"), c);
+
+        planBoxFane2 = new JComboBox(planValg);
+        c.gridx = 1;
+        c.gridy = 9;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        bopanel.add(planBoxFane2, c);
+
+
+
+
+        garasjeValgFane2 = new JCheckBox("Garasje");
+        c.gridx = 0;
+        c.gridy = 10;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        garasjeValgFane2.setVisible(false);
+        bopanel.add(garasjeValgFane2, c);
+
+
+        kjellerValgFane2 = new JCheckBox("Kjeller");
+        c.gridx = 1;
+        c.gridy = 10;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        kjellerValgFane2.setVisible(false);
+        bopanel.add(kjellerValgFane2, c);
+
+        heisValgFane2 = new JCheckBox("Heis");
+        c.gridx = 0;
+        c.gridy = 12;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        heisValgFane2.setVisible(false);
+        bopanel.add(heisValgFane2, c);
+
+        badValgFane2 = new JCheckBox("Eget Bad");
         c.gridx = 0;
         c.gridy = 11;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        badValgFane2.setVisible(false);
+        bopanel.add(badValgFane2, c);
+
+        kjøkkenValgFane2 = new JCheckBox("Eget kjøkken");
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        kjøkkenValgFane2.setVisible(false);
+        bopanel.add(kjøkkenValgFane2, c);
+
+        balkongValgFane2 = new JCheckBox("Balkong");
+        c.gridx = 1;
+        c.gridy = 12;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        balkongValgFane2.setVisible(false);
+        bopanel.add(balkongValgFane2, c);
+
+
+        c.gridx = 0;
+        c.gridy = 13;
         bopanel.add(new JLabel("Beskrivelse:"), c);
 
         beskrivelse = new JTextArea("Skriv da..", 5, 10);
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
-        c.gridy = 11;
+        c.gridy = 13;
+        c.gridheight =2;
         c.fill = GridBagConstraints.NONE;
         bopanel.add(scroll, c);
 
-
         c.gridx = 0;
-        c.gridy = 12;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("TomtArael:"), c);
-
-        tomtAreal = new JTextField();
-        c.gridx = 1;
-        c.gridy = 12;
-        bopanel.add(tomtAreal, c);
-
-        c.gridx = 0;
-        c.gridy = 13;
-        bopanel.add(new JLabel("Hilket plan?"), c);
-
-
-        planBoxFane2 = new JComboBox(planValg);
-        c.gridx = 1;
-        c.gridy = 13;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(planBoxFane2, c);
-
-
-        c.gridx = 0;
-        c.gridy = 14;
-        bopanel.add(new JLabel("Utleier ID:"), c);
-
-        utleierId = new JTextField();
-        c.gridx = 1;
-        c.gridy = 14;
-        bopanel.add(utleierId, c);
+        c.gridy = 15;
+        c.gridheight = 1;
+        bopanel.add(new JLabel("Velg bilde:"),c);
 
         bildesti = new JTextField();
         c.gridx = 1;
@@ -682,10 +693,22 @@ public class Gui extends JFrame {
         c.gridy = 15;
         bopanel.add(finnBildeKnapp, c);
 
+
+        c.gridx = 0;
+        c.gridy = 16;
+        bopanel.add(new JLabel("Utleier ID:"), c);
+
+        utleierId = new JTextField();
+        c.gridx = 1;
+        c.gridy = 16;
+        bopanel.add(utleierId, c);
+
+
+
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
         c.gridx = 3;
-        c.gridy = 16;
+        c.gridy = 17;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10, 5, 5, 5);
         bopanel.add(regBoligKnapp, c);
@@ -942,14 +965,24 @@ public class Gui extends JFrame {
         balkongValg.setVisible(false);
         badValg.setVisible(false);
         kjøkkenValg.setVisible(false);
+        garasjeValgFane2.setVisible(false);
+        kjellerValgFane2.setVisible(false);
+        etasjeBoxFane2.setVisible(false);
+        heisValgFane2.setVisible(false);
+        balkongValgFane2.setVisible(false);
+        badValgFane2.setVisible(false);
+        kjøkkenValgFane2.setVisible(false);
+        antEgtLabel.setVisible(false);
+        tomtAreal.setVisible(false);
         revalidate();
     }
-
 
     private class boligTypeLytter implements ActionListener { //Lytter som hører på BT-boksen og gjør som den sier!
 
         public void actionPerformed(ActionEvent e) {
             String typenTil = (String) boligtypeBox.getSelectedItem();
+            String boligTypeFane2 = (String) boligtypeBoxFane2.getSelectedItem();
+
             switch (typenTil) {
                 case "Enebolig":
                     togler();
@@ -983,11 +1016,48 @@ public class Gui extends JFrame {
                     togler();
                     revalidate();
                     break;
-
+            }
+            switch (boligTypeFane2){
+                case "Enebolig":
+                    togler();
+                    garasjeValgFane2.setVisible(true);
+                    kjellerValgFane2.setVisible(true);
+                    etasjeBoxFane2.setVisible(true);
+                    antEgtLabel.setVisible(true);
+                    tomtAreal.setVisible(true);
+                    revalidate();
+                    break;
+                case "Rekkehus":
+                    togler();
+                    garasjeValgFane2.setVisible(true);
+                    kjellerValgFane2.setVisible(true);
+                    etasjeBoxFane2.setVisible(true);
+                    antEgtLabel.setVisible(true);
+                    tomtAreal.setVisible(true);
+                    revalidate();
+                    break;
+                case "Leilighet":
+                    togler();
+                    heisValgFane2.setVisible(true);
+                    balkongValgFane2.setVisible(true);
+                    revalidate();
+                    break;
+                case "Hybel":
+                    togler();
+                    badValgFane2.setVisible(true);
+                    kjøkkenValgFane2.setVisible(true);
+                    revalidate();
+                    break;
+                default:
+                    System.out.println("Default");
+                    togler();
+                    revalidate();
+                    break;
 
             }
         }
     }
+
 
 
     private class minPrisLytter implements ChangeListener {
