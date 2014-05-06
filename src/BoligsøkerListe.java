@@ -45,6 +45,24 @@ public class BoligsøkerListe implements Serializable {
         }
     }
 
+
+    public int[] getKravPåId(String inn)
+    {
+        Boligsøker løper = første;
+
+        if(løper == null)
+            return null;
+
+        while(løper != null)
+        {
+            if(løper.getId().equals(inn))
+                return løper.getKrav();
+
+            løper = løper.neste;
+        }
+        return null;
+    }
+
     public boolean fjernSøker(String n) {
 
         Boligsøker løper = første;

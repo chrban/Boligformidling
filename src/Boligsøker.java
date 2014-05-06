@@ -41,6 +41,7 @@ public class Boligsøker extends Person implements Serializable
    {
        return super.getFornavn() + " " + super.getEtternavn();
    }
+   public String getId(){return super.getId()};
 
    public String[] tilTabell()
    {

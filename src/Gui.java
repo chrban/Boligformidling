@@ -29,8 +29,8 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,finnMatch;
-    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
@@ -48,7 +48,7 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell ;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, boligValgTabell, visBoligsøkereTabell,visBoligTabell,resultatTabell ;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -802,6 +802,7 @@ public class Gui extends JFrame {
 
 
 
+
         //Slutt fane 4
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         c.anchor = GridBagConstraints.NORTHWEST;
@@ -819,23 +820,37 @@ public class Gui extends JFrame {
         c.gridy = 1;
         valgtUtleier = new JTextField(10);
         valgtUtleier.setEditable(false);
-        valgtUtleier.setText("Ingen utleier valgt enda...");
+        valgtUtleier.setText("Ingen utleier valgt");
         panel5.add(valgtUtleier, c);
 
 
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 2;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
         panel5.add(velgLeietakerKnapp,c);
 
         c.gridx = 2;
-        c.gridy = 4;
+        c.gridy = 2;
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
-        valgtLeietaker.setText("Ingen leietaker valgt enda...");
+        valgtLeietaker.setText("Ingen leietaker valgt");
         panel5.add(valgtLeietaker,c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        velgBoligKnapp = new JButton("Velg en Bolig");
+        velgBoligKnapp.addActionListener(lytter);
+        panel5.add(velgBoligKnapp, c);
+
+        c.gridx = 2;
+        c.gridy = 3;
+        valgtBolig = new JTextField(10);
+        valgtBolig.setEditable(false);
+        valgtBolig.setText("Ingen bolig valgt");
+        panel5.add(valgtBolig, c);
+
 
 
 
@@ -1322,6 +1337,10 @@ public class Gui extends JFrame {
         }
     }
 
+    private class boligValgTabellModell extends AbstractTableModel
+    {
+        String[] kolonnenavn = {"Id"}
+    }
 
 
 
@@ -1379,6 +1398,7 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 //TIL HIT
+
 
 
 
