@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class KontraktListe {
+public class KontraktListe implements Serializable {
     private Kontrakt første;
 
     public KontraktListe(){

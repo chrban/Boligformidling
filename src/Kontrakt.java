@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Kontrakt{
+public class Kontrakt implements Serializable{
     private Utleier eier;
     private Boligsøker leier;
     private Bolig bolig;

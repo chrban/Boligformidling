@@ -20,18 +20,6 @@ public class Leilighet extends Bolig implements Serializable
         heis = h;
     }
 
-    public void lesObjektFraFil(DataInputStream in) throws IOException{
-        etasje = in.readInt();
-        balkong = in.readInt();
-        heis = in.readInt();
-        super.lesObjektFraFil(in);
-    }
-    public void skrivTilFil(DataOutputStream out) throws IOException{
-        out.writeInt(etasje);
-        out.writeInt(balkong);
-        out.writeInt(heis);
-        super.skrivTilFil(out);
-    }
     public int getEtasje(){
         return etasje;
     }

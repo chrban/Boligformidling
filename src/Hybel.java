@@ -15,16 +15,6 @@ public class Hybel extends Bolig implements Serializable {
         kjøkkenDelesMed = kj;
     }
 
-    public void lesObjektFraFil(DataInputStream in) throws IOException{
-        badDelesMed = in.readInt();
-        kjøkkenDelesMed = in.readInt();
-        super.lesObjektFraFil(in);
-    }
-    public void skrivTilFil(DataOutputStream out) throws IOException{
-        out.writeInt(badDelesMed);
-        out.writeInt(kjøkkenDelesMed);
-        super.skrivTilFil(out);
-    }
 
     public int getBadDelesMed(){
         return badDelesMed;

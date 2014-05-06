@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.io.File;
+import java.io.*;
 import java.rmi.server.UID;
 import java.util.Date;
 import java.util.Iterator;
@@ -921,7 +921,7 @@ public class Gui extends JFrame {
         fane.setPreferredSize(new Dimension(getSize()));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
-
+        lesFraFil();
     } // End GUI konstruktør
 
 
@@ -1840,5 +1840,35 @@ public class Gui extends JFrame {
     {
 
     } //  var det dette som vi skulle kunne slette, eller noe annet?
+
+    public void lesFraFil(){
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))){
+            utleiere = (UtleierListe) in.readObject();
+            boligsøkere = (BoligsøkerListe) in.readObject();
+            kontrakter = (KontraktListe) in.readObject();
+        }
+        catch( ClassNotFoundException cnfe ){
+            JOptionPane.showMessageDialog(null,"Ikke en drit lagra her da gut, fer væ koke i hop ein ny ein evon");
+        }
+        catch( FileNotFoundException fnfe ){
+            JOptionPane.showMessageDialog(null, "Fant ikke BoligLagring.data");
+        }
+        catch( IOException ioe ){
+            JOptionPane.showMessageDialog(null, "Her varre abraksle mye drit oppgjønnom");
+        }
+    }
+    public void skrivTilFil(){
+        try( ObjectOutputStream ut = new ObjectOutputStream(new FileOutputStream("fildata.data"))){
+            ut.writeObject(utleiere);
+            ut.writeObject(boligsøkere);
+            ut.writeObject(kontrakter);
+        }
+        catch( NotSerializableException nse ){
+            JOptionPane.showMessageDialog(null, "Ta oss en prell evon?");
+        }
+        catch( IOException ioe ){
+            JOptionPane.showMessageDialog(null,"Her varre abraksle mye drit oppgjønnom");
+        }
+    }
 
 }

@@ -56,29 +56,6 @@ abstract class Bolig implements Serializable, Comparable<Object>
         return lagtUt;
     }
     public String getBildesti(){return bildesti;}
-    public void lesObjektFraFil(DataInputStream in) throws IOException{
-        adresse = in.readUTF();
-        sted = in.readInt();
-        boareal = in.readInt();
-        rom = in.readInt();
-        byggAr = in.readInt();
-        utleiepris = in.readInt();
-        long dato = in.readLong();
-        lagtUt = new Date(dato * 1000);
-        eierID = in.readInt();
-
-    }
-    public void skrivTilFil(DataOutputStream out)throws IOException{
-        out.writeUTF(adresse);
-        out.writeInt(sted);
-        out.writeInt(boareal);
-        out.writeInt(rom);
-        out.writeInt(byggAr);
-        out.writeInt(utleiepris);
-        long dato = lagtUt.getTime();
-        out.writeLong(dato);
-        out.writeInt(eierID);
-    }
 
     public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
     {

@@ -23,18 +23,6 @@ import java.io.*;
             tomtstørrelse = t;
         }
 
-        public void lesObjektFraFil(DataInputStream in) throws IOException{
-            etasjer = in.readInt();
-            kjeller = in.readInt();
-            tomtstørrelse = in.readInt();
-            super.lesObjektFraFil(in);
-        }
-        public void skrivTilFil(DataOutputStream out) throws IOException{
-            out.writeInt(etasjer);
-            out.writeInt(kjeller);
-            out.writeInt(tomtstørrelse);
-            super.skrivTilFil(out);
-        }
 
         public int[] getSpecArray(){
             specArray = new int[Konstanter.SPEC_LENGDE];

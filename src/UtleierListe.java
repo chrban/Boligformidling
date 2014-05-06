@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 import javax.swing.JOptionPane;
 
-public class UtleierListe {
+public class UtleierListe implements Serializable{
 
     public UtleierListe(){
         Utleier en = new Utleier("PIKK", "Carl Ivar", "Haggen", "Fyllingen 8",  "666 666 66", "heiainnvandring@gmail.com","FRP");
