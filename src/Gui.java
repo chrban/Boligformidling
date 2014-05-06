@@ -1194,6 +1194,82 @@ public class Gui extends JFrame {
     }
     //todo Christer, Åpne fabrikken
 
+    // UTVALGSLYTTER
+
+    private class Utvalgslytter implements ListSelectionListener
+    {
+        private TableModel tabellmodell;
+
+        public Utvalgslytter(TableModel m)
+        {
+            tabellmodell = m;
+        }
+
+        public void valueChanged(ListSelectionEvent e)
+        {
+            if(e.getValueIsAdjusting())
+                return;
+
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if(!lsm.isSelectionEmpty())
+            {
+                int valgtRad = lsm.getMinSelectionIndex();
+                String id = (String)tabellmodell.getValueAt(valgtRad,0);
+                System.out.println("nå har programmet fått med seg at du har valgt noe");
+                valgtUtleier.setText(id);
+
+                velgUtleierVindu.dispose();
+            }
+
+
+        }
+    }
+
+
+
+
+
+    // UTLEIERTABELLMODELL
+    class utleierTabellModell extends AbstractTableModel
+    {
+        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
+        String [][] celler = utleiere.tilTabellMedId();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     private String[][] joinPersonArray() {
         String[][] første =  boligsøkere.tilTabell();
@@ -1772,7 +1848,16 @@ public class Gui extends JFrame {
         String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
         velgUtleierVindu = new JFrame("Velg Eier");
         velgUtleierVindu.setSize(600,600);
-        utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
+       // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
+
+        utleierTabellModell modell = new utleierTabellModell();
+        utleierValgTabell = new JTable(modell);
+
+
+        utleierValgTabell.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        ListSelectionModel lsm = utleierValgTabell.getSelectionModel();
+
+        lsm.addListSelectionListener( new Utvalgslytter( modell ) );
         velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.setVisible(true);
 
@@ -1783,7 +1868,7 @@ public class Gui extends JFrame {
         String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
         velgLeietakerVindu = new JFrame("Velg Leietaker");
 
-        
+
         velgLeietakerVindu.setSize(600,600);
         leietakerValgTabell = new JTable(boligsøkere.tilTabellMedId(), kolonnenavn);
         velgLeietakerVindu.add(leietakerValgTabell);

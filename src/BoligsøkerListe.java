@@ -33,14 +33,13 @@ public class BoligsøkerListe implements Serializable {
 
         if (første == null) {
             første = b;
-            JOptionPane.showMessageDialog(null, b.toString() + "på første plass");
             return true;
         } else {
             løper = første;
             while (løper.neste != null)
                 løper = løper.neste;
             løper.neste = b;
-            JOptionPane.showMessageDialog(null, b.toString() + "ikke på første plass...");
+
             return true;
 
         }

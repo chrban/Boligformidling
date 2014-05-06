@@ -16,7 +16,6 @@ public class UtleierListe implements Serializable{
 
     public void settInn( Utleier u ){
         liste.add( u );
-        JOptionPane.showMessageDialog(null, toString() + "setter inn utleier");
         sorter();
     }
     public void fjernUtleier( String navn ){
@@ -34,7 +33,6 @@ public class UtleierListe implements Serializable{
 
     public String[][] tilTabell()
     {
-        JOptionPane.showMessageDialog(null, liste.size());
         String[][] ut = new String[liste.size()][6];
         Utleier utleier;
         Iterator<Utleier> iter = liste.iterator();
@@ -49,7 +47,6 @@ public class UtleierListe implements Serializable{
     }
     public String[][] tilTabellMedId()
     {
-        JOptionPane.showMessageDialog(null, liste.size());
         String[][] ut = new String[liste.size()][7];
         Utleier utleier;
         Iterator<Utleier> iter = liste.iterator();
