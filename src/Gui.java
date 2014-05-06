@@ -48,7 +48,8 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, boligValgTabell, visBoligsøkereTabell,visBoligTabell,resultatTabell ;
+    //private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, , visBoligsøkereTabell,visBoligTabell,resultatTabell ;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell,boligSøkereForMatch,boligValgTabell ;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -67,6 +68,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu;
     private Container kassa;
+    private String valgtId;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -166,9 +168,6 @@ public class Gui extends JFrame {
         panel2.add(bopanel);
         panel3.add(tapanel,BorderLayout.LINE_END);
 
-        c.gridx = 0;
-        c.gridy = 4;
-        panel4.add(resultatPanel,c);
 
 
 //todo-Christer: sett min/maxpris label til å initie så den har verdiiii
@@ -776,7 +775,7 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
-        panel4.add(visBoligsøkereTabell,c);
+        panel4.add(boligSøkereForMatch,c);
 
         finnMatch = new JButton("Finn Match!");
         c.gridx = 2;
@@ -791,11 +790,9 @@ public class Gui extends JFrame {
         c.gridy = 0;
         panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
 
-        kassa = new Container();
-        kassa.setBackground(Color.black);
-        c.gridx =4;
-        c.gridy=1;
-        panel4.add(kassa,c);
+        c.gridx = 0;
+        c.gridy = 4;
+        panel4.add(resultatPanel,c);
 
 
 
@@ -966,8 +963,12 @@ public class Gui extends JFrame {
                 visVelgUtleierVindu();
             else if(e.getSource() == velgLeietakerKnapp)
                 visVelgLeietakerVindu();
-            else if(e.getSource() == finnMatch )
+            else if(e.getSource() == finnMatch ){
+
+                // her henter jeg inn tabellverdin
                 visMatch();
+            }
+
         }
     }
 
@@ -1265,9 +1266,38 @@ public class Gui extends JFrame {
                     return;
                 }
             }
+            else if(tabellmodell instanceof boligSøkerTabellModellForMatch)
+            {
+                if(!lsm.isSelectionEmpty()) {
+                    System.out.println("inne i tabbelyttern nå! panel 4 altså matching");
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    valgtId = (String) tabellmodell.getValueAt(valgtRad,0);
+
+                    return;
+                }
+
+            }
+
+
+
 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1337,24 +1367,57 @@ public class Gui extends JFrame {
         }
     }
 
-    private class boligValgTabellModell extends AbstractTableModel
+    /*private class boligValgTabellModell extends AbstractTableModel
     {
         String[] kolonnenavn = {"Id"}
     }
-
+*/
 
 
 // HERFRA
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//int[] kravene = boligsøkere.getKravPåId(valgtId);
+
+
+
+// HERFRA
+//sende med krav array
+
 private class resultatTabellModell extends AbstractTableModel
 {
-    String [] kolonnenavn = {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};// endre når du ser osen sin
-    String [][] celler = /*får av osen*/ {
-            {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"},
-            {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"},
-            {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"},
-    };
+
+    int[] kravene = boligsøkere.getKravPåId(valgtId);
+    //int type = kravene[0];
+
+
+
+
+    String [] kolonnenavn = {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma","9","10"};
+
+    Object[][] celler = boliger.matchPåKrav(kravene);
+
+
+
+
+
+
+
+
 
     public int getRowCount() {
         return celler.length;
@@ -1384,11 +1447,29 @@ private class resultatTabellModell extends AbstractTableModel
 
     private void visMatch()
     {
+
+
+
+
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
+
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
+
+
+
+        // knappen skal hente da
+
+
+
+        //get boligsøker ID.specArray, sende den til matchPåKrav()
+        //motta fra matchpåkrav inn i resultatTabellmodellemn rett ovenfor, skrive iut denne toStringen
+
+
+
+
     }
     private void clearResultatPanel()
     {
@@ -1397,8 +1478,57 @@ private class resultatTabellModell extends AbstractTableModel
         repaint();
     }
 
-//TIL HIT
 
+    public void visBoligsøkere() {
+
+
+        boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
+        boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
+        boligSøkereForMatch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
+        // initie tabellLytter
+
+        resultatPanel.add(boligSøkereForMatch);
+    }
+
+
+
+    //Starter tabellmodell for visVoligSøkere
+    private class boligSøkerTabellModellForMatch extends AbstractTableModel
+    {
+        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Email", "Telefon"};
+        String [][] celler = boligsøkere.tilTabellMedId();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+    }
+     ////SSLUTTER tabellmodell for visVoligSøkere
+
+//TIL HIT
 
 
 
@@ -2019,21 +2149,31 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-    public void visBoligsøkere(){
-        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
-        visBoligsøkereTabell = new JTable(boligsøkere.tilTabell(),kolonnenavn);
-    }
 
 
 
 
-    public void visBoliger() {
-
-        String[] kolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
-        visBoligTabell = new JTable(joinBoligArray(),kolonnenavn);
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
