@@ -775,7 +775,7 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
-        panel4.add(boligSøkereForMatch,c);
+        //panel4.add(boligSøkereForMatch,c);
 
         finnMatch = new JButton("Finn Match!");
         c.gridx = 2;
@@ -984,7 +984,12 @@ public class Gui extends JFrame {
 
             } else if (e.getSource() == angre) {
                 System.out.println("du anger på at du tryka på angre");
-
+                clearResultatPanel();
+                visBoligsøkere();
+                resultatPanel.add(new JScrollPane(boligSøkereForMatch));
+                resultatPanel.add(new JScrollPane(resultatTabell));
+                revalidate();
+                repaint();
             }
             else if(e.getSource() ==tabell){
                 System.out.println("Hente inn tabell på nytt");
@@ -1006,6 +1011,9 @@ public class Gui extends JFrame {
         public void stateChanged(ChangeEvent e) {
            if(fane.getSelectedIndex()==2) {
                 System.out.println("Trykka på fane; vis tabell!");
+
+
+
 /*
                 panel3.remove(personTabellScroll);
                 panel3.remove(boligTabellScroll);
@@ -1013,11 +1021,40 @@ public class Gui extends JFrame {
                 lagBoligTabellen();
                 panel3.add(personTabellScroll = new JScrollPane(personTabell));
                 panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
+
+
+
+                //fra radioknapper
+                    private void clearPanel3()
+    {
+       tapanel.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    private class tabellTypeLytter implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(boligtabellRadioknapp.isSelected()){
+
+                System.out.println("togla boligtabell " + boligtabellRadioknapp.isSelected() + "perta er" + persontabellRadioknapp.isSelected());
+            //   panel3.remove(personTabellScroll);
+            //    panel3.remove(boligTabellScroll);
+                clearPanel3();
+                lagBoligTabellen();
+                //tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
+
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
+
+                //repaint();
+                revalidate();
+                repaint();
 */
 
 
 
             }
+
             System.out.println("byttet fane, derfor kjører jeg en repaint(), trengs egentlig ikke men..");
             repaint();
 
@@ -1448,27 +1485,27 @@ private class resultatTabellModell extends AbstractTableModel
     private void visMatch()
     {
 
-
-
-
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
 
+        
+        visBoligsøkere();
         resultatPanel.add(new JScrollPane(resultatTabell));
+        resultatPanel.add(new JScrollPane(boligSøkereForMatch));
         revalidate();
+        repaint();
 
 
 
-        // knappen skal hente da
-
-
-
-        //get boligsøker ID.specArray, sende den til matchPåKrav()
-        //motta fra matchpåkrav inn i resultatTabellmodellemn rett ovenfor, skrive iut denne toStringen
-
-
-
+        /*
+                        clearResultatPanel();
+                visBoligsøkere();
+                resultatPanel.add(new JScrollPane(boligSøkereForMatch));
+                resultatPanel.add(new JScrollPane(resultatTabell));
+                revalidate();
+                repaint();
+         */
 
     }
     private void clearResultatPanel()
@@ -1490,7 +1527,8 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
         // initie tabellLytter
 
-        resultatPanel.add(boligSøkereForMatch);
+        //resultatPanel.add(boligSøkereForMatch);
+
     }
 
 
