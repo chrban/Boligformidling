@@ -9,12 +9,13 @@ public class Leilighet extends Bolig implements Serializable
     private int balkong;
     private int heis;
     private int[] specArray;
+    private static int id = 2000;
 
     public Leilighet(){}
 
     public Leilighet(String ad,int s, int b, int r, int by, int u,int id, String sti, int e, int bal, int h)
     {
-        super(ad,s, b, r, by, u, id, sti);
+        super(id++,ad,s, b, r, by, u, id, sti);
         etasje = e;
         balkong = bal;
         heis = h;
@@ -61,6 +62,27 @@ public class Leilighet extends Bolig implements Serializable
 
         return ut;
     }
+
+
+    public Object[] tilMatchTabell()
+    {
+        Object[] ut = new Object[10];
+
+        ut[0] = new Integer(0);
+        ut[1] = sted();
+        ut[2] = getBoareal() + " m²";
+        ut[3] = getUtleiepris() + " kr/m";
+        ut[4] = getAdresse();
+        ut[5] = Integer.toString(super.getRom());
+        ut[6] = Integer.toString(balkong);
+        ut[7] = Integer.toString(heis);
+        ut[8] = super.getBildesti();
+        ut[9] = id;
+
+        return ut;
+    }
+
+
     public String sted()
     {
         String sted = "";

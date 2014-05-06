@@ -4,13 +4,14 @@ public class Hybel extends Bolig implements Serializable {
     private int badDelesMed;
     private int kjøkkenDelesMed;
     private int[] specArray;
+    private static int id = 3000;
 
     public Hybel(){
 
     }
 
     public Hybel(String ad,int s, int b, int r, int by, int u,int id, String sti, int bad, int kj) {
-        super(ad, s, b, r, by, u, id, sti);
+        super(id++, ad, s, b, r, by, u, id, sti);
         badDelesMed= bad;
         kjøkkenDelesMed = kj;
     }
@@ -55,6 +56,28 @@ public class Hybel extends Bolig implements Serializable {
 
         return ut;
     }
+
+
+    public Object[] tilMatchTabell()
+    {
+        Object[] ut = new Object[8];
+
+        ut[0] = new Integer(0);
+        ut[1] = sted();
+        ut[2] = getBoareal() + " m²";
+        ut[3] = getUtleiepris() + " kr/m";
+        ut[4] = getAdresse();
+        ut[5] = Integer.toString(super.getRom());
+        ut[6] = Integer.toString(badDelesMed);
+        ut[7] = Integer.toString(kjøkkenDelesMed);
+        ut[8] = super.getBildesti();
+        ut[9] = id;
+
+        return ut;
+    }
+
+
+
     public String sted()
     {
         String sted = "";

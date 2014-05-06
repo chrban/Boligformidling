@@ -4,6 +4,7 @@ import java.util.Date;
 
 abstract class Bolig implements Serializable, Comparable<Object>
 {
+    private int id;
     private String adresse;
     private int sted;
     private int boareal;
@@ -19,8 +20,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
 
 
 
-    public Bolig(String ad,int s, int b, int r, int by, int u, int e, String sti)
+    public Bolig(int i,String ad,int s, int b, int r, int by, int u, int e, String sti)
     {
+        id =i;
         adresse = ad;
         sted = s;
         boareal = b;
