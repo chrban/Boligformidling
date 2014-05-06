@@ -89,6 +89,23 @@ public class BoligsøkerListe implements Serializable {
         return ut;
     }
 
+    public String[][] tilTabellMedId()
+    {
+        Boligsøker løper = første;
+        String[][] ut = new String[tellOpp()][6];
+        int i = 0;
+
+        if(løper == null)
+            return ut;
+
+        while(løper != null)
+        {
+            ut[i++] = løper.tilTabellMedId();
+            løper = løper.neste;
+        }
+        return ut;
+    }
+
     public int tellOpp()
     {
         Boligsøker løper = første;

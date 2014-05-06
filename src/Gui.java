@@ -1696,17 +1696,22 @@ public class Gui extends JFrame {
         utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
         velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.setVisible(true);
-        velgUtleierVindu.add(new JLabel("Her må vi legge inn utleiertabell, sånn at det går ann å velge en utleier"));
+
 
     }
     private void visVelgLeietakerVindu()
     {
-
+        String[] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
         velgLeietakerVindu = new JFrame("Velg Leietaker");
+
+        
         velgLeietakerVindu.setSize(600,600);
-        velgLeietakerVindu.add(new JLabel("Her må vi legge inn boligsøkertabell, sånn at det går ann å velge en boligsøker"));
+        leietakerValgTabell = new JTable(boligsøkere.tilTabellMedId(), kolonnenavn);
+        velgLeietakerVindu.add(leietakerValgTabell);
+
+
         velgLeietakerVindu.setVisible(true);
-        velgLeietakerVindu.add(new JLabel("Her må vi legge inn boligsøkertabell, sånn at det går ann å velge en boliansøker"));
+
 
     }
 
