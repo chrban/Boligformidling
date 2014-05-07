@@ -279,10 +279,14 @@ public class Boligliste implements Serializable {
         Leilighet lei = null;
 
         while(it.hasNext() || ite.hasNext() || iter.hasNext() || iterat.hasNext()){
-            re = it.next();
-            en = ite.next();
-            hy = iter.next();
-            lei = iterat.next();
+            if(it.hasNext())
+                re = it.next();
+            if(ite.hasNext())
+                en = ite.next();
+            if(iter.hasNext())
+                hy = iter.next();
+            if(iterat.hasNext())
+                lei = iterat.next();
 
             if (re.getAdresse().equals(ad))
                 return re;
