@@ -2202,13 +2202,13 @@ private class resultatTabellModell extends AbstractTableModel
             boliger = (Boligliste) in.readObject();
         }
         catch( ClassNotFoundException cnfe ){
-            JOptionPane.showMessageDialog(null,"Ikke en drit lagra her da gut, fer væ koke i hop ein ny ein evon");
+            JOptionPane.showMessageDialog(null,"Kunne ikke finne programmets klasse");
         }
         catch( FileNotFoundException fnfe ){
-            JOptionPane.showMessageDialog(null, "Fant ikke BoligLagring.data");
+            JOptionPane.showMessageDialog(null, "Fant ikke fildata.data");
         }
         catch( IOException ioe ){
-            JOptionPane.showMessageDialog(null, "Her varre abraksle mye drit oppgjønnom");
+            JOptionPane.showMessageDialog(null, "Feil med lesing fra fil");
         }
     }
     public void skrivTilFil(){
@@ -2219,10 +2219,10 @@ private class resultatTabellModell extends AbstractTableModel
             ut.writeObject(boliger);
         }
         catch( NotSerializableException nse ){
-            JOptionPane.showMessageDialog(null, "Ta oss en prell evon?");
+            JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");
         }
         catch( IOException ioe ){
-            JOptionPane.showMessageDialog(null,"Her varre abraksle mye drit oppgjønnom");
+            JOptionPane.showMessageDialog(null,"Feil med skriving til fil");
         }
     }
 
