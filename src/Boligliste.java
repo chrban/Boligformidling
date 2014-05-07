@@ -19,6 +19,13 @@ public class Boligliste implements Serializable {
         leiligheter = new TreeSet<>();
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
+
+        Enebolig en = new Enebolig("Adresse",1,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
+        Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
+        Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
+        Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
+
+        leggTil(en);
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}

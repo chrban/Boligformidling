@@ -14,7 +14,7 @@ public class Enebolig extends Bolig implements Serializable
 
     public Enebolig(){}
 
-    public Enebolig(String ad,int s, int b, int r, int by, int u, int id, String sti,  int e, int park, int k, int t)
+    public Enebolig(String ad, int s, int b, int r, int by, int u, int id, String sti,  int e, int park, int k, int t)
     {
         super( id++, ad,s, b, r, by, u, id, sti);
         etasjer = e;
