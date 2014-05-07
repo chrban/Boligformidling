@@ -69,4 +69,14 @@ public class UtleierListe implements Serializable{
         }
         return utleiere;
     }
+    public Utleier getUtleier(String i){
+        Iterator<Utleier> it = liste.iterator();
+        Utleier retur;
+        while(it.hasNext()){
+            retur = it.next();
+            if( retur.getId().equals(i) )
+                return retur;
+        }
+        return null;
+    }
 }
