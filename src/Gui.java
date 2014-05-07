@@ -823,6 +823,15 @@ public class Gui extends JFrame {
 
         //Slutt fane 4
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
+
+
         c.anchor = GridBagConstraints.NORTHWEST;
         c.ipady=2
         ;
