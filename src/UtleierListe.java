@@ -70,6 +70,7 @@ public class UtleierListe implements Serializable{
         return utleiere;
     }
     public Utleier getUtleier(String i){
+        System.out.println("leter etter boligsøker");
         Iterator<Utleier> it = liste.iterator();
         Utleier retur;
         while(it.hasNext()){

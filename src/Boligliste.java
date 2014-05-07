@@ -340,8 +340,21 @@ public class Boligliste implements Serializable {
         return ut;
     }*/
 
-    public Bolig finnBolig(String ad)
+    public Bolig finnBolig(String inn)
     {
+        System.out.println("leter etter boligsøker");
+        int id = 0;
+        try{
+            id = Integer.parseInt(inn);
+        }
+        catch (NumberFormatException nfe)
+        {
+            JOptionPane.showMessageDialog(null, "Noe er galt med boligvalget ditt :(");
+            System.out.println("det fucket seg i parsingen");
+            return null;
+        }
+
+
         Iterator<Rekkehus> it = rekkehus.iterator();
         Rekkehus re = null;
         Iterator<Enebolig> ite = eneboliger.iterator();
@@ -361,13 +374,13 @@ public class Boligliste implements Serializable {
             if(iterat.hasNext())
                 lei = iterat.next();
 
-            if (re != null && re.getAdresse().equals(ad))
+            if (re != null && re.getId()== id )
                 return re;
-            else if (en != null && en.getAdresse().equals(ad))
+            else if (en != null && en.getId() == id)
                 return en;
-            else if (hy != null && hy.getAdresse().equals(ad))
+            else if (hy != null && hy.getId() == id)
                 return hy;
-            else if (lei != null && lei.getAdresse().equals(ad))
+            else if (lei != null && lei.getId() == id)
                 return lei;
         }
         return null;

@@ -152,12 +152,20 @@ public class BoligsøkerListe implements Serializable {
         else
             return "Ingen boligsøkere registrert!";
     }
-    public Boligsøker getBoligsøker(String i){
+    public Boligsøker getBoligsøker(String i)
+    {
         Boligsøker løper = første;
+        System.out.println("leter etter boligsøker");
 
-        while( løper != null ){
+        if(løper == null)
+            return null;
+
+        while( løper != null )
+        {
             if( løper.getId().equals(i))
                 return løper;
+            løper = løper.neste;
+
         }
         return null;
     }

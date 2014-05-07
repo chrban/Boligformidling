@@ -8,7 +8,7 @@ public class KontraktListe implements Serializable {
 
     }
 
-    public boolean leggInnKontrakt(Kontrakt ny){
+    public boolean leggTil(Kontrakt ny){
         if(ny == null)
             return false;
 

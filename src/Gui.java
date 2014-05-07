@@ -1,7 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.List;
+
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
@@ -9,6 +11,7 @@ import java.io.*;
 import java.rmi.server.UID;
 import java.util.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.event.ChangeEvent;
@@ -65,7 +68,7 @@ public class Gui extends JFrame {
     private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
-    private JFrame velgUtleierVindu, velgLeietakerVindu;
+    private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
     private String valgtId;
 
@@ -128,6 +131,7 @@ public class Gui extends JFrame {
 //temp, filmeny slutt
 
         utleiere = new UtleierListe();
+
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
         kontrakter = new KontraktListe();
@@ -871,6 +875,7 @@ public class Gui extends JFrame {
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
         panel5.add(velgBoligKnapp, c);
+        velgBoligKnapp.setVisible(false);
 
         c.gridx = 2;
         c.gridy = 3;
@@ -878,6 +883,7 @@ public class Gui extends JFrame {
         valgtBolig.setEditable(false);
         valgtBolig.setText("Ingen bolig valgt");
         panel5.add(valgtBolig, c);
+        valgtBolig.setVisible(false);
 
 
 
@@ -994,6 +1000,10 @@ public class Gui extends JFrame {
                 visVelgUtleierVindu();
             else if(e.getSource() == velgLeietakerKnapp)
                 visVelgLeietakerVindu();
+            else if(e.getSource() == velgBoligKnapp)
+                visVelgBoligVindu();
+            else if(e.getSource() == lagreKontrakt)
+                mekkKontrakt();
             else if(e.getSource() == finnMatch ){
 
                 // her henter jeg inn tabellverdin
@@ -1253,7 +1263,23 @@ public class Gui extends JFrame {
                 return;
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if(tabellmodell instanceof utleierTabellModell) {
+
+            if(tabellmodell instanceof resultatTabellModell)
+            {
+                if(!lsm.isSelectionEmpty())
+                {
+                    System.out.println("Lytter til riktig vindu");
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    int id = (int) tabellmodell.getValueAt(valgtRad,9);
+                    String stringId = Integer.toString(id);
+                    valgtBolig.setText(stringId);
+                    velgBoligVindu.dispose();
+                    return;
+                }
+            }
+
+
+            else if(tabellmodell instanceof utleierTabellModell) {
                 if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMinSelectionIndex();
                     String id = (String) tabellmodell.getValueAt(valgtRad, 0);
@@ -1274,6 +1300,8 @@ public class Gui extends JFrame {
                     valgtLeietaker.setText(id);
 
                     velgLeietakerVindu.dispose();
+                    velgBoligKnapp.setVisible(true);
+                    valgtBolig.setVisible(true);
                     return;
                 }
             }
@@ -1288,9 +1316,6 @@ public class Gui extends JFrame {
                 }
 
             }
-
-
-
 
         }
     }
@@ -1385,21 +1410,23 @@ public String[] getKolonneNavnForBoligtype(int[] krav)
     String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
     String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
 
-    switch(krav[0]) {
-        case 1:
-            return kolonnenavn1;
+    if(krav != null) {
+        switch (krav[0]) {
+            case 1:
+                return kolonnenavn1;
 
-        case 2:
-            return kolonnenavn1;
+            case 2:
+                return kolonnenavn1;
 
-        case 3:
-            return kolonnenavn2;
+            case 3:
+                return kolonnenavn2;
 
-        case 4:
-            return kolonnenavn3;
+            case 4:
+                return kolonnenavn3;
 
+        }
     }
-    return kolonnenavn1;
+        return kolonnenavn1;
 }
 
 
@@ -1458,13 +1485,14 @@ private class resultatTabellModell extends AbstractTableModel
 
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>( resultatModell );
 
-/*
-        List <RowSorter.SortKey> sortKeys
-                = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
 
-        sorterer.setSortKeys();
-*/
+        List<TableRowSorter.SortKey> sortKeys
+                = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
+        ));
+
+        sorterer.setSortKeys(sortKeys);
+
         resultatTabell.setRowSorter( sorterer );
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
@@ -2069,17 +2097,22 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
-    {/*
+    {
         Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
         Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
         Bolig bolig = boliger.finnBolig(valgtBolig.getText());
         int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
 
+        if(leietaker == null || utleier == null || bolig == null) {
+            System.out.println("en var null");
+            return;
+        }
+
         try{
-            sluttår = Integer.parseInt((String) sluttÅrFelt.getText());
+            sluttår = Integer.parseInt((String) sluttårFelt.getText());
             sluttmåned = Integer.parseInt((String) sluttMånedFelt.getText());
             sluttdag = Integer.parseInt((String) sluttDagFelt.getText());
-            startår = Integer.parseInt((String) StarÅrFelt.getText());
+            startår = Integer.parseInt((String) startÅrFelt.getText());
             startmåned = Integer.parseInt((String) startMånedFelt.getText());
             startdag = Integer.parseInt((String) startDagFelt.getText());
         }
@@ -2099,7 +2132,7 @@ private class resultatTabellModell extends AbstractTableModel
             if(start.before(slutt))
             {
                 Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
-                kontrakter.leggTilNy(ny);
+                kontrakter.leggTil(ny);
                 JOptionPane.showMessageDialog(null,"Kontrakt lagret");
                 return;
             }
@@ -2111,7 +2144,7 @@ private class resultatTabellModell extends AbstractTableModel
         else{
             JOptionPane.showMessageDialog(null,"Du må skriver gyldige tall i datofeltene!");
         }
-        */
+
     }
 
 
@@ -2173,6 +2206,39 @@ private class resultatTabellModell extends AbstractTableModel
         velgLeietakerVindu.setVisible(true);
 
 
+    }
+    public void visVelgBoligVindu()
+    {
+        velgBoligVindu = new JFrame("Velg bolig");
+        velgBoligVindu.setSize(600,600);
+
+        //sett utleierid, sånn at det matches på riktig boligsøker
+        String leietakerId = valgtLeietaker.getText();
+        valgtId = leietakerId;
+
+
+
+        resultatTabellModell resultatModell = new resultatTabellModell();
+        resultatTabell = new JTable(resultatModell);
+
+
+
+
+        //sorter på matchkoefisient
+        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>( resultatModell );
+        List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        sorterer.setSortKeys(sortKeys);
+        resultatTabell.setRowSorter( sorterer );
+
+        //valg
+        resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = resultatTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
+
+        velgBoligVindu.add(new JScrollPane(resultatTabell));
+
+        velgBoligVindu.setVisible(true);
     }
 
 
