@@ -31,7 +31,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -423,11 +423,13 @@ public class Gui extends JFrame {
         maxPrisSlider.setSnapToTicks(true);
         bspanel.add(maxPrisSlider, c);
 
+        antEgtLabel = new JLabel("Ant Etasjer: ");
         c.gridx = 0;
         c.gridy = 5;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
-        bspanel.add(new JLabel("Ant Etasjer: "), c);
+        antEgtLabel.setVisible(false);
+        bspanel.add(antEgtLabel, c);
 
 
         etasjeBox = new JComboBox(etasjeValg);
@@ -605,13 +607,13 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         bopanel.add(romBoxFane2, c);
 
-        antEgtLabel = new JLabel("Ant Etasjer: ");
+        antEgtLabelFane2 = new JLabel("Ant Etasjer: ");
         c.gridx = 0;
         c.gridy = 8;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
-        antEgtLabel.setVisible(false);
-        bopanel.add(antEgtLabel, c);
+        antEgtLabelFane2.setVisible(false);
+        bopanel.add(antEgtLabelFane2, c);
 
 
         etasjeBoxFane2 = new JComboBox(etasjeValg);
@@ -1070,6 +1072,7 @@ public class Gui extends JFrame {
         balkongValg.setVisible(false);
         badValg.setVisible(false);
         kjøkkenValg.setVisible(false);
+        antEgtLabel.setVisible(false);
         revalidate();
     }
     private void toglerFane2(){
@@ -1081,7 +1084,7 @@ public class Gui extends JFrame {
         balkongValgFane2.setVisible(false);
         badValgFane2.setVisible(false);
         kjøkkenValgFane2.setVisible(false);
-        antEgtLabel.setVisible(false);
+        antEgtLabelFane2.setVisible(false);
         tomtAreal.setVisible(false);
         tomtArealLabel.setVisible(false);
         revalidate();
@@ -1099,14 +1102,15 @@ public class Gui extends JFrame {
                     garasjeValg.setVisible(true);
                     kjellerValg.setVisible(true);
                     etasjeBox.setVisible(true);
+                    antEgtLabel.setVisible(true);
                     revalidate();
                     break;
                 case "Rekkehus":
                     togler();
-                    System.out.println("Reke");
                     garasjeValg.setVisible(true);
                     kjellerValg.setVisible(true);
                     etasjeBox.setVisible(true);
+                    antEgtLabel.setVisible(true);
                     revalidate();
                     break;
                 case "Leilighet":
@@ -1133,9 +1137,10 @@ public class Gui extends JFrame {
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
-                    antEgtLabel.setVisible(true);
+                    antEgtLabelFane2.setVisible(true);
                     tomtAreal.setVisible(true);
                     tomtArealLabel.setVisible(true);
+
                     revalidate();
                     break;
                 case "Rekkehus":
@@ -1143,7 +1148,7 @@ public class Gui extends JFrame {
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
-                    antEgtLabel.setVisible(true);
+                    antEgtLabelFane2.setVisible(true);
                     tomtAreal.setVisible(true);
                     tomtArealLabel.setVisible(true);
                     revalidate();
