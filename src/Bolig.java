@@ -22,7 +22,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
 
     public Bolig(int i,String ad,int s, int b, int r, int by, int u, int e, String sti)
     {
-        id =i;
+        id = i;
         adresse = ad;
         sted = s;
         boareal = b;
@@ -63,9 +63,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
     public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
     {
         Bolig b = (Bolig) o;
-        if(b.getUtleiepris()> utleiepris)
+        if(b.getId()> id)
             return new Integer(1);
-        else if(b.getUtleiepris() == utleiepris)
+        else if(b.getId() == id)
             return new Integer(0);
         else
             return new Integer(-1);

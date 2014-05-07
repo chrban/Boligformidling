@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Boligliste implements Serializable {
@@ -24,20 +25,29 @@ public class Boligliste implements Serializable {
         Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
+        System.out.println( en.getId() + " " + to.getId()+" ");
 
-        leggTil(en);
-        leggTil(to);
-        leggTil(tre);
-        leggTil(fire);
+        if(leggTil(en))
+            System.out.println("lagt til en");
+
+        if(leggTil(to));
+            System.out.println("lagt til to");
+
+        if(leggTil(tre));
+             System.out.println("lagt til tre");
+
+        if(leggTil(fire));
+            System.out.println("lagt til fire");
+
         System.out.println(eneboliger.size());
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
 
-    public void leggTil(Enebolig e)// kan dette gå?
+    public boolean leggTil(Enebolig e)// kan dette gå?
     {
         System.out.println("legger til enebolig");
-        eneboliger.add(e);
+        return eneboliger.add(e);
 
     }
 
@@ -77,21 +87,32 @@ public class Boligliste implements Serializable {
                 if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
                 {
                     JOptionPane.showMessageDialog(null,"Inni idiotsikkerTestenTilOsen");
-                    int matchkoeffisient;
-                    int matches = 0;
+                    double matchkoeffisient;
+                    double matches = 0;
+                    double urelevante = 0;
+
                     for (int i = 1; i <= 5; i++)// av krav
                     {
+                        if(krav[i] == 0)
+                            urelevante++;
+
+                        JOptionPane.showMessageDialog(null, "Krav nr " + i + "\n Bolig har: " + specs[i] +"\n Krav sier: " + krav[i]);
                         if(specs[i] == krav[i])
                         {
                             matches++;
-                            JOptionPane.showMessageDialog(null,"Matches++");
+                            JOptionPane.showMessageDialog(null,"Matches: " +
+                                    "" + matches);
                         }
                     }
-                    if(matches >= 4)
+                    if(matches >= (4-urelevante))
                     {
-                        matchkoeffisient = matches/5;
+                        DecimalFormat df = new DecimalFormat("0.00");
+                        matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = enebolig.tilMatchTabell();
-                        ut[plass++][0] = matchkoeffisient;
+                        //int tull = 5-urelevante;
+                       // JOptionPane.showMessageDialog(null, enebolig.toString()+"\n" +
+                         //       "" + matches + "/" + tull );
+                        ut[plass++][0] = df.format(matchkoeffisient);
                     }
                 }
             }
@@ -180,6 +201,19 @@ public class Boligliste implements Serializable {
                 }
             }
         }
+        /*Object[][] temp = ut;
+        double høyeste = 0;
+        int plass = 0;
+        for(int i = 0; i < plass; i++)
+        {
+
+            if(ut[i][0] <= høyeste)
+                temp[]
+
+        }*/
+
+
+
             return ut;
         /*todo
         - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
@@ -211,6 +245,8 @@ public class Boligliste implements Serializable {
     public String[][] eneboligerTilTabell()
     {
         String[][] ut = new String[eneboliger.size()][8];
+        System.out.println("Lengden på eneboliger i tilTabellmetoden er : " + eneboliger.size());
+
         Enebolig enebolig;
         Iterator<Enebolig> iter = eneboliger.iterator();
         int i = 0;

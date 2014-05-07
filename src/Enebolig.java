@@ -10,18 +10,20 @@ public class Enebolig extends Bolig implements Serializable
     private int tomtstørrelse;
     private int parkering;
     private int[] specArray;
-    private static int id = 1;
+    private static int eneboligid = 1;
 
     public Enebolig(){}
 
     public Enebolig(String ad, int s, int b, int r, int by, int u, int id, String sti,  int e, int park, int k, int t)
     {
-        super( id++, ad,s, b, r, by, u, id, sti);
+
+        super(eneboligid++, ad,s, b, r, by, u, id, sti);
+
         etasjer = e;
         kjeller = k;
         tomtstørrelse = t;
         parkering = park;
-        JOptionPane.showMessageDialog(null, "eneboligkonsturkltæøwert");// todo pikk
+        JOptionPane.showMessageDialog(null, "eneboligkonsturkltæøwert med id = " + eneboligid + "\n super sin id er: " +super.getId());// todo pikk
     }
 
     public int[] getSpecArray(){
@@ -68,7 +70,7 @@ public class Enebolig extends Bolig implements Serializable
         ut[6] = Integer.toString(parkering);
         ut[7] = Integer.toString(kjeller);
         ut[8] = super.getBildesti();
-        ut[9] = id;
+        ut[9] = super.getId();
 
         return ut;
     }

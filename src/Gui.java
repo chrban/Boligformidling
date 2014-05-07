@@ -1,16 +1,14 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.io.*;
 import java.rmi.server.UID;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.SortedSet;
+import java.util.*;
 import java.awt.event.KeyEvent;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.event.ChangeEvent;
@@ -18,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
+import javax.swing.DefaultRowSorter;
 import java.lang.*;
 
 
@@ -1380,7 +1379,28 @@ public class Gui extends JFrame {
 
 
 
+public String[] getKolonneNavnForBoligtype(int[] krav)
+{
+    String[] kolonnenavn1 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Parkering", "Kjeller", "Bilde", "id"};
+    String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
+    String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
 
+    switch(krav[0]) {
+        case 1:
+            return kolonnenavn1;
+
+        case 2:
+            return kolonnenavn1;
+
+        case 3:
+            return kolonnenavn2;
+
+        case 4:
+            return kolonnenavn3;
+
+    }
+    return kolonnenavn1;
+}
 
 
 private class resultatTabellModell extends AbstractTableModel
@@ -1392,7 +1412,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-    String [] kolonnenavn = {"Matchresultat","Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma","9","10"};
+    String [] kolonnenavn = getKolonneNavnForBoligtype(kravene);
 
     Object[][] celler = boliger.matchPåKrav(kravene);
 
@@ -1435,6 +1455,17 @@ private class resultatTabellModell extends AbstractTableModel
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
+
+        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>( resultatModell );
+
+/*
+        List <RowSorter.SortKey> sortKeys
+                = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+
+        sorterer.setSortKeys();
+*/
+        resultatTabell.setRowSorter( sorterer );
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
         repaint();
@@ -2207,7 +2238,7 @@ private class resultatTabellModell extends AbstractTableModel
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
-            boliger = (Boligliste) in.readObject();
+            //boliger = (Boligliste) in.readObject();
         }
         catch( ClassNotFoundException cnfe ){
             JOptionPane.showMessageDialog(null,"Kunne ikke finne programmets klasse");
