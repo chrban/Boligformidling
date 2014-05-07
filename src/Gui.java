@@ -793,7 +793,7 @@ public class Gui extends JFrame {
 
         c.ipady=0;
 
-        visBoligsøkere();
+       // visBoligsøkere();
 
 
         c.gridx = 0;

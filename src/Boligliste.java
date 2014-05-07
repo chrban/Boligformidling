@@ -255,6 +255,23 @@ public class Boligliste implements Serializable {
         return ut;
     }
 
+    public Object[][] alleBoligerTilEnkelTabell()
+    {
+        int lengde = eneboliger.size() + rekkehus.size()+leiligheter.size()+hybler.size();
+        Object[][] ut = new Object[lengde][4];
+
+        Enebolig enebolig;
+        Iterator<Enebolig> eiter = eneboliger.iterator();
+        int i = 0;
+
+        while(eiter.hasNext())
+        {
+            enebolig = eiter.next();
+            ut[i++] = enebolig.tilEnkelTabell();
+        }
+        return ut;
+    }
+
 
     /* public String[][] tilTabell()
     {

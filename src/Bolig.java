@@ -34,7 +34,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         bildesti = sti;
     }
 
-
+    public int getId(){return id;}
     public String getAdresse()
     {
         return adresse;

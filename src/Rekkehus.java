@@ -74,6 +74,18 @@ import java.io.*;
             return ut;
         }
 
+        public Object[] tilEnkelTabell()
+        {
+            Object[] ut = new Object[4];
+
+            ut[0] = super.getId();
+            ut[1] = sted();
+            ut[2] = "Enebolig";
+            ut[3] = getAdresse();
+
+            return ut;
+        }
+
         public String sted()
         {
             String sted = "";
