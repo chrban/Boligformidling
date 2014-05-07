@@ -26,6 +26,9 @@ public class Boligliste implements Serializable {
         Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
 
         leggTil(en);
+        leggTil(to);
+        leggTil(tre);
+        leggTil(fire);
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
