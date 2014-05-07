@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -54,6 +55,7 @@ public class Boligliste implements Serializable {
         // enebol
         if(krav[0] == 1)
         {
+            JOptionPane.showMessageDialog(null,"enebolig togla inni boligliste matchPåKrav");
             Iterator<Enebolig> iter = eneboliger.iterator();
             while(iter.hasNext())// gjønogang av listen
             {
@@ -61,6 +63,7 @@ public class Boligliste implements Serializable {
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
                 if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
                 {
+                    JOptionPane.showMessageDialog(null,"Inni idiotsikkerTestenTilOsen");
                     int matchkoeffisient;
                     int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
@@ -68,6 +71,7 @@ public class Boligliste implements Serializable {
                         if(specs[i] == krav[i])
                         {
                             matches++;
+                            JOptionPane.showMessageDialog(null,"Matches++");
                         }
                     }
                     if(matches >= 4)

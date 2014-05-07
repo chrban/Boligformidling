@@ -35,7 +35,7 @@ public class Gui extends JFrame {
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel;
     ;
     //private JRadioButton utleier, boligsøker;
    // private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
@@ -62,8 +62,8 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger;
-    private JMenuItem om, lagre, angre,tabell;
+    private JMenu filmeny, rediger,matching;
+    private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu;
@@ -105,17 +105,25 @@ public class Gui extends JFrame {
         angre = new JMenuItem("Angre");
         angre.addActionListener(øre);
 
+        matching = new JMenu("Matching");
+        oppdaterBoligsøkerTabell = new JMenuItem("Oppdater BS tabell");
+        oppdaterBoligsøkerTabell.addActionListener(øre);
+
+
 
         rediger.add(angre);
         filmeny.add(om);
         filmeny.add(lagre);
         rediger.add(tabell);
+        matching.add(oppdaterBoligsøkerTabell);
+
 
 
         menylinje = new JMenuBar();
         setJMenuBar(menylinje);
         menylinje.add(filmeny);
         menylinje.add(rediger);
+        menylinje.add(matching);
 
 
 //temp, filmeny slutt
@@ -157,6 +165,7 @@ public class Gui extends JFrame {
         tapanel = new JPanel(layout);//tabellpanel
         resultatPanel = new JPanel(layout);
         panel5 = new JPanel(layout);
+        velgBsPanel = new JPanel(layout);
 
 
         panel1.add(pepanel, BorderLayout.LINE_START);
@@ -180,7 +189,7 @@ public class Gui extends JFrame {
         pepanel.setVisible(true);
         tapanel.setVisible(true);
         resultatPanel.setVisible(true);
-
+        velgBsPanel.setVisible(true);
         //oppretter Fanene
 
         fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
@@ -771,17 +780,25 @@ public class Gui extends JFrame {
 
 
 
-        visBoligsøkere();
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        //panel4.add(boligSøkereForMatch,c);
-
         finnMatch = new JButton("Finn Match!");
         c.gridx = 2;
         c.gridy = 1;
+        c.gridheight = 3;
+        c.gridwidth = 1;
+        c.ipady=30;
+
         finnMatch.addActionListener(lytter);
         panel4.add(finnMatch,c);
+        velgBsPanel.setBackground(Color.RED);
+
+        c.ipady=0;
+
+        visBoligsøkere();
+
+
+        c.gridx = 0;
+        c.gridy = 4;
+        panel4.add(velgBsPanel,c);
 
 
 
@@ -789,10 +806,14 @@ public class Gui extends JFrame {
         c.gridx = 4;
         c.gridy = 0;
         panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
+      //  visMatch();
 
-        c.gridx = 0;
+        c.gridx = 4;
         c.gridy = 4;
         panel4.add(resultatPanel,c);
+        resultatPanel.setBackground(Color.BLUE);
+
+
 
 
 
@@ -973,6 +994,8 @@ public class Gui extends JFrame {
     }
 
 
+
+
     private class menyLytter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == om) {
@@ -980,6 +1003,9 @@ public class Gui extends JFrame {
             } else if (e.getSource() == lagre) {
 
                 System.out.println("Trykka på lagre");
+            //    visBoligsøkere();
+
+
 
 
             } else if (e.getSource() == angre) {
@@ -999,6 +1025,10 @@ public class Gui extends JFrame {
                 panel3.add(personTabellScroll = new JScrollPane(personTabell),BorderLayout.LINE_END);
                 panel3.add(boligTabellScroll = new JScrollPane(boligTabellTabellen),BorderLayout.BEFORE_LINE_BEGINS);
             }
+            else if(e.getSource()==oppdaterBoligsøkerTabell){
+                visBoligsøkere();
+                System.out.println("Lastet inn boligsøkertabellen på nytt");
+            }
 
 
         }
@@ -1011,53 +1041,12 @@ public class Gui extends JFrame {
         public void stateChanged(ChangeEvent e) {
            if(fane.getSelectedIndex()==2) {
                 System.out.println("Trykka på fane; vis tabell!");
-
-
-
-/*
-                panel3.remove(personTabellScroll);
-                panel3.remove(boligTabellScroll);
-                lagTabellen();
-                lagBoligTabellen();
-                panel3.add(personTabellScroll = new JScrollPane(personTabell));
-                panel3.add(boligTabellScroll = new JScrollPane(boligTabell));
-
-
-
-                //fra radioknapper
-                    private void clearPanel3()
-    {
-       tapanel.removeAll();
-        revalidate();
-        repaint();
-    }
-
-    private class tabellTypeLytter implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(boligtabellRadioknapp.isSelected()){
-
-                System.out.println("togla boligtabell " + boligtabellRadioknapp.isSelected() + "perta er" + persontabellRadioknapp.isSelected());
-            //   panel3.remove(personTabellScroll);
-            //    panel3.remove(boligTabellScroll);
-                clearPanel3();
-                lagBoligTabellen();
-                //tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
-
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
-
-                //repaint();
-                revalidate();
-                repaint();
-*/
-
-
-
             }
-
-            System.out.println("byttet fane, derfor kjører jeg en repaint(), trengs egentlig ikke men..");
+            else if(fane.getSelectedIndex()==3){
+               System.out.println("oppdaterer boligsøkerlista siden matchfane er velgt, dvs kaller på visBoligsøkere()");
+               visBoligsøkere();
+           }
             repaint();
-
         }
     }
 
@@ -1215,52 +1204,24 @@ public class Gui extends JFrame {
     }
 
     private class tabellTypeLytter implements ActionListener{
-        @Override
+
         public void actionPerformed(ActionEvent e) {
             if(boligtabellRadioknapp.isSelected()){
-
-                System.out.println("togla boligtabell " + boligtabellRadioknapp.isSelected() + "perta er" + persontabellRadioknapp.isSelected());
-            //   panel3.remove(personTabellScroll);
-            //    panel3.remove(boligTabellScroll);
                 clearPanel3();
                 lagBoligTabellen();
-                //tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
-
                 tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
-
-                //repaint();
                 revalidate();
                 repaint();
-/*
-
-        c.gridx = 0;
-        c.gridy = 0;
-        panel3.add(persontabellRadioknapp,c);
-
-        boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
-        boligtabellRadioknapp.addActionListener(radioTabellLytter);
-        c.gridx = 0;
-        c.gridy = 1;
-        panel3.add(boligtabellRadioknapp,c);
- */
-
             }
             else if(persontabellRadioknapp.isSelected()){
-                System.out.println("Tolga persontabell " + persontabellRadioknapp.isSelected() + " boligtab er " + boligtabellRadioknapp.isSelected());
-                //panel3.remove(personTabellScroll);
-              //  panel3.remove(boligTabellScroll);
                 clearPanel3();
                 lagTabellen();
                 tapanel.add(personTabellScroll = new JScrollPane(personTabell));
-                //repaint();
                 revalidate();
                 repaint();
-
-
             }
         }
     }
-    //todo Christer, Åpne fabrikken
 
     // UTVALGSLYTTER
 
@@ -1320,19 +1281,6 @@ public class Gui extends JFrame {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1404,36 +1352,22 @@ public class Gui extends JFrame {
         }
     }
 
-    /*private class boligValgTabellModell extends AbstractTableModel
-    {
-        String[] kolonnenavn = {"Id"}
-    }
-*/
-
-
-// HERFRA
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//int[] kravene = boligsøkere.getKravPåId(valgtId);
 
 
 
 // HERFRA
-//sende med krav array
+
+
+
+
+
+
+
+
+
+
+
+
 
 private class resultatTabellModell extends AbstractTableModel
 {
@@ -1484,15 +1418,10 @@ private class resultatTabellModell extends AbstractTableModel
 
     private void visMatch()
     {
-
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
-
-        
-        visBoligsøkere();
         resultatPanel.add(new JScrollPane(resultatTabell));
-        resultatPanel.add(new JScrollPane(boligSøkereForMatch));
         revalidate();
         repaint();
 
@@ -1514,9 +1443,19 @@ private class resultatTabellModell extends AbstractTableModel
         revalidate();
         repaint();
     }
+    private void clearVelgBsPanel(){
+        velgBsPanel.removeAll();
+        revalidate();
+        repaint();
+
+    }
+
+
+
 
 
     public void visBoligsøkere() {
+        clearVelgBsPanel();
 
 
         boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
@@ -1525,9 +1464,10 @@ private class resultatTabellModell extends AbstractTableModel
 
         ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
-        // initie tabellLytter
 
-        //resultatPanel.add(boligSøkereForMatch);
+        velgBsPanel.add(new JScrollPane(boligSøkereForMatch));
+
+
 
     }
 
@@ -2242,6 +2182,7 @@ private class resultatTabellModell extends AbstractTableModel
 
     public void lesFraFil(){
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))){
+
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
