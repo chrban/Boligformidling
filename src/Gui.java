@@ -2031,9 +2031,9 @@ private class resultatTabellModell extends AbstractTableModel
 
     public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
     {/*
-        Boligsøker leietaker;
-        Utleier utleier;
-        Bolig bolig;
+        Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
+        Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
+        Bolig bolig = boliger.finnBolig(valgtBolig.getText());
         int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
 
         try{
@@ -2064,10 +2064,14 @@ private class resultatTabellModell extends AbstractTableModel
                 JOptionPane.showMessageDialog(null,"Kontrakt lagret");
                 return;
             }
-            JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
-            return;
+            else{
+                JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
+                return;
+            }
         }
-        JOptionPane.showMessageDialog(null,"Du må skriver gyldige tall i datofeltene!");
+        else{
+            JOptionPane.showMessageDialog(null,"Du må skriver gyldige tall i datofeltene!");
+        }
         */
     }
 

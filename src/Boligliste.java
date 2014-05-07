@@ -309,13 +309,13 @@ public class Boligliste implements Serializable {
             if(iterat.hasNext())
                 lei = iterat.next();
 
-            if (re.getAdresse().equals(ad))
+            if (re != null && re.getAdresse().equals(ad))
                 return re;
-            else if (en.getAdresse().equals(ad))
+            else if (en != null && en.getAdresse().equals(ad))
                 return en;
-            else if (hy.getAdresse().equals(ad))
+            else if (hy != null && hy.getAdresse().equals(ad))
                 return hy;
-            else if (lei.getAdresse().equals(ad))
+            else if (lei != null && lei.getAdresse().equals(ad))
                 return lei;
         }
         return null;
