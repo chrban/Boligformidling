@@ -1646,20 +1646,23 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     private String[][] joinBoligArray() {
+        JOptionPane.showMessageDialog(null,"inni joinboligArray");
         String[][] første = boliger.eneboligerTilTabell();
         String[][] andre = boliger.hyblerTilTabell();
         String[][] tredje = boliger.leiligheterTilTabell();
         String[][] fjerde = boliger.rekkehusTilTabell();
-
+        System.out.println("første "+første.length);
 
         String[][] joina = new String[første.length + andre.length + tredje.length + fjerde.length][8];
         int i = 0;
         while (i < første.length) {
             joina[i] = første[i];
             i++;
+            System.out.println(i);
         }
         int j=0;
         while(j<andre.length){
+            JOptionPane.showMessageDialog(null,j);
             joina[i++]=andre[j];
             j++;
         }

@@ -29,13 +29,16 @@ public class Boligliste implements Serializable {
         leggTil(to);
         leggTil(tre);
         leggTil(fire);
+        System.out.println(eneboliger.size());
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
 
     public void leggTil(Enebolig e)// kan dette gå?
     {
+        System.out.println("legger til enebolig");
         eneboliger.add(e);
+
     }
 
     public void leggTil(Rekkehus r)// kan dette gå?
@@ -212,11 +215,14 @@ public class Boligliste implements Serializable {
         Iterator<Enebolig> iter = eneboliger.iterator();
         int i = 0;
 
+
         while(iter.hasNext())
         {
             enebolig = iter.next();
             ut[i++] = enebolig.tilTabell();
+            System.out.println(i);
         }
+        System.out.println(eneboliger.size() + "er lwngden på eneboliger som blir retrunert fra listen");
         return ut;
     }
 
