@@ -152,6 +152,15 @@ public class BoligsøkerListe implements Serializable {
         else
             return "Ingen boligsøkere registrert!";
     }
+    public Boligsøker getBoligsøker(String i){
+        Boligsøker løper = første;
+
+        while( løper != null ){
+            if( løper.getId().equals(i))
+                return løper;
+        }
+        return null;
+    }
 
     /*//todo Christer, finn riktig måte din maddafakka
     public Object[][] fyllTabell()

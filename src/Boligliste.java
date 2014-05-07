@@ -267,9 +267,33 @@ public class Boligliste implements Serializable {
         return ut;
     }*/
 
-    public void finnBolig()
+    public Bolig finnBolig(String ad)
     {
+        Iterator<Rekkehus> it = rekkehus.iterator();
+        Rekkehus re = null;
+        Iterator<Enebolig> ite = eneboliger.iterator();
+        Enebolig en = null;
+        Iterator<Hybel> iter = hybler.iterator();
+        Hybel hy = null;
+        Iterator<Leilighet> iterat = leiligheter.iterator();
+        Leilighet lei = null;
 
+        while(it.hasNext() || ite.hasNext() || iter.hasNext() || iterat.hasNext()){
+            re = it.next();
+            en = ite.next();
+            hy = iter.next();
+            lei = iterat.next();
+
+            if (re.getAdresse().equals(ad))
+                return re;
+            else if (en.getAdresse().equals(ad))
+                return en;
+            else if (hy.getAdresse().equals(ad))
+                return hy;
+            else if (lei.getAdresse().equals(ad))
+                return lei;
+        }
+        return null;
     }
 
     public void duvet()
