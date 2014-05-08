@@ -19,8 +19,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.DefaultRowSorter;
+import javax.swing.text.Document;
 import java.lang.*;
 import javax.swing.RowSorter.*;
 
@@ -236,6 +238,8 @@ public class Gui extends JFrame {
         c.gridy = 0;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
+        fornavn.getDocument().addDocumentListener(documentListener);
+
         //c.ipadx = ;
         pepanel.add(fornavn, c);
 
@@ -250,6 +254,10 @@ public class Gui extends JFrame {
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
+            etternavn.getDocument().addDocumentListener(documentListener);
+
+
+
         pepanel.add(etternavn, c);
 
 
@@ -1083,6 +1091,51 @@ public class Gui extends JFrame {
         }
     }
 
+    private DocumentListener documentListener = new DocumentListener()
+        {
+        public void changedUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+        }
+
+        public void insertUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+            //valider();
+        }
+
+        public void removeUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+        }
+
+        private void printIt(DocumentEvent documentEvent) {
+            DocumentEvent.EventType type = documentEvent.getType();
+            String typeString = null;
+            Document source = documentEvent.getDocument();
+            int length = source.getLength();
+
+
+
+
+            /*if (type.equals(DocumentEvent.EventType.CHANGE)) {
+                typeString = "Change";
+                if(length!=0);
+                valider();
+                    System.out.println("FORANDRET, altså dett vall");
+            } else if (type.equals(DocumentEvent.EventType.INSERT)) {
+                //byttFarge((JTextField)o);
+                System.out.println("source: "+source);
+
+            } else if (type.equals(DocumentEvent.EventType.REMOVE)) {
+
+
+            }*/
+
+          //  valider();
+
+
+            System.out.println("Length: " + length);
+        }
+    };
+
 
 
 
@@ -1093,6 +1146,9 @@ public class Gui extends JFrame {
             } else if (e.getSource() == lagre) {
 
                 System.out.println("Trykka på lagre");
+
+                //valider();
+
             //    visBoligsøkere();
 
 
@@ -1556,6 +1612,10 @@ private class resultatTabellModell extends AbstractTableModel
     {
         celler[rad][kolonne] = nyVerdi;
     }
+    public Class getColumnClass( int k )
+    {
+        return getValueAt( 0, k ).getClass();
+    }
 }
 
     private void visMatch()
@@ -1892,6 +1952,7 @@ private class resultatTabellModell extends AbstractTableModel
             String t = tlf.getText();
             String email = mail.getText();
 
+
             // Bestemm Boligtype
             String bType = (String) boligtypeBox.getSelectedItem();
             switch (bType)
@@ -1907,6 +1968,7 @@ private class resultatTabellModell extends AbstractTableModel
                 default: bt = 0;
                     break;
             }
+
 
             // Bestem by "Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
             String byInn = (String) byBox.getSelectedItem();
@@ -1928,13 +1990,25 @@ private class resultatTabellModell extends AbstractTableModel
                     break;
             }
 
-            rom = Integer.parseInt((String)romBox.getSelectedItem());
+//todo catch it
+            try{
+                rom = Integer.parseInt((String) romBox.getSelectedItem());
 
-            minPris = (int) minPrisSlider.getValue();
+                minPris = (int) minPrisSlider.getValue();
 
-            maxPris = (int) maxPrisSlider.getValue();
+                maxPris = (int) maxPrisSlider.getValue();
 
-            antE = Integer.parseInt((String)etasjeBox.getSelectedItem());
+                antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
+            }
+            catch(NumberFormatException nfe){
+                JOptionPane.showMessageDialog(null,"NumberFormat siden du ikke velger");
+                return;
+            }
+
+
+
+
+
 
             park = 0;
             heis = 0;
@@ -1958,12 +2032,22 @@ private class resultatTabellModell extends AbstractTableModel
 
             plan = Integer.parseInt((String)planBox.getSelectedItem());
 
-            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
+            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || bType.equals("0") || byInn.equals("0") || antE==0 )
             {
-                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
-                return;
-                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+                gyldig(fornavn);
+                gyldig(etternavn);
+                gyldig(adresse);
+                gyldig(tlf);
+                gyldig(mail);
+                boligtypeBox.setForeground(Color.RED);
+                byBox.setBackground(Color.RED);
+                etasjeBox.setBackground(Color.RED);
+
+
             }
+
+
+
 
             String id = idGenerator(enavn,fnavn);
 
@@ -1982,11 +2066,20 @@ private class resultatTabellModell extends AbstractTableModel
             String email = mail.getText();
             String firm = firma.getText();
 
-            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals("")){
-                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
-                return;
-                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || t.equals("") || email.equals("") || firm.equals("")){
+                //valider(fnavn,enavn,ad,t,email,firm);
+
+                gyldig(fornavn);
+                gyldig(etternavn);
+                gyldig(adresse);
+                gyldig(tlf);
+                gyldig(mail);
+                gyldig(firma);
+
+
+
             }
+
 
             String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
 
@@ -1996,6 +2089,19 @@ private class resultatTabellModell extends AbstractTableModel
             return;
         }
         JOptionPane.showMessageDialog(null, "du må velge en av typene...");
+    }
+
+
+    private boolean gyldig(JTextField f)
+    {
+        if( f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
+            f.setBackground(Color.RED);
+            return true;
+        }
+        else{
+            f.setBackground(Color.WHITE);
+            return false;
+       }
     }
 
 
@@ -2018,8 +2124,17 @@ private class resultatTabellModell extends AbstractTableModel
 
         String eNavn = en;
         String fNavn = fn;
+        String id = "";
+        //todo legge inn try; gir String out of bounds exeption
+        try{
+            id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+        }
+            catch(StringIndexOutOfBoundsException sioobe){
+                JOptionPane.showMessageDialog(null,"ID generator får SIOOBE error, for kort navn madafaka");
+            }
 
-        String id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+
+
 
         JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
 
@@ -2037,29 +2152,40 @@ private class resultatTabellModell extends AbstractTableModel
         String årString = byggår.getText();
         String utPrisString = pris.getText();
         String utId = utleierId.getText();
+        String tAreal = tomtAreal.getText();
+
+
+
+        if(utId.equals("Ingen utleier valgt"))
+        {
+            JOptionPane.showMessageDialog(null,"Du må velge en utleier!");
+            return;
+        }
+
+
+
+        // innfelter
+        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
+        {
+            gyldig(adresseFane2);
+            gyldig(boareal);
+            gyldig(byggår);
+            gyldig(pris);
+            return;
+        }
+
+
         int areal = 0;
         int år = 0;
         int upris = 0;
-
-        if(utId == "Ingen utleier valgt")
-        {
-            return;
-        }
-
-
-        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Du må fylle ut alle feltene");
-            return;
-        }
-
-
+        int tomtareal = 0;
 
         try
         {
             areal = Integer.parseInt(arealString);
             år = Integer.parseInt(årString);
             upris = Integer.parseInt(utPrisString);
+            tomtareal = Integer.parseInt(tAreal);
         }
         catch(NumberFormatException e)
         {
@@ -2069,13 +2195,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-        // disse må knyttes til felter senere
-        // todo christe rædd feltene
-        int eid = 34;
-        int tomtareal = 100;
-        int plan = 3;
-        int balko = -1;
-
+    // Comboboxer
         String valg = (String)boligtypeBoxFane2.getSelectedItem();
         int btype = 0;
         switch(valg){
@@ -2114,17 +2234,31 @@ private class resultatTabellModell extends AbstractTableModel
                                 break;
         }
 
+
         int rom;
+        int antetasjer;
+        int plan;
+
+
         if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
             rom = 0;
         else
             rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
-        int antetasjer;
+
         if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
             antetasjer = 0;
         else
             antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
+
+
+        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
+            plan = 0;
+        else
+            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
+
+
+
 
 
         int kjeller = -1;
@@ -2160,7 +2294,7 @@ private class resultatTabellModell extends AbstractTableModel
             case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal);
                          boliger.leggTil(nyttRekkehus);
                          break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balko, heis);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis);
                          boliger.leggTil(nyLeilighet);
                          break;
             case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt);
@@ -2260,7 +2394,7 @@ private class resultatTabellModell extends AbstractTableModel
     private void visVelgUtleierVindu()
     {
         velgUtleierVindu = new JFrame("Velg Eier");
-        velgUtleierVindu.setSize(600,600);
+
        // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
 
         utleierTabellModell modell = new utleierTabellModell();
@@ -2272,6 +2406,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         lsm.addListSelectionListener( new Utvalgslytter( modell ) );
         velgUtleierVindu.add(utleierValgTabell);
+        velgUtleierVindu.pack();
         velgUtleierVindu.setVisible(true);
 
 
@@ -2281,7 +2416,7 @@ private class resultatTabellModell extends AbstractTableModel
     private void visVelgLeietakerVindu()
     {
         velgLeietakerVindu = new JFrame("Velg Leietaker");
-        velgLeietakerVindu.setSize(600,600);
+
 
         boligsøkerTabellModell modell = new boligsøkerTabellModell();
         leietakerValgTabell = new JTable(modell);
@@ -2291,14 +2426,16 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(modell));
 
         velgLeietakerVindu.add(leietakerValgTabell);
+        velgLeietakerVindu.pack();
         velgLeietakerVindu.setVisible(true);
+        velgLeietakerVindu.setLocationRelativeTo(velgLeietakerKnapp);
 
 
     }
     public void visVelgBoligVindu()
     {
         velgBoligVindu = new JFrame("Velg bolig");
-        velgBoligVindu.setSize(600,600);
+
 
         //sett utleierid, sånn at det matches på riktig boligsøker
 
@@ -2324,7 +2461,7 @@ private class resultatTabellModell extends AbstractTableModel
         List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
         sorterer.setSortKeys(sortKeys);
-        resultatTabell.setRowSorter( sorterer );
+        resultatTabell.setRowSorter(sorterer);
 
         //valg
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2333,7 +2470,10 @@ private class resultatTabellModell extends AbstractTableModel
 
         velgBoligVindu.add(new JScrollPane(resultatTabell));
 
+
+        velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
+        velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
     }
 
 
@@ -2417,6 +2557,7 @@ private class resultatTabellModell extends AbstractTableModel
             ut.writeObject(boligsøkere);
             ut.writeObject(kontrakter);
             ut.writeObject(boliger);
+            System.out.println("Skriver til fil, ");
         }
         catch( NotSerializableException nse ){
             JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");

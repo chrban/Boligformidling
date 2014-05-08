@@ -22,9 +22,13 @@ public class Enebolig extends Bolig implements Serializable
         kjeller = k;
         tomtstørrelse = t;
         parkering = park;
+        System.out.println("konstparkering"+parkering);
+        System.out.println("kostkjeller :" +kjeller);
     }
 
     public int[] getSpecArray(){
+
+
         specArray = new int[Konstanter.SPEC_LENGDE];
 
         specArray[1] = super.getSted();
@@ -65,8 +69,8 @@ public class Enebolig extends Bolig implements Serializable
         ut[3] = getUtleiepris() + " kr/m";
         ut[4] = getAdresse();
         ut[5] = Integer.toString(super.getRom());
-        ut[6] = Integer.toString(parkering);
-        ut[7] = Integer.toString(kjeller);
+        ut[6] = getBooleanVerdiPark();
+        ut[7] = getBooleanVerdiKjeller();
         ut[8] = super.getBildesti();
         ut[9] = super.getId();
 
@@ -85,6 +89,23 @@ public class Enebolig extends Bolig implements Serializable
         return ut;
     }
 
+    public boolean getBooleanVerdiPark()
+    {
+        System.out.println("parkering"+parkering);
+        if(parkering == 1)
+            return true;
+
+        return false;
+    }
+
+    public boolean getBooleanVerdiKjeller()
+    {
+        System.out.println("kjeller :" +kjeller);
+        if(kjeller == 1)
+            return true;
+
+        return false;
+    }
 
 
     public String sted()
