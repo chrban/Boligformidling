@@ -117,7 +117,8 @@ public class BoligsøkerListe implements Serializable {
 
         while(løper != null)
         {
-            ut[i++] = løper.tilTabellMedId();
+            if(!løper.harBolig())
+                ut[i++] = løper.tilTabellMedId();
             løper = løper.neste;
         }
         return ut;
@@ -168,6 +169,16 @@ public class BoligsøkerListe implements Serializable {
 
         }
         return null;
+    }
+    public void setBoligPåBoligsøker(Boligsøker b){
+        Boligsøker løper = første;
+        while( løper != null ){
+            if ( løper == b ) {
+                løper.setBolig();
+                return;
+            }
+            løper = løper.neste;
+        }
     }
 
     /*//todo Christer, finn riktig måte din maddafakka

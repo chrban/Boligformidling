@@ -1,10 +1,15 @@
+import javax.swing.*;
 import java.io.Serializable;
 
 public class KontraktListe implements Serializable {
     private Kontrakt første;
+    private Boligliste boliger;
+    private BoligsøkerListe søkere;
 
-    public KontraktListe(){
+    public KontraktListe(Boligliste b, BoligsøkerListe s){
         første = null;
+        boliger = b;
+        søkere = s;
 
     }
 
@@ -16,12 +21,16 @@ public class KontraktListe implements Serializable {
 
         if ( første == null ){
             første = ny;
+            boliger.setBoligTilUtleid(ny.getBolig());
             return true;
         }
         else{
+
             while( løper.neste != null )
                 løper = løper.neste;
             løper.neste = ny;
+            boliger.setBoligTilUtleid(ny.getBolig());
+            søkere.setBoligPåBoligsøker(ny.getBoligsøker());
             return true;
         }
     }

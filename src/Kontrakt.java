@@ -46,6 +46,15 @@ public class Kontrakt implements Serializable{
     public String toString(){
         return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\nKontraktstart: " + df.format(start) + "\nKontraktslutt: " + df.format(slutt) + "\n";
     }
+    public void setTilUtleid(){
+        bolig.setTilUtleid();
+    }
+    public boolean getTrueFalse(){
+        return bolig.getUtleid();
+    }
+    public void setLeietaker(){
+        leier.setBolig();
+    }
 
     public String[] tilTabell()
     {

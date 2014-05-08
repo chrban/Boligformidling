@@ -25,7 +25,7 @@ public class Boligliste implements Serializable {
         Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
-        System.out.println( en.getId() + " " + to.getId()+" ");
+        System.out.println(en.getId() + " " + to.getId() + " ");
 
         if(leggTil(en))
             System.out.println("lagt til en");
@@ -84,9 +84,9 @@ public class Boligliste implements Serializable {
             {
                 Enebolig enebolig = iter.next();
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
-                if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
+                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
                 {
-                    JOptionPane.showMessageDialog(null,"Inni idiotsikkerTestenTilOsen");
+                    JOptionPane.showMessageDialog(null, enebolig.getUtleid());
                     double matchkoeffisient;
                     double matches = 0;
                     double urelevante = 0;
@@ -96,7 +96,6 @@ public class Boligliste implements Serializable {
                         if(krav[i] == 0)
                             urelevante++;
 
-                        JOptionPane.showMessageDialog(null, "Krav nr " + i + "\n Bolig har: " + specs[i] +"\n Krav sier: " + krav[i]);
                         if(specs[i] == krav[i])
                         {
                             matches++;
@@ -126,7 +125,7 @@ public class Boligliste implements Serializable {
             {
                 Rekkehus rekkehus = iter.next();
                 specs = rekkehus.getSpecArray();
-                if(krav[10] < specs[10] && krav[11]> specs[10])
+                if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehus.getUtleid())
                 {
                     int matchkoeffisient;
                     int matches = 0;
@@ -156,7 +155,7 @@ public class Boligliste implements Serializable {
             {
                 Leilighet leilighet = iter.next();
                 specs = leilighet.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10])
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid())
                 {
                     int matchkoeffisient;
                     int matches = 0;
@@ -184,7 +183,7 @@ public class Boligliste implements Serializable {
             while (iter.hasNext()) {
                 Hybel hybel = iter.next();
                 specs = hybel.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10]) {
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid()) {
                     int matchkoeffisient;
                     int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
@@ -389,6 +388,43 @@ public class Boligliste implements Serializable {
     public void duvet()
     {
 
+    }
+    public void setBoligTilUtleid(Bolig b){
+        if(b instanceof Enebolig){
+            Iterator<Enebolig> iter = eneboliger.iterator();
+            while(iter.hasNext()){
+                Enebolig enebolig = iter.next();
+                if ( enebolig == b )
+                    enebolig.setTilUtleid();
+            }
+        }
+        else if(b instanceof Rekkehus){
+            Iterator<Rekkehus> iter = rekkehus.iterator();
+            while(iter.hasNext()){
+                Rekkehus reke = iter.next();
+                if ( reke == b ){
+                    reke.setTilUtleid();
+                }
+            }
+        }
+        else if(b instanceof Leilighet){
+            Iterator<Leilighet> iter = leiligheter.iterator();
+            while(iter.hasNext()){
+                Leilighet lei = iter.next();
+                if ( lei == b ){
+                    lei.setTilUtleid();
+                }
+            }
+        }
+        else{
+            Iterator<Hybel> iter = hybler.iterator();
+            while(iter.hasNext()){
+                Hybel hybel = iter.next();
+                if ( hybel == b ){
+                    hybel.setTilUtleid();
+                }
+            }
+        }
     }
 
     /*public TreeSet<? extends Bolig> getBoligerAvType(int  t)

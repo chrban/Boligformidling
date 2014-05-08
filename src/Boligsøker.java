@@ -13,6 +13,7 @@ public class Boligsøker extends Person implements Serializable
     // datafelt for krav
     int boligtype, by, rom, minPris, maxPris, parkering, antEtasjer, kjeller,
         heis, balkong, delerBadMed, delerKjøkkenMed;
+    private boolean harBolig;
 
 
     public Boligsøker (){}
@@ -27,6 +28,7 @@ public class Boligsøker extends Person implements Serializable
         kjeller = k; heis = h; balkong = blkng;
         delerBadMed = dbm; delerKjøkkenMed= dkm;
         Krav = new int[12];
+        harBolig = false;
     }
 
    public int[] getKrav()
@@ -71,6 +73,12 @@ public class Boligsøker extends Person implements Serializable
         ut[5] = super.getTlf();
 
         return ut;
+    }
+    public void setBolig(){
+        harBolig = true;
+    }
+    public boolean harBolig(){
+        return harBolig;
     }
 
    public String toString()

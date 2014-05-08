@@ -14,6 +14,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private Date lagtUt;
     private int eierID;
     private String bildesti;
+    private boolean utleid;
 
     public Bolig(){}
 
@@ -32,6 +33,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         lagtUt = new Date();
         eierID = e;
         bildesti = sti;
+        utleid = false;
     }
 
     public int getId(){return id;}
@@ -59,6 +61,12 @@ abstract class Bolig implements Serializable, Comparable<Object>
         return lagtUt;
     }
     public String getBildesti(){return bildesti;}
+    public void setTilUtleid(){
+        utleid = true;
+    }
+    public boolean getUtleid(){
+        return utleid;
+    }
 
     public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
     {

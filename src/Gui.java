@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 import javax.swing.DefaultRowSorter;
 import java.lang.*;
+import javax.swing.RowSorter.*;
 
 
 /**
@@ -131,10 +132,9 @@ public class Gui extends JFrame {
 //temp, filmeny slutt
 
         utleiere = new UtleierListe();
-
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
-        kontrakter = new KontraktListe();
+        kontrakter = new KontraktListe(boliger, boligsøkere);
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll= new JScrollPane(personTabell);
@@ -1263,7 +1263,6 @@ public class Gui extends JFrame {
                 return;
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
             if(tabellmodell instanceof resultatTabellModell)
             {
                 if(!lsm.isSelectionEmpty())
@@ -1316,6 +1315,9 @@ public class Gui extends JFrame {
                 }
 
             }
+
+
+
 
         }
     }
@@ -1493,7 +1495,8 @@ private class resultatTabellModell extends AbstractTableModel
 
         sorterer.setSortKeys(sortKeys);
 
-        resultatTabell.setRowSorter( sorterer );
+        resultatTabell.
+                setRowSorter( sorterer );
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
         repaint();
