@@ -33,7 +33,7 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel;
     private JTextArea beskrivelse;
@@ -62,6 +62,7 @@ public class Gui extends JFrame {
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private KontraktListe kontrakter;
+    private Mail epost;
     private knappLytter lytter;
     private menyLytter øre;
     private Boligliste boliger;
@@ -137,6 +138,7 @@ public class Gui extends JFrame {
         boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
         kontrakter = new KontraktListe(boliger, boligsøkere);
+        epost = new Mail();
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll= new JScrollPane(personTabell);
@@ -807,6 +809,12 @@ public class Gui extends JFrame {
 
         c.ipady=0;
 
+        sendMail = new JButton("Send mail");
+        c.gridx = 2;
+        c.gridy = 15;
+        sendMail.addActionListener(lytter);
+        panel4.add(sendMail,c);
+
        // visBoligsøkere();
 
 
@@ -1067,6 +1075,9 @@ public class Gui extends JFrame {
 
                 // her henter jeg inn tabellverdin
                 visMatch();
+            }
+            else if (e.getSource() == sendMail){
+                sendEmail();
             }
 
         }
@@ -2388,7 +2399,7 @@ private class resultatTabellModell extends AbstractTableModel
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
-            //boliger = (Boligliste) in.readObject();
+            boliger = (Boligliste) in.readObject();
         }
         catch( ClassNotFoundException cnfe ){
             JOptionPane.showMessageDialog(null,"Kunne ikke finne programmets klasse");
@@ -2413,6 +2424,9 @@ private class resultatTabellModell extends AbstractTableModel
         catch( IOException ioe ){
             JOptionPane.showMessageDialog(null,"Feil med skriving til fil");
         }
+    }
+    public void sendEmail(){
+        epost.sendMail("Emil","Haukliveien", "Fåberg", 7000);
     }
 
 }
