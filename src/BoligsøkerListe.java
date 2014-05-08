@@ -6,14 +6,6 @@ public class BoligsøkerListe implements Serializable {
 
     public BoligsøkerListe() {
         første = null;
-        Boligsøker en = new Boligsøker("OSKR", "Kristoffer Gard","Osen", "Nedeoverbakkeveien 63b", "815 493 00", "hotmale92@hotmail.com", 3, 3, 3,
-        100000, 2000, -1, 2, 1, 0,
-        0, 0, 0 );
-        Boligsøker to = new Boligsøker("BACH", "Chister","Banks", "Oppoverbakkeveien 63b", "815 493 00", "hotdame92@hotmail.com", 3, 3, 3,
-                100000, 2000, -1, 2, 1, 0,
-                0, 0, 0 );
-        settInnNy(en);
-        settInnNy(to);
     }
 
     public boolean settInnNy(Boligsøker b) {

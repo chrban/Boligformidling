@@ -5,11 +5,6 @@ import javax.swing.JOptionPane;
 public class UtleierListe implements Serializable{
 
     public UtleierListe(){
-        Utleier en = new Utleier("PIKK", "Carl Ivar", "Haggen", "Fyllingen 8",  "666 666 66", "heiainnvandring@gmail.com","FRP");
-        Utleier to = new Utleier("HAKO", "Kong", "Harald", "Slottsplassen 1b", "00 00 00 01","sonjaxoxo@gmail.com", "Monarkiet");
-
-        settInn(en);
-        settInn(to);
     }
 
     private List<Utleier> liste = new LinkedList<>();

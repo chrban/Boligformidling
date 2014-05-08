@@ -20,26 +20,6 @@ public class Boligliste implements Serializable {
         leiligheter = new TreeSet<>();
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
-
-        Enebolig en = new Enebolig("Adresse",1,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
-        Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
-        Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
-        Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
-        System.out.println( en.getId() + " " + to.getId()+" ");
-
-        if(leggTil(en))
-            System.out.println("lagt til en");
-
-        if(leggTil(to));
-            System.out.println("lagt til to");
-
-        if(leggTil(tre));
-             System.out.println("lagt til tre");
-
-        if(leggTil(fire));
-            System.out.println("lagt til fire");
-
-        System.out.println(eneboliger.size());
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
