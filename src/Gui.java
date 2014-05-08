@@ -1801,7 +1801,7 @@ private class resultatTabellModell extends AbstractTableModel
         String[] boligkolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
 
 
-        String[][] boligceller = joinBoligArray();
+        Object[][] boligceller = joinBoligArray();
 
 
         // THEM RULES for tabellen Altså tabellmodellen
@@ -1830,20 +1830,23 @@ private class resultatTabellModell extends AbstractTableModel
         {
             boligceller[rad][kolonne] = nyVerdi;
         }
-
+        public Class getColumnClass( int k )
+        {
+            return getValueAt( 0, k ).getClass();
+        }
 
     }    // end boligTabellFabrikk
 
 
-    private String[][] joinBoligArray() {
+    private Object[][] joinBoligArray() {
         JOptionPane.showMessageDialog(null,"inni joinboligArray");
-        String[][] første = boliger.eneboligerTilTabell();
-        String[][] andre = boliger.hyblerTilTabell();
-        String[][] tredje = boliger.leiligheterTilTabell();
-        String[][] fjerde = boliger.rekkehusTilTabell();
+        Object[][] første = boliger.eneboligerTilTabell();
+        Object[][] andre = boliger.hyblerTilTabell();
+        Object[][] tredje = boliger.leiligheterTilTabell();
+        Object[][] fjerde = boliger.rekkehusTilTabell();
         System.out.println("første "+første.length);
 
-        String[][] joina = new String[første.length + andre.length + tredje.length + fjerde.length][8];
+        Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][8];
         int i = 0;
         while (i < første.length) {
             joina[i] = første[i];

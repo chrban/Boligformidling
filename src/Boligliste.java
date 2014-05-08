@@ -232,9 +232,9 @@ public class Boligliste implements Serializable {
      */
     }
 
-    public String[][] eneboligerTilTabell()
+    public Object[][] eneboligerTilTabell()
     {
-        String[][] ut = new String[eneboliger.size()][8];
+        Object[][] ut = new Object[eneboliger.size()][8];
         System.out.println("Lengden på eneboliger i tilTabellmetoden er : " + eneboliger.size());
 
         Enebolig enebolig;
@@ -252,9 +252,9 @@ public class Boligliste implements Serializable {
         return ut;
     }
 
-    public String[][] rekkehusTilTabell()
+    public Object[][] rekkehusTilTabell()
     {
-        String[][] ut = new String[rekkehus.size()][8];
+        Object[][] ut = new Object[rekkehus.size()][8];
         Rekkehus rekkehuset;
         Iterator<Rekkehus> iter = rekkehus.iterator();
         int i = 0;
@@ -267,9 +267,9 @@ public class Boligliste implements Serializable {
         return ut;
     }
 
-    public String[][] leiligheterTilTabell()
+    public Object[][] leiligheterTilTabell()
     {
-        String[][] ut = new String[leiligheter.size()][8];
+        Object[][] ut = new Object[leiligheter.size()][8];
         Leilighet leilighet;
         Iterator<Leilighet> iter = leiligheter.iterator();
         int i = 0;
@@ -282,9 +282,9 @@ public class Boligliste implements Serializable {
         return ut;
     }
 
-    public String[][] hyblerTilTabell()
+    public Object[][] hyblerTilTabell()
     {
-        String[][] ut = new String[hybler.size()][8];
+        Object[][] ut = new Object[hybler.size()][8];
         Hybel hybel;
         Iterator<Hybel> iter = hybler.iterator();
         int i = 0;

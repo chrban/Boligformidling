@@ -40,17 +40,17 @@ import java.io.*;
             return specArray;
         }
 
-        public String[] tilTabell()
+        public Object[] tilTabell()
         {
-            String[] ut = new String[8];
+            Object[] ut = new Object[8];
 
             ut[0] = sted();
             ut[1] = getBoareal() + " m²";
             ut[2] = getUtleiepris() + " kr/m";
             ut[3] = getAdresse();
             ut[4] = Integer.toString(super.getRom());
-            ut[5] = Integer.toString(parkering);
-            ut[6] = Integer.toString(kjeller);
+            ut[5] = getBooleanVerdiPark();
+            ut[6] = getBooleanVerdiKjeller();
             ut[7] = super.getBildesti();
 
             return ut;
@@ -84,6 +84,24 @@ import java.io.*;
             ut[3] = getAdresse();
 
             return ut;
+        }
+
+        public boolean getBooleanVerdiPark()
+        {
+            System.out.println("parkering"+parkering);
+            if(parkering == 1)
+                return true;
+
+            return false;
+        }
+
+        public boolean getBooleanVerdiKjeller()
+        {
+            System.out.println("kjeller :" +kjeller);
+            if(kjeller == 1)
+                return true;
+
+            return false;
         }
 
         public String sted()

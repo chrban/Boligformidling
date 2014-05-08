@@ -47,17 +47,17 @@ public class Leilighet extends Bolig implements Serializable
         return specArray;
     }
 
-    public String[] tilTabell()
+    public Object[] tilTabell()
     {
-        String[] ut = new String[8];
+        Object[] ut = new Object[8];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
         ut[2] = getUtleiepris() + " kr/m";
         ut[3] = getAdresse();
         ut[4] = Integer.toString(super.getRom());
-        ut[5] = Integer.toString(balkong);
-        ut[6] = Integer.toString(heis);
+        ut[5] = getBooleanVerdiBalkong();
+        ut[6] = getBooleanVerdiHeis();
         ut[7] = super.getBildesti();
 
         return ut;
@@ -74,8 +74,8 @@ public class Leilighet extends Bolig implements Serializable
         ut[3] = getUtleiepris() + " kr/m";
         ut[4] = getAdresse();
         ut[5] = Integer.toString(super.getRom());
-        ut[6] = Integer.toString(balkong);
-        ut[7] = Integer.toString(heis);
+        ut[6] = getBooleanVerdiBalkong();
+        ut[7] = getBooleanVerdiHeis();
         ut[8] = super.getBildesti();
         ut[9] = id;
 
@@ -93,6 +93,23 @@ public class Leilighet extends Bolig implements Serializable
         ut[3] = getAdresse();
 
         return ut;
+    }
+
+
+    public boolean getBooleanVerdiHeis()
+    {
+        if(heis ==1)
+            return true;
+
+        return false;
+    }
+
+    public boolean getBooleanVerdiBalkong()
+    {
+        if(balkong ==1)
+            return true;
+
+        return false;
     }
 
 

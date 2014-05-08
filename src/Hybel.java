@@ -1,8 +1,8 @@
 import java.io.*;
 
 public class Hybel extends Bolig implements Serializable {
-    private int badDelesMed;
-    private int kjøkkenDelesMed;
+    private int egetBad;
+    private int egetKjøkken;
     private int[] specArray;
     private static int id = 3000;
 
@@ -12,18 +12,11 @@ public class Hybel extends Bolig implements Serializable {
 
     public Hybel(String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj) {
         super(id++, ad, s, b, r, by, u, uid, sti);
-        badDelesMed= bad;
-        kjøkkenDelesMed = kj;
+        egetBad= bad;
+        egetKjøkken = kj;
     }
 
 
-    public int getBadDelesMed(){
-        return badDelesMed;
-    }
-
-    public int getKjøkkenDelesMed(){
-        return kjøkkenDelesMed;
-    }
 
     public int[]getSpecArray(){
         specArray = new int[Konstanter.SPEC_LENGDE];
@@ -34,24 +27,24 @@ public class Hybel extends Bolig implements Serializable {
         specArray[5] = Konstanter.URELEVANT;
         specArray[6] = Konstanter.URELEVANT;
         specArray[7] = Konstanter.URELEVANT;
-        specArray[8] = badDelesMed;
-        specArray[9] = kjøkkenDelesMed;
+        specArray[8] = egetBad;
+        specArray[9] = egetKjøkken;
         specArray[10] = super.getUtleiepris();
 
         return specArray;
     }
 
-    public String[] tilTabell()
+    public Object[] tilTabell()
     {
-        String[] ut = new String[8];
+        Object[] ut = new Object[8];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
         ut[2] = getUtleiepris() + " kr/m";
         ut[3] = getAdresse();
         ut[4] = Integer.toString(super.getRom());
-        ut[5] = Integer.toString(badDelesMed);
-        ut[6] = Integer.toString(kjøkkenDelesMed);
+        ut[5] = getBooleanVerdiBad();
+        ut[6] = getBooleanVerdiKjøkken();
         ut[7] = super.getBildesti();
 
         return ut;
@@ -68,8 +61,8 @@ public class Hybel extends Bolig implements Serializable {
         ut[3] = getUtleiepris() + " kr/m";
         ut[4] = getAdresse();
         ut[5] = Integer.toString(super.getRom());
-        ut[6] = Integer.toString(badDelesMed);
-        ut[7] = Integer.toString(kjøkkenDelesMed);
+        ut[6] = getBooleanVerdiBad();
+        ut[7] = getBooleanVerdiKjøkken();
         ut[8] = super.getBildesti();
         ut[9] = id;
 
@@ -89,6 +82,21 @@ public class Hybel extends Bolig implements Serializable {
         return ut;
     }
 
+    public boolean getBooleanVerdiBad()
+    {
+        if(egetBad == 1)
+            return true;
+
+        return false;
+    }
+
+    public boolean getBooleanVerdiKjøkken()
+    {
+        if(egetKjøkken == 1)
+            return true;
+
+        return false;
+    }
 
 
     public String sted()
@@ -122,6 +130,6 @@ public class Hybel extends Bolig implements Serializable {
     }
 
     public String toString(){
-        return super.toString() + "Bad deles med: " + badDelesMed + "\nKjøkken deles med: " + kjøkkenDelesMed + "\n";
+        return super.toString() + "Eget Bad: " + egetBad + "\nEget kjøkken: " + egetKjøkken+ "\n";
     }
 }
