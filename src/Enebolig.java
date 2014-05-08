@@ -16,14 +16,12 @@ public class Enebolig extends Bolig implements Serializable
 
     public Enebolig(String ad, int s, int b, int r, int by, int u, int id, String sti,  int e, int park, int k, int t)
     {
-
         super(eneboligid++, ad,s, b, r, by, u, id, sti);
 
         etasjer = e;
         kjeller = k;
         tomtstørrelse = t;
         parkering = park;
-        JOptionPane.showMessageDialog(null, "eneboligkonsturkltæøwert med id = " + eneboligid + "\n super sin id er: " +super.getId());// todo pikk
     }
 
     public int[] getSpecArray(){

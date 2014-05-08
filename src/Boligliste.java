@@ -25,7 +25,7 @@ public class Boligliste implements Serializable {
         Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
         Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, 123, "bildesti",  1, -1, -1, 10);
-        System.out.println(en.getId() + " " + to.getId() + " ");
+        System.out.println( en.getId() + " " + to.getId()+" ");
 
         if(leggTil(en))
             System.out.println("lagt til en");
@@ -78,15 +78,14 @@ public class Boligliste implements Serializable {
         // enebol
         if(krav[0] == 1)
         {
-            JOptionPane.showMessageDialog(null,"enebolig togla inni boligliste matchPåKrav");
             Iterator<Enebolig> iter = eneboliger.iterator();
             while(iter.hasNext())// gjønogang av listen
             {
                 Enebolig enebolig = iter.next();
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
-                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
+                if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
                 {
-                    JOptionPane.showMessageDialog(null, enebolig.getUtleid());
+
                     double matchkoeffisient;
                     double matches = 0;
                     double urelevante = 0;
@@ -95,12 +94,11 @@ public class Boligliste implements Serializable {
                     {
                         if(krav[i] == 0)
                             urelevante++;
-
+;
                         if(specs[i] == krav[i])
                         {
                             matches++;
-                            JOptionPane.showMessageDialog(null,"Matches: " +
-                                    "" + matches);
+
                         }
                     }
                     if(matches >= (4-urelevante))
@@ -155,7 +153,7 @@ public class Boligliste implements Serializable {
             {
                 Leilighet leilighet = iter.next();
                 specs = leilighet.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid())
+                if (krav[10] < specs[10] && krav[11] > specs[10])
                 {
                     int matchkoeffisient;
                     int matches = 0;
