@@ -33,7 +33,7 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2;
     private JTextArea beskrivelse;
@@ -715,12 +715,19 @@ public class Gui extends JFrame {
         c.gridy = 15;
         bopanel.add(finnBildeKnapp, c);
 
+        velgUtleier = new JButton("Velg utleier");
+        velgUtleier.addActionListener(lytter);
+        c.gridx = 2;
+        c.gridy = 16;
+        bopanel.add(velgUtleier,c);
+
 
         c.gridx = 0;
         c.gridy = 16;
         bopanel.add(new JLabel("Utleier ID:"), c);
 
         utleierId = new JTextField();
+        utleierId.setEditable(false);
         c.gridx = 1;
         c.gridy = 16;
         bopanel.add(utleierId, c);
@@ -1025,6 +1032,8 @@ public class Gui extends JFrame {
                 regPerson();
             else if (e.getSource() == finnBildeKnapp)
                 finnBilde();
+            else if (e.getSource() == velgUtleier)
+                visVelgUtleierVindu();
             else if(e.getSource() == oppdaterKontrakter)
                 visKontrakter();
             else if(e.getSource() == velgUtleierKnapp)
@@ -1315,7 +1324,7 @@ public class Gui extends JFrame {
                     int valgtRad = lsm.getMinSelectionIndex();
                     String id = (String) tabellmodell.getValueAt(valgtRad, 0);
                     System.out.println("nå har programmet fått med seg at du har valgt noe fra utleiertabbel");
-                    valgtUtleier.setText(id);
+                    utleierId.setText(id);
 
                     velgUtleierVindu.dispose();
                     return;
@@ -1391,6 +1400,7 @@ public class Gui extends JFrame {
             celler[rad][kolonne] = nyVerdi;
         }
     }
+
 
 
     private class boligsøkerTabellModell extends AbstractTableModel
@@ -2223,7 +2233,6 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     }
-
 
 
     private void visVelgLeietakerVindu()
