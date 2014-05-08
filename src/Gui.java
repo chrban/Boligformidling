@@ -1601,6 +1601,10 @@ private class resultatTabellModell extends AbstractTableModel
     {
         celler[rad][kolonne] = nyVerdi;
     }
+    public Class getColumnClass( int k )
+    {
+        return getValueAt( 0, k ).getClass();
+    }
 }
 
     private void visMatch()
