@@ -1937,6 +1937,7 @@ private class resultatTabellModell extends AbstractTableModel
             String t = tlf.getText();
             String email = mail.getText();
 
+
             // Bestemm Boligtype
             String bType = (String) boligtypeBox.getSelectedItem();
             switch (bType)
@@ -1952,6 +1953,7 @@ private class resultatTabellModell extends AbstractTableModel
                 default: bt = 0;
                     break;
             }
+
 
             // Bestem by "Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
             String byInn = (String) byBox.getSelectedItem();
@@ -1973,13 +1975,25 @@ private class resultatTabellModell extends AbstractTableModel
                     break;
             }
 
-            rom = Integer.parseInt((String)romBox.getSelectedItem());
+//todo catch it
+            try{
+                rom = Integer.parseInt((String) romBox.getSelectedItem());
 
-            minPris = (int) minPrisSlider.getValue();
+                minPris = (int) minPrisSlider.getValue();
 
-            maxPris = (int) maxPrisSlider.getValue();
+                maxPris = (int) maxPrisSlider.getValue();
 
-            antE = Integer.parseInt((String)etasjeBox.getSelectedItem());
+                antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
+            }
+            catch(NumberFormatException nfe){
+                JOptionPane.showMessageDialog(null,"NumberFormat siden du ikke velger");
+                return;
+            }
+
+
+
+
+
 
             park = 0;
             heis = 0;
@@ -2003,14 +2017,22 @@ private class resultatTabellModell extends AbstractTableModel
 
             plan = Integer.parseInt((String)planBox.getSelectedItem());
 
-            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
+            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || bType.equals("0") || byInn.equals("0") || antE==0 )
             {
                 gyldig(fornavn);
                 gyldig(etternavn);
                 gyldig(adresse);
                 gyldig(tlf);
                 gyldig(mail);
+                boligtypeBox.setForeground(Color.RED);
+                byBox.setBackground(Color.RED);
+                etasjeBox.setBackground(Color.RED);
+
+
             }
+
+
+
 
             String id = idGenerator(enavn,fnavn);
 
@@ -2043,6 +2065,7 @@ private class resultatTabellModell extends AbstractTableModel
 
             }
 
+
             String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
 
 
@@ -2073,8 +2096,17 @@ private class resultatTabellModell extends AbstractTableModel
 
         String eNavn = en;
         String fNavn = fn;
+        String id = "";
+        //todo legge inn try; gir String out of bounds exeption
+        try{
+            id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+        }
+            catch(StringIndexOutOfBoundsException sioobe){
+                JOptionPane.showMessageDialog(null,"ID generator får SIOOBE error, for kort navn madafaka");
+            }
 
-        String id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+
+
 
         JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
 
@@ -2368,6 +2400,7 @@ private class resultatTabellModell extends AbstractTableModel
         velgLeietakerVindu.add(leietakerValgTabell);
         velgLeietakerVindu.pack();
         velgLeietakerVindu.setVisible(true);
+        velgLeietakerVindu.setLocationRelativeTo(velgLeietakerKnapp);
 
 
     }
@@ -2400,7 +2433,7 @@ private class resultatTabellModell extends AbstractTableModel
         List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
         sorterer.setSortKeys(sortKeys);
-        resultatTabell.setRowSorter( sorterer );
+        resultatTabell.setRowSorter(sorterer);
 
         //valg
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2412,6 +2445,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
+        velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
     }
 
 
@@ -2477,7 +2511,7 @@ private class resultatTabellModell extends AbstractTableModel
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
-            //boliger = (Boligliste) in.readObject();
+            boliger = (Boligliste) in.readObject();
         }
         catch( ClassNotFoundException cnfe ){
             JOptionPane.showMessageDialog(null,"Kunne ikke finne programmets klasse");
