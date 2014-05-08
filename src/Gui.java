@@ -851,11 +851,9 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.CENTER;
         c.ipady=2;
 
-        c.gridx = 1;
+        c.gridx = 3;
         c.gridy = 1;
-        c.gridwidth= 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(0,0,30,0);
+        c.insets = new Insets(0,0,50,0);
         panel5.add(new JLabel("Opprett kontrakter"));
 
 
@@ -864,6 +862,7 @@ public class Gui extends JFrame {
         c.gridwidth= 1;
         c.fill = GridBagConstraints.NONE;
 
+        /*
         c.gridx = 1;
         c.gridy = 2;
         c.insets = new Insets(0, 0, 5, 5);
@@ -879,35 +878,43 @@ public class Gui extends JFrame {
         valgtUtleier.setText("Ingen utleier valgt");
         panel5.add(valgtUtleier, c);
 
-
+        */
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 2;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
         panel5.add(velgLeietakerKnapp,c);
 
         c.gridx = 2;
-        c.gridy = 3;
+        c.gridy = 2;
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
         panel5.add(valgtLeietaker,c);
 
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 3;
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
         panel5.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
 
         c.gridx = 2;
-        c.gridy = 4;
+        c.gridy = 3;
         valgtBolig = new JTextField(10);
         valgtBolig.setEditable(false);
         valgtBolig.setText("Ingen bolig valgt");
         panel5.add(valgtBolig, c);
         valgtBolig.setVisible(false);
+
+        c.gridx = 2;
+        c.gridy = 4;
+        valgtUtleier = new JTextField(10);
+        valgtUtleier.setEditable(false);
+        valgtUtleier.setText("Ingen utleier valgt");
+        panel5.add(valgtUtleier, c);
+        valgtUtleier.setVisible(false);
 
 
 
@@ -921,17 +928,17 @@ public class Gui extends JFrame {
         sluttårFelt = new JTextField(5);
 
 
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 5;
         c.gridwidth = 3;
-        c.insets = new Insets(20, 0, 7, 0);
+        c.insets = new Insets(30, 0, 7, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
         panel5.add(new JLabel("Kontrakten starter:"),c);
 
 
         c.gridx = 1;
         c.gridy = 6;
-        c.insets = new Insets(0, 3, 5, 3);
+        c.insets = new Insets(0, 0, 5, 3);
         c.fill = GridBagConstraints.NONE;
         panel5.add(new JLabel("Dag(DD)"),c);
 
@@ -958,15 +965,15 @@ public class Gui extends JFrame {
 
 
 
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 9;
         c.gridwidth = 3;
-        c.insets = new Insets(20, 0, 7, 0);
+        c.insets = new Insets(30, 0, 7, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
         panel5.add(new JLabel("Kontrakten Slutter"),c);
 
 
-        c.insets = new Insets(0, 3, 5, 3);
+        c.insets = new Insets(0, 0, 5, 3);
         c.gridx = 1;
         c.gridy = 10;
         c.fill = GridBagConstraints.NONE;
@@ -1312,7 +1319,13 @@ public class Gui extends JFrame {
                     valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
                     int id = (int) tabellmodell.getValueAt(valgtRad,9);
                     String stringId = Integer.toString(id);
+                    
+
+
+                    String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
+                    valgtUtleier.setText(uid);
                     valgtBolig.setText(stringId);
+                    valgtUtleier.setVisible(true);
                     velgBoligVindu.dispose();
                     return;
                 }
@@ -1999,9 +2012,15 @@ private class resultatTabellModell extends AbstractTableModel
         String arealString = boareal.getText();
         String årString = byggår.getText();
         String utPrisString = pris.getText();
+        String utId = utleierId.getText();
         int areal = 0;
         int år = 0;
         int upris = 0;
+
+        if(utId == "Ingen utleier valgt")
+        {
+            return;
+        }
 
 
         if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
@@ -2111,16 +2130,16 @@ private class resultatTabellModell extends AbstractTableModel
 
 
         switch(btype){
-            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, eid, sti, antetasjer, garasje, kjeller, tomtareal);
+            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal);
                          boliger.leggTil(nyEnebolig);
                          break;
-            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, eid, sti, antetasjer,garasje, kjeller, tomtareal);
+            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal);
                          boliger.leggTil(nyttRekkehus);
                          break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, eid, sti, plan, balko, heis);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balko, heis);
                          boliger.leggTil(nyLeilighet);
                          break;
-            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, eid, sti, badInt, kjøkkenInt);
+            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt);
                          boliger.leggTil(nyHybel);
                          break;
         }

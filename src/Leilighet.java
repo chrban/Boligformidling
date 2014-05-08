@@ -13,9 +13,9 @@ public class Leilighet extends Bolig implements Serializable
 
     public Leilighet(){}
 
-    public Leilighet(String ad,int s, int b, int r, int by, int u,int id, String sti, int e, int bal, int h)
+    public Leilighet(String ad,int s, int b, int r, int by, int u, String uid, String sti, int e, int bal, int h)
     {
-        super(id++,ad,s, b, r, by, u, id, sti);
+        super(id++,ad,s, b, r, by, u, uid, sti);
         etasje = e;
         balkong = bal;
         heis = h;
