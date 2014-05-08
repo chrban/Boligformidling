@@ -167,6 +167,7 @@ public class BoligsøkerListe implements Serializable {
                 return løper;
             løper = løper.neste;
 
+
         }
         return null;
     }

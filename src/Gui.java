@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
@@ -72,6 +73,7 @@ public class Gui extends JFrame {
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
     private String valgtId;
+    private Graphics kontraktHeader;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -829,6 +831,8 @@ public class Gui extends JFrame {
         //Slutt fane 4
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         //RESETER
+
+
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -837,19 +841,32 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-        c.anchor = GridBagConstraints.NORTHWEST;
-        c.ipady=2
-        ;
+        c.anchor = GridBagConstraints.CENTER;
+        c.ipady=2;
+
         c.gridx = 1;
         c.gridy = 1;
+        c.gridwidth= 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(0,0,30,0);
+        panel5.add(new JLabel("Opprett kontrakter"));
 
+
+
+
+        c.gridwidth= 1;
+        c.fill = GridBagConstraints.NONE;
+
+        c.gridx = 1;
+        c.gridy = 2;
+        c.insets = new Insets(0, 0, 5, 5);
         velgUtleierKnapp = new JButton("Velg en eier");
         velgUtleierKnapp.addActionListener(lytter);
         panel5.add(velgUtleierKnapp,c);
 
 
         c.gridx = 2;
-        c.gridy = 1;
+        c.gridy = 2;
         valgtUtleier = new JTextField(10);
         valgtUtleier.setEditable(false);
         valgtUtleier.setText("Ingen utleier valgt");
@@ -858,27 +875,27 @@ public class Gui extends JFrame {
 
 
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 3;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
         panel5.add(velgLeietakerKnapp,c);
 
         c.gridx = 2;
-        c.gridy = 2;
+        c.gridy = 3;
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
         panel5.add(valgtLeietaker,c);
 
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 4;
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
         panel5.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
 
         c.gridx = 2;
-        c.gridy = 3;
+        c.gridy = 4;
         valgtBolig = new JTextField(10);
         valgtBolig.setEditable(false);
         valgtBolig.setText("Ingen bolig valgt");
@@ -889,83 +906,97 @@ public class Gui extends JFrame {
 
 
 
-        startDagFelt = new JTextField(10);
-        startMånedFelt = new JTextField(10);
-        startÅrFelt = new JTextField(10);
-        sluttDagFelt = new JTextField(10);
-        sluttMånedFelt = new JTextField(10);
-        sluttårFelt = new JTextField(10);
+        startDagFelt = new JTextField(5);
+        startMånedFelt = new JTextField(5);
+        startÅrFelt = new JTextField(5);
+        sluttDagFelt = new JTextField(5);
+        sluttMånedFelt = new JTextField(5);
+        sluttårFelt = new JTextField(5);
+
+
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridwidth = 3;
+        c.insets = new Insets(20, 0, 7, 0);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        panel5.add(new JLabel("Kontrakten starter:"),c);
 
 
         c.gridx = 1;
         c.gridy = 6;
-        panel5.add(new JLabel("Kontrakten starter:"),c);
-
-        c.gridx = 1;
-        c.gridy = 7;
+        c.insets = new Insets(0, 3, 5, 3);
+        c.fill = GridBagConstraints.NONE;
         panel5.add(new JLabel("Dag(DD)"),c);
 
         c.gridx = 2;
-        c.gridy = 7;
+        c.gridy = 6;
         panel5.add(startDagFelt,c);
 
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 7;
         panel5.add(new JLabel("Måned(MM)"),c);
 
         c.gridx = 2;
-        c.gridy = 8;
+        c.gridy = 7;
         panel5.add((startMånedFelt),c);
 
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 8;
         panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
 
         c.gridx = 2;
-        c.gridy = 9;
+        c.gridy = 8;
         panel5.add((startÅrFelt),c);
 
 
 
 
         c.gridx = 1;
-        c.gridy = 11;
+        c.gridy = 9;
+        c.gridwidth = 3;
+        c.insets = new Insets(20, 0, 7, 0);
+        c.fill = GridBagConstraints.HORIZONTAL;
         panel5.add(new JLabel("Kontrakten Slutter"),c);
 
+
+        c.insets = new Insets(0, 3, 5, 3);
         c.gridx = 1;
-        c.gridy = 12;
+        c.gridy = 10;
+        c.fill = GridBagConstraints.NONE;
         panel5.add(new JLabel("Dag(DD)"),c);
 
         c.gridx = 2;
-        c.gridy = 12;
+        c.gridy = 10;
         panel5.add((sluttDagFelt),c);
 
         c.gridx = 1;
-        c.gridy = 13;
+        c.gridy = 11;
         panel5.add(new JLabel("Måned(MM)"),c);
 
         c.gridx = 2;
-        c.gridy = 13;
+        c.gridy = 11;
         panel5.add((sluttMånedFelt),c);
 
         c.gridx = 1;
-        c.gridy = 14;
+        c.gridy = 12;
         panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
 
+        c.insets = new Insets(0, 3, 20, 3);
         c.gridx = 2;
-        c.gridy = 14;
+        c.gridy = 12;
         panel5.add((sluttårFelt),c);
 
 
+        c.insets = new Insets(0, 0, 5, 0);
         c.gridx = 3;
-        c.gridy = 15;
+        c.gridy = 13;
         lagreKontrakt = new JButton("Lagre kontrakt");
         lagreKontrakt.addActionListener(lytter);
         panel5.add(lagreKontrakt, c);
 
 
         c.gridx = 3;
-        c.gridy = 17;
+        c.gridy = 14;
         oppdaterKontrakter = new JButton("Oppdater Register");
         oppdaterKontrakter.addActionListener(lytter);
         panel5.add(oppdaterKontrakter, c);
