@@ -19,8 +19,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.DefaultRowSorter;
+import javax.swing.text.Document;
 import java.lang.*;
 import javax.swing.RowSorter.*;
 
@@ -234,6 +236,8 @@ public class Gui extends JFrame {
         c.gridy = 0;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
+        fornavn.getDocument().addDocumentListener(documentListener);
+
         //c.ipadx = ;
         pepanel.add(fornavn, c);
 
@@ -248,6 +252,10 @@ public class Gui extends JFrame {
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
+            etternavn.getDocument().addDocumentListener(documentListener);
+
+
+
         pepanel.add(etternavn, c);
 
 
@@ -1072,6 +1080,51 @@ public class Gui extends JFrame {
         }
     }
 
+    private DocumentListener documentListener = new DocumentListener()
+        {
+        public void changedUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+        }
+
+        public void insertUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+            //valider();
+        }
+
+        public void removeUpdate(DocumentEvent documentEvent) {
+            printIt(documentEvent);
+        }
+
+        private void printIt(DocumentEvent documentEvent) {
+            DocumentEvent.EventType type = documentEvent.getType();
+            String typeString = null;
+            Document source = documentEvent.getDocument();
+            int length = source.getLength();
+
+
+
+
+            /*if (type.equals(DocumentEvent.EventType.CHANGE)) {
+                typeString = "Change";
+                if(length!=0);
+                valider();
+                    System.out.println("FORANDRET, altså dett vall");
+            } else if (type.equals(DocumentEvent.EventType.INSERT)) {
+                //byttFarge((JTextField)o);
+                System.out.println("source: "+source);
+
+            } else if (type.equals(DocumentEvent.EventType.REMOVE)) {
+
+
+            }*/
+
+          //  valider();
+
+
+            System.out.println("Length: " + length);
+        }
+    };
+
 
 
 
@@ -1082,6 +1135,9 @@ public class Gui extends JFrame {
             } else if (e.getSource() == lagre) {
 
                 System.out.println("Trykka på lagre");
+
+                //valider();
+
             //    visBoligsøkere();
 
 
@@ -1949,9 +2005,11 @@ private class resultatTabellModell extends AbstractTableModel
 
             if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals(""))
             {
-                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
-                return;
-                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+                gyldig(fornavn);
+                gyldig(etternavn);
+                gyldig(adresse);
+                gyldig(tlf);
+                gyldig(mail);
             }
 
             String id = idGenerator(enavn,fnavn);
@@ -1971,10 +2029,18 @@ private class resultatTabellModell extends AbstractTableModel
             String email = mail.getText();
             String firm = firma.getText();
 
-            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || firm.equals("")){
-                JOptionPane.showMessageDialog(null, "Skriv inn all info!");
-                return;
-                //todo Istedenfor joptpain, endrer vi farge på det feltet som mangler verdier.
+            if( fnavn.equals("") || enavn.equals("") || ad.equals("") || t.equals("") || email.equals("") || firm.equals("")){
+                //valider(fnavn,enavn,ad,t,email,firm);
+
+                gyldig(fornavn);
+                gyldig(etternavn);
+                gyldig(adresse);
+                gyldig(tlf);
+                gyldig(mail);
+                gyldig(firma);
+
+
+
             }
 
             String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
@@ -2041,7 +2107,10 @@ private class resultatTabellModell extends AbstractTableModel
         // innfelter
         if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals("") || tAreal.equals(""))
         {
-            JOptionPane.showMessageDialog(null, "Du må fylle ut alle feltene");
+            gyldig(adresseFane2);
+            gyldig(boareal);
+            gyldig(byggår);
+            gyldig(pris);
             return;
         }
 
@@ -2426,6 +2495,7 @@ private class resultatTabellModell extends AbstractTableModel
             ut.writeObject(boligsøkere);
             ut.writeObject(kontrakter);
             ut.writeObject(boliger);
+            System.out.println("Skriver til fil, ");
         }
         catch( NotSerializableException nse ){
             JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");
