@@ -1270,6 +1270,7 @@ public class Gui extends JFrame {
                 {
                     System.out.println("Lytter til riktig vindu");
                     int valgtRad = lsm.getMinSelectionIndex();
+                    valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
                     int id = (int) tabellmodell.getValueAt(valgtRad,9);
                     String stringId = Integer.toString(id);
                     valgtBolig.setText(stringId);
