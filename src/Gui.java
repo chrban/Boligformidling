@@ -2249,7 +2249,7 @@ private class resultatTabellModell extends AbstractTableModel
     private void visVelgUtleierVindu()
     {
         velgUtleierVindu = new JFrame("Velg Eier");
-        velgUtleierVindu.setSize(600,600);
+
        // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
 
         utleierTabellModell modell = new utleierTabellModell();
@@ -2261,6 +2261,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         lsm.addListSelectionListener( new Utvalgslytter( modell ) );
         velgUtleierVindu.add(utleierValgTabell);
+        velgUtleierVindu.pack();
         velgUtleierVindu.setVisible(true);
 
 
@@ -2270,7 +2271,7 @@ private class resultatTabellModell extends AbstractTableModel
     private void visVelgLeietakerVindu()
     {
         velgLeietakerVindu = new JFrame("Velg Leietaker");
-        velgLeietakerVindu.setSize(600,600);
+
 
         boligsøkerTabellModell modell = new boligsøkerTabellModell();
         leietakerValgTabell = new JTable(modell);
@@ -2280,6 +2281,7 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(modell));
 
         velgLeietakerVindu.add(leietakerValgTabell);
+        velgLeietakerVindu.pack();
         velgLeietakerVindu.setVisible(true);
 
 
@@ -2287,7 +2289,7 @@ private class resultatTabellModell extends AbstractTableModel
     public void visVelgBoligVindu()
     {
         velgBoligVindu = new JFrame("Velg bolig");
-        velgBoligVindu.setSize(600,600);
+
 
         //sett utleierid, sånn at det matches på riktig boligsøker
 
@@ -2322,6 +2324,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         velgBoligVindu.add(new JScrollPane(resultatTabell));
 
+        velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
     }
 
