@@ -134,7 +134,8 @@ public class BoligsøkerListe implements Serializable {
             return 1;
         while(løper != null)
         {
-            i++;
+            if(!løper.harBolig())
+                i++;
             løper = løper.neste;
         }
         return i;
@@ -173,7 +174,7 @@ public class BoligsøkerListe implements Serializable {
     public void setBoligPåBoligsøker(Boligsøker b){
         Boligsøker løper = første;
         while( løper != null ){
-            if ( løper == b ) {
+            if ( løper.getId() ==  b.getId() ) {
                 løper.setBolig();
                 return;
             }

@@ -64,6 +64,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
     public void setTilUtleid(){
         utleid = true;
     }
+    public int getEierID(){
+        return eierID;
+    }
     public boolean getUtleid(){
         return utleid;
     }

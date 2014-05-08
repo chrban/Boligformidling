@@ -21,7 +21,8 @@ public class KontraktListe implements Serializable {
 
         if ( første == null ){
             første = ny;
-            boliger.setBoligTilUtleid(ny.getBolig());
+            ny.setTilUtleid();
+            ny.setLeietaker();
             return true;
         }
         else{
@@ -29,8 +30,8 @@ public class KontraktListe implements Serializable {
             while( løper.neste != null )
                 løper = løper.neste;
             løper.neste = ny;
-            boliger.setBoligTilUtleid(ny.getBolig());
-            søkere.setBoligPåBoligsøker(ny.getBoligsøker());
+            ny.setTilUtleid();
+            ny.setLeietaker();
             return true;
         }
     }

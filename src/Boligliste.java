@@ -72,8 +72,10 @@ public class Boligliste implements Serializable {
         Object[][] ut = new Object[eneboliger.size()][10];
         int plass = 0;
         int[] specs;
-
-
+        double matches = 0;
+        double matchkoeffisient;
+        double urelevante = 0;
+        int teller = 0;
 
         // enebol
         if(krav[0] == 1)
@@ -85,21 +87,13 @@ public class Boligliste implements Serializable {
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
                 if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
                 {
-
-                    double matchkoeffisient;
-                    double matches = 0;
-                    double urelevante = 0;
-
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if(krav[i] == 0)
                             urelevante++;
-;
-                        if(specs[i] == krav[i])
-                        {
-                            matches++;
 
-                        }
+                        if(specs[i] == krav[i])
+                            matches++;
                     }
                     if(matches >= (4-urelevante))
                     {
@@ -110,6 +104,10 @@ public class Boligliste implements Serializable {
                        // JOptionPane.showMessageDialog(null, enebolig.toString()+"\n" +
                          //       "" + matches + "/" + tull );
                         ut[plass++][0] = df.format(matchkoeffisient);
+                        matchkoeffisient = 0;
+                        matches = 0;
+                        urelevante = 0;
+                        teller++;
                     }
                 }
             }
@@ -125,21 +123,22 @@ public class Boligliste implements Serializable {
                 specs = rekkehus.getSpecArray();
                 if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehus.getUtleid())
                 {
-                    int matchkoeffisient;
-                    int matches = 0;
+
                     for (int i = 1; i <= 5; i++)// av krav
                     {
 
                         if(specs[i] == krav[i])
-                        {
                             matches++;
-                        }
                     }
                     if(matches >= 4)
                     {
                         matchkoeffisient = matches/5;
                         ut[plass] = rekkehus.tilMatchTabell();
                         ut[plass++][0] = matchkoeffisient;
+                        matchkoeffisient = 0;
+                        matches = 0;
+                        urelevante = 0;
+                        teller++;
                     }
                 }
             }
@@ -155,9 +154,6 @@ public class Boligliste implements Serializable {
                 specs = leilighet.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid())
                 {
-                    int matchkoeffisient;
-                    int matches = 0;
-
                     for(int i = 1; i <= 2; i++)// av krav
                         if (specs[i] == krav[i])
                             matches++;
@@ -170,6 +166,10 @@ public class Boligliste implements Serializable {
                         matchkoeffisient = matches/4;
                         ut[plass] = leilighet.tilMatchTabell();
                         ut[plass++][0] = matchkoeffisient;
+                        matchkoeffisient = 0;
+                        matches = 0;
+                        urelevante = 0;
+                        teller++;
                     }
                 }
             }
@@ -182,36 +182,29 @@ public class Boligliste implements Serializable {
                 Hybel hybel = iter.next();
                 specs = hybel.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid()) {
-                    int matchkoeffisient;
-                    int matches = 0;
                     for (int i = 1; i <= 5; i++)// av krav
                     {
-                        if (specs[i] == krav[i]) {
+                        if (specs[i] == krav[i])
                             matches++;
-                        }
                     }
                     if (matches >= 4) {
                         matchkoeffisient = matches/5;
                         ut[plass] = hybel.tilMatchTabell();
                         ut[plass++][0] = matchkoeffisient;
+                        matchkoeffisient = 0;
+                        matches = 0;
+                        urelevante = 0;
+                        teller++;
                     }
                 }
             }
         }
-        /*Object[][] temp = ut;
-        double høyeste = 0;
-        int plass = 0;
-        for(int i = 0; i < plass; i++)
-        {
-
-            if(ut[i][0] <= høyeste)
-                temp[]
-
-        }*/
-
-
-
-            return ut;
+        Object[][] temp = new Object[teller][10];
+        for(int i = 0; i < temp.length; i++){
+            temp[i] = ut[i];
+            temp[i][0] = ut[i][0];
+        }
+        return temp;
         /*todo
         - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
             - Velge fra liste i gui?(liker denne best, sikkert mulig å få til med JTable)
@@ -387,43 +380,44 @@ public class Boligliste implements Serializable {
     {
 
     }
-    public void setBoligTilUtleid(Bolig b){
+
+    public int finnUtleier(Bolig b){
         if(b instanceof Enebolig){
             Iterator<Enebolig> iter = eneboliger.iterator();
             while(iter.hasNext()){
                 Enebolig enebolig = iter.next();
-                if ( enebolig == b )
-                    enebolig.setTilUtleid();
+                if ( enebolig.getId() == b.getId() )
+                    return enebolig.getEierID();
             }
         }
         else if(b instanceof Rekkehus){
             Iterator<Rekkehus> iter = rekkehus.iterator();
             while(iter.hasNext()){
                 Rekkehus reke = iter.next();
-                if ( reke == b ){
-                    reke.setTilUtleid();
-                }
+                if( reke.getId() == b.getId())
+                    return reke.getEierID();
             }
         }
         else if(b instanceof Leilighet){
             Iterator<Leilighet> iter = leiligheter.iterator();
             while(iter.hasNext()){
                 Leilighet lei = iter.next();
-                if ( lei == b ){
-                    lei.setTilUtleid();
-                }
+                if( lei.getId() == b.getId())
+                    return lei.getEierID();
             }
         }
         else{
             Iterator<Hybel> iter = hybler.iterator();
             while(iter.hasNext()){
                 Hybel hybel = iter.next();
-                if ( hybel == b ){
-                    hybel.setTilUtleid();
-                }
+                if( hybel.getId() == b.getId())
+                    return hybel.getEierID();
             }
         }
+        return -1;
     }
+
+
 
     /*public TreeSet<? extends Bolig> getBoligerAvType(int  t)
     {

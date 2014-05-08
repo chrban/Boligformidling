@@ -2104,8 +2104,8 @@ private class resultatTabellModell extends AbstractTableModel
     public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
     {
         Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
-        Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
         Bolig bolig = boliger.finnBolig(valgtBolig.getText());
+        Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
         int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
 
         if(leietaker == null || utleier == null || bolig == null) {
