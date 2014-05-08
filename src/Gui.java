@@ -2077,6 +2077,19 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
+    private boolean gyldig(JTextField f)
+    {
+        if( f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
+            f.setBackground(Color.RED);
+            return true;
+        }
+        else{
+            f.setBackground(Color.WHITE);
+            return false;
+       }
+    }
+
+
     private String idGenerator(String f, String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
     {
         String firma = f;
@@ -2137,7 +2150,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
         // innfelter
-        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals("") || tAreal.equals(""))
+        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
         {
             gyldig(adresseFane2);
             gyldig(boareal);
