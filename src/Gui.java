@@ -1621,7 +1621,7 @@ private class resultatTabellModell extends AbstractTableModel
     private class boligSøkerTabellModellForMatch extends AbstractTableModel
     {
         String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Email", "Telefon"};
-        String [][] celler = boligsøkere.tilTabellMedId();
+        String [][] celler = boligsøkere.tilMatchTabll();
 
         public int getRowCount() {
             return celler.length;

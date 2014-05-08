@@ -117,9 +117,26 @@ public class BoligsøkerListe implements Serializable {
 
         while(løper != null)
         {
-            if(!løper.harBolig())
-                ut[i++] = løper.tilTabellMedId();
+            ut[i++] = løper.tilTabellMedId();
             løper = løper.neste;
+        }
+        return ut;
+    }
+    public String[][] tilMatchTabll(){
+        Boligsøker løper = første;
+        int i = 0;
+        while( løper != null ){
+            if(!løper.harBolig())
+                i++;
+            løper=løper.neste;
+        }
+        Boligsøker runner = første;
+        String[][] ut = new String[i][6];
+        int x = 0;
+        while(runner != null){
+            if(!runner.harBolig())
+                ut[x++] = runner.tilTabellMedId();
+            runner = runner.neste;
         }
         return ut;
     }
@@ -130,12 +147,9 @@ public class BoligsøkerListe implements Serializable {
         int i = 0;
         if( løper == null)
             return i;
-        if(løper.neste == null)
-            return 1;
         while(løper != null)
         {
-            if(!løper.harBolig())
-                i++;
+            i++;
             løper = løper.neste;
         }
         return i;
