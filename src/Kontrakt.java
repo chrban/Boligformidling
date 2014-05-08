@@ -52,8 +52,8 @@ public class Kontrakt implements Serializable{
         String [] ut = new String[4];
         ut[0] = eier.getNavn();
         ut[1] = leier.getNavn();
-        ut[2] = start.toString();
-        ut[3] = slutt.toString();
+        ut[2] = df.format(start);
+        ut[3] = df.format(slutt);
 
         return ut;
     }

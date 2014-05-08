@@ -1759,6 +1759,7 @@ private class resultatTabellModell extends AbstractTableModel
             if(e.getValueIsAdjusting()) //vent med handlig før valg er avsluttet
                 return;
 
+
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
             if(!lsm.isSelectionEmpty())
             {
@@ -2126,8 +2127,8 @@ private class resultatTabellModell extends AbstractTableModel
         if(startdag <= 31   &&   startdag > 0   &&   startmåned <= 12   &&   startmåned > 0   &&   startår >=2014   &&  startår <= 2020 &&
            sluttdag <= 31   &&   sluttdag > 0   &&   sluttmåned <= 12   &&   sluttmåned > 0   &&   sluttår >=2014   &&  sluttår <= 2020)
         {
-            Date start = new Date(startår, startmåned, startdag);
-            Date slutt = new Date(sluttår, sluttmåned, sluttdag);
+            Date start = new Date(startår, startmåned-1, startdag);
+            Date slutt = new Date(sluttår, sluttmåned-1, sluttdag);
 
             if(start.before(slutt))
             {
