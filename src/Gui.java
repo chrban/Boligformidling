@@ -35,7 +35,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -851,10 +851,11 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.CENTER;
         c.ipady=2;
 
-        c.gridx = 3;
+        c.gridx = 2;
         c.gridy = 1;
-        c.insets = new Insets(0,0,50,0);
-        panel5.add(new JLabel("Opprett kontrakter"));
+        c.gridwidth = 3;
+        c.insets = new Insets(0, 0, 50, 0);
+        panel5.add(new JLabel("Opprett kontrakter"),c);
 
 
 
@@ -882,6 +883,7 @@ public class Gui extends JFrame {
 
         c.gridx = 1;
         c.gridy = 2;
+        c.insets = new Insets(0,0,20,5);
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
         panel5.add(velgLeietakerKnapp,c);
@@ -907,6 +909,16 @@ public class Gui extends JFrame {
         valgtBolig.setText("Ingen bolig valgt");
         panel5.add(valgtBolig, c);
         valgtBolig.setVisible(false);
+
+
+
+        c.gridx = 1;
+        c.gridy = 4;
+        utleierLabel = new JLabel("Utleier: ");
+        panel5.add(utleierLabel,c);
+        utleierLabel.setVisible(false);
+
+
 
         c.gridx = 2;
         c.gridy = 4;
@@ -1326,6 +1338,7 @@ public class Gui extends JFrame {
                     valgtUtleier.setText(uid);
                     valgtBolig.setText(stringId);
                     valgtUtleier.setVisible(true);
+                    utleierLabel.setVisible(true);
                     velgBoligVindu.dispose();
                     return;
                 }
