@@ -83,7 +83,7 @@ public class Boligliste implements Serializable {
             {
                 Enebolig enebolig = iter.next();
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
-                if(krav[10] < specs[10] && krav[11]> specs[10] )// dette er ikke idiotsikkert.
+                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
                 {
 
                     double matchkoeffisient;
@@ -153,7 +153,7 @@ public class Boligliste implements Serializable {
             {
                 Leilighet leilighet = iter.next();
                 specs = leilighet.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10])
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid())
                 {
                     int matchkoeffisient;
                     int matches = 0;

@@ -1497,7 +1497,7 @@ private class resultatTabellModell extends AbstractTableModel
         sorterer.setSortKeys(sortKeys);
 
         resultatTabell.
-                setRowSorter( sorterer );
+                setRowSorter(sorterer);
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
         repaint();
@@ -2218,8 +2218,15 @@ private class resultatTabellModell extends AbstractTableModel
         velgBoligVindu.setSize(600,600);
 
         //sett utleierid, sånn at det matches på riktig boligsøker
+
         String leietakerId = valgtLeietaker.getText();
+        if(leietakerId.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingen boligsøker valgt!");
+            return;
+        }
         valgtId = leietakerId;
+
+
 
 
 
