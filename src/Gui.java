@@ -2026,29 +2026,37 @@ private class resultatTabellModell extends AbstractTableModel
         String årString = byggår.getText();
         String utPrisString = pris.getText();
         String utId = utleierId.getText();
-        int areal = 0;
-        int år = 0;
-        int upris = 0;
+        String tAreal = tomtAreal.getText();
 
-        if(utId == "Ingen utleier valgt")
+
+
+        if(utId.equals("Ingen utleier valgt"))
         {
+            JOptionPane.showMessageDialog(null,"Du må velge en utleier!");
             return;
         }
 
 
-        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
+
+        // innfelter
+        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals("") || tAreal.equals(""))
         {
             JOptionPane.showMessageDialog(null, "Du må fylle ut alle feltene");
             return;
         }
 
 
+        int areal = 0;
+        int år = 0;
+        int upris = 0;
+        int tomtareal = 0;
 
         try
         {
             areal = Integer.parseInt(arealString);
             år = Integer.parseInt(årString);
             upris = Integer.parseInt(utPrisString);
+            tomtareal = Integer.parseInt(tAreal);
         }
         catch(NumberFormatException e)
         {
@@ -2058,13 +2066,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-        // disse må knyttes til felter senere
-        // todo christe rædd feltene
-        int eid = 34;
-        int tomtareal = 100;
-        int plan = 3;
-        int balko = -1;
-
+    // Comboboxer
         String valg = (String)boligtypeBoxFane2.getSelectedItem();
         int btype = 0;
         switch(valg){
@@ -2103,17 +2105,31 @@ private class resultatTabellModell extends AbstractTableModel
                                 break;
         }
 
+
         int rom;
+        int antetasjer;
+        int plan;
+
+
         if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
             rom = 0;
         else
             rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
-        int antetasjer;
+
         if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
             antetasjer = 0;
         else
             antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
+
+
+        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
+            plan = 0;
+        else
+            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
+
+
+
 
 
         int kjeller = -1;
@@ -2149,7 +2165,7 @@ private class resultatTabellModell extends AbstractTableModel
             case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal);
                          boliger.leggTil(nyttRekkehus);
                          break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balko, heis);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis);
                          boliger.leggTil(nyLeilighet);
                          break;
             case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt);
@@ -2323,6 +2339,7 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
 
         velgBoligVindu.add(new JScrollPane(resultatTabell));
+
 
         velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
