@@ -13,14 +13,16 @@ public class UtleierListe implements Serializable{
         liste.add( u );
         sorter();
     }
-    public void fjernUtleier( String navn ){
+    public boolean fjernUtleier( String navn, String etternavn ){
         Iterator<Utleier> iterator = liste.iterator();
         while ( iterator.hasNext() ){
-            if ( iterator.next().getNavn().equals(navn)) {
-                liste.remove(iterator);
-                return;
+            Utleier fjern = iterator.next();
+            if(fjern.getFornavn().equals(navn) && fjern.getEtternavn().equals(etternavn)){
+                liste.remove(fjern);
+                return true;
             }
         }
+        return false;
     }
     public void sorter(){
         Collections.sort(liste, new UtleierSammenlikner());

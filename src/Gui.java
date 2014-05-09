@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -35,7 +37,7 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader ;
     private JTextArea beskrivelse;
@@ -75,7 +77,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
-    private String valgtId, valgtBoligId, id;
+    private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private Font headerFont;
 
 
@@ -788,6 +790,12 @@ public class Gui extends JFrame {
         radioTabell.add(persontabellRadioknapp);
         radioTabell.add(boligtabellRadioknapp);
 
+        slettPerson = new JButton("Slett Person");
+        slettPerson.addActionListener(lytter);
+        c.gridx = 0;
+        c.gridy = 15;
+        panel3.add(slettPerson,c);
+
 
 
         //SLUTT FANE 3
@@ -1106,6 +1114,9 @@ public class Gui extends JFrame {
             }
             else if (e.getSource() == sendMail){
                 sendEmail();
+            }
+            else if(e.getSource() == slettPerson){
+                slettBoligsøker();
             }
 
         }
@@ -1487,6 +1498,15 @@ public class Gui extends JFrame {
                 }
 
             }
+            else if(tabellmodell instanceof personTabellFabrikk){
+                if(!lsm.isSelectionEmpty()){
+                    System.out.println("Langt inni cyberspace nu");
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    slettPersonFn = (String)tabellmodell.getValueAt(valgtRad,0);
+                    slettPersonEn = (String)tabellmodell.getValueAt(valgtRad,1);
+                    System.out.println(slettPersonFn + " " + slettPersonEn);
+                }
+            }
 
 
 
@@ -1840,12 +1860,16 @@ private class resultatTabellModell extends AbstractTableModel
     {
         personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
         personTabell = new JTable(personTabellModell);
+        ListSelectionModel lsm = personTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
     }
     private void lagBoligTabellen()
     {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
         boligTabellTabellen = new JTable(boligTabellModell);
+        ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
     }
 
 
@@ -2643,7 +2667,25 @@ private class resultatTabellModell extends AbstractTableModel
 
     public void slettBoligsøker()
     {
-
+        String[] alternativer = {"Ja", "Nei"};
+        if(slettPersonFn.equals("") || slettPersonEn.equals("")){
+            JOptionPane.showMessageDialog(null, "DUUUURT");
+            return;
+        }
+        int svar = JOptionPane.showOptionDialog(null,"Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
+        , null, alternativer, alternativer[0]);
+        if( svar == JOptionPane.YES_OPTION){
+            if(boligsøkere.fjernSøker(slettPersonFn, slettPersonEn)) {
+                JOptionPane.showMessageDialog(null, "Personen er slettet");
+                slettPersonEn = "";
+                slettPersonFn = "";
+            }
+            else if(utleiere.fjernUtleier(slettPersonFn, slettPersonEn)){
+                JOptionPane.showMessageDialog(null, "Personen er slettet");
+                slettPersonEn = "";
+                slettPersonFn = "";
+            }
+        }
     } //  var det dette som vi skulle kunne slette, eller noe annet?
 
     public void lesFraFil(){
