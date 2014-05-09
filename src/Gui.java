@@ -884,7 +884,7 @@ public class Gui extends JFrame {
 
 
         c.gridwidth= 1;
-       
+
 
         /*
         c.gridx = 1;
