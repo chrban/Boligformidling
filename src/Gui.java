@@ -881,7 +881,7 @@ public class Gui extends JFrame {
 
 
         c.gridwidth= 1;
-        c.fill = GridBagConstraints.VERTICAL;
+       
 
         /*
         c.gridx = 1;
@@ -909,6 +909,7 @@ public class Gui extends JFrame {
         velgLeietakerKnapp.setMargin(new Insets(0,0,0,0));
         velgLeietakerKnapp.setPreferredSize(dim);
         panel5.add(velgLeietakerKnapp,c);
+
 
         c.gridx = 2;
         c.gridy = 2;
