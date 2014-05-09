@@ -37,7 +37,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader ;
     private JTextArea beskrivelse;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -55,7 +55,7 @@ public class Gui extends JFrame {
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
     //private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, , visBoligsøkereTabell,visBoligTabell,resultatTabell ;
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell,boligSøkereForMatch,boligValgTabell ;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell,boligSøkereForMatch,boligValgTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -76,7 +76,7 @@ public class Gui extends JFrame {
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
     private String valgtId, valgtBoligId;
-    private Graphics kontraktHeader;
+    private Font headerFont;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -87,6 +87,8 @@ public class Gui extends JFrame {
 
     public Gui() {
         super("Boligformidling for svaksynte");
+
+        headerFont = new Font("Helvetica",Font.BOLD,30);
 
         øre = new menyLytter();
 
@@ -855,7 +857,7 @@ public class Gui extends JFrame {
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         //RESETER
 
-
+        Dimension dim = new Dimension(20,20);
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -865,19 +867,21 @@ public class Gui extends JFrame {
 
 
         c.anchor = GridBagConstraints.CENTER;
-        c.ipady=2;
+        c.ipady=0;
 
         c.gridx = 2;
         c.gridy = 1;
         c.gridwidth = 3;
         c.insets = new Insets(0, 0, 50, 0);
-        panel5.add(new JLabel("Opprett kontrakter"),c);
+        kontraktHeader = new JLabel("Opprett kontrakter");
+        kontraktHeader.setFont(headerFont);
+        panel5.add(kontraktHeader,c);
 
 
 
 
         c.gridwidth= 1;
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.VERTICAL;
 
         /*
         c.gridx = 1;
@@ -902,19 +906,25 @@ public class Gui extends JFrame {
         c.insets = new Insets(0,0,20,5);
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
+        velgLeietakerKnapp.setMargin(new Insets(0,0,0,0));
+        velgLeietakerKnapp.setPreferredSize(dim);
         panel5.add(velgLeietakerKnapp,c);
 
         c.gridx = 2;
         c.gridy = 2;
-        valgtLeietaker = new JTextField(10);
+        c.insets = new Insets(0,0,20,0);
+        valgtLeietaker = new JTextField(3);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
         panel5.add(valgtLeietaker,c);
 
         c.gridx = 1;
         c.gridy = 3;
+        c.insets = new Insets(0,0,20,5);
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
+        velgBoligKnapp.setMargin(new Insets(0,0,0,0));
+        velgBoligKnapp.setPreferredSize(dim);
         panel5.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
 
@@ -938,7 +948,7 @@ public class Gui extends JFrame {
 
         c.gridx = 2;
         c.gridy = 4;
-        valgtUtleier = new JTextField(10);
+        valgtUtleier = new JTextField(3);
         valgtUtleier.setEditable(false);
         valgtUtleier.setText("Ingen utleier valgt");
         panel5.add(valgtUtleier, c);
@@ -948,12 +958,12 @@ public class Gui extends JFrame {
 
 
 
-        startDagFelt = new JTextField(5);
-        startMånedFelt = new JTextField(5);
-        startÅrFelt = new JTextField(5);
-        sluttDagFelt = new JTextField(5);
-        sluttMånedFelt = new JTextField(5);
-        sluttårFelt = new JTextField(5);
+        startDagFelt = new JTextField(3);
+        startMånedFelt = new JTextField(3);
+        startÅrFelt = new JTextField(3);
+        sluttDagFelt = new JTextField(3);
+        sluttMånedFelt = new JTextField(3);
+        sluttårFelt = new JTextField(3);
 
 
         c.gridx = 2;
@@ -1034,6 +1044,8 @@ public class Gui extends JFrame {
         c.gridy = 13;
         lagreKontrakt = new JButton("Lagre kontrakt");
         lagreKontrakt.addActionListener(lytter);
+        lagreKontrakt.setMargin(new Insets(0,0,0,0));
+        lagreKontrakt.setPreferredSize(dim);
         panel5.add(lagreKontrakt, c);
 
 
@@ -1041,6 +1053,8 @@ public class Gui extends JFrame {
         c.gridy = 14;
         oppdaterKontrakter = new JButton("Oppdater Register");
         oppdaterKontrakter.addActionListener(lytter);
+        oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
+        oppdaterKontrakter.setPreferredSize(dim);
         panel5.add(oppdaterKontrakter, c);
 
 
