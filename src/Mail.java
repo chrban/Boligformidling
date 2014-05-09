@@ -6,8 +6,8 @@ import javax.activation.*;
 
 public class Mail
 {
-    public void sendMail(String navn, String adresse, String sted, int pris){
-        String to = "e.oppegaard@hotmail.com";
+    public void sendMail(String epost, String navn, String adresse, String sted, int pris){
+        String to = epost;
         final String from = "kamera@bang.is";
         final String brukernavn = "bangis5";
         final String password = "Svarten1975";
@@ -30,7 +30,7 @@ public class Mail
             message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("BoligMatch");
             message.setText("Hei " + navn + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
-            + adresse + "\n" + sted + "\n" + pris + "\nHvis denne passer for deg, tinder me up and reply");
+            + adresse + "\n" + sted + "\n" + pris + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
 
             Transport.send(message);
             JOptionPane.showMessageDialog(null, "Mailen ble sendt!");

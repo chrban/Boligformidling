@@ -75,7 +75,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
-    private String valgtId, valgtBoligId;
+    private String valgtId, valgtBoligId, id;
     private Font headerFont;
 
 
@@ -374,6 +374,7 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
+        byBox.addActionListener(new boligTypeLytter());
         bspanel.add(byBox, c);
 
 
@@ -386,6 +387,7 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
+        romBox.addActionListener(new boligTypeLytter());
         bspanel.add(romBox, c);
 
 
@@ -518,6 +520,7 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 9;
         c.fill = GridBagConstraints.HORIZONTAL;
+        planBox.addActionListener(new boligTypeLytter());
         bspanel.add(planBox, c);
 
 
@@ -1160,6 +1163,7 @@ public class Gui extends JFrame {
                 JOptionPane.showMessageDialog(null, boligsøkere.toString());
             } else if (e.getSource() == lagre) {
 
+
                 System.out.println("Trykka på lagre");
 
                 //valider();
@@ -1246,12 +1250,21 @@ public class Gui extends JFrame {
             String typenTil = (String) boligtypeBox.getSelectedItem();
             String boligTypeFane2 = (String) boligtypeBoxFane2.getSelectedItem();
 
+
+            if(romBox.getSelectedIndex()!=0)romBox.setForeground(Color.BLACK);
+            if(byBox.getSelectedIndex()!=0) byBox.setForeground(Color.BLACK);
+            if(romBox.getSelectedIndex()!=0)romBox.setForeground(Color.BLACK);
+            if(etasjeBox.getSelectedIndex()!=0)etasjeBox.setForeground(Color.BLACK);
+            if(planBox.getSelectedIndex()!=0)planBox.setForeground(Color.BLACK);
+
+
             switch (typenTil) {
                 case "Enebolig":
                     togler();
                     garasjeValg.setVisible(true);
                     kjellerValg.setVisible(true);
                     etasjeBox.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
                     antEgtLabel.setVisible(true);
                     revalidate();
                     break;
@@ -1261,18 +1274,21 @@ public class Gui extends JFrame {
                     kjellerValg.setVisible(true);
                     etasjeBox.setVisible(true);
                     antEgtLabel.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
                     revalidate();
                     break;
                 case "Leilighet":
                     togler();
                     heisValg.setVisible(true);
                     balkongValg.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
                     revalidate();
                     break;
                 case "Hybel":
                     togler();
                     badValg.setVisible(true);
                     kjøkkenValg.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
                     revalidate();
                     break;
                 default:
@@ -1423,8 +1439,7 @@ public class Gui extends JFrame {
                         velgBoligVindu.dispose();
                         return;
                     }
-
-                    if(fane.getSelectedIndex() == 3)
+                    else if(fane.getSelectedIndex() == 3)
                     {
                         valgtBoligId = stringId;
                     }
@@ -1448,7 +1463,7 @@ public class Gui extends JFrame {
             {
                 if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMinSelectionIndex();
-                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    id = (String) tabellmodell.getValueAt(valgtRad, 0);
                     System.out.println("nå har programmet fått med seg at du har valgt noe fra boligsøkertabbel");
                     valgtLeietaker.setText(id);
 
@@ -1653,6 +1668,12 @@ private class resultatTabellModell extends AbstractTableModel
                 = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
         ));
+
+        resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = resultatTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
+
+
 
         sorterer.setSortKeys(sortKeys);
 
@@ -1944,42 +1965,57 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 */
-
-
     public void regPerson()
     {
 
-        /*int blgtp, int b, int r, int
-                  map, int mip, int p, int ae, int k, int mit, int mat, int h,
-                  int blkng, int dbm, int dkm
-
-                   0 Boligtype
-    1 by
-    2 rom
-    3 minPris
-    4 maxPris
-    5 parkering
-    6 antEtasjer
-    7 kjeller
-    8 minTomt
-    9 maxTomt
-    10 heis
-    11 balkong
-    12 delerBadMed
-    13 delerKjøkkenMed*/
 
         if(boligsøker.isSelected())
         {
+
             int bt, by, rom, minPris, maxPris, park, antE, kjeller, minTomt, maxTomt, heis, balkong, dbm, dkm, plan;
+
+            park = 0;
+            heis = 0;
+            balkong = 0;
+            dbm = 0;
+            dkm = 0;
+            kjeller = 0;
+            antE = 0;
+            rom = 0;
+            minPris = 0;
+            maxPris = 0;
+            plan=0;
+
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
             String t = tlf.getText();
             String email = mail.getText();
-
-
-            // Bestemm Boligtype
             String bType = (String) boligtypeBox.getSelectedItem();
+            String byInn = (String) byBox.getSelectedItem();
+
+            try{
+                if(romBox.isVisible())
+                rom = Integer.parseInt((String) romBox.getSelectedItem());
+
+                minPris = (int) minPrisSlider.getValue();
+
+                maxPris = (int) maxPrisSlider.getValue();
+
+                if(etasjeBox.isVisible()){
+                    System.out.println("Inni try iffen");
+                antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
+                }
+
+                if(planBox.isVisible())
+                plan = Integer.parseInt((String)planBox.getSelectedItem());
+            }
+            catch(NumberFormatException nfe){
+                System.out.println("NFE i trycatchen noe ikke er valgt. enten rom,plan,etg");
+
+            }
+
+
             switch (bType)
             {
                 case "Enebolig" : bt = 1;
@@ -1993,10 +2029,6 @@ private class resultatTabellModell extends AbstractTableModel
                 default: bt = 0;
                     break;
             }
-
-
-            // Bestem by "Oslo","Bergen","Stavanger","Trondheim","Kristiansand","Tromsø"};
-            String byInn = (String) byBox.getSelectedItem();
 
             switch(byInn){
                 case "Oslo":        by = 1;
@@ -2015,32 +2047,6 @@ private class resultatTabellModell extends AbstractTableModel
                     break;
             }
 
-//todo catch it
-            try{
-                rom = Integer.parseInt((String) romBox.getSelectedItem());
-
-                minPris = (int) minPrisSlider.getValue();
-
-                maxPris = (int) maxPrisSlider.getValue();
-
-                antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
-            }
-            catch(NumberFormatException nfe){
-                JOptionPane.showMessageDialog(null,"NumberFormat siden du ikke velger");
-                return;
-            }
-
-
-
-
-
-
-            park = 0;
-            heis = 0;
-            balkong = 0;
-            dbm = 0;
-            dkm = 0;
-            kjeller = 0;
 
             if(garasjeValg.isSelected())
                 park = 1;
@@ -2055,31 +2061,60 @@ private class resultatTabellModell extends AbstractTableModel
             if(balkongValg.isSelected())
                 balkong = 1;
 
-            plan = Integer.parseInt((String)planBox.getSelectedItem());
 
-            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || bType.equals("0") || byInn.equals("0") || antE==0 )
+            if( fnavn.equals("") || t.equals("") || enavn.equals("") || ad.equals("") || email.equals("") || bt == 0 || by == 0 ||  plan == 0 || rom == 0)
             {
+
                 gyldig(fornavn);
                 gyldig(etternavn);
                 gyldig(adresse);
                 gyldig(tlf);
                 gyldig(mail);
-                boligtypeBox.setForeground(Color.RED);
-                byBox.setBackground(Color.RED);
-                etasjeBox.setBackground(Color.RED);
+                gyldigBox(boligtypeBox);
+                gyldigBox(byBox);
+                gyldigBox(romBox);
+                gyldigBox(etasjeBox);
+                gyldigBox(romBox);
+                gyldigBox(planBox);
+
+            }
+            else {
+                String id = idGenerator(enavn,fnavn);
+
+                    if(bt == 1 || bt == 2) //hvis enebolig
+                    {
+                        if(antE != 0)
+                        {
+                            JOptionPane.showMessageDialog(null,"1");
+                            Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
+                            boligsøkere.settInnNy(ny);
+                            clearPersonFelt();
+                            clearBSfelt();
+                            return;
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"2");
+                            gyldigBox(etasjeBox);
+                            return;
+                        }
+                    }
 
 
+                JOptionPane.showMessageDialog(null,"3");
+                Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
+                boligsøkere.settInnNy(ny);
+                clearPersonFelt();
+                clearBSfelt();
+                return;
             }
 
 
+            JOptionPane.showMessageDialog(null,"Om du ser denne har du ikke skrevet inn i alle feltene i boligsøker regging");
 
-
-            String id = idGenerator(enavn,fnavn);
-
-            Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
-            boligsøkere.settInnNy(ny);
             return;
-        }
+
+        }// end of: IF(BOLIGSØKER)
+
 
         // regger utleier
         else if(utleier.isSelected())
@@ -2092,29 +2127,31 @@ private class resultatTabellModell extends AbstractTableModel
             String firm = firma.getText();
 
             if( fnavn.equals("") || enavn.equals("") || ad.equals("") || t.equals("") || email.equals("") || firm.equals("")){
-                //valider(fnavn,enavn,ad,t,email,firm);
-
                 gyldig(fornavn);
                 gyldig(etternavn);
                 gyldig(adresse);
                 gyldig(tlf);
                 gyldig(mail);
                 gyldig(firma);
-
-
-
             }
+            else {
+
+                String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
 
 
-            String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
-
-
-            Utleier ny = new Utleier(id, fnavn, enavn, ad ,t ,email, firm);
-            utleiere.settInn(ny);
+                Utleier ny = new Utleier(id, fnavn, enavn, ad ,t ,email, firm);
+                utleiere.settInn(ny);
+                clearPersonFelt();
+                clearBSfelt();
+                return;
+            }
+            JOptionPane.showMessageDialog(null,"om du ser denne har du ikke skrevet gyldige data i alle feltene i utleier!");
             return;
+
         }
-        JOptionPane.showMessageDialog(null, "du må velge en av typene...");
+        JOptionPane.showMessageDialog(null, "du må velge en av typene..."); //vil aldri kicke inn siden return hehe heehe
     }
+
 
 
     private boolean gyldig(JTextField f)
@@ -2128,6 +2165,53 @@ private class resultatTabellModell extends AbstractTableModel
             return false;
        }
     }
+    private void clearBSfelt()
+    {
+        boligtypeBox.setSelectedIndex(0);
+        byBox.setSelectedIndex(0);
+        romBox.setSelectedIndex(0);
+        minPrisSlider.setValue(0);
+        maxPrisSlider.setValue(50000);
+        etasjeBox.setSelectedIndex(0);
+        planBox.setSelectedIndex(0);
+        garasjeValg.setSelected(false);
+        kjellerValg.setSelected(false);
+        heisValg.setSelected(false);
+        balkongValg.setSelected(false);
+        kjøkkenValg.setSelected(false);
+        badValg.setSelected(false);
+        System.out.println("Boligsøkerfelt er klarert");
+    }
+
+
+    private void clearPersonFelt()
+    {
+        fornavn.setText("");
+        etternavn.setText("");
+        adresse.setText("");
+        tlf.setText("");
+        mail.setText("");
+        firma.setText("");
+        fornavn.setBackground(Color.WHITE);
+        etternavn.setBackground(Color.WHITE);
+        adresse.setBackground(Color.WHITE);
+        tlf.setBackground(Color.WHITE);
+        mail.setBackground(Color.WHITE);
+        firma.setBackground(Color.WHITE);
+        System.out.println("Clear person feltene");
+    }
+
+    private boolean gyldigBox(JComboBox f)
+    {
+        if(f.getSelectedIndex()==0 && f.isVisible()) {
+            f.setForeground(Color.RED);
+            return true;
+        }
+        else
+        f.setForeground(Color.BLACK);
+        return false;
+
+    }
 
 
     private String idGenerator(String f, String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
@@ -2135,8 +2219,16 @@ private class resultatTabellModell extends AbstractTableModel
         String firma = f;
         String eNavn = en;
         String fNavn = fn;
+        String id = "";
 
-       String id = f.substring(0,2).toUpperCase()+en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+       try{
+           id = f.substring(0,2).toUpperCase()+en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
+       }
+       catch (StringIndexOutOfBoundsException sioobe)
+       {
+           System.out.println();
+       }
+
 
         JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
 
@@ -2151,15 +2243,9 @@ private class resultatTabellModell extends AbstractTableModel
         String fNavn = fn;
         String id = "";
         //todo legge inn try; gir String out of bounds exeption
-        try{
-            id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
-        }
-            catch(StringIndexOutOfBoundsException sioobe){
-                JOptionPane.showMessageDialog(null,"ID generator får SIOOBE error, for kort navn madafaka");
-            }
-
-
-
+        try{id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();}
+        catch(StringIndexOutOfBoundsException sioobe){
+            System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
 
         JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
 
@@ -2592,7 +2678,41 @@ private class resultatTabellModell extends AbstractTableModel
         }
     }
     public void sendEmail(){
-        epost.sendMail("Emil","Haukliveien", "Fåberg", 7000);
+        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
+        Boligsøker send = boligsøkere.getBoligsøker(valgtId);
+        if(send == null){
+            JOptionPane.showMessageDialog(null, "Velg en bolisøker");
+            return;
+        }
+        String n = send.getFornavn() + " " + send.getEtternavn();
+        //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
+
+        Bolig sendTil = boliger.finnBolig(valgtBoligId);
+        if(sendTil == null){
+            JOptionPane.showMessageDialog(null, "Velg en bolig");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, valgtBoligId);
+        String adresse = sendTil.getAdresse();
+        int stedInt = sendTil.getSted();
+        String sted = "";
+        switch (stedInt){
+            case 1: sted = "Oslo";
+                    break;
+            case 2: sted = "Bergen";
+                    break;
+            case 3: sted = "Stavanger";
+                    break;
+            case 4: sted = "Trondheim";
+                    break;
+            case 5: sted = "Kristiansand";
+                    break;
+            case 6: sted = "Tromsø";
+                    break;
+
+        }
+        int pris = sendTil.getUtleiepris();
+        epost.sendMail(til,n,adresse, sted, pris);
     }
 
 }
