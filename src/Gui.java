@@ -797,6 +797,11 @@ public class Gui extends JFrame {
 
         radioTabell.add(persontabellRadioknapp);
         radioTabell.add(boligtabellRadioknapp);
+        slettPerson = new JButton("Slett person");
+        slettPerson.addActionListener(lytter);
+        c.gridx = 3;
+        c.gridy = 10;
+        panel3.add(slettPerson,c);
 
 
 
@@ -1116,6 +1121,9 @@ public class Gui extends JFrame {
             }
             else if (e.getSource() == sendMail){
                 sendEmail();
+            }
+            else if (e.getSource() == slettPerson){
+                slettBoligsøker();
             }
 
         }
@@ -1497,6 +1505,13 @@ public class Gui extends JFrame {
                 }
 
             }
+            else if(tabellmodell instanceof personTabellFabrikk){
+                if(!lsm.isSelectionEmpty()){
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    slettPersonFn = (String)tabellmodell.getValueAt(valgtRad, 0);
+                    slettPersonEn = (String)tabellmodell.getValueAt(valgtRad, 1);
+                }
+            }
 
 
 
@@ -1850,12 +1865,16 @@ private class resultatTabellModell extends AbstractTableModel
     {
         personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
         personTabell = new JTable(personTabellModell);
+        ListSelectionModel lsm = personTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
     }
     private void lagBoligTabellen()
     {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
         boligTabellTabellen = new JTable(boligTabellModell);
+        ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
     }
 
 
@@ -2674,6 +2693,9 @@ private class resultatTabellModell extends AbstractTableModel
             }
         }
     } //  var det dette som vi skulle kunne slette, eller noe annet?
+    public void slettBolig(){
+
+    }
 
     public void lesFraFil(){
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))){
