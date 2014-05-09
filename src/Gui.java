@@ -35,7 +35,7 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regpersonHeader,navnLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
@@ -72,6 +72,7 @@ public class Gui extends JFrame {
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
+    private int slettBoligId;
     private Font headerFont;
 
 
@@ -823,6 +824,12 @@ public class Gui extends JFrame {
         c.gridy = 2;
         panel3.add(slettPerson,c);
 
+        slettBoligKnapp = new JButton("Slett bolig");
+        slettBoligKnapp.addActionListener(lytter);
+        c.gridx = 10;
+        c.gridy = 3;
+        panel3.add(slettBoligKnapp,c);
+
 
         feedbackFane3 = new JTextArea("feedbackfelt");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
@@ -1160,6 +1167,9 @@ public class Gui extends JFrame {
             }
             else if (e.getSource() == slettPerson){
                 slettBoligsøker();
+            }
+            else if (e.getSource() == slettBoligKnapp){
+                slettBolig();
             }
 
         }
@@ -1554,6 +1564,12 @@ public class Gui extends JFrame {
                     int valgtRad = lsm.getMaxSelectionIndex();
                     slettPersonFn = (String)tabellmodell.getValueAt(valgtRad, 0);
                     slettPersonEn = (String)tabellmodell.getValueAt(valgtRad, 1);
+                }
+            }
+            else if(tabellmodell instanceof boligTabellFabrikk){
+                if(!lsm.isSelectionEmpty()){
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    slettBoligId = (int)tabellmodell.getValueAt(valgtRad, 8);
                 }
             }
 
@@ -2758,6 +2774,25 @@ private class resultatTabellModell extends AbstractTableModel
         }
     } //  var det dette som vi skulle kunne slette, eller noe annet?
     public void slettBolig(){
+        String[] alternativer = {"Ja", "Nei"};
+        String slettDenne = Integer.toString(slettBoligId);
+        if(slettDenne.equals("")){
+            JOptionPane.showMessageDialog(null,"Velg bolig");
+            return;
+        }
+        Bolig slett = boliger.finnBolig(slettDenne);
+        if(slett.getUtleid()){
+            JOptionPane.showMessageDialog(null,"Boligen er utleid, kan ikke slettes!");
+            return;
+        }
+        int svar = JOptionPane.showOptionDialog(null,"Sikker på at du vil slette boligen med " + slett.getAdresse() + "?","Slett bolig",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, alternativer, alternativer[0]);
+        if( svar == JOptionPane.YES_OPTION){
+            if(boliger.slettBolig(slett))
+                JOptionPane.showMessageDialog(null,"Boligen ble slettet");
+            else
+                JOptionPane.showMessageDialog(null,"DUUURT!");
+        }
 
     }
 

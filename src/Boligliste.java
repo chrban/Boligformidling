@@ -86,6 +86,22 @@ public class Boligliste implements Serializable {
         }
         return hybler.add(h);
     }
+    public boolean slettBolig(Bolig b){
+        if(b instanceof Enebolig){
+            eneboliger.remove(b);
+            return true;
+        }else if(b instanceof Rekkehus){
+            rekkehus.remove(b);
+            return true;
+        }else if(b instanceof Leilighet){
+            leiligheter.remove(b);
+            return true;
+        }else if(b instanceof Hybel){
+            hybler.remove(b);
+            return true;
+        }
+        return false;
+    }
 
 
     public boolean eneboligErUnik(Enebolig e)
