@@ -1931,7 +1931,7 @@ private class resultatTabellModell extends AbstractTableModel
     private class boligTabellFabrikk extends AbstractTableModel {
 
 
-        String[] boligkolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde"};
+        String[] boligkolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde","Id"};
 
 
         Object[][] boligceller = joinBoligArray();
@@ -2517,10 +2517,20 @@ private class resultatTabellModell extends AbstractTableModel
         Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
         int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
 
-        if(leietaker == null || utleier == null || bolig == null) {
-            System.out.println("en var null");
+        if(leietaker == null )  {
+            System.out.println("leietaker var null");
             return;
         }
+        if(bolig == null )  {
+        System.out.println("boligen var null");
+        return;
+        }
+        if(utleier == null ) {
+        System.out.println("utleieren var null");
+        return;
+        }
+
+
 
         try{
             sluttår = Integer.parseInt((String) sluttårFelt.getText());

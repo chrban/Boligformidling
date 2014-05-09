@@ -71,6 +71,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         return utleid;
     }
 
+
     public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
     {
         Bolig b = (Bolig) o;
