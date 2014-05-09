@@ -37,16 +37,11 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regUtleier; ;
-
-
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regpersonHeader,navnLabel;
     private JTextArea beskrivelse,feedbackFane1;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel;
-    ;
-    //private JRadioButton utleier, boligsøker;
-   // private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, panel5;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -56,7 +51,6 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    //private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, , visBoligsøkereTabell,visBoligTabell,resultatTabell ;
     private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell,boligSøkereForMatch,boligValgTabell;
     private JScrollPane scroll, mainScroll;
     private PersonTypeLytter radioLytter;
@@ -168,7 +162,7 @@ public class Gui extends JFrame {
         panel1 = new JPanel(new GridLayout(2, 2));  // FANE panel
         // panel1 = new JPanel(new BorderLayout());  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
-        panel3 = new JPanel(new FlowLayout());  // FANE panel
+        panel3 = new JPanel(layout);  // FANE panel
         panel4 = new JPanel(layout);  // FANE panel
         utpanel = new JPanel(layout); // Utleierpanel
         bspanel = new JPanel(layout); // Boligsøkerpanel
@@ -187,11 +181,17 @@ public class Gui extends JFrame {
 
 
         panel2.add(bopanel);
-        panel3.add(tapanel,BorderLayout.LINE_END);
 
 
 
-//todo-Christer: sett min/maxpris label til å initie så den har verdiiii
+        c.gridy=0;
+        c.gridx=0;
+        c.gridheight=10;
+        c.gridwidth=10;
+        panel3.add(tapanel,c);
+
+
+
 
 
         //til hit
@@ -219,7 +219,6 @@ public class Gui extends JFrame {
 
         fane.addChangeListener(faneøre);
 
-        //todo- OSEN: Funker dette på windows?
 
 
         // Reseter
@@ -235,8 +234,19 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
-
         pepanel.add(new JLabel("Fornavn: "), c);
+
+
+
+
+
+        //navnLabel  = new JLabel("NAVN");
+        //navnLabel.setComponentPopupMenu();
+
+
+
+
+
 
         fornavn = new JTextField();
         c.gridx = 1;
@@ -247,6 +257,7 @@ public class Gui extends JFrame {
 
         //c.ipadx = ;
         pepanel.add(fornavn, c);
+
 
 
         c.gridx = 0;
@@ -779,22 +790,22 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-
         radioTabellLytter = new tabellTypeLytter();
+
         radioTabell = new ButtonGroup();
         persontabellRadioknapp = new JRadioButton("Vis personer",false);
-
         persontabellRadioknapp.addActionListener(radioTabellLytter);
-
-        c.gridx = 0;
+        c.gridx = 10;
         c.gridy = 0;
         panel3.add(persontabellRadioknapp,c);
 
+
         boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
         boligtabellRadioknapp.addActionListener(radioTabellLytter);
-        c.gridx = 0;
+        c.gridx = 10;
         c.gridy = 1;
         panel3.add(boligtabellRadioknapp,c);
+
 
         radioTabell.add(persontabellRadioknapp);
         radioTabell.add(boligtabellRadioknapp);
@@ -1405,6 +1416,8 @@ public class Gui extends JFrame {
         repaint();
     }
 
+
+    //For fane 3, om det skal vises boligtabell  eller persontabell
     private class tabellTypeLytter implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
