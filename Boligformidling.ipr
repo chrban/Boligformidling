@@ -173,12 +173,22 @@
       <module fileurl="file://$PROJECT_DIR$/Boligformidling.iml" filepath="$PROJECT_DIR$/Boligformidling.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="activation">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../../mailfilene/activation.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../mailfilene/javax.mail.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>
 

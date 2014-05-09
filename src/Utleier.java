@@ -62,7 +62,7 @@ public class Utleier extends Person implements Serializable
 
     public String toString()
     {
-        return super.toString() + "\nFirma: " + firma;
+        return super.toString() + "\nFirma: " + firma.substring(0,1).toUpperCase()+firma.substring(1);
     }
 
 
