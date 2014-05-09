@@ -75,7 +75,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
-    private String valgtId, valgtBoligId;
+    private String valgtId, valgtBoligId, id;
     private Graphics kontraktHeader;
 
 
@@ -1408,8 +1408,7 @@ public class Gui extends JFrame {
                         velgBoligVindu.dispose();
                         return;
                     }
-
-                    if(fane.getSelectedIndex() == 3)
+                    else if(fane.getSelectedIndex() == 3)
                     {
                         valgtBoligId = stringId;
                     }
@@ -1433,7 +1432,7 @@ public class Gui extends JFrame {
             {
                 if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMinSelectionIndex();
-                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    id = (String) tabellmodell.getValueAt(valgtRad, 0);
                     System.out.println("nå har programmet fått med seg at du har valgt noe fra boligsøkertabbel");
                     valgtLeietaker.setText(id);
 
@@ -1638,6 +1637,12 @@ private class resultatTabellModell extends AbstractTableModel
                 = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
         ));
+
+        resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = resultatTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
+
+
 
         sorterer.setSortKeys(sortKeys);
 
@@ -2577,7 +2582,41 @@ private class resultatTabellModell extends AbstractTableModel
         }
     }
     public void sendEmail(){
-        epost.sendMail("Emil","Haukliveien", "Fåberg", 7000);
+        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
+        Boligsøker send = boligsøkere.getBoligsøker(valgtId);
+        if(send == null){
+            JOptionPane.showMessageDialog(null, "Velg en bolisøker");
+            return;
+        }
+        String n = send.getFornavn() + " " + send.getEtternavn();
+        //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
+
+        Bolig sendTil = boliger.finnBolig(valgtBoligId);
+        if(sendTil == null){
+            JOptionPane.showMessageDialog(null, "Velg en bolig");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, valgtBoligId);
+        String adresse = sendTil.getAdresse();
+        int stedInt = sendTil.getSted();
+        String sted = "";
+        switch (stedInt){
+            case 1: sted = "Oslo";
+                    break;
+            case 2: sted = "Bergen";
+                    break;
+            case 3: sted = "Stavanger";
+                    break;
+            case 4: sted = "Trondheim";
+                    break;
+            case 5: sted = "Kristiansand";
+                    break;
+            case 6: sted = "Tromsø";
+                    break;
+
+        }
+        int pris = sendTil.getUtleiepris();
+        epost.sendMail(til,n,adresse, sted, pris);
     }
 
 }
