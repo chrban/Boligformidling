@@ -216,7 +216,7 @@ public class Gui extends JFrame {
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
         fane.addTab("Vis tabell", null, panel3, "Show tabell");
         fane.addTab("MatchMaking", null, panel4, "Tinde");
-        fane.addTab("Kontrakter", null, panel5, "Registrer og se kontrakter");
+        fane.addTab("Kontrakter", null, new JScrollPane(panel5), "Registrer og se kontrakter");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
         fane.setMnemonicAt(1, KeyEvent.VK_2);
         fane.setMnemonicAt(2, KeyEvent.VK_3);
@@ -1128,7 +1128,15 @@ public class Gui extends JFrame {
 
         //Dimension heleSkjermen = new Dimension(bredde-20, høyde-20);
         fane.setPreferredSize(new Dimension(1380,1010));
-        add(new JScrollPane(fane), BorderLayout.PAGE_START);
+        //add(new JScrollPane(fane), BorderLayout.PAGE_START);
+        JScrollPane sp = new JScrollPane();
+        getContentPane().add(sp);
+        add(fane);
+        //add(new JScrollPane(getContentPane()));
+
+
+
+
 
         lesFraFil();
     } // End GUI konstruktør
