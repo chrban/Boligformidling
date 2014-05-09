@@ -41,6 +41,7 @@ public class BoligsøkerListe implements Serializable {
     public int[] getKravPåId(String inn)
     {
         Boligsøker løper = første;
+        System.out.println("get krav på id: "+inn);
 
         if(løper == null)
             return null;

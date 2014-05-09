@@ -75,7 +75,7 @@ public class Gui extends JFrame {
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
     private Container kassa;
-    private String valgtId;
+    private String valgtId, valgtBoligId;
     private Graphics kontraktHeader;
 
 
@@ -1399,15 +1399,20 @@ public class Gui extends JFrame {
                     int id = (int) tabellmodell.getValueAt(valgtRad,9);
                     String stringId = Integer.toString(id);
                     
+                    if(fane.getSelectedIndex() == 4) {
+                        String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
+                        valgtUtleier.setText(uid);
+                        valgtBolig.setText(stringId);
+                        valgtUtleier.setVisible(true);
+                        utleierLabel.setVisible(true);
+                        velgBoligVindu.dispose();
+                        return;
+                    }
 
-
-                    String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
-                    valgtUtleier.setText(uid);
-                    valgtBolig.setText(stringId);
-                    valgtUtleier.setVisible(true);
-                    utleierLabel.setVisible(true);
-                    velgBoligVindu.dispose();
-                    return;
+                    if(fane.getSelectedIndex() == 3)
+                    {
+                        valgtBoligId = stringId;
+                    }
                 }
             }
 
@@ -1444,6 +1449,7 @@ public class Gui extends JFrame {
                     System.out.println("inne i tabbelyttern nå! panel 4 altså matching");
                     int valgtRad = lsm.getMaxSelectionIndex();
                     valgtId = (String) tabellmodell.getValueAt(valgtRad,0);
+                    System.out.println(valgtId);
 
                     return;
                 }
@@ -1569,6 +1575,7 @@ public String[] getKolonneNavnForBoligtype(int[] krav)
 
 private class resultatTabellModell extends AbstractTableModel
 {
+
 
     int[] kravene = boligsøkere.getKravPåId(valgtId);
     //int type = kravene[0];
@@ -2310,7 +2317,7 @@ private class resultatTabellModell extends AbstractTableModel
     {
         JFileChooser filvelger = new JFileChooser();
         filvelger.setCurrentDirectory( new File( "." ) );
-        int resultat = filvelger.showOpenDialog( this );
+        int resultat = filvelger.showOpenDialog(this);
 
         if(resultat == JFileChooser.APPROVE_OPTION)
         {
@@ -2407,7 +2414,7 @@ private class resultatTabellModell extends AbstractTableModel
         utleierValgTabell.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
         ListSelectionModel lsm = utleierValgTabell.getSelectionModel();
 
-        lsm.addListSelectionListener( new Utvalgslytter( modell ) );
+        lsm.addListSelectionListener(new Utvalgslytter(modell));
         velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.pack();
         velgUtleierVindu.setVisible(true);

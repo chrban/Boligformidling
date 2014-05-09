@@ -20,6 +20,26 @@ public class Boligliste implements Serializable {
         leiligheter = new TreeSet<>();
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
+
+        Enebolig en = new Enebolig("Adresse",1,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
+        Enebolig to = new Enebolig("Adresse",1,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
+        Enebolig tre = new Enebolig("Adresse",2,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
+        Enebolig fire = new Enebolig("Adresse",2,1, 1, 2000, 2000, "PIKK", "bildesti",  1, -1, -1, 10);
+        System.out.println( en.getId() + " " + to.getId()+" ");
+
+        if(leggTil(en))
+            System.out.println("lagt til en");
+
+        if(leggTil(to));
+            System.out.println("lagt til to");
+
+        if(leggTil(tre));
+             System.out.println("lagt til tre");
+
+        if(leggTil(fire));
+            System.out.println("lagt til fire");
+
+        System.out.println(eneboliger.size());
     }
 
     public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
@@ -48,7 +68,7 @@ public class Boligliste implements Serializable {
 
     public Object[][] matchPåKrav(int[] krav)
     {
-
+        System.out.println("match på krav kjører");
         Object[][] ut = new Object[eneboliger.size()][10];
         int plass = 0;
         int[] specs;
@@ -67,6 +87,7 @@ public class Boligliste implements Serializable {
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
                 if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
                 {
+                    System.out.println("forsøker seg på enebolianmatch");
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if(krav[i] == 0)
@@ -77,6 +98,7 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= (4-urelevante))
                     {
+                        System.out.println("match på enebolig");
                         DecimalFormat df = new DecimalFormat("0.00");
                         matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = enebolig.tilMatchTabell();
