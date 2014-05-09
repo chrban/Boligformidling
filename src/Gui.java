@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -39,8 +37,10 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader ;
-    private JTextArea beskrivelse;
+    private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regUtleier; ;
+
+
+    private JTextArea beskrivelse,feedbackFane1;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel;
@@ -525,6 +525,14 @@ public class Gui extends JFrame {
         planBox.addActionListener(new boligTypeLytter());
         bspanel.add(planBox, c);
 
+        feedbackFane1 = new JTextArea("feedback");
+        feedbackFane1.setEditable(false);
+        feedbackFane1.setBackground(Color.LIGHT_GRAY);
+        feedbackFane1.setPreferredSize(new Dimension(20,20));
+
+
+        panel1.add(feedbackFane1);
+
 
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
@@ -789,12 +797,6 @@ public class Gui extends JFrame {
 
         radioTabell.add(persontabellRadioknapp);
         radioTabell.add(boligtabellRadioknapp);
-
-        slettPerson = new JButton("Slett Person");
-        slettPerson.addActionListener(lytter);
-        c.gridx = 0;
-        c.gridy = 15;
-        panel3.add(slettPerson,c);
 
 
 
@@ -1114,9 +1116,6 @@ public class Gui extends JFrame {
             }
             else if (e.getSource() == sendMail){
                 sendEmail();
-            }
-            else if(e.getSource() == slettPerson){
-                slettBoligsøker();
             }
 
         }
@@ -1498,15 +1497,6 @@ public class Gui extends JFrame {
                 }
 
             }
-            else if(tabellmodell instanceof personTabellFabrikk){
-                if(!lsm.isSelectionEmpty()){
-                    System.out.println("Langt inni cyberspace nu");
-                    int valgtRad = lsm.getMaxSelectionIndex();
-                    slettPersonFn = (String)tabellmodell.getValueAt(valgtRad,0);
-                    slettPersonEn = (String)tabellmodell.getValueAt(valgtRad,1);
-                    System.out.println(slettPersonFn + " " + slettPersonEn);
-                }
-            }
 
 
 
@@ -1860,16 +1850,12 @@ private class resultatTabellModell extends AbstractTableModel
     {
         personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
         personTabell = new JTable(personTabellModell);
-        ListSelectionModel lsm = personTabell.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
     }
     private void lagBoligTabellen()
     {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
         boligTabellTabellen = new JTable(boligTabellModell);
-        ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
     }
 
 
@@ -2169,6 +2155,7 @@ private class resultatTabellModell extends AbstractTableModel
                 utleiere.settInn(ny);
                 clearPersonFelt();
                 clearBSfelt();
+                feedbackFane1.setText("Ny utleier er registrert.  \n\n"+ny.toString()+ "\nUtleier ID: " + ny.getId());
                 return;
             }
             JOptionPane.showMessageDialog(null,"om du ser denne har du ikke skrevet gyldige data i alle feltene i utleier!");
