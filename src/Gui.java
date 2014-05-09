@@ -1236,22 +1236,8 @@ public class Gui extends JFrame {
             if (e.getSource() == om) {
                 JOptionPane.showMessageDialog(null, boligsøkere.toString());
             } else if (e.getSource() == lagre) {
-                int bredde = getWidth();
-                int høyde = getHeight();
-                System.out.println("Skjermstr: " + bredde + "x" + høyde);
-                System.out.println("fane3str. "+feedbackFane3.getSize());
-
-
-                System.out.println("Trykka på lagre");
-
-//                System.out.println("Trykka på lagre");
-
-                //valider();
-
-            //    visBoligsøkere();
-
-
-
+                System.out.println("Trykka på lagre, som kaller på skrivTilFil()");
+                skrivTilFil();
 
             } else if (e.getSource() == angre) {
                 System.out.println("du anger på at du tryka på angre");
