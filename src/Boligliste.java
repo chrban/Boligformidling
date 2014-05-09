@@ -46,24 +46,106 @@ public class Boligliste implements Serializable {
 
     public boolean leggTil(Enebolig e)// kan dette gå?
     {
-        System.out.println("legger til enebolig");
+
+        if(!eneboligErUnik(e)) {
+            JOptionPane.showMessageDialog(null, "Du har lagret denne eneboligen før");
+            return false;
+        }
+
         return eneboliger.add(e);
 
     }
 
-    public void leggTil(Rekkehus r)// kan dette gå?
+    public boolean leggTil(Rekkehus r)// kan dette gå?
     {
-        rekkehus.add(r);
+        if(!rekkehusErUnik(r)) {
+            JOptionPane.showMessageDialog(null, "Du har lagret dette rekkehuset før");
+            return false;
+        }
+
+        return rekkehus.add(r);
     }
 
-    public void leggTil(Leilighet l)// kan dette gå?
+    public boolean leggTil(Leilighet l)// kan dette gå?
     {
-        leiligheter.add(l);
+        if(!leilighetErUnik(l))
+        {
+            JOptionPane.showMessageDialog(null, "Du har lagret denne leiligheten før");
+            return false;
+        }
+
+        return leiligheter.add(l);
     }
 
-    public void leggTil(Hybel h)// kan dette gå?
+    public boolean leggTil(Hybel h)// kan dette gå?
     {
-        hybler.add(h);
+        if(!hybelErUnik(h))
+        {
+            JOptionPane.showMessageDialog(null,"Du har lagret denne hybelen før");
+            return false;
+        }
+        return hybler.add(h);
+    }
+
+
+    public boolean eneboligErUnik(Enebolig e)
+    {
+        String [] specs = e.getUnikArray();
+        Iterator<Enebolig> iter = eneboliger.iterator();
+
+        while(iter.hasNext())
+        {
+            Enebolig ebo = iter.next();
+
+            if(ebo.erLik(specs))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean rekkehusErUnik(Rekkehus r)
+    {
+        String [] specs = r.getUnikArray();
+        Iterator<Rekkehus> iter = rekkehus.iterator();
+
+        while(iter.hasNext())
+        {
+            Rekkehus reke = iter.next();
+
+            if(reke.erLik(specs))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean leilighetErUnik(Leilighet l)
+    {
+        String [] specs = l.getUnikArray();
+        Iterator<Leilighet> iter = leiligheter.iterator();
+
+        while(iter.hasNext())
+        {
+            Leilighet lei = iter.next();
+
+            if(lei.erLik(specs))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean hybelErUnik(Hybel h)
+    {
+        String [] specs = h.getUnikArray();
+        Iterator<Hybel> iter = hybler.iterator();
+
+        while(iter.hasNext())
+        {
+            Hybel hy = iter.next();
+
+            if(hy.erLik(specs))
+                return false;
+        }
+        return true;
     }
 
     public Object[][] matchPåKrav(int[] krav)

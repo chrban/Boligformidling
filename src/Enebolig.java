@@ -44,6 +44,22 @@ public class Enebolig extends Bolig implements Serializable
 
         return specArray;
     }
+
+
+    public String[] getUnikArray()
+    {
+        String [] unik = new String[4];
+
+
+        unik [0] = getEierID();
+        unik [1] = getAdresse();
+        unik [2] = Integer.toString(getBoareal());
+        unik [3] = Integer.toString(getUtleiepris());
+
+        return unik;
+    }
+
+
     public Object[] tilTabell()
     {
         Object[] ut = new Object[8];
@@ -102,6 +118,21 @@ public class Enebolig extends Bolig implements Serializable
     {
         System.out.println("kjeller :" +kjeller);
         if(kjeller == 1)
+            return true;
+
+        return false;
+    }
+
+    public boolean erLik(String[] andre)
+    {
+        String [] specs = getUnikArray();
+        int lik = 0;
+
+        for(int i = 0; i <= 3; i++)
+            if(andre[i].equals(specs[i]))
+                lik++;
+
+        if(lik == 4)
             return true;
 
         return false;

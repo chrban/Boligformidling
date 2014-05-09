@@ -203,7 +203,9 @@ public class Gui extends JFrame {
         resultatPanel.setVisible(true);
         velgBsPanel.setVisible(true);
         //oppretter Fanene
+        Dimension heleSkjermen = new Dimension(bredde, høyde);
 
+        fane.setPreferredSize(heleSkjermen);
         fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
         fane.addTab("Vis tabell", null, panel3, "Show tabell");
@@ -875,6 +877,7 @@ public class Gui extends JFrame {
         //RESETER
 
         Dimension dim = new Dimension(20,20);
+
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -1082,7 +1085,7 @@ public class Gui extends JFrame {
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
 
-        Dimension heleSkjermen = new Dimension(bredde, høyde);
+
         fane.setPreferredSize(new Dimension(heleSkjermen));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
 

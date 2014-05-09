@@ -95,6 +95,19 @@ public class Leilighet extends Bolig implements Serializable
         return ut;
     }
 
+    public String[] getUnikArray()
+    {
+        String[] unik = new String[5];
+
+        unik[0] = getEierID();
+        unik[1] = getAdresse();
+        unik[2] = Integer.toString(etasje);
+        unik[3] = Integer.toString(getBoareal());
+        unik[5] = Integer.toString(getUtleiepris());
+
+        return unik;
+    }
+
 
     public boolean getBooleanVerdiHeis()
     {
@@ -111,6 +124,22 @@ public class Leilighet extends Bolig implements Serializable
 
         return false;
     }
+
+    public boolean erLik(String[] andre)
+    {
+        String [] specs = getUnikArray();
+        int lik = 0;
+
+        for(int i = 0; i <= 4; i++)
+            if(andre[i].equals(specs[i]))
+                lik++;
+
+        if(lik == 5)
+            return true;
+
+        return false;
+    }
+        
 
 
     public String sted()
