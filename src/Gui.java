@@ -139,10 +139,9 @@ public class Gui extends JFrame {
 
 
 //temp, filmeny slutt
-
-        utleiere = new UtleierListe();
-        boligsøkere = new BoligsøkerListe();
         boliger = new Boligliste();
+        utleiere = new UtleierListe(boliger);
+        boligsøkere = new BoligsøkerListe();
         kontrakter = new KontraktListe(boliger, boligsøkere);
         epost = new Mail();
         lytter = new knappLytter();
@@ -2686,10 +2685,16 @@ private class resultatTabellModell extends AbstractTableModel
                 slettPersonEn = "";
                 slettPersonFn = "";
             }
-            else if(utleiere.fjernUtleier(slettPersonFn, slettPersonEn)){
-                JOptionPane.showMessageDialog(null, "Personen er slettet");
-                slettPersonEn = "";
-                slettPersonFn = "";
+            else{
+                String id = utleiere.finnID(slettPersonFn, slettPersonEn);
+                Utleier woop = utleiere.getUtleier(id);
+                if(!utleiere.harBoliger(woop)){
+                    utleiere.fjernUtleier(slettPersonFn,slettPersonEn);
+                    JOptionPane.showMessageDialog(null,"Personen ble slettet");
+                }else{
+                    JOptionPane.showMessageDialog(null,"Personen har boliger registrert på seg!");
+                }
+
             }
         }
     } //  var det dette som vi skulle kunne slette, eller noe annet?

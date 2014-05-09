@@ -3,8 +3,10 @@ import java.io.*;
 import javax.swing.JOptionPane;
 
 public class UtleierListe implements Serializable{
+    private Boligliste boliger;
 
-    public UtleierListe(){
+    public UtleierListe(Boligliste b){
+        boliger = b;
     }
 
     private List<Utleier> liste = new LinkedList<>();
@@ -74,6 +76,22 @@ public class UtleierListe implements Serializable{
             retur = it.next();
             if( retur.getId().equals(i) )
                 return retur;
+        }
+        return null;
+    }
+    public boolean harBoliger(Utleier b){
+        if(boliger.harBolig(b))
+            return true;
+        else
+            return false;
+    }
+    public String finnID(String n, String f){
+        Iterator<Utleier> it = liste.iterator();
+        Utleier finn = null;
+        while(it.hasNext()){
+            finn = it.next();
+            if(finn != null && finn.getFornavn().equals(n) && finn.getEtternavn().equals(f))
+                return finn.getId();
         }
         return null;
     }

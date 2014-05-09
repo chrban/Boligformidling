@@ -420,7 +420,37 @@ public class Boligliste implements Serializable {
     }
 
 
+    public boolean harBolig(Utleier b){
+        Iterator<Enebolig> ite = eneboliger.iterator();
+        Enebolig ene = null;
+        Iterator<Rekkehus> iter = rekkehus.iterator();
+        Rekkehus reke = null;
+        Iterator<Leilighet> it = leiligheter.iterator();
+        Leilighet lei = null;
+        Iterator<Hybel> iterat = hybler.iterator();
+        Hybel hy = null;
 
+        while(ite.hasNext() || iter.hasNext() || it.hasNext() || iterat.hasNext()){
+            if(ite.hasNext())
+                ene = ite.next();
+            if(iter.hasNext())
+                reke = iter.next();
+            if(it.hasNext())
+                lei = it.next();
+            if(iterat.hasNext())
+                hy = iterat.next();
+
+            if( ene != null && ene.getEierID().equals(b.getId()))
+                return true;
+            if( reke != null && reke.getEierID().equals(b.getId()))
+                return true;
+            if( lei != null && lei.getEierID().equals(b.getId()))
+                return true;
+            if( hy != null && hy.getEierID().equals(b.getId()))
+                return true;
+        }
+        return false;
+    }
     /*public TreeSet<? extends Bolig> getBoligerAvType(int  t)
     {
 
