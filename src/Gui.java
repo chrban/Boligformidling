@@ -1067,7 +1067,9 @@ public class Gui extends JFrame {
 
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
-        fane.setPreferredSize(new Dimension(getSize()));
+
+        Dimension heleSkjermen = new Dimension(bredde, høyde);
+        fane.setPreferredSize(new Dimension(heleSkjermen));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
         lesFraFil();
