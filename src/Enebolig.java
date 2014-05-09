@@ -88,7 +88,7 @@ public class Enebolig extends Bolig implements Serializable
         ut[5] = Integer.toString(super.getRom());
         ut[6] = getBooleanVerdiPark();
         ut[7] = getBooleanVerdiKjeller();
-        ut[8] = new ImageIcon(getClass().getResource(super.getBildesti()));
+        ut[8] = new ImageIcon(getClass().getResource("img/eneboliger/kjipe/rwanda_mudhut.jpg"));
         ut[9] = super.getId();
 
         return ut;
