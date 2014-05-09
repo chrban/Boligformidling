@@ -48,7 +48,7 @@ public class Hybel extends Bolig implements Serializable {
 
     public Object[] tilTabell()
     {
-        Object[] ut = new Object[8];
+        Object[] ut = new Object[9];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
@@ -58,6 +58,7 @@ public class Hybel extends Bolig implements Serializable {
         ut[5] = getBooleanVerdiBad();
         ut[6] = getBooleanVerdiKjøkken();
         ut[7] = super.getBildesti();
+        ut[8] = super.getId();
 
         return ut;
     }

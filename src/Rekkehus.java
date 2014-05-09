@@ -42,7 +42,7 @@ import java.io.*;
 
         public Object[] tilTabell()
         {
-            Object[] ut = new Object[8];
+            Object[] ut = new Object[9];
 
             ut[0] = sted();
             ut[1] = getBoareal() + " m²";
@@ -52,6 +52,7 @@ import java.io.*;
             ut[5] = getBooleanVerdiPark();
             ut[6] = getBooleanVerdiKjeller();
             ut[7] = super.getBildesti();
+            ut[8] = super.getId();
 
             return ut;
         }

@@ -1946,7 +1946,7 @@ private class resultatTabellModell extends AbstractTableModel
         Object[][] fjerde = boliger.rekkehusTilTabell();
         System.out.println("første "+første.length);
 
-        Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][8];
+        Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
         int i = 0;
         while (i < første.length) {
             joina[i] = første[i];

@@ -62,7 +62,7 @@ public class Enebolig extends Bolig implements Serializable
 
     public Object[] tilTabell()
     {
-        Object[] ut = new Object[8];
+        Object[] ut = new Object[9];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
@@ -72,6 +72,7 @@ public class Enebolig extends Bolig implements Serializable
         ut[5] = getBooleanVerdiPark();
         ut[6] = getBooleanVerdiKjeller();
         ut[7] = super.getBildesti();
+        ut[8] = super.getId();
 
         return ut;
     }
