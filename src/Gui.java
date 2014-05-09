@@ -2165,17 +2165,6 @@ private class resultatTabellModell extends AbstractTableModel
                 balkong = 1;
 
 
-            gyldig(fornavn);
-            gyldig(etternavn);
-            gyldig(adresse);
-            gyldig(tlf);
-            gyldig(mail);
-            gyldigBox(boligtypeBox);
-            gyldigBox(byBox);
-            gyldigBox(romBox);
-            gyldigBox(etasjeBox);
-            gyldigBox(romBox);
-            gyldigBox(planBox);
 
 
             if( fnavn.equals("")||fnavn.length()<2|| enavn.equals("") ||enavn.length()<2|| t.equals("")||t.length()<2 || ad.length()<2 || ad.equals("") || email.equals("") || email.length()<2|| bt == 0 || by == 0 ||  plan == 0 || rom == 0)
