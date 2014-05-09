@@ -38,7 +38,7 @@ public class Gui extends JFrame {
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regpersonHeader,navnLabel;
-    private JTextArea beskrivelse,feedbackFane1;
+    private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel;
@@ -149,12 +149,17 @@ public class Gui extends JFrame {
 
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
-        int bredde = (int) (Math.round(skjerm.width * 0.80));
-        int høyde = (int) (Math.round(skjerm.height * 0.80));
-        setSize(bredde, høyde);
+//        int bredde = (int) (Math.round(skjerm.width * 0.80));
+  //      int høyde = (int) (Math.round(skjerm.height * 0.80));
+        //setSize(bredde, høyde);
         setLocationByPlatform(true);
-        //todo Finne en fin skjermstørrelse, er nå 80% av skjermstr.
+        setSize(1400,1050);
+
+        int bredde = getWidth();
+        int høyde = getHeight();
         System.out.println("Skjermstr: " + bredde + "x" + høyde);
+
+        //todo Finne en fin skjermstørrelse, er nå 80% av skjermstr.
 
 
         //Oppretter panelene
@@ -188,6 +193,8 @@ public class Gui extends JFrame {
         c.gridx=0;
         c.gridheight=10;
         c.gridwidth=10;
+        c.weightx=0.1;
+        tapanel.setBackground(Color.RED);
         panel3.add(tapanel,c);
 
 
@@ -203,9 +210,7 @@ public class Gui extends JFrame {
         resultatPanel.setVisible(true);
         velgBsPanel.setVisible(true);
         //oppretter Fanene
-        Dimension heleSkjermen = new Dimension(bredde, høyde);
 
-        fane.setPreferredSize(heleSkjermen);
         fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
         fane.addTab("Vis tabell", null, panel3, "Show tabell");
@@ -228,6 +233,9 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridheight = 1;
+        c.gridwidth=0;
+        c.weightx=0;
+
 
 
         //Inndatafelt
@@ -811,9 +819,24 @@ public class Gui extends JFrame {
         radioTabell.add(boligtabellRadioknapp);
         slettPerson = new JButton("Slett person");
         slettPerson.addActionListener(lytter);
-        c.gridx = 3;
-        c.gridy = 10;
+        c.gridx = 10;
+        c.gridy = 2;
         panel3.add(slettPerson,c);
+
+
+        feedbackFane3 = new JTextArea("feedbackfelt");
+        //feedbackFane3.setPreferredSize(new Dimension(800,100));
+        feedbackFane3.setBackground(Color.BLUE);
+       // c.gridwidth=30;
+        c.gridy=60;
+        c.gridx=15;
+        c.anchor=GridBagConstraints.PAGE_END;
+        //c.ipadx=30;
+        //c.gridy=30;
+        c.weighty=1;
+        //c.fill=GridBagConstraints
+        panel3.add(feedbackFane3,c);
+
 
 
 
@@ -1096,8 +1119,8 @@ public class Gui extends JFrame {
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
 
-
-        fane.setPreferredSize(new Dimension(heleSkjermen));
+        //Dimension heleSkjermen = new Dimension(bredde-20, høyde-20);
+        fane.setPreferredSize(new Dimension(1380,1010));
         add(new JScrollPane(fane), BorderLayout.PAGE_START);
 
         lesFraFil();
@@ -1195,9 +1218,15 @@ public class Gui extends JFrame {
             if (e.getSource() == om) {
                 JOptionPane.showMessageDialog(null, boligsøkere.toString());
             } else if (e.getSource() == lagre) {
+                int bredde = getWidth();
+                int høyde = getHeight();
+                System.out.println("Skjermstr: " + bredde + "x" + høyde);
+                System.out.println("fane3str. "+feedbackFane3.getSize());
 
 
                 System.out.println("Trykka på lagre");
+
+//                System.out.println("Trykka på lagre");
 
                 //valider();
 
@@ -1817,6 +1846,7 @@ private class resultatTabellModell extends AbstractTableModel
         String[][] første =  boligsøkere.tilTabell();
         String[][] andre =utleiere.tilTabell();
         String[][] joina = new String[første.length + andre.length][6];
+        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
 
 
         int i = 0;
@@ -1829,6 +1859,9 @@ private class resultatTabellModell extends AbstractTableModel
             joina[i++]=andre[j];
             j++;
         }
+        if(i==0)
+            joina = dummy;
+
         return joina;
     }
 
