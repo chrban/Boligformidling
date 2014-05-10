@@ -1,25 +1,27 @@
+import sun.java2d.pipe.SpanShapeRenderer;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Kontrakt implements Serializable{
     private Utleier eier;
     private Boligsøker leier;
     private Bolig bolig;
     Kontrakt neste;
-    private Date start;
-    private Date slutt;
-    private DateFormat df;
+    private Calendar start;
+    private Calendar slutt;
+    private SimpleDateFormat df;
 
 
-    public Kontrakt(Utleier e, Boligsøker l, Bolig b, Date s, Date sl){
+    public Kontrakt(Utleier e, Boligsøker l, Bolig b, Calendar s, Calendar sl){
         eier = e;
         leier = l;
         bolig = b;
         start = s;
         slutt = sl;
-        df = new SimpleDateFormat("MM/dd/yyyy");
+        df = new SimpleDateFormat("yyyy MM dd");
     }
 
     public Utleier getUtleier(){
@@ -37,14 +39,14 @@ public class Kontrakt implements Serializable{
     public String getBoligsøkerNavn(){
         return leier.getFornavn();
     }
-    public Date getKontraktStart(){
+    public Calendar getKontraktStart(){
         return start;
     }
-    public Date getKontraktSlutt(){
+    public Calendar getKontraktSlutt(){
         return slutt;
     }
     public String toString(){
-        return "Kontrakt for: " + bolig.getAdresse() + "\nUtleier: " + eier.getNavn() + "\nLeier: " + leier.getFornavn() + "\nKontraktstart: " + df.format(start) + "\nKontraktslutt: " + df.format(slutt) + "\n";
+        return "Kontrakt for: " + bolig.getAdresse() + " \nUtleier: " + eier.getNavn() + " \nLeier: " + leier.getFornavn() + " \nKontraktstart: " + df.format(start.getTime()) + " \nKontraktslutt: " + df.format(slutt.getTime()) + "\n";
     }
     public void setTilUtleid(){
         bolig.setTilUtleid();
@@ -61,8 +63,8 @@ public class Kontrakt implements Serializable{
         String [] ut = new String[4];
         ut[0] = eier.getNavn();
         ut[1] = leier.getNavn();
-        ut[2] = df.format(start);
-        ut[3] = df.format(slutt);
+        ut[2] = df.format(start.getTime());
+        ut[3] = df.format(slutt.getTime());
 
         return ut;
     }

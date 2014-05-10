@@ -61,6 +61,7 @@ public class Gui extends JFrame {
     private BoligsøkerListe boligsøkere;
     private KontraktListe kontrakter;
     private Mail epost;
+    private KontraktHistorikk kontrakthistorie;
     private knappLytter lytter;
     private menyLytter øre;
     private Boligliste boliger;
@@ -139,6 +140,7 @@ public class Gui extends JFrame {
         boligsøkere = new BoligsøkerListe();
         kontrakter = new KontraktListe(boliger, boligsøkere);
         epost = new Mail();
+        kontrakthistorie = new KontraktHistorikk();
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll= new JScrollPane(personTabell);
@@ -2563,19 +2565,19 @@ private class resultatTabellModell extends AbstractTableModel
         if(startdag <= 31   &&   startdag > 0   &&   startmåned <= 12   &&   startmåned > 0   &&   startår >=2014   &&  startår <= 2020 &&
            sluttdag <= 31   &&   sluttdag > 0   &&   sluttmåned <= 12   &&   sluttmåned > 0   &&   sluttår >=2014   &&  sluttår <= 2020)
         {
-            Date start = new Date(startår, startmåned-1, startdag);
-            Date slutt = new Date(sluttår, sluttmåned-1, sluttdag);
+            Calendar start = new GregorianCalendar(startår, (startmåned-1), startdag);
+            Calendar slutt = new GregorianCalendar(sluttår, (sluttmåned-1), sluttdag);
 
             if(start.before(slutt))
             {
                 Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
-                kontrakter.leggTil(ny);
-                JOptionPane.showMessageDialog(null,"Kontrakt lagret");
-                return;
+                if(kontrakter.leggTil(ny)){
+                    kontrakthistorie.skrivTilTekstFil(ny.toString());
+                    JOptionPane.showMessageDialog(null, "Kontrakt lagret");
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
-                return;
             }
         }
         else{
