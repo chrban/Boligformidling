@@ -11,6 +11,7 @@ public class
 {
     public static void main (String[]args)
     {
+
         final Gui vindu = new Gui();
         EventQueue.invokeLater(new Runnable() {
             public void run() {

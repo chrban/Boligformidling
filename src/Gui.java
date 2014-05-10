@@ -660,6 +660,7 @@ public class Gui extends JFrame {
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
         //RESETER
+        c.ipadx = 100;
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
