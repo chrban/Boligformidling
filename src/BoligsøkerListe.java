@@ -81,7 +81,7 @@ public class BoligsøkerListe implements Serializable {
     }
     public String finnBoligsøkerID(String n, String e){
         if(første == null)
-            return null;
+            return "";
         Boligsøker løper = første;
         while(løper != null){
             if(løper.getFornavn().equals(n) && løper.getEtternavn().equals(e)){
@@ -89,7 +89,7 @@ public class BoligsøkerListe implements Serializable {
             }
             løper = løper.neste;
         }
-        return null;
+        return "";
     }
 
 

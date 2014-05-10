@@ -1624,7 +1624,7 @@ public class Gui extends JFrame {
     private class boligsøkerTabellModell extends AbstractTableModel
     {
         String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
-        String [][] celler = boligsøkere.tilTabellMedId();
+        String [][] celler = boligsøkere.tilMatchTabll();
 
         public int getRowCount() {
             return celler.length;
@@ -2761,7 +2761,7 @@ private class resultatTabellModell extends AbstractTableModel
         , null, alternativer, alternativer[0]);
         if( svar == JOptionPane.YES_OPTION){
             String id = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
-            if(!id.equals(null)) {
+            if(!id.equals("")) {
                 Boligsøker slett = boligsøkere.getBoligsøker(id);
                 if(boligsøkere.fjernSøker(slett)){
                     kontrakter.fjernKontrakt(slett);

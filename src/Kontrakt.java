@@ -51,9 +51,6 @@ public class Kontrakt implements Serializable{
     public void setTilUtleid(){
         bolig.setTilUtleid();
     }
-    public boolean getTrueFalse(){
-        return bolig.getUtleid();
-    }
     public void setLeietaker(){
         leier.setBolig();
     }
