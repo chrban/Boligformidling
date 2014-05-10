@@ -6,8 +6,6 @@ import java.io.*;
 public class Utleier extends Person implements Serializable
 {
     private String firma;
-    public Utleier neste;
-    public Boligliste boliger;
 
     public Utleier(String id, String fn, String en, String a, String t, String e, String f)
     {

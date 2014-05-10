@@ -3,14 +3,9 @@ import java.io.Serializable;
 
 public class KontraktListe implements Serializable {
     private Kontrakt første;
-    private Boligliste boliger;
-    private BoligsøkerListe søkere;
 
-    public KontraktListe(Boligliste b, BoligsøkerListe s){
+    public KontraktListe(){
         første = null;
-        boliger = b;
-        søkere = s;
-
     }
 
     public boolean leggTil(Kontrakt ny){

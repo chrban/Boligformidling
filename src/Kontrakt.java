@@ -46,7 +46,7 @@ public class Kontrakt implements Serializable{
         return slutt;
     }
     public String toString(){
-        return "Kontrakt for: " + bolig.getAdresse() + " \nUtleier: " + eier.getNavn() + " \nLeier: " + leier.getFornavn() + " \nKontraktstart: " + df.format(start.getTime()) + " \nKontraktslutt: " + df.format(slutt.getTime()) + "\n";
+        return "Kontrakt for: " + bolig.getAdresse() + " \nUtleier: " + eier.getNavn() + " \nLeier: " + leier.getFornavn()+ " "+ leier.getEtternavn() + " \nKontraktstart: " + df.format(start.getTime()) + " \nKontraktslutt: " + df.format(slutt.getTime()) + "\n";
     }
     public void setTilUtleid(){
         bolig.setTilUtleid();

@@ -145,7 +145,7 @@ public class Gui extends JFrame {
         boliger = new Boligliste();
         utleiere = new UtleierListe(boliger);
         boligsøkere = new BoligsøkerListe();
-        kontrakter = new KontraktListe(boliger, boligsøkere);
+        kontrakter = new KontraktListe();
         epost = new Mail();
         kontrakthistorie = new KontraktHistorikk();
         lytter = new knappLytter();
