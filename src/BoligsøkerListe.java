@@ -56,11 +56,11 @@ public class BoligsøkerListe implements Serializable {
         return null;
     }
 
-    public boolean fjernSøker(String n, String e) {
+    public boolean fjernSøker(Boligsøker b) {
 
         Boligsøker løper = første;
 
-        if (første != null && første.getFornavn().equals(n) && første.getEtternavn().equals(e)) {
+        if (første != null && første.getId().equals(b.getId())) {
             if (løper.neste != null) {
                 første = løper.neste;
 
@@ -71,13 +71,25 @@ public class BoligsøkerListe implements Serializable {
             }
         }
         while (løper != null) {
-            if (løper.neste != null && løper.neste.getFornavn().equals(n)&& løper.getEtternavn().equals(e)) {
+            if (løper.neste != null && løper.neste.getId().equals(b.getId())) {
                 løper.neste = løper.neste.neste;
                 return true;
             }
             løper = løper.neste;
         }
         return false;
+    }
+    public String finnBoligsøkerID(String n, String e){
+        if(første == null)
+            return null;
+        Boligsøker løper = første;
+        while(løper != null){
+            if(løper.getFornavn().equals(n) && løper.getEtternavn().equals(e)){
+                return løper.getId();
+            }
+            løper = løper.neste;
+        }
+        return null;
     }
 
 

@@ -2752,13 +2752,18 @@ private class resultatTabellModell extends AbstractTableModel
         int svar = JOptionPane.showOptionDialog(null,"Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
         , null, alternativer, alternativer[0]);
         if( svar == JOptionPane.YES_OPTION){
-            if(boligsøkere.fjernSøker(slettPersonFn, slettPersonEn)) {
-                JOptionPane.showMessageDialog(null, "Personen er slettet");
-                slettPersonEn = "";
-                slettPersonFn = "";
+            String id = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
+            if(!id.equals(null)) {
+                Boligsøker slett = boligsøkere.getBoligsøker(id);
+                if(boligsøkere.fjernSøker(slett)){
+                    kontrakter.fjernKontrakt(slett);
+                    JOptionPane.showMessageDialog(null, "Personen er slettet");
+                    slettPersonEn = "";
+                    slettPersonFn = "";
+                }
             }
             else{
-                String id = utleiere.finnID(slettPersonFn, slettPersonEn);
+                id = utleiere.finnID(slettPersonFn, slettPersonEn);
                 Utleier woop = utleiere.getUtleier(id);
                 if(!utleiere.harBoliger(woop)){
                     utleiere.fjernUtleier(slettPersonFn,slettPersonEn);

@@ -35,6 +35,38 @@ public class KontraktListe implements Serializable {
             return true;
         }
     }
+    public boolean fjernKontrakt(Boligsøker b){
+
+        if(første == null)
+            return false;
+        Bolig bo = null;
+
+        Kontrakt løper = første;
+        if(første != null && første.getBoligsøker() == b){
+            if(første.neste != null){
+                bo = første.getBolig();
+                bo.setTilIkkeUtleid();
+                første = løper.neste;
+                return true;
+            }else{
+                bo = første.getBolig();
+                bo.setTilIkkeUtleid();
+                første = null;
+                return true;
+            }
+        }
+
+        while(løper != null){
+            if(løper.neste.getBoligsøker() == b){
+                bo = løper.neste.getBolig();
+                bo.setTilIkkeUtleid();
+                løper.neste = løper.neste.neste;
+                return true;
+            }
+            løper = løper.neste;
+        }
+        return false;
+    }
 
     public int tellOpp()
     {
