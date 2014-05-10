@@ -15,13 +15,14 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private String eierID;
     private String bildesti;
     private boolean utleid;
+    private String beskrivelse;
 
     public Bolig(){}
 
 
 
 
-    public Bolig(int i,String ad,int s, int b, int r, int by, int u, String e, String sti)
+    public Bolig(int i,String ad,int s, int b, int r, int by, int u, String e, String sti, String be)
     {
         id = i;
         adresse = ad;
@@ -34,6 +35,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         eierID = e;
         bildesti = sti;
         utleid = false;
+        beskrivelse = be;
     }
 
     public int getId(){return id;}
@@ -110,7 +112,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         else
             utleid = "Ledig";
 
-        return "Informasjon om bolig: \nAdresse: " + adresse + "\nBy: " + by + "\nPris: " + utleiepris + "\nStatus: " + utleid + "\nEierID: " + eierID;
+        return "Informasjon om bolig: \nAdresse: " + adresse + "\nBy: " + by + "\nPris: " + utleiepris + "\nStatus: " + utleid + "\nBeskrivelse av bolig: " + beskrivelse + "\nEierID: " + eierID;
     }
 
 

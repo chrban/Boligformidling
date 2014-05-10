@@ -205,8 +205,6 @@ public class Gui extends JFrame {
 
 
 
-
-
         regPersonHeader = new JLabel("Registrer en klient");
         regPersonHeader.setFont(headerFont);
         regPersonHeader.setForeground(headerFarge);
@@ -1065,7 +1063,6 @@ public class Gui extends JFrame {
 
 
 
-
         //SLUTT FANE 3
 
         //FANE 4 - MATCHMAKING ************************************************************************************************************************************************************************
@@ -1343,7 +1340,6 @@ public class Gui extends JFrame {
         oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
         oppdaterKontrakter.setPreferredSize(dim);
         panel5.add(oppdaterKontrakter, c);
-
 
 
 
@@ -2211,15 +2207,10 @@ private class resultatTabellModell extends AbstractTableModel
             return boligceller.length;
         }
 
-
         public int getColumnCount() {
             return boligceller[0].length;
 
         }
-
-
-
-
 
 
         public Object getValueAt(int rad, int kolonne) {
@@ -2457,7 +2448,6 @@ private class resultatTabellModell extends AbstractTableModel
                 JOptionPane.showMessageDialog(null,"3");
                 Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
                 boligsøkere.settInnNy(ny);
-
                 clearPersonFelt();
                 clearBSfelt();
                 feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
@@ -2624,6 +2614,7 @@ private class resultatTabellModell extends AbstractTableModel
         String utPrisString = pris.getText();
         String utId = utleierId.getText();
         String tAreal = tomtAreal.getText();
+        String beskrivelseString = beskrivelse.getText();
 
 
 
@@ -2761,19 +2752,19 @@ private class resultatTabellModell extends AbstractTableModel
 
 
         switch(btype){
-            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal);
+            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
                          if(boliger.leggTil(nyEnebolig))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket!");
                          break;
-            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal);
+            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
                          if(boliger.leggTil(nyttRekkehus))
                              JOptionPane.showMessageDialog(null, "Registrering vellykket");
                          break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis);
+            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
                          if(boliger.leggTil(nyLeilighet))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket");
                          break;
-            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt);
+            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
                          if(boliger.leggTil(nyHybel))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket");
                          break;
@@ -3062,7 +3053,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
         JLabel label = new JLabel("", image, JLabel.CENTER);
-        //label.setBounds(0,0,bildepanel.getWidth(),bildepanel.getHeight());
+        //prøv etterpå label.setBounds();
         bildepanel.add(label, BorderLayout.CENTER);
 
     }

@@ -10,8 +10,8 @@ public class Hybel extends Bolig implements Serializable {
 
     }
 
-    public Hybel(String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj) {
-        super(id++, ad, s, b, r, by, u, uid, sti);
+    public Hybel(String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj, String be) {
+        super(id++, ad, s, b, r, by, u, uid, sti, be);
         egetBad= bad;
         egetKjøkken = kj;
     }
