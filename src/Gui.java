@@ -40,11 +40,11 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel,bildepanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel,bildepanel, btpanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, røykerValg, husdyrValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -188,14 +188,17 @@ public class Gui extends JFrame {
         panel5 = new JPanel(layout);
         velgBsPanel = new JPanel(layout);
         bildepanel = new JPanel(new BorderLayout());
-
+        btpanel = new JPanel(layout);
+        
         headerFarge = new Color(80,118,66);
         bakFarge = new Color(243,244,236);
 
         panel1.setBackground(bakFarge);
-        bspanel.setBackground(bakFarge);
+        bspanel.setBackground(Color.WHITE);
         pepanel.setBackground(bakFarge);
         pepanel.setForeground(bakFarge);
+        btpanel.setBackground(Color.WHITE);
+
 
 
 
@@ -219,16 +222,33 @@ public class Gui extends JFrame {
 
         c.gridx = 0;
         c.gridy = 2;
-        c.insets = new Insets(50,0,0,0);
+        c.insets = new Insets(30,150,0,0);
         c.weighty = -10;
         c.anchor = GridBagConstraints.CENTER;
 
         bspanel.setSize(bspanel.getPreferredSize());
 
         panel1.add(bspanel,c);
-
+        c.insets = new Insets(50,0,0,0);
         panel1.add(utpanel,c);
        // bspanel.setPreferredSize(bspanel.getPreferredSize());
+
+        c.gridx = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 3;
+        c.insets = new Insets(0,150,0,0);
+        c.weighty = -10;
+        panel1.add(btpanel,c);
+
+
+        regPersonKnapp = new JButton("Registrer");
+        regPersonKnapp.addActionListener(lytter);
+        c.gridx = 2;
+        c.gridy = 4;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.insets = new Insets(0, 0, 0, 0);
+        regPersonKnapp.setVisible(false);
+        panel1.add(regPersonKnapp, c);
 
 
         feedbackFane1 = new JTextArea("feedback");
@@ -239,6 +259,7 @@ public class Gui extends JFrame {
         c.gridy = 0;
 
         panel1.add(feedbackFane1,c);
+
 
 
 
@@ -493,9 +514,11 @@ public class Gui extends JFrame {
 
         c.gridx = 1;
         c.gridy = 3;
+        c.gridwidth =2;
         c.ipadx = 100;
 
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
 
 
         minPrisSlider = new JSlider();
@@ -524,6 +547,8 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 4;
         c.ipadx = 100;
+        c.gridwidth = 2;
+        c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
 
         maxPrisSlider = new JSlider();
@@ -537,26 +562,6 @@ public class Gui extends JFrame {
         maxPrisSlider.addChangeListener(new maxPrisLytter());
         maxPrisSlider.setSnapToTicks(true);
         bspanel.add(maxPrisSlider, c);
-
-        antEgtLabel = new JLabel("Ant Etasjer: ");
-        c.gridx = 0;
-        c.ipadx = 0;
-        c.gridy = 5;
-        c.gridwidth = 1;
-        c.anchor = GridBagConstraints.EAST;
-        c.fill = GridBagConstraints.NONE;
-        antEgtLabel.setVisible(false);
-        bspanel.add(antEgtLabel, c);
-
-
-        etasjeBox = new JComboBox(etasjeValg);
-        c.gridx = 1;
-        c.gridy = 5;
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.NONE;
-        etasjeBox.setVisible(false);
-        bspanel.add(etasjeBox, c);
-
 
 
         røykerValg = new JCheckBox("Røker");
@@ -577,78 +582,136 @@ public class Gui extends JFrame {
         bspanel.add(husdyrValg, c);
 
 
+
+
+
+
+
+        // BoligtypePanel
+
+        antEgtLabel = new JLabel("Ant Etasjer: ");
+        c.gridx = 0;
+        c.ipadx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.EAST;
+        c.fill = GridBagConstraints.NONE;
+        antEgtLabel.setVisible(false);
+        btpanel.add(antEgtLabel, c);
+
+
+        etasjeBox = new JComboBox(etasjeValg);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.NONE;
+        etasjeBox.setVisible(false);
+        btpanel.add(etasjeBox, c);
+
         garasjeValg = new JCheckBox("Garasje");
         c.gridx = 0;
-        c.gridy = 7;
+        c.gridy = 1;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         garasjeValg.setVisible(false);
-        bspanel.add(garasjeValg, c);
+        btpanel.add(garasjeValg, c);
+
+
 
 
         kjellerValg = new JCheckBox("Kjeller");
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 1;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         kjellerValg.setVisible(false);
-        bspanel.add(kjellerValg, c);
+        btpanel.add(kjellerValg, c);
+
+
+
+
 
         heisValg = new JCheckBox("Heis");
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         heisValg.setVisible(false);
-        bspanel.add(heisValg, c);
+        btpanel.add(heisValg, c);
 
-        badValg = new JCheckBox("Eget Bad");
-        c.gridx = 0;
-        c.gridy = 7;
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
-        badValg.setVisible(false);
-        bspanel.add(badValg, c);
 
-        kjøkkenValg = new JCheckBox("Eget kjøkken");
-        c.gridx = 1;
-        c.gridy = 7;
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;;
-        kjøkkenValg.setVisible(false);
-        bspanel.add(kjøkkenValg, c);
+
 
         balkongValg = new JCheckBox("Balkong");
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         balkongValg.setVisible(false);
-        bspanel.add(balkongValg, c);
+        btpanel.add(balkongValg, c);
+
+
+
+
+        badValg = new JCheckBox("Eget Bad");
+        c.gridx = 0;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        badValg.setVisible(false);
+        btpanel.add(badValg, c);
+
+
+
+
+
+
+        kjøkkenValg = new JCheckBox("Eget kjøkken");
+        c.gridx = 1;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;;
+        kjøkkenValg.setVisible(false);
+        btpanel.add(kjøkkenValg, c);
+
+
+
+
+
+
+
+
+
+
 
 
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 3;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.EAST;
         c.fill = GridBagConstraints.NONE;
-        bspanel.add(new JLabel("Plan: "), c);
+        planLabel = new JLabel("Plan: ");
+        btpanel.add(planLabel, c);
+        planLabel.setVisible(false);
 
-        regPersonKnapp = new JButton("Registrer");
-        regPersonKnapp.addActionListener(lytter);
-        c.gridx = 2;
-        c.gridy = 15;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10, 5, 5, 5);
-        bspanel.add(regPersonKnapp, c);
+
+
 
         planBox = new JComboBox(planValg);
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 3;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         planBox.addActionListener(new boligTypeLytter());
-        bspanel.add(planBox, c);
+        btpanel.add(planBox, c);
+        planBox.setVisible(false);
+
+
+
+
+
+
+
 
 
 
@@ -1480,6 +1543,7 @@ public class Gui extends JFrame {
                     etasjeBox.setVisible(true);
                     boligtypeBox.setForeground(Color.BLACK);
                     antEgtLabel.setVisible(true);
+                    regPersonKnapp.setVisible(true);
                     revalidate();
                     break;
                 case "Rekkehus":
@@ -1489,6 +1553,7 @@ public class Gui extends JFrame {
                     etasjeBox.setVisible(true);
                     antEgtLabel.setVisible(true);
                     boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
                     revalidate();
                     break;
                 case "Leilighet":
@@ -1496,6 +1561,9 @@ public class Gui extends JFrame {
                     heisValg.setVisible(true);
                     balkongValg.setVisible(true);
                     boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
+                    planLabel.setVisible(true);
+                    planBox.setVisible(true);
                     revalidate();
                     break;
                 case "Hybel":
@@ -1503,6 +1571,7 @@ public class Gui extends JFrame {
                     badValg.setVisible(true);
                     kjøkkenValg.setVisible(true);
                     boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
                     revalidate();
                     break;
                 default:
