@@ -40,7 +40,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -78,7 +78,7 @@ public class Gui extends JFrame {
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private int slettBoligId;
     private Font headerFont;
-    private Color bakFarge, headerFarge,lyseSvart;
+    private Color bakFarge, headerFarge,lyseSvart, comboboxFarge;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -90,7 +90,7 @@ public class Gui extends JFrame {
     public Gui() {
         super("Boligformidling for svaksynte");
 
-        headerFont = new Font("Helvetica",Font.BOLD,30);
+        headerFont = new Font("Arial",Font.BOLD,50);
 
         øre = new menyLytter();
 
@@ -189,18 +189,30 @@ public class Gui extends JFrame {
         velgBsPanel = new JPanel(layout);
         bildepanel = new JPanel(new BorderLayout());
         btpanel = new JPanel(layout);
-        
-        headerFarge = new Color(80,118,66);
-        bakFarge = new Color(243,244,236);
+
+
+
+        //FARGER
+
+        headerFarge = new Color(24,76,95);
+        bakFarge = new Color(187,175,122);
         lyseSvart = new Color(38,38,38);
+        comboboxFarge = new Color(163,123,69);
+
+
+
+
+
 
         panel1.setBackground(bakFarge);
+        panel2.setBackground(bakFarge);
         bspanel.setBackground(bakFarge);
         pepanel.setBackground(bakFarge);
-
         pepanel.setForeground(lyseSvart);
         btpanel.setBackground(bakFarge);
         btpanel.setForeground(lyseSvart);
+        bopanel.setBackground(bakFarge);
+
 
 
 
@@ -298,6 +310,37 @@ public class Gui extends JFrame {
         fane.setMnemonicAt(4, KeyEvent.VK_5);
 
         fane.addChangeListener(faneøre);
+
+
+
+
+
+
+/*
+
+        PPPPPPPPPPPPPPPPP   EEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR      SSSSSSSSSSSSSSS      OOOOOOOOO     NNNNNNNN        NNNNNNNNEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
+        P::::::::::::::::P  E::::::::::::::::::::ER::::::::::::::::R   SS:::::::::::::::S   OO:::::::::OO   N:::::::N       N::::::NE::::::::::::::::::::ER::::::::::::::::R
+        P::::::PPPPPP:::::P E::::::::::::::::::::ER::::::RRRRRR:::::R S:::::SSSSSS::::::S OO:::::::::::::OO N::::::::N      N::::::NE::::::::::::::::::::ER::::::RRRRRR:::::R
+        PP:::::P     P:::::PEE::::::EEEEEEEEE::::ERR:::::R     R:::::RS:::::S     SSSSSSSO:::::::OOO:::::::ON:::::::::N     N::::::NEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
+        P::::P     P:::::P  E:::::E       EEEEEE  R::::R     R:::::RS:::::S            O::::::O   O::::::ON::::::::::N    N::::::N  E:::::E       EEEEEE  R::::R     R:::::R
+        P::::P     P:::::P  E:::::E               R::::R     R:::::RS:::::S            O:::::O     O:::::ON:::::::::::N   N::::::N  E:::::E               R::::R     R:::::R
+        P::::PPPPPP:::::P   E::::::EEEEEEEEEE     R::::RRRRRR:::::R  S::::SSSS         O:::::O     O:::::ON:::::::N::::N  N::::::N  E::::::EEEEEEEEEE     R::::RRRRRR:::::R
+        P:::::::::::::PP    E:::::::::::::::E     R:::::::::::::RR    SS::::::SSSSS    O:::::O     O:::::ON::::::N N::::N N::::::N  E:::::::::::::::E     R:::::::::::::RR
+        P::::PPPPPPPPP      E:::::::::::::::E     R::::RRRRRR:::::R     SSS::::::::SS  O:::::O     O:::::ON::::::N  N::::N:::::::N  E:::::::::::::::E     R::::RRRRRR:::::R
+        P::::P              E::::::EEEEEEEEEE     R::::R     R:::::R       SSSSSS::::S O:::::O     O:::::ON::::::N   N:::::::::::N  E::::::EEEEEEEEEE     R::::R     R:::::R
+        P::::P              E:::::E               R::::R     R:::::R            S:::::SO:::::O     O:::::ON::::::N    N::::::::::N  E:::::E               R::::R     R:::::R
+        P::::P              E:::::E       EEEEEE  R::::R     R:::::R            S:::::SO::::::O   O::::::ON::::::N     N:::::::::N  E:::::E       EEEEEE  R::::R     R:::::R
+        PP::::::PP          EE::::::EEEEEEEE:::::ERR:::::R     R:::::RSSSSSSS     S:::::SO:::::::OOO:::::::ON::::::N      N::::::::NEE::::::EEEEEEEE:::::ERR:::::R     R:::::R
+        P::::::::P          E::::::::::::::::::::ER::::::R     R:::::RS::::::SSSSSS:::::S OO:::::::::::::OO N::::::N       N:::::::NE::::::::::::::::::::ER::::::R     R:::::R
+        P::::::::P          E::::::::::::::::::::ER::::::R     R:::::RS:::::::::::::::SS    OO:::::::::OO   N::::::N        N::::::NE::::::::::::::::::::ER::::::R     R:::::R
+        PPPPPPPPPP          EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR SSSSSSSSSSSSSSS        OOOOOOOOO     NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
+*/
+
+
+
+
+
+
 
 
 
@@ -712,7 +755,25 @@ public class Gui extends JFrame {
 
 
 
+        /*
+        BBBBBBBBBBBBBBBBB        OOOOOOOOO     LLLLLLLLLLL             IIIIIIIIII      GGGGGGGGGGGGGEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
+        B::::::::::::::::B     OO:::::::::OO   L:::::::::L             I::::::::I   GGG::::::::::::GE::::::::::::::::::::ER::::::::::::::::R
+        B::::::BBBBBB:::::B  OO:::::::::::::OO L:::::::::L             I::::::::I GG:::::::::::::::GE::::::::::::::::::::ER::::::RRRRRR:::::R
+        BB:::::B     B:::::BO:::::::OOO:::::::OLL:::::::LL             II::::::IIG:::::GGGGGGGG::::GEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
+        B::::B     B:::::BO::::::O   O::::::O  L:::::L                 I::::I G:::::G       GGGGGG  E:::::E       EEEEEE  R::::R     R:::::R
+        B::::B     B:::::BO:::::O     O:::::O  L:::::L                 I::::IG:::::G                E:::::E               R::::R     R:::::R
+        B::::BBBBBB:::::B O:::::O     O:::::O  L:::::L                 I::::IG:::::G                E::::::EEEEEEEEEE     R::::RRRRRR:::::R
+        B:::::::::::::BB  O:::::O     O:::::O  L:::::L                 I::::IG:::::G    GGGGGGGGGG  E:::::::::::::::E     R:::::::::::::RR
+        B::::BBBBBB:::::B O:::::O     O:::::O  L:::::L                 I::::IG:::::G    G::::::::G  E:::::::::::::::E     R::::RRRRRR:::::R
+        B::::B     B:::::BO:::::O     O:::::O  L:::::L                 I::::IG:::::G    GGGGG::::G  E::::::EEEEEEEEEE     R::::R     R:::::R
+        B::::B     B:::::BO:::::O     O:::::O  L:::::L                 I::::IG:::::G        G::::G  E:::::E               R::::R     R:::::R
+        B::::B     B:::::BO::::::O   O::::::O  L:::::L         LLLLLL  I::::I G:::::G       G::::G  E:::::E       EEEEEE  R::::R     R:::::R
+        BB:::::BBBBBB::::::BO:::::::OOO:::::::OLL:::::::LLLLLLLLL:::::LII::::::IIG:::::GGGGGGGG::::GEE::::::EEEEEEEE:::::ERR:::::R     R:::::R
+        B:::::::::::::::::B  OO:::::::::::::OO L::::::::::::::::::::::LI::::::::I GG:::::::::::::::GE::::::::::::::::::::ER::::::R     R:::::R
+        B::::::::::::::::B     OO:::::::::OO   L::::::::::::::::::::::LI::::::::I   GGG::::::GGG:::GE::::::::::::::::::::ER::::::R     R:::::R
+        BBBBBBBBBBBBBBBBB        OOOOOOOOO     LLLLLLLLLLLLLLLLLLLLLLLLIIIIIIIIII      GGGGGG   GGGGEEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
 
+*/
 
 
 
@@ -724,225 +785,300 @@ public class Gui extends JFrame {
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
         //RESETER
-        c.ipadx = 100;
+        c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 0, 0);
 
 
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Adresse: "), c);
-
-        adresseFane2 = new JTextField();
+        c.insets = new Insets(0, 0, 50, 0);
         c.gridx = 1;
         c.gridy = 0;
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.WEST;
+        regBoligHeader = new JLabel("Registrer bolig");
+        regBoligHeader.setFont(headerFont);
+        regBoligHeader.setForeground(headerFarge);
+        bopanel.add(regBoligHeader, c);
+
+
+
+
+        c.gridwidth = 1;
+        c.insets = new Insets(0, 0, 10, 5);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        bopanel.add(new JLabel("Adresse: "), c);
+
+        adresseFane2 = new JTextField(20);
+        c.gridx = 1;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(adresseFane2, c);
 
 
         c.gridx = 0;
-        c.gridy = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("By: "), c);
 
         byBoxFane2 = new JComboBox(byvalg);
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
+        byBoxFane2.setBackground(comboboxFarge);
+        byBoxFane2.setForeground(bakFarge);
         bopanel.add(byBoxFane2, c);
 
         c.gridx = 0;
-        c.gridy = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Boligtype: "), c);
 
         boligtypeBoxFane2 = new JComboBox(boligtypeValg);
         c.gridx = 1;
-        c.gridy = 2;
-
-
+        c.gridy = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
         boligtypeBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(boligtypeBoxFane2, c);
 
 
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Boareal"), c);
 
-        boareal = new JTextField();
+        boareal = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(boareal, c);
 
-        tomtArealLabel = new JLabel("TomtAreal:");
+        tomtArealLabel = new JLabel("Tomtareal:");
         c.gridx = 0;
-        c.gridy = 4;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         tomtArealLabel.setVisible(false);
         bopanel.add(tomtArealLabel, c);
 
-        tomtAreal = new JTextField();
+        tomtAreal = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         tomtAreal.setVisible(false);
         bopanel.add(tomtAreal, c);
 
 
         c.gridx = 0;
-        c.gridy = 5;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 6;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Utleiepris:"), c);
 
-        pris = new JTextField();
+        pris = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(pris, c);
 
 
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 7;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Byggår"), c);
 
-        byggår = new JTextField();
+        byggår = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 7;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(byggår, c);
 
 
 
         c.gridx = 0;
-        c.gridy = 7;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        bopanel.add(new JLabel("Rom: "), c);
+        c.gridy = 8;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        romLabelFane2 = new JLabel("Rom: ");
+        bopanel.add(romLabelFane2, c);
+        romLabelFane2.setVisible(false);
 
         romBoxFane2 = new JComboBox(romValg);
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 8;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(romBoxFane2, c);
+        romBoxFane2.setVisible(false);
 
         antEgtLabelFane2 = new JLabel("Ant Etasjer: ");
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 9;
         c.gridwidth = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         antEgtLabelFane2.setVisible(false);
         bopanel.add(antEgtLabelFane2, c);
 
 
         etasjeBoxFane2 = new JComboBox(etasjeValg);
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 9;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
         etasjeBoxFane2.setVisible(false);
         bopanel.add(etasjeBoxFane2, c);
 
         c.gridx = 0;
-        c.gridy = 9;
-        bopanel.add(new JLabel("Hilket plan?"), c);
+        c.gridy = 10;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        planLabelFane2 = new JLabel("Hilket plan?");
+        bopanel.add(planLabelFane2, c);
+        planLabelFane2.setVisible(false);
+
 
         planBoxFane2 = new JComboBox(planValg);
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 10;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(planBoxFane2, c);
+        planBoxFane2.setVisible(false);
 
 
 
 
         garasjeValgFane2 = new JCheckBox("Garasje");
-        c.gridx = 0;
-        c.gridy = 10;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         garasjeValgFane2.setVisible(false);
         bopanel.add(garasjeValgFane2, c);
 
 
         kjellerValgFane2 = new JCheckBox("Kjeller");
         c.gridx = 1;
-        c.gridy = 10;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         kjellerValgFane2.setVisible(false);
         bopanel.add(kjellerValgFane2, c);
 
+
+
+
+
+
         heisValgFane2 = new JCheckBox("Heis");
-        c.gridx = 0;
-        c.gridy = 12;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         heisValgFane2.setVisible(false);
         bopanel.add(heisValgFane2, c);
 
-        badValgFane2 = new JCheckBox("Eget Bad");
-        c.gridx = 0;
+        balkongValgFane2 = new JCheckBox("Balkong");
+        c.gridx = 1;
         c.gridy = 11;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        balkongValgFane2.setVisible(false);
+        bopanel.add(balkongValgFane2, c);
+
+
+
+
+
+
+        badValgFane2 = new JCheckBox("Eget Bad");
+        c.gridx = 1;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         badValgFane2.setVisible(false);
         bopanel.add(badValgFane2, c);
 
         kjøkkenValgFane2 = new JCheckBox("Eget kjøkken");
         c.gridx = 1;
         c.gridy = 11;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         kjøkkenValgFane2.setVisible(false);
         bopanel.add(kjøkkenValgFane2, c);
 
-        balkongValgFane2 = new JCheckBox("Balkong");
-        c.gridx = 1;
-        c.gridy = 12;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        balkongValgFane2.setVisible(false);
-        bopanel.add(balkongValgFane2, c);
+
 
 
         c.gridx = 0;
-        c.gridy = 13;
+        c.gridy = 14;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Beskrivelse:"), c);
 
         beskrivelse = new JTextArea("Skriv da..", 5, 10);
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
-        c.gridy = 13;
+        c.gridy = 14;
         c.gridheight =2;
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(scroll, c);
 
-        c.gridx = 0;
-        c.gridy = 15;
-        c.gridheight = 1;
-        bopanel.add(new JLabel("Velg bilde:"),c);
 
-        bildesti = new JTextField();
+
+        bildesti = new JTextField(20);
         c.gridx = 1;
-        c.gridy = 15;
+        c.gridy = 16;
         bildesti.setEditable(false);
         c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(bildesti, c);
 
         finnBildeKnapp = new JButton("Finn bilde");
         finnBildeKnapp.addActionListener(lytter);
         c.gridx = 2;
-        c.gridy = 15;
+        c.gridy = 16;
         bopanel.add(finnBildeKnapp, c);
 
         velgUtleier = new JButton("Velg utleier");
         velgUtleier.addActionListener(lytter);
         c.gridx = 2;
-        c.gridy = 16;
+        c.gridy = 17;
         bopanel.add(velgUtleier,c);
 
 
-        c.gridx = 0;
-        c.gridy = 16;
+        c.gridx = 1;
+        c.gridy = 17;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         bopanel.add(new JLabel("Utleier ID:"), c);
 
-        utleierId = new JTextField();
+        utleierId = new JTextField(5);
         utleierId.setEditable(false);
         c.gridx = 1;
-        c.gridy = 16;
+        c.gridy = 17;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         bopanel.add(utleierId, c);
 
 
@@ -950,14 +1086,45 @@ public class Gui extends JFrame {
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
         c.gridx = 3;
-        c.gridy = 17;
+        c.gridy = 18;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(10, 5, 5, 5);
         bopanel.add(regBoligKnapp, c);
 
 
+
+
+
+/*
+        RRRRRRRRRRRRRRRRR   EEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGIIIIIIIIII   SSSSSSSSSSSSSSS TTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
+        R::::::::::::::::R  E::::::::::::::::::::E    GGG::::::::::::GI::::::::I SS:::::::::::::::ST:::::::::::::::::::::TE::::::::::::::::::::ER::::::::::::::::R
+        R::::::RRRRRR:::::R E::::::::::::::::::::E  GG:::::::::::::::GI::::::::IS:::::SSSSSS::::::ST:::::::::::::::::::::TE::::::::::::::::::::ER::::::RRRRRR:::::R
+        RR:::::R     R:::::REE::::::EEEEEEEEE::::E G:::::GGGGGGGG::::GII::::::IIS:::::S     SSSSSSST:::::TT:::::::TT:::::TEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
+        R::::R     R:::::R  E:::::E       EEEEEEG:::::G       GGGGGG  I::::I  S:::::S            TTTTTT  T:::::T  TTTTTT  E:::::E       EEEEEE  R::::R     R:::::R
+        R::::R     R:::::R  E:::::E            G:::::G                I::::I  S:::::S                    T:::::T          E:::::E               R::::R     R:::::R
+        R::::RRRRRR:::::R   E::::::EEEEEEEEEE  G:::::G                I::::I   S::::SSSS                 T:::::T          E::::::EEEEEEEEEE     R::::RRRRRR:::::R
+        R:::::::::::::RR    E:::::::::::::::E  G:::::G    GGGGGGGGGG  I::::I    SS::::::SSSSS            T:::::T          E:::::::::::::::E     R:::::::::::::RR
+        R::::RRRRRR:::::R   E:::::::::::::::E  G:::::G    G::::::::G  I::::I      SSS::::::::SS          T:::::T          E:::::::::::::::E     R::::RRRRRR:::::R
+        R::::R     R:::::R  E::::::EEEEEEEEEE  G:::::G    GGGGG::::G  I::::I         SSSSSS::::S         T:::::T          E::::::EEEEEEEEEE     R::::R     R:::::R
+        R::::R     R:::::R  E:::::E            G:::::G        G::::G  I::::I              S:::::S        T:::::T          E:::::E               R::::R     R:::::R
+        R::::R     R:::::R  E:::::E       EEEEEEG:::::G       G::::G  I::::I              S:::::S        T:::::T          E:::::E       EEEEEE  R::::R     R:::::R
+        RR:::::R     R:::::REE::::::EEEEEEEE:::::E G:::::GGGGGGGG::::GII::::::IISSSSSSS     S:::::S      TT:::::::TT      EE::::::EEEEEEEE:::::ERR:::::R     R:::::R
+        R::::::R     R:::::RE::::::::::::::::::::E  GG:::::::::::::::GI::::::::IS::::::SSSSSS:::::S      T:::::::::T      E::::::::::::::::::::ER::::::R     R:::::R
+        R::::::R     R:::::RE::::::::::::::::::::E    GGG::::::GGG:::GI::::::::IS:::::::::::::::SS       T:::::::::T      E::::::::::::::::::::ER::::::R     R:::::R
+        RRRRRRRR     RRRRRRREEEEEEEEEEEEEEEEEEEEEE       GGGGGG   GGGGIIIIIIIIII SSSSSSSSSSSSSSS         TTTTTTTTTTT      EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR*/
+
+
         // FANE 3 - VIS TABELL   *********************************************************
         //RESETER
+
+        //RESETER
+        c.ipadx = 100;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridheight = 1;
+        c.gridwidth = 1;
+        c.insets = new Insets(0, 0, 0, 0);
 
         c.gridx = 0;
         c.gridy = 0;
@@ -1061,7 +1228,26 @@ public class Gui extends JFrame {
         tapanel.setBackground(bakFarge);
 
 
+/*
+MMMMMMMM               MMMMMMMM               AAA         TTTTTTTTTTTTTTTTTTTTTTT       CCCCCCCCCCCCCHHHHHHHHH     HHHHHHHHH
+M:::::::M             M:::::::M              A:::A        T:::::::::::::::::::::T    CCC::::::::::::CH:::::::H     H:::::::H
+M::::::::M           M::::::::M             A:::::A       T:::::::::::::::::::::T  CC:::::::::::::::CH:::::::H     H:::::::H
+M:::::::::M         M:::::::::M            A:::::::A      T:::::TT:::::::TT:::::T C:::::CCCCCCCC::::CHH::::::H     H::::::HH
+M::::::::::M       M::::::::::M           A:::::::::A     TTTTTT  T:::::T  TTTTTTC:::::C       CCCCCC  H:::::H     H:::::H
+M:::::::::::M     M:::::::::::M          A:::::A:::::A            T:::::T       C:::::C                H:::::H     H:::::H
+M:::::::M::::M   M::::M:::::::M         A:::::A A:::::A           T:::::T       C:::::C                H::::::HHHHH::::::H
+M::::::M M::::M M::::M M::::::M        A:::::A   A:::::A          T:::::T       C:::::C                H:::::::::::::::::H
+M::::::M  M::::M::::M  M::::::M       A:::::A     A:::::A         T:::::T       C:::::C                H:::::::::::::::::H
+M::::::M   M:::::::M   M::::::M      A:::::AAAAAAAAA:::::A        T:::::T       C:::::C                H::::::HHHHH::::::H
+M::::::M    M:::::M    M::::::M     A:::::::::::::::::::::A       T:::::T       C:::::C                H:::::H     H:::::H
+M::::::M     MMMMM     M::::::M    A:::::AAAAAAAAAAAAA:::::A      T:::::T        C:::::C       CCCCCC  H:::::H     H:::::H
+M::::::M               M::::::M   A:::::A             A:::::A   TT:::::::TT       C:::::CCCCCCCC::::CHH::::::H     H::::::HH
+M::::::M               M::::::M  A:::::A               A:::::A  T:::::::::T        CC:::::::::::::::CH:::::::H     H:::::::H
+M::::::M               M::::::M A:::::A                 A:::::A T:::::::::T          CCC::::::::::::CH:::::::H     H:::::::H
+MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT             CCCCCCCCCCCCCHHHHHHHHH     HHHHHHHHH
 
+
+ */
 
         //SLUTT FANE 3
 
@@ -1127,7 +1313,34 @@ public class Gui extends JFrame {
 
 
 
+/*
 
+
+KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN        NNNNNNNNTTTTTTTTTTTTTTTTTTTTTTTRRRRRRRRRRRRRRRRR                  AAA               KKKKKKKKK    KKKKKKKTTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
+K:::::::K    K:::::K   OO:::::::::OO   N:::::::N       N::::::NT:::::::::::::::::::::TR::::::::::::::::R                A:::A              K:::::::K    K:::::KT:::::::::::::::::::::TE::::::::::::::::::::ER::::::::::::::::R
+K:::::::K    K:::::K OO:::::::::::::OO N::::::::N      N::::::NT:::::::::::::::::::::TR::::::RRRRRR:::::R              A:::::A             K:::::::K    K:::::KT:::::::::::::::::::::TE::::::::::::::::::::ER::::::RRRRRR:::::R
+K:::::::K   K::::::KO:::::::OOO:::::::ON:::::::::N     N::::::NT:::::TT:::::::TT:::::TRR:::::R     R:::::R            A:::::::A            K:::::::K   K::::::KT:::::TT:::::::TT:::::TEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
+KK::::::K  K:::::KKKO::::::O   O::::::ON::::::::::N    N::::::NTTTTTT  T:::::T  TTTTTT  R::::R     R:::::R           A:::::::::A           KK::::::K  K:::::KKKTTTTTT  T:::::T  TTTTTT  E:::::E       EEEEEE  R::::R     R:::::R
+  K:::::K K:::::K   O:::::O     O:::::ON:::::::::::N   N::::::N        T:::::T          R::::R     R:::::R          A:::::A:::::A            K:::::K K:::::K           T:::::T          E:::::E               R::::R     R:::::R
+  K::::::K:::::K    O:::::O     O:::::ON:::::::N::::N  N::::::N        T:::::T          R::::RRRRRR:::::R          A:::::A A:::::A           K::::::K:::::K            T:::::T          E::::::EEEEEEEEEE     R::::RRRRRR:::::R
+  K:::::::::::K     O:::::O     O:::::ON::::::N N::::N N::::::N        T:::::T          R:::::::::::::RR          A:::::A   A:::::A          K:::::::::::K             T:::::T          E:::::::::::::::E     R:::::::::::::RR
+  K:::::::::::K     O:::::O     O:::::ON::::::N  N::::N:::::::N        T:::::T          R::::RRRRRR:::::R        A:::::A     A:::::A         K:::::::::::K             T:::::T          E:::::::::::::::E     R::::RRRRRR:::::R
+  K::::::K:::::K    O:::::O     O:::::ON::::::N   N:::::::::::N        T:::::T          R::::R     R:::::R      A:::::AAAAAAAAA:::::A        K::::::K:::::K            T:::::T          E::::::EEEEEEEEEE     R::::R     R:::::R
+  K:::::K K:::::K   O:::::O     O:::::ON::::::N    N::::::::::N        T:::::T          R::::R     R:::::R     A:::::::::::::::::::::A       K:::::K K:::::K           T:::::T          E:::::E               R::::R     R:::::R
+KK::::::K  K:::::KKKO::::::O   O::::::ON::::::N     N:::::::::N        T:::::T          R::::R     R:::::R    A:::::AAAAAAAAAAAAA:::::A    KK::::::K  K:::::KKK        T:::::T          E:::::E       EEEEEE  R::::R     R:::::R
+K:::::::K   K::::::KO:::::::OOO:::::::ON::::::N      N::::::::N      TT:::::::TT      RR:::::R     R:::::R   A:::::A             A:::::A   K:::::::K   K::::::K      TT:::::::TT      EE::::::EEEEEEEE:::::ERR:::::R     R:::::R
+K:::::::K    K:::::K OO:::::::::::::OO N::::::N       N:::::::N      T:::::::::T      R::::::R     R:::::R  A:::::A               A:::::A  K:::::::K    K:::::K      T:::::::::T      E::::::::::::::::::::ER::::::R     R:::::R
+K:::::::K    K:::::K   OO:::::::::OO   N::::::N        N::::::N      T:::::::::T      R::::::R     R:::::R A:::::A                 A:::::A K:::::::K    K:::::K      T:::::::::T      E::::::::::::::::::::ER::::::R     R:::::R
+KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT      RRRRRRRR     RRRRRRRAAAAAAA                   AAAAAAAKKKKKKKKK    KKKKKKK      TTTTTTTTTTT      EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
+
+
+
+
+
+
+
+
+*/
 
 
 
@@ -1173,6 +1386,7 @@ public class Gui extends JFrame {
         velgUtleierKnapp = new JButton("Velg en eier");
         velgUtleierKnapp.addActionListener(lytter);
         panel5.add(velgUtleierKnapp,c);
+
 
 
         c.gridx = 2;
@@ -1536,6 +1750,10 @@ public class Gui extends JFrame {
         antEgtLabelFane2.setVisible(false);
         tomtAreal.setVisible(false);
         tomtArealLabel.setVisible(false);
+        planLabelFane2.setVisible(false);
+        planBoxFane2.setVisible(false);
+        romLabelFane2.setVisible(false);
+        romBoxFane2.setVisible(false);
         revalidate();
     }
 
@@ -1572,6 +1790,7 @@ public class Gui extends JFrame {
                     antEgtLabel.setVisible(true);
                     boligtypeBox.setForeground(Color.BLACK);
                     regPersonKnapp.setVisible(true);
+
                     revalidate();
                     break;
                 case "Leilighet":
@@ -1607,7 +1826,8 @@ public class Gui extends JFrame {
                     antEgtLabelFane2.setVisible(true);
                     tomtAreal.setVisible(true);
                     tomtArealLabel.setVisible(true);
-
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
                     revalidate();
                     break;
                 case "Rekkehus":
@@ -1618,12 +1838,18 @@ public class Gui extends JFrame {
                     antEgtLabelFane2.setVisible(true);
                     tomtAreal.setVisible(true);
                     tomtArealLabel.setVisible(true);
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
                     revalidate();
                     break;
                 case "Leilighet":
                     toglerFane2();
                     heisValgFane2.setVisible(true);
                     balkongValgFane2.setVisible(true);
+                    planLabelFane2.setVisible(true);
+                    planBoxFane2.setVisible(true);
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
                     revalidate();
                     break;
                 case "Hybel":
