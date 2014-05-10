@@ -1919,14 +1919,6 @@ private class resultatTabellModell extends AbstractTableModel
 
     Object[][] celler = boliger.matchPåKrav(kravene);
 
-
-
-
-
-
-
-
-
     public int getRowCount() {
         return celler.length;
     }
@@ -1953,12 +1945,7 @@ private class resultatTabellModell extends AbstractTableModel
     }
     public Class getColumnClass( int k )
     {
-        try{
-            return getValueAt( 0, k ).getClass();
-        }catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(null,"Fant ingen aktuelle boliger");
-        }
-        return null;
+       return getValueAt( 0, k ).getClass();
     }
 }
 
@@ -1984,8 +1971,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         sorterer.setSortKeys(sortKeys);
 
-        resultatTabell.
-                setRowSorter(sorterer);
+        resultatTabell.setRowSorter(sorterer);
         resultatPanel.add(new JScrollPane(resultatTabell));
         revalidate();
         repaint();
@@ -2998,12 +2984,7 @@ private class resultatTabellModell extends AbstractTableModel
 
         Bolig valgtBolig = boliger.finnBolig(id);
 
-        String ut = "Adresse: " + valgtBolig.getAdresse() +
-                "\nSted: " + valgtBolig.getSted() +
-                "\nPris: " + valgtBolig.getUtleiepris() +
-                "\nEr ledig: " + valgtBolig.getUtleid() +
-                "\nBoigeier:" + valgtBolig.getEierID() +
-                "\n";
+        String ut = valgtBolig.toString();
 
 
         feedbackFane3.setText(ut);

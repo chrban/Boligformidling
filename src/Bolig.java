@@ -88,7 +88,29 @@ abstract class Bolig implements Serializable, Comparable<Object>
 
     public String toString()
     {
-        return "Informasjon om bolig med adresse: " + adresse + "\n\n";
+        String ut = "";
+        String by = "";
+        switch(sted){
+            case 1: by = "Oslo";
+                    break;
+            case 2: by = "Bergen";
+                    break;
+            case 3: by = "Stavanger";
+                    break;
+            case 4: by = "Trondheim";
+                    break;
+            case 5: by = "Kristiansand";
+                    break;
+            case 6: by = "Tromsø";
+                    break;
+        }
+        String utleid = "";
+        if(getUtleid())
+            utleid = "Utleid";
+        else
+            utleid = "Ledig";
+
+        return "Informasjon om bolig: \nAdresse: " + adresse + "\nBy: " + by + "\nPris: " + utleiepris + "\nStatus: " + utleid + "\nEierID: " + eierID;
     }
 
 
