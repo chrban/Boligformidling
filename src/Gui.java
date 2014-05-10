@@ -229,7 +229,7 @@ public class Gui extends JFrame {
         c.insets = new Insets(30,150,0,0);
         c.weighty = -10;
         c.anchor = GridBagConstraints.CENTER;
-
+        c.insets = new Insets(0,0,0,0);
         bspanel.setSize(bspanel.getPreferredSize());
 
         panel1.add(bspanel,c);
@@ -967,6 +967,10 @@ public class Gui extends JFrame {
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
+        c.anchor=GridBagConstraints.NONE;
+        c.weightx=0;
+        c.weighty=0;
+
 
 
 
@@ -978,19 +982,22 @@ public class Gui extends JFrame {
         c.gridx=0;
         c.gridy=1;
         c.gridheight=10;
-        c.gridwidth=10;
+        c.gridwidth=2;
         c.weightx=100;
+        c.weighty=0.1;
+        c.anchor=GridBagConstraints.FIRST_LINE_START;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        tapanel.setBackground(Color.RED);
+        c.fill = GridBagConstraints.BOTH;
+
         //c.insets=new Dimension()
         c.fill =GridBagConstraints.BOTH;
         //tapanel.setPreferredSize(new Dimension(100,100));
-        tapanel.setMinimumSize(tapanel.getSize());
+       // tapanel.setMinimumSize(tapanel.getSize());
         //tapanel.setAlignmentX(100);
         //tapanel.setAlignmentY(100);
 
         panel3.add(new JScrollPane(tapanel),c);
-
+        c.fill = GridBagConstraints.NONE;
 
 
         radioTabellLytter = new tabellTypeLytter();
@@ -1030,7 +1037,7 @@ public class Gui extends JFrame {
 
         feedbackFane3 = new JTextArea("feedbackfelt");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
-        feedbackFane3.setBackground(Color.LIGHT_GRAY);
+        feedbackFane3.setBackground(bakFarge);
         feedbackFane3.setSize(600,200);
        // c.gridwidth=30;
         c.gridx=0;
@@ -1048,10 +1055,13 @@ public class Gui extends JFrame {
         c.gridy=3;
         c.gridheight=5;
         c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weightx=100;
+        c.weighty=100;
         panel3.add(bildepanel,c);
         bildepanel.setMaximumSize(bildepanel.getSize());
-        bildepanel.setBackground(Color.RED);
+        bildepanel.setBackground(bakFarge);
+        panel3.setBackground(bakFarge);
+        tapanel.setBackground(bakFarge);
+
 
 
 
@@ -1062,6 +1072,7 @@ public class Gui extends JFrame {
         //RESETER
         c.gridx = 0;
         c.gridy = 0;
+        c.weighty=0;
         c.weightx=0;
         c.fill = GridBagConstraints.NONE;
         c.gridheight = 1;
@@ -1335,7 +1346,7 @@ public class Gui extends JFrame {
 
 
 
-        tapanel.setBackground(Color.BLUE);
+
 
 
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
@@ -1688,14 +1699,18 @@ public class Gui extends JFrame {
             if(boligtabellRadioknapp.isSelected()){
                 clearPanel3();
                 lagBoligTabellen();
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen));
+                c.gridx=0;
+                c.gridy=0;
+                c.anchor=GridBagConstraints.FIRST_LINE_START;
+                c.fill =GridBagConstraints.BOTH;
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen),c);
                 revalidate();
                 repaint();
             }
             else if(persontabellRadioknapp.isSelected()){
                 clearPanel3();
                 lagTabellen();
-                tapanel.add(personTabellScroll = new JScrollPane(personTabell));
+                tapanel.add(personTabellScroll = new JScrollPane(personTabell),c);
                 revalidate();
                 repaint();
             }
@@ -2160,6 +2175,23 @@ private class resultatTabellModell extends AbstractTableModel
         boligTabellTabellen = new JTable(boligTabellModell);
         ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
+
+
+        //skjuler på en teit måte
+        boligTabellTabellen.getColumn("Parkering").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Parkering").setMinWidth(0);
+        boligTabellTabellen.getColumn("Parkering").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setMinWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setMinWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Id").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Id").setMinWidth(0);
+        boligTabellTabellen.getColumn("Id").setPreferredWidth(0);
+
+        boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
 
@@ -2179,10 +2211,15 @@ private class resultatTabellModell extends AbstractTableModel
             return boligceller.length;
         }
 
+
         public int getColumnCount() {
             return boligceller[0].length;
 
         }
+
+
+
+
 
 
         public Object getValueAt(int rad, int kolonne) {
@@ -2192,10 +2229,9 @@ private class resultatTabellModell extends AbstractTableModel
         {
             return boligkolonnenavn[kolonne];
         }
-        public boolean isCellEditable(int rad, int kolonne)
-        {
-            return kolonne == 2;
-        }
+
+
+
         public void setValueAt(String nyVerdi, int rad, int kolonne)
         {
             boligceller[rad][kolonne] = nyVerdi;
@@ -2980,16 +3016,23 @@ private class resultatTabellModell extends AbstractTableModel
     {
         System.out.println("gogo");
 
-
+        try{
         String id = utleiere.finnID(slettPersonFn, slettPersonEn);
         if(!id.equals(null))
         {
             feedbackFane3.setText(id.toString());
+            clearBildePanel();
 
         }
         else {
             String bs = boligsøkere.finnBoligsøkerID(slettPersonFn,slettPersonEn);
             feedbackFane3.setText(bs.toString());
+            clearBildePanel();
+        }
+        clearBildePanel();
+        }
+        catch(NumberFormatException nfe) {
+            System.out.println("number formatCare");
         }
     }
 
@@ -3007,13 +3050,26 @@ private class resultatTabellModell extends AbstractTableModel
 
         feedbackFane3.setText(ut);
 
-
+        clearBildePanel();
 
         ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(330,310, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+
+
+
+
         JLabel label = new JLabel("", image, JLabel.CENTER);
-        //prøv etterpå label.setBounds();
+        //label.setBounds(0,0,bildepanel.getWidth(),bildepanel.getHeight());
         bildepanel.add(label, BorderLayout.CENTER);
 
+    }
+    private void clearBildePanel()
+    {
+        bildepanel.removeAll();
+        revalidate();
     }
 
 
