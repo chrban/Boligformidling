@@ -78,7 +78,7 @@ public class Gui extends JFrame {
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private int slettBoligId;
     private Font headerFont;
-    private Color bakFarge, headerFarge;
+    private Color bakFarge, headerFarge,lyseSvart;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -192,12 +192,16 @@ public class Gui extends JFrame {
         
         headerFarge = new Color(80,118,66);
         bakFarge = new Color(243,244,236);
+        lyseSvart = new Color(38,38,38);
 
         panel1.setBackground(bakFarge);
-        bspanel.setBackground(Color.WHITE);
+        bspanel.setBackground(bakFarge);
         pepanel.setBackground(bakFarge);
-        pepanel.setForeground(bakFarge);
-        btpanel.setBackground(Color.WHITE);
+
+        pepanel.setForeground(lyseSvart);
+        btpanel.setBackground(bakFarge);
+        btpanel.setForeground(lyseSvart);
+
 
 
 
@@ -236,7 +240,7 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.anchor = GridBagConstraints.CENTER;
         c.gridy = 3;
-        c.insets = new Insets(0,150,0,0);
+        c.insets = new Insets(0,20,0,0);
         c.weighty = -10;
         panel1.add(btpanel,c);
 
@@ -251,12 +255,12 @@ public class Gui extends JFrame {
         panel1.add(regPersonKnapp, c);
 
 
-        feedbackFane1 = new JTextArea("feedback");
+        feedbackFane1 = new JTextArea("");
         feedbackFane1.setEditable(false);
-        feedbackFane1.setBackground(Color.LIGHT_GRAY);
-        feedbackFane1.setPreferredSize(new Dimension(20,20));
-        c.gridx = 1;
-        c.gridy = 0;
+        feedbackFane1.setBackground(bakFarge);
+        feedbackFane1.setPreferredSize(new Dimension(200,20));
+        c.gridx = 0;
+        c.gridy = 4;
 
         panel1.add(feedbackFane1,c);
 
@@ -565,7 +569,9 @@ public class Gui extends JFrame {
 
 
         røykerValg = new JCheckBox("Røker");
+        c.ipadx = 0;
         c.gridx = 0;
+        c.gridwidth = 1;
         c.gridy = 6;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
@@ -1336,6 +1342,9 @@ public class Gui extends JFrame {
 
         //Dimension heleSkjermen = new Dimension(bredde-20, høyde-20);
         fane.setPreferredSize(new Dimension(1380,1010));
+        fane.setBackground(bakFarge);
+
+
         //add(new JScrollPane(fane), BorderLayout.PAGE_START);
         JScrollPane sp = new JScrollPane();
         getContentPane().add(sp);
@@ -1504,6 +1513,8 @@ public class Gui extends JFrame {
         badValg.setVisible(false);
         kjøkkenValg.setVisible(false);
         antEgtLabel.setVisible(false);
+        planLabel.setVisible(false);
+        planBox.setVisible(false);
         revalidate();
     }
     private void toglerFane2(){
@@ -1647,6 +1658,8 @@ public class Gui extends JFrame {
                 firmaLabel.setVisible(true);
                 regUtleierKnapp.setVisible(true);
                 bspanel.setVisible(false);
+                btpanel.setVisible(false);
+                regPersonKnapp.setVisible(false);
                 revalidate();
 
 
@@ -1655,6 +1668,7 @@ public class Gui extends JFrame {
                 firma.setVisible(false);
                 firmaLabel.setVisible(false);
                 regUtleierKnapp.setVisible(false);
+                btpanel.setVisible(true);
                 revalidate();
             }
         }
@@ -2407,13 +2421,15 @@ private class resultatTabellModell extends AbstractTableModel
                 JOptionPane.showMessageDialog(null,"3");
                 Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
                 boligsøkere.settInnNy(ny);
+
                 clearPersonFelt();
                 clearBSfelt();
+                feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
                 return;
             }
 
 
-            JOptionPane.showMessageDialog(null,"Om du ser denne har du ikke skrevet inn i alle feltene i boligsøker regging");
+            feedbackFane1.setText("Du må skrive inn i alle feltene");
 
             return;
 
@@ -2448,10 +2464,11 @@ private class resultatTabellModell extends AbstractTableModel
                 utleiere.settInn(ny);
                 clearPersonFelt();
                 clearBSfelt();
-                feedbackFane1.setText("Ny utleier er registrert.  \n\n"+ny.toString()+ "\nUtleier ID: " + ny.getId());
+                feedbackFane1.setText("Utleier registrert med id: " + ny.getId());
+               
                 return;
             }
-            JOptionPane.showMessageDialog(null,"om du ser denne har du ikke skrevet gyldige data i alle feltene i utleier!");
+            feedbackFane1.setText("Du må skrive inn i alle feltene");
             return;
 
         }
@@ -2486,6 +2503,7 @@ private class resultatTabellModell extends AbstractTableModel
         balkongValg.setSelected(false);
         kjøkkenValg.setSelected(false);
         badValg.setSelected(false);
+        feedbackFane1.setText("");
         System.out.println("Boligsøkerfelt er klarert");
     }
 
