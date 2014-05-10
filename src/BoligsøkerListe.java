@@ -36,26 +36,6 @@ public class BoligsøkerListe implements Serializable {
 
         }
     }
-
-
-    public int[] getKravPåId(String inn)
-    {
-        Boligsøker løper = første;
-        System.out.println("get krav på id: "+inn);
-
-        if(løper == null)
-            return null;
-
-        while(løper != null)
-        {
-            if(løper.getId().equals(inn))
-                return løper.getKrav();
-
-            løper = løper.neste;
-        }
-        return null;
-    }
-
     public boolean fjernSøker(Boligsøker b) {
 
         Boligsøker løper = første;
@@ -91,9 +71,41 @@ public class BoligsøkerListe implements Serializable {
         }
         return "";
     }
+    public Boligsøker getBoligsøker(String i)
+    {
+        Boligsøker løper = første;
+        System.out.println("leter etter boligsøker");
+
+        if(løper == null)
+            return null;
+
+        while( løper != null )
+        {
+            if( løper.getId().equals(i))
+                return løper;
+            løper = løper.neste;
 
 
+        }
+        return null;
+    }
+    public int[] getKravPåId(String inn)
+    {
+        Boligsøker løper = første;
+        System.out.println("get krav på id: "+inn);
 
+        if(løper == null)
+            return null;
+
+        while(løper != null)
+        {
+            if(løper.getId().equals(inn))
+                return løper.getKrav();
+
+            løper = løper.neste;
+        }
+        return null;
+    }
     public String[][] tilTabell()
     {
         Boligsøker løper = første;
@@ -110,7 +122,6 @@ public class BoligsøkerListe implements Serializable {
         }
         return ut;
     }
-
     public String[][] tilTabellMedId()
     {
         Boligsøker løper = første;
@@ -145,7 +156,6 @@ public class BoligsøkerListe implements Serializable {
         }
         return ut;
     }
-
     public int tellOpp()
     {
         Boligsøker løper = første;
@@ -159,7 +169,6 @@ public class BoligsøkerListe implements Serializable {
         }
         return i;
     }
-
     public String toString() {
         String info = "";
         Boligsøker løper = første;
@@ -173,70 +182,7 @@ public class BoligsøkerListe implements Serializable {
         else
             return "Ingen boligsøkere registrert!";
     }
-    public Boligsøker getBoligsøker(String i)
-    {
-        Boligsøker løper = første;
-        System.out.println("leter etter boligsøker");
 
-        if(løper == null)
-            return null;
-
-        while( løper != null )
-        {
-            if( løper.getId().equals(i))
-                return løper;
-            løper = løper.neste;
-
-
-        }
-        return null;
-    }
-    public void setBoligPåBoligsøker(Boligsøker b){
-        Boligsøker løper = første;
-        while( løper != null ){
-            if ( løper.getId() ==  b.getId() ) {
-                løper.setBolig();
-                return;
-            }
-            løper = løper.neste;
-        }
-    }
-
-    /*//todo Christer, finn riktig måte din maddafakka
-    public Object[][] fyllTabell()
-    {
-        Boligsøker runner = første;
-        int teller = 0;
-
-        while (runner != null) {
-            teller++;
-            runner = runner.neste;
-        }
-
-
-        int i = 0;
-        int k = 0;
-
-        Boligsøker løper = første;
-        Object[][] personCeller = new Object[teller][2];
-
-        System.out.println("teller: "+teller);
-
-
-        while(løper != null) {
-            personCeller[i][k++] = løper.getFornavn();
-            personCeller[i][k++] = løper.getEtternavn();
-            personCeller[i][k] = løper.getEmail();
-            k++;
-            i++;
-
-
-        }//end while
-
-        return personCeller;
-
-    }//end fylla
-    */
 }
 
 

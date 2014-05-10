@@ -2489,13 +2489,34 @@ private class resultatTabellModell extends AbstractTableModel
         int år = 0;
         int upris = 0;
         int tomtareal = 0;
-
+        String valg = (String)boligtypeBoxFane2.getSelectedItem();
+        int btype = 0;
+        switch(valg){
+            case "Enebolig":    btype = 1;
+                break;
+            case "Hybel":       btype = 2;
+                break;
+            case "Leilighet":   btype = 3;
+                break;
+            case "Rekkehus":    btype = 4;
+                break;
+            case "Velg boligtype..": btype = 0;
+                break;
+            default:            btype = 0;
+                break;
+        }
         try
         {
             areal = Integer.parseInt(arealString);
             år = Integer.parseInt(årString);
             upris = Integer.parseInt(utPrisString);
-            tomtareal = Integer.parseInt(tAreal);
+            if( btype == 1 || btype == 4){
+                try{
+                    tomtareal = Integer.parseInt(tAreal);
+                }catch(NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+        }
         }
         catch(NumberFormatException e)
         {
@@ -2506,23 +2527,6 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     // Comboboxer
-        String valg = (String)boligtypeBoxFane2.getSelectedItem();
-        int btype = 0;
-        switch(valg){
-            case "Enebolig":    btype = 1;
-                                break;
-            case "Hybel":       btype = 2;
-                                break;
-            case "Leilighet":   btype = 3;
-                                break;
-            case "Rekkehus":    btype = 4;
-                                break;
-            case "Velg boligtype..": btype = 0;
-                                break;
-            default:            btype = 0;
-                                break;
-        }
-
         String by = (String)byBoxFane2.getSelectedItem();
         int byvalg = 0;
         switch(by){
@@ -2543,8 +2547,6 @@ private class resultatTabellModell extends AbstractTableModel
             default:            byvalg = 0;
                                 break;
         }
-
-
         int rom;
         int antetasjer;
         int plan;

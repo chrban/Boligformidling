@@ -90,7 +90,7 @@ public class Leilighet extends Bolig implements Serializable
 
         ut[0] = super.getId();
         ut[1] = sted();
-        ut[2] = "Enebolig";
+        ut[2] = "Leilighet";
         ut[3] = getAdresse();
 
         return ut;
@@ -104,7 +104,7 @@ public class Leilighet extends Bolig implements Serializable
         unik[1] = getAdresse();
         unik[2] = Integer.toString(etasje);
         unik[3] = Integer.toString(getBoareal());
-        unik[5] = Integer.toString(getUtleiepris());
+        unik[4] = Integer.toString(getUtleiepris());
 
         return unik;
     }

@@ -41,50 +41,29 @@ public class Boligliste implements Serializable {
 
         System.out.println(eneboliger.size());
     }
-
-    public SortedSet<Enebolig> getEneboliger(){return eneboliger;}
-
-    public boolean leggTil(Enebolig e)// kan dette gå?
-    {
-
-        if(!eneboligErUnik(e)) {
-            JOptionPane.showMessageDialog(null, "Du har lagret denne eneboligen før");
-            return false;
-        }
-
-        return eneboliger.add(e);
-
-    }
-
-    public boolean leggTil(Rekkehus r)// kan dette gå?
-    {
-        if(!rekkehusErUnik(r)) {
-            JOptionPane.showMessageDialog(null, "Du har lagret dette rekkehuset før");
-            return false;
-        }
-
-        return rekkehus.add(r);
-    }
-
-    public boolean leggTil(Leilighet l)// kan dette gå?
-    {
-        if(!leilighetErUnik(l))
-        {
-            JOptionPane.showMessageDialog(null, "Du har lagret denne leiligheten før");
-            return false;
-        }
-
-        return leiligheter.add(l);
-    }
-
-    public boolean leggTil(Hybel h)// kan dette gå?
-    {
-        if(!hybelErUnik(h))
-        {
-            JOptionPane.showMessageDialog(null,"Du har lagret denne hybelen før");
-            return false;
-        }
-        return hybler.add(h);
+    public boolean leggTil(Bolig b){
+        if(b instanceof Enebolig){
+            if(!erUnik(b)){
+                eneboliger.add((Enebolig)b);
+                return true;
+            }
+        }else if(b instanceof Rekkehus){
+            if(!erUnik(b)){
+                rekkehus.add((Rekkehus)b);
+                return true;
+            }
+        }else if(b instanceof Leilighet){
+            if(!erUnik(b)){
+                leiligheter.add((Leilighet)b);
+                return true;
+            }
+        }else if(b instanceof Hybel){
+            if(!erUnik(b)){
+                hybler.add((Hybel)b);
+                return true;
+            }
+        }JOptionPane.showMessageDialog(null,"Bolig er allerde lagt til!");
+        return false;
     }
     public boolean slettBolig(Bolig b){
         if(b instanceof Enebolig){
@@ -103,70 +82,48 @@ public class Boligliste implements Serializable {
         return false;
     }
 
-
-    public boolean eneboligErUnik(Enebolig e)
-    {
-        String [] specs = e.getUnikArray();
-        Iterator<Enebolig> iter = eneboliger.iterator();
-
-        while(iter.hasNext())
-        {
-            Enebolig ebo = iter.next();
-
-            if(ebo.erLik(specs))
-                return false;
+    public boolean erUnik(Bolig b){
+        Iterator<? extends Bolig> it = null;
+        String[] spec = null;
+        Bolig be = null;
+        if(b instanceof Enebolig) {
+            it = eneboliger.iterator();
+            spec = ((Enebolig) b).getUnikArray();
         }
-        return true;
-    }
-
-    public boolean rekkehusErUnik(Rekkehus r)
-    {
-        String [] specs = r.getUnikArray();
-        Iterator<Rekkehus> iter = rekkehus.iterator();
-
-        while(iter.hasNext())
-        {
-            Rekkehus reke = iter.next();
-
-            if(reke.erLik(specs))
-                return false;
+        else if(b instanceof Rekkehus) {
+            it = rekkehus.iterator();
+            spec = ((Rekkehus) b).getUnikArray();
         }
-        return true;
-    }
-
-    public boolean leilighetErUnik(Leilighet l)
-    {
-        String [] specs = l.getUnikArray();
-        Iterator<Leilighet> iter = leiligheter.iterator();
-
-        while(iter.hasNext())
-        {
-            Leilighet lei = iter.next();
-
-            if(lei.erLik(specs))
-                return false;
+        else if(b instanceof Leilighet) {
+            it = leiligheter.iterator();
+            spec = ((Leilighet) b).getUnikArray();
         }
-        return true;
-    }
-
-    public boolean hybelErUnik(Hybel h)
-    {
-        String [] specs = h.getUnikArray();
-        Iterator<Hybel> iter = hybler.iterator();
-
-        while(iter.hasNext())
-        {
-            Hybel hy = iter.next();
-
-            if(hy.erLik(specs))
-                return false;
+        else {
+            it = hybler.iterator();
+            spec = ((Hybel) b).getUnikArray();
         }
-        return true;
-    }
+        while(it.hasNext()){
+            be = it.next();
+            if(be instanceof Enebolig){
+                if(((Enebolig) be).erLik(spec))
+                    return true;
+            }else if(be instanceof Rekkehus){
+                if(((Rekkehus) be).erLik(spec))
+                    return true;
+            }else if(be instanceof Leilighet){
+                if(((Leilighet) be).erLik(spec))
+                    return true;
+            }else{
+                if(((Hybel)be).erLik(spec))
+                    return true;
+            }
 
+        }
+        return false;
+    }
     public Object[][] matchPåKrav(int[] krav)
     {
-        System.out.println("match på krav kjører");
+        DecimalFormat df = new DecimalFormat("0.00");
         Object[][] ut = new Object[eneboliger.size()][10];
         int plass = 0;
         int[] specs;
@@ -196,13 +153,8 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= (4-urelevante))
                     {
-                        System.out.println("match på enebolig");
-                        DecimalFormat df = new DecimalFormat("0.00");
                         matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = enebolig.tilMatchTabell();
-                        //int tull = 5-urelevante;
-                       // JOptionPane.showMessageDialog(null, enebolig.toString()+"\n" +
-                         //       "" + matches + "/" + tull );
                         ut[plass++][0] = df.format(matchkoeffisient);
                         matchkoeffisient = 0;
                         matches = 0;
@@ -232,9 +184,9 @@ public class Boligliste implements Serializable {
                     }
                     if(matches >= 4)
                     {
-                        matchkoeffisient = matches/5;
+                        matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = rekkehus.tilMatchTabell();
-                        ut[plass++][0] = matchkoeffisient;
+                        ut[plass++][0] = df.format(matchkoeffisient);
                         matchkoeffisient = 0;
                         matches = 0;
                         urelevante = 0;
@@ -263,9 +215,9 @@ public class Boligliste implements Serializable {
                             matches++;
 
                     if (matches >= 3) {
-                        matchkoeffisient = matches/4;
+                        matchkoeffisient = matches/(4-urelevante);
                         ut[plass] = leilighet.tilMatchTabell();
-                        ut[plass++][0] = matchkoeffisient;
+                        ut[plass++][0] = df.format(matchkoeffisient);
                         matchkoeffisient = 0;
                         matches = 0;
                         urelevante = 0;
@@ -288,9 +240,9 @@ public class Boligliste implements Serializable {
                             matches++;
                     }
                     if (matches >= 4) {
-                        matchkoeffisient = matches/5;
+                        matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = hybel.tilMatchTabell();
-                        ut[plass++][0] = matchkoeffisient;
+                        ut[plass++][0] = df.format(matchkoeffisient);
                         matchkoeffisient = 0;
                         matches = 0;
                         urelevante = 0;
