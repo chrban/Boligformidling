@@ -20,6 +20,26 @@ public class Boligliste implements Serializable {
         leiligheter = new TreeSet<>();
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
+
+        Enebolig en = new Enebolig("Adresse22",11,1, 1, 2000, 206500, "PdIKK", "img/eneboliger/kjipe/rwanda_mudhut.jpg",  1, -1, -1, 10);
+        Enebolig to = new Enebolig("Adresse22",12,1, 1, 2000, 20600, "PIdKK", "img/eneboliger/swære/Schloss_oslo.jgp",  1, -1, -1, 10);
+        Enebolig tre = new Enebolig("22",24,15, 13, 2000, 2000, "PIKdK", "img/eneboliger/swære/1067206-7-1306195722399.jgp",  1, -1, -1, 10);
+        Enebolig fire = new Enebolig("Adredesse",24,51, 51, 255000, 256000, "PIKK", "img/eneboliger/vanlige/hus_drag.jpg",  1, -1, -1, 10);
+        System.out.println( en.getId() + " " + to.getId()+" ");
+
+        if(leggTil(en))
+            System.out.println("lagt til en");
+
+        if(leggTil(to));
+            System.out.println("lagt til to");
+
+        if(leggTil(tre));
+             System.out.println("lagt til tre");
+
+        if(leggTil(fire));
+            System.out.println("lagt til fire");
+
+        System.out.println(eneboliger.size());
     }
     public boolean leggTil(Bolig b){
         if(b instanceof Enebolig){
