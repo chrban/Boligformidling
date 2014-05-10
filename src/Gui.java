@@ -40,7 +40,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -300,7 +300,7 @@ public class Gui extends JFrame {
 
         fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
-        fane.addTab("Vis tabell", null, panel3, "Show tabell");
+        fane.addTab("Register", null, panel3, "Register med alle datananenen");
         fane.addTab("MatchMaking", null, panel4, "Tinde");
         fane.addTab("Kontrakter", null, new JScrollPane(panel5), "Registrer og se kontrakter");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -1137,6 +1137,15 @@ public class Gui extends JFrame {
         c.weighty=0;
 
 
+        registerHeader = new JLabel("Register");
+        registerHeader.setFont(headerFont);
+        c.insets=new Insets(50,10,50,10);
+        c.gridx=6;
+        c.gridy=0;
+        c.anchor=GridBagConstraints.PAGE_START;
+        panel3.add(registerHeader,c);
+        c.insets = new Insets(0, 0, 0, 0);
+
 
 
 
@@ -1150,16 +1159,11 @@ public class Gui extends JFrame {
         c.gridwidth=2;
         c.weightx=100;
         c.weighty=0.1;
+
         c.anchor=GridBagConstraints.FIRST_LINE_START;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.fill = GridBagConstraints.BOTH;
-
-        //c.insets=new Dimension()
         c.fill =GridBagConstraints.BOTH;
-        //tapanel.setPreferredSize(new Dimension(100,100));
-       // tapanel.setMinimumSize(tapanel.getSize());
-        //tapanel.setAlignmentX(100);
-        //tapanel.setAlignmentY(100);
+
 
         panel3.add(new JScrollPane(tapanel),c);
         c.fill = GridBagConstraints.NONE;
@@ -1921,6 +1925,17 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             if(boligtabellRadioknapp.isSelected()){
                 clearPanel3();
                 lagBoligTabellen();
+                c.anchor = GridBagConstraints.CENTER;
+                c.gridx = 0;
+                c.gridy = 0;
+                c.gridwidth = 1;
+                c.insets = new Insets(0, 0, 0, 0);
+                c.gridheight = 1;
+                c.gridwidth=0;
+                c.weightx=0;
+                // resartt
+
+                c.ipady=250;
                 c.gridx=0;
                 c.gridy=0;
                 c.anchor=GridBagConstraints.FIRST_LINE_START;
