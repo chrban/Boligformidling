@@ -1,3 +1,6 @@
+import javafx.geometry.HorizontalDirection;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -41,7 +44,7 @@ public class Gui extends JFrame {
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel,bildepanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, røykerValg, husdyrValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -184,6 +187,7 @@ public class Gui extends JFrame {
         resultatPanel = new JPanel(layout);
         panel5 = new JPanel(layout);
         velgBsPanel = new JPanel(layout);
+        bildepanel = new JPanel(new BorderLayout());
 
         headerFarge = new Color(80,118,66);
         bakFarge = new Color(243,244,236);
@@ -243,13 +247,6 @@ public class Gui extends JFrame {
 
 
 
-        c.gridy=0;
-        c.gridx=0;
-        c.gridheight=10;
-        c.gridwidth=10;
-        c.weightx=0.1;
-        tapanel.setBackground(Color.RED);
-        panel3.add(tapanel,c);
 
 
 
@@ -894,6 +891,7 @@ public class Gui extends JFrame {
 
         // FANE 3 - VIS TABELL   *********************************************************
         //RESETER
+
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -902,19 +900,46 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
 
 
-        radioTabellLytter = new tabellTypeLytter();
 
+
+
+
+
+
+        c.gridx=0;
+        c.gridy=1;
+        c.gridheight=10;
+        c.gridwidth=10;
+        c.weightx=100;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        tapanel.setBackground(Color.RED);
+        //c.insets=new Dimension()
+        c.fill =GridBagConstraints.BOTH;
+        //tapanel.setPreferredSize(new Dimension(100,100));
+        tapanel.setMinimumSize(tapanel.getSize());
+        //tapanel.setAlignmentX(100);
+        //tapanel.setAlignmentY(100);
+
+        panel3.add(new JScrollPane(tapanel),c);
+
+
+
+        radioTabellLytter = new tabellTypeLytter();
         radioTabell = new ButtonGroup();
         persontabellRadioknapp = new JRadioButton("Vis personer",false);
         persontabellRadioknapp.addActionListener(radioTabellLytter);
-        c.gridx = 10;
-        c.gridy = 0;
+        //c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.weightx=0.5;
+        c.gridwidth=1;
+        c.gridheight=1;
+        c.gridx = 11;
+        c.gridy = 1;
         panel3.add(persontabellRadioknapp,c);
 
 
         boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
         boligtabellRadioknapp.addActionListener(radioTabellLytter);
-        c.gridx = 10;
+        c.gridx = 12;
         c.gridy = 1;
         panel3.add(boligtabellRadioknapp,c);
 
@@ -923,29 +948,41 @@ public class Gui extends JFrame {
         radioTabell.add(boligtabellRadioknapp);
         slettPerson = new JButton("Slett person");
         slettPerson.addActionListener(lytter);
-        c.gridx = 10;
+        c.gridx = 11;
         c.gridy = 2;
         panel3.add(slettPerson,c);
 
         slettBoligKnapp = new JButton("Slett bolig");
         slettBoligKnapp.addActionListener(lytter);
-        c.gridx = 10;
-        c.gridy = 3;
+        c.gridx = 12;
+        c.gridy = 2;
         panel3.add(slettBoligKnapp,c);
 
 
         feedbackFane3 = new JTextArea("feedbackfelt");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
-        feedbackFane3.setBackground(Color.BLUE);
+        feedbackFane3.setBackground(Color.LIGHT_GRAY);
+        feedbackFane3.setSize(600,200);
        // c.gridwidth=30;
-        c.gridy=60;
-        c.gridx=15;
-        c.anchor=GridBagConstraints.PAGE_END;
+        c.gridx=0;
+        c.gridy=15;
+        c.gridwidth=10;
+
+        c.anchor=GridBagConstraints.FIRST_LINE_START;
         //c.ipadx=30;
         //c.gridy=30;
-        c.weighty=1;
+        c.weighty=10;
         //c.fill=GridBagConstraints
         panel3.add(feedbackFane3,c);
+
+        c.gridx = 11;
+        c.gridy=3;
+        c.gridheight=5;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.weightx=100;
+        panel3.add(bildepanel,c);
+        bildepanel.setMaximumSize(bildepanel.getSize());
+        bildepanel.setBackground(Color.RED);
 
 
 
@@ -956,10 +993,12 @@ public class Gui extends JFrame {
         //RESETER
         c.gridx = 0;
         c.gridy = 0;
+        c.weightx=0;
         c.fill = GridBagConstraints.NONE;
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
+
 
         boligsøkerOverskrift = new JLabel("Boligsøkere");
         c.gridx = 0;
@@ -1007,6 +1046,9 @@ public class Gui extends JFrame {
         c.gridy = 4;
         panel4.add(resultatPanel,c);
         resultatPanel.setBackground(Color.BLUE);
+
+
+
 
 
 
@@ -1664,12 +1706,16 @@ public class Gui extends JFrame {
                     int valgtRad = lsm.getMaxSelectionIndex();
                     slettPersonFn = (String)tabellmodell.getValueAt(valgtRad, 0);
                     slettPersonEn = (String)tabellmodell.getValueAt(valgtRad, 1);
+                    visPersonInfo();
+
                 }
             }
             else if(tabellmodell instanceof boligTabellFabrikk){
                 if(!lsm.isSelectionEmpty()){
                     int valgtRad = lsm.getMaxSelectionIndex();
                     slettBoligId = (int)tabellmodell.getValueAt(valgtRad, 8);
+                    System.out.println("B tabel ja");
+                    visBoligInfo();
                 }
             }
 
@@ -2022,6 +2068,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
+
     }    // end personTabellFabrikk
 
 
@@ -2088,7 +2135,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     private Object[][] joinBoligArray() {
-        JOptionPane.showMessageDialog(null,"inni joinboligArray");
+
         Object[][] første = boliger.eneboligerTilTabell();
         Object[][] andre = boliger.hyblerTilTabell();
         Object[][] tredje = boliger.leiligheterTilTabell();
@@ -2846,6 +2893,50 @@ private class resultatTabellModell extends AbstractTableModel
         String ut = kontrakter.toString();
         utområde.append(ut);
         */
+    }
+    public void visPersonInfo()
+    {
+        System.out.println("gogo");
+
+
+        String id = utleiere.finnID(slettPersonFn, slettPersonEn);
+        if(!id.equals(null))
+        {
+            feedbackFane3.setText(id.toString());
+
+        }
+        else {
+            String bs = boligsøkere.finnBoligsøkerID(slettPersonFn,slettPersonEn);
+            feedbackFane3.setText(bs.toString());
+        }
+    }
+
+
+
+    public void visBoligInfo() {
+        String id = Integer.toString(slettBoligId);
+
+
+
+        Bolig valgtBolig = boliger.finnBolig(id);
+
+        String ut = "Adresse: " + valgtBolig.getAdresse() +
+                "\nSted: " + valgtBolig.getSted() +
+                "\nPris: " + valgtBolig.getUtleiepris() +
+                "\nEr ledig: " + valgtBolig.getUtleid() +
+                "\nBoigeier:" + valgtBolig.getEierID() +
+                "\n";
+
+
+        feedbackFane3.setText(ut);
+
+
+
+        ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        //prøv etterpå label.setBounds();
+        bildepanel.add(label, BorderLayout.CENTER);
+
     }
 
 
