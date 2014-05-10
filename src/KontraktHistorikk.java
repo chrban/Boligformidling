@@ -1,16 +1,20 @@
 import java.io.*;
 
 public class KontraktHistorikk {
+    private File fil;
+    public KontraktHistorikk(){
+        fil = new File("D:\\BoligHistorikk.txt");
+    }
     public void skrivTilTekstFil(String n){
         try{
             String content = n;
-            File fil = new File("D:\\BoligHistorikk.txt");
 
             if(!fil.exists())
                 fil.createNewFile();
 
-            FileWriter fw = new FileWriter(fil.getAbsoluteFile());
+            FileWriter fw = new FileWriter(fil.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
+            bw.newLine();
             bw.write(content);
             bw.close();
             System.out.println();
@@ -41,5 +45,13 @@ public class KontraktHistorikk {
             }
         }
         return null;
+    }
+    public void openTekstFil(){
+        try {
+            ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "D:\\BoligHistorikk.txt");
+            pb.start();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 }

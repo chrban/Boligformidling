@@ -66,8 +66,8 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger,matching;
-    private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell;
+    private JMenu filmeny, rediger,matching,kontraktHistorikk;
+    private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell, visHistorikk;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
@@ -117,14 +117,16 @@ public class Gui extends JFrame {
         oppdaterBoligsøkerTabell = new JMenuItem("Oppdater BS tabell");
         oppdaterBoligsøkerTabell.addActionListener(øre);
 
-
+        kontraktHistorikk = new JMenu("Kontrakthistorikk");
+        visHistorikk = new JMenuItem("Vis kontrakhistorikk");
+        visHistorikk.addActionListener(øre);
 
         rediger.add(angre);
         filmeny.add(om);
         filmeny.add(lagre);
         rediger.add(tabell);
         matching.add(oppdaterBoligsøkerTabell);
-
+        kontraktHistorikk.add(visHistorikk);
 
 
         menylinje = new JMenuBar();
@@ -132,6 +134,7 @@ public class Gui extends JFrame {
         menylinje.add(filmeny);
         menylinje.add(rediger);
         menylinje.add(matching);
+        menylinje.add(kontraktHistorikk);
 
 
 //temp, filmeny slutt
@@ -1261,6 +1264,9 @@ public class Gui extends JFrame {
             else if(e.getSource()==oppdaterBoligsøkerTabell){
                 visBoligsøkere();
                 System.out.println("Lastet inn boligsøkertabellen på nytt");
+            }
+            else if(e.getSource() == visHistorikk){
+                visKontraktFil();
             }
 
 
@@ -2869,6 +2875,9 @@ private class resultatTabellModell extends AbstractTableModel
         }
         int pris = sendTil.getUtleiepris();
         epost.sendMail(til,n,adresse, sted, pris);
+    }
+    public void visKontraktFil(){
+        kontrakthistorie.openTekstFil();
     }
 
 }
