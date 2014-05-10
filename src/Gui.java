@@ -1884,7 +1884,12 @@ private class resultatTabellModell extends AbstractTableModel
     }
     public Class getColumnClass( int k )
     {
-        return getValueAt( 0, k ).getClass();
+        try{
+            return getValueAt( 0, k ).getClass();
+        }catch(NullPointerException npe){
+            JOptionPane.showMessageDialog(null,"Fant ingen aktuelle boliger");
+        }
+        return null;
     }
 }
 
@@ -2541,11 +2546,11 @@ private class resultatTabellModell extends AbstractTableModel
         switch(valg){
             case "Enebolig":    btype = 1;
                 break;
-            case "Hybel":       btype = 2;
+            case "Rekkehus":       btype = 2;
                 break;
             case "Leilighet":   btype = 3;
                 break;
-            case "Rekkehus":    btype = 4;
+            case "Hybel":    btype = 4;
                 break;
             case "Velg boligtype..": btype = 0;
                 break;
@@ -2648,16 +2653,20 @@ private class resultatTabellModell extends AbstractTableModel
 
         switch(btype){
             case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal);
-                         boliger.leggTil(nyEnebolig);
+                         if(boliger.leggTil(nyEnebolig))
+                             JOptionPane.showMessageDialog(null,"Registrering vellykket!");
                          break;
             case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal);
-                         boliger.leggTil(nyttRekkehus);
+                         if(boliger.leggTil(nyttRekkehus))
+                             JOptionPane.showMessageDialog(null, "Registrering vellykket");
                          break;
             case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis);
-                         boliger.leggTil(nyLeilighet);
+                         if(boliger.leggTil(nyLeilighet))
+                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
                          break;
             case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt);
-                         boliger.leggTil(nyHybel);
+                         if(boliger.leggTil(nyHybel))
+                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
                          break;
         }
     }

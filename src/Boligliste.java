@@ -124,7 +124,7 @@ public class Boligliste implements Serializable {
     public Object[][] matchPåKrav(int[] krav)
     {
         DecimalFormat df = new DecimalFormat("0.00");
-        Object[][] ut = new Object[eneboliger.size()][10];
+        Object[][] ut = null;
         int plass = 0;
         int[] specs;
         double matches = 0;
@@ -140,9 +140,9 @@ public class Boligliste implements Serializable {
             {
                 Enebolig enebolig = iter.next();
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
-                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() )// dette er ikke idiotsikkert.
+                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() && krav[1] == specs[1])// dette er ikke idiotsikkert.
                 {
-                    System.out.println("forsøker seg på enebolianmatch");
+                    ut = new Object[eneboliger.size()][10];
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if(krav[i] == 0)
@@ -171,11 +171,11 @@ public class Boligliste implements Serializable {
             Iterator<Rekkehus> iter = rekkehus.iterator();
             while(iter.hasNext())
             {
-                Rekkehus rekkehus = iter.next();
-                specs = rekkehus.getSpecArray();
-                if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehus.getUtleid())
+                Rekkehus rekkehuset = iter.next();
+                specs = rekkehuset.getSpecArray();
+                if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehuset.getUtleid() && krav[1] == specs[1])
                 {
-
+                    ut = new Object[rekkehus.size()][10];
                     for (int i = 1; i <= 5; i++)// av krav
                     {
 
@@ -185,7 +185,7 @@ public class Boligliste implements Serializable {
                     if(matches >= 4)
                     {
                         matchkoeffisient = matches/(5-urelevante);
-                        ut[plass] = rekkehus.tilMatchTabell();
+                        ut[plass] = rekkehuset.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
                         matchkoeffisient = 0;
                         matches = 0;
@@ -204,8 +204,9 @@ public class Boligliste implements Serializable {
             {
                 Leilighet leilighet = iter.next();
                 specs = leilighet.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid())
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid() && krav[1] == specs[1])
                 {
+                    ut = new Object[leiligheter.size()][10];
                     for(int i = 1; i <= 2; i++)// av krav
                         if (specs[i] == krav[i])
                             matches++;
@@ -233,7 +234,8 @@ public class Boligliste implements Serializable {
             while (iter.hasNext()) {
                 Hybel hybel = iter.next();
                 specs = hybel.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid()) {
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid() && krav[1] == specs[1]) {
+                    ut = new Object[hybler.size()][10];
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if (specs[i] == krav[i])
