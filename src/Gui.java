@@ -194,8 +194,8 @@ public class Gui extends JFrame {
 
         //FARGER
 
-        comboboxFarge = new Color(97,171,170);
-        bakFarge = new Color(234,237,178);
+        comboboxFarge = new Color(255,255,255);
+        bakFarge = new Color(253,255,232);
         lyseSvart = new Color(43,43,43);
         headerFarge= new Color(46,110,109);
 
@@ -796,10 +796,10 @@ public class Gui extends JFrame {
 
 
         c.insets = new Insets(0, 0, 50, 0);
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 1;
-        c.anchor = GridBagConstraints.WEST;
+        c.gridwidth = 3 ;
+        c.anchor = GridBagConstraints.CENTER;
         regBoligHeader = new JLabel("Registrer bolig");
         regBoligHeader.setFont(headerFont);
         regBoligHeader.setForeground(headerFarge);
@@ -809,7 +809,7 @@ public class Gui extends JFrame {
 
 
         c.gridwidth = 1;
-        c.insets = new Insets(0, 0, 10, 5);
+        c.insets = new Insets(0, 0, 10, 10);
         c.gridx = 0;
         c.gridy = 1;
         c.fill = GridBagConstraints.NONE;
@@ -833,7 +833,7 @@ public class Gui extends JFrame {
         byBoxFane2 = new JComboBox(byvalg);
         c.gridx = 1;
         c.gridy = 2;
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.WEST;
         byBoxFane2.setBackground(comboboxFarge);
         byBoxFane2.setForeground(lyseSvart);
@@ -848,9 +848,11 @@ public class Gui extends JFrame {
         boligtypeBoxFane2 = new JComboBox(boligtypeValg);
         c.gridx = 1;
         c.gridy = 3;
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.WEST;
         boligtypeBoxFane2.addActionListener(new boligTypeLytter());
+        boligtypeBoxFane2.setBackground(comboboxFarge);
+        boligtypeBoxFane2.setForeground(lyseSvart);
         bopanel.add(boligtypeBoxFane2, c);
 
 
@@ -918,6 +920,7 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         romLabelFane2 = new JLabel("Rom: ");
+
         bopanel.add(romLabelFane2, c);
         romLabelFane2.setVisible(false);
 
@@ -926,6 +929,8 @@ public class Gui extends JFrame {
         c.gridy = 8;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        romBoxFane2.setBackground(comboboxFarge);
+        romBoxFane2.setForeground(lyseSvart);
         bopanel.add(romBoxFane2, c);
         romBoxFane2.setVisible(false);
 
@@ -944,6 +949,8 @@ public class Gui extends JFrame {
         c.gridy = 9;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        etasjeBoxFane2.setBackground(comboboxFarge);
+        etasjeBoxFane2.setForeground(lyseSvart);
         etasjeBoxFane2.setVisible(false);
         bopanel.add(etasjeBoxFane2, c);
 
@@ -959,8 +966,10 @@ public class Gui extends JFrame {
         planBoxFane2 = new JComboBox(planValg);
         c.gridx = 1;
         c.gridy = 10;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        planBoxFane2.setBackground(comboboxFarge);
+        planBoxFane2.setForeground(lyseSvart);
         bopanel.add(planBoxFane2, c);
         planBoxFane2.setVisible(false);
 
@@ -972,6 +981,8 @@ public class Gui extends JFrame {
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        garasjeValgFane2.setBackground(bakFarge);
+        garasjeValgFane2.setForeground(lyseSvart);
         garasjeValgFane2.setVisible(false);
         bopanel.add(garasjeValgFane2, c);
 
@@ -981,6 +992,8 @@ public class Gui extends JFrame {
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
+        kjellerValgFane2.setBackground(bakFarge);
+        kjellerValgFane2.setForeground(lyseSvart);
         kjellerValgFane2.setVisible(false);
         bopanel.add(kjellerValgFane2, c);
 
@@ -994,14 +1007,19 @@ public class Gui extends JFrame {
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        heisValgFane2.setBackground(bakFarge);
+        heisValgFane2.setForeground(lyseSvart);
         heisValgFane2.setVisible(false);
         bopanel.add(heisValgFane2, c);
+
 
         balkongValgFane2 = new JCheckBox("Balkong");
         c.gridx = 1;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
+        balkongValgFane2.setBackground(bakFarge);
+        balkongValgFane2.setForeground(lyseSvart);
         balkongValgFane2.setVisible(false);
         bopanel.add(balkongValgFane2, c);
 
@@ -1015,6 +1033,8 @@ public class Gui extends JFrame {
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        badValgFane2.setBackground(bakFarge);
+        badValgFane2.setForeground(lyseSvart);
         badValgFane2.setVisible(false);
         bopanel.add(badValgFane2, c);
 
@@ -1022,7 +1042,9 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.CENTER;
+        c.anchor = GridBagConstraints.EAST;
+        kjøkkenValgFane2.setBackground(bakFarge);
+        kjøkkenValgFane2.setForeground(lyseSvart);
         kjøkkenValgFane2.setVisible(false);
         bopanel.add(kjøkkenValgFane2, c);
 
@@ -1035,7 +1057,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Beskrivelse:"), c);
 
-        beskrivelse = new JTextArea("Skriv da..", 5, 10);
+        beskrivelse = new JTextArea("Skriv da..", 5, 20);
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
         c.gridy = 14;
@@ -1051,17 +1073,20 @@ public class Gui extends JFrame {
         c.gridy = 16;
         bildesti.setEditable(false);
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.WEST;
         bopanel.add(bildesti, c);
 
         finnBildeKnapp = new JButton("Finn bilde");
         finnBildeKnapp.addActionListener(lytter);
+        finnBildeKnapp.setMargin(new Insets(0,13,0,13));
+
         c.gridx = 2;
         c.gridy = 16;
         bopanel.add(finnBildeKnapp, c);
 
         velgUtleier = new JButton("Velg utleier");
         velgUtleier.addActionListener(lytter);
+        velgUtleier.setMargin(new Insets(0,8,0,8));
         c.gridx = 2;
         c.gridy = 17;
         bopanel.add(velgUtleier,c);
@@ -1082,13 +1107,15 @@ public class Gui extends JFrame {
         bopanel.add(utleierId, c);
 
 
-
+        c.ipady = 0;
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
-        c.gridx = 3;
+        regBoligKnapp.setMargin(new Insets(0,14,0,14));
+        c.gridx = 2;
         c.gridy = 18;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10, 5, 5, 5);
+        c.anchor = GridBagConstraints.WEST;
+
+        c.insets = new Insets(10, 0, 5, 10);
         bopanel.add(regBoligKnapp, c);
 
 
