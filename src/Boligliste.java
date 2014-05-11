@@ -155,6 +155,8 @@ public class Boligliste implements Serializable {
         double matchkoeffisient;
         double urelevante = 0;
         int teller = 0;
+        String[][] dummy = {{"Fant","desverre","ingen","passende","bolig","for","valgt","boligsøker","!"}};
+
 
         // enebol
         if(krav[0] == 1)
@@ -282,6 +284,10 @@ public class Boligliste implements Serializable {
             temp[i] = ut[i];
             temp[i][0] = ut[i][0];
         }
+
+        if (teller == 0)
+            temp = dummy;
+
         return temp;
         /*todo
         - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?

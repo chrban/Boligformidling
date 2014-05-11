@@ -2259,6 +2259,7 @@ private class resultatTabellModell extends AbstractTableModel
 
     Object[][] celler = boliger.matchPåKrav(kravene);
 
+
     public int getRowCount() {
         return celler.length;
     }
@@ -2408,7 +2409,7 @@ private class resultatTabellModell extends AbstractTableModel
         String[][] første =  boligsøkere.tilTabell();
         String[][] andre =utleiere.tilTabell();
         String[][] joina = new String[første.length + andre.length][6];
-        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
+        String[][] dummy = {{"Tabellen","er","tom","Tabellen","er","tom"}};
 
 
         int i = 0;
@@ -2556,6 +2557,7 @@ private class resultatTabellModell extends AbstractTableModel
         Object[][] andre = boliger.hyblerTilTabell();
         Object[][] tredje = boliger.leiligheterTilTabell();
         Object[][] fjerde = boliger.rekkehusTilTabell();
+        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom","tom","tom","tom"}};
         System.out.println("første "+første.length);
 
         Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
@@ -2581,8 +2583,17 @@ private class resultatTabellModell extends AbstractTableModel
             joina[i++] = fjerde[l];
             l++;
         }
+        if(i==0)
+            joina = dummy;
+
         return joina;
     }
+
+
+
+    /*
+    String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
+     */
 
 
 
@@ -3030,14 +3041,14 @@ private class resultatTabellModell extends AbstractTableModel
             default:            byvalg = 0;
                                 break;
         }
-        int rom;
+        int rom = 0;
         int antetasjer;
 
 
-        if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
-            rom = 0;
-        else
-            rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
+        if(btype!=4)
+            if(romBoxFane2.getSelectedIndex()==0)
+                gyldigBox(romBoxFane2);
+            else Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
 
         if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
@@ -3047,10 +3058,10 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
-            plan = 0;
-        else
-            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
+        if(btype==3)
+            if(planBoxFane2.getSelectedIndex() == 0)
+                gyldigBox(planBoxFane2);
+            else plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
 
 
 
@@ -3062,17 +3073,17 @@ private class resultatTabellModell extends AbstractTableModel
         int kjøkkenInt = -1;
         int balkong = -1;
 
-        if(kjellerValg.isSelected())
+        if(kjellerValgFane2.isSelected())
             kjeller = 1;
-        if(heisValg.isSelected())
+        if(heisValgFane2.isSelected())
             heis = 1;
-        if(garasjeValg.isSelected())
+        if(garasjeValgFane2.isSelected())
             garasje = 1;
         if(balkongValgFane2.isSelected())
             balkong = 1;
-        if(badValg.isSelected())
+        if(badValgFane2.isSelected())
             badInt = 1;
-        if(kjøkkenValg.isSelected())
+        if(kjøkkenValgFane2.isSelected())
             kjøkkenInt = 1;
 
         Bolig ny = null;
@@ -3250,6 +3261,7 @@ private class resultatTabellModell extends AbstractTableModel
         velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.pack();
         velgUtleierVindu.setVisible(true);
+        velgUtleierVindu.setLocationRelativeTo(velgUtleier);
 
 
     }
