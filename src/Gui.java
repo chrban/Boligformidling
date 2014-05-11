@@ -224,16 +224,17 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.weightx = 0;
         c.weighty = 0;
-        c.insets = new Insets(0,0,50,0);
+        c.insets = new Insets(20,0,20,0);
         c.anchor = GridBagConstraints.CENTER;
         panel1.add(regPersonHeader,c);
 
 
 
 
-        c.anchor = GridBagConstraints.CENTER;
+        c.anchor = GridBagConstraints.NORTH;
         c.gridx = 0;
         c.gridy = 1;
+        c.weighty = 1;
         c.insets = new Insets(0,0,0,0);
         panel1.add(pepanel,c);
 
@@ -241,13 +242,13 @@ public class Gui extends JFrame {
 
         c.gridx = 0;
         c.gridy = 2;
-        c.weighty = -10;
-        c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(0,60,0,0);
+        c.weighty = 2;
+        c.anchor = GridBagConstraints.NORTH;
+        c.insets = new Insets(0,50,0,0);
         bspanel.setSize(bspanel.getPreferredSize());
         panel1.add(bspanel,c);
 
-
+        c.weighty = 0;
 
         c.insets = new Insets(50,0,0,0);
         panel1.add(utpanel,c);
@@ -261,14 +262,7 @@ public class Gui extends JFrame {
         panel1.add(btpanel,c);
 
 
-        regPersonKnapp = new JButton("Registrer");
-        regPersonKnapp.addActionListener(lytter);
-        c.gridx = 2;
-        c.gridy = 4;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(0, 0, 0, 0);
-        regPersonKnapp.setVisible(false);
-        panel1.add(regPersonKnapp, c);
+
 
 
         feedbackFane1 = new JTextArea("");
@@ -512,10 +506,13 @@ public class Gui extends JFrame {
 
         regUtleierKnapp = new JButton("Registrer");
         regUtleierKnapp.addActionListener(lytter);
-        c.gridx = 3;
+        c.ipadx = 0;
+        c.gridx = 1;
         c.gridy = 15;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.insets = new Insets(10, 5, 5, 5);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(20, 0, 5, 5);
+        regUtleierKnapp.setMargin(new Insets(0,30,0,30));
         regUtleierKnapp.setVisible(false);
         pepanel.add(regUtleierKnapp, c);
 
@@ -787,6 +784,16 @@ public class Gui extends JFrame {
         planBox.setVisible(false);
 
 
+        regPersonKnapp = new JButton("Registrer");
+        regPersonKnapp.addActionListener(lytter);
+        c.gridx = 1;
+        c.gridy = 9;
+
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(15, 10, 0, 0);
+        regPersonKnapp.setMargin(new Insets(0,30,0,30));
+        regPersonKnapp.setVisible(false);
+        bspanel.add(regPersonKnapp, c);
 
         // BoligtypePanel
 
@@ -1144,6 +1151,7 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         bopanel.add(utleierId, c);
+
 
 
         c.ipady = 0;

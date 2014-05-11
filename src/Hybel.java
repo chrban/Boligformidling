@@ -45,7 +45,8 @@ public class Hybel extends Bolig implements Serializable {
         unik[0] = getEierID();
         unik[1] = getAdresse();
         unik[2] = Integer.toString(getBoareal());
-        unik[3] = Integer.toString(getUtleiepris());
+        unik[3
+                ] = Integer.toString(getUtleiepris());
 
         return unik;
     }
