@@ -47,6 +47,6 @@ abstract class Person implements Serializable
     {
 
 
-        return enavn.substring(0,1).toUpperCase()+enavn.substring(1)+", " + fnavn.substring(0,1).toUpperCase()+fnavn.substring(1);
+        return"Navn: "+ enavn.substring(0,1).toUpperCase()+enavn.substring(1)+", " + fnavn.substring(0,1).toUpperCase()+fnavn.substring(1);
     }
 }

@@ -60,8 +60,15 @@ public class Utleier extends Person implements Serializable
 
     public String toString()
     {
-        return super.toString() + "\nFirma: " + firma.substring(0,1).toUpperCase()+firma.substring(1);
+        return super.toString() + "\nFirma: " + firma.substring(0,1).toUpperCase()+firma.substring(1)+
+                "\nUtleier ID: " + getId()+
+                "\nAdresse: " + getAdresse()+
+                "\nMail: " + getEmail()+
+                "\nTlf: " + getTlf();
+
     }
+
+
 
 
     //klasser som kan være nødvendige:
