@@ -21,10 +21,10 @@ public class Boligliste implements Serializable {
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
 
-        Enebolig en = new Enebolig("Adresse22",11,1, 1, 2000, 206500, "PdIKK", "img/eneboliger/kjipe/rwanda_mudhut.jpg",  1, -1, -1, 10,"pikk");
-        Enebolig to = new Enebolig("Adresse22",12,1, 1, 2000, 20600, "PIdKK", "img/eneboliger/swære/Schloss_oslo.jgp",  1, -1, -1, 10, "pikk");
-        Enebolig tre = new Enebolig("22",24,15, 13, 2000, 2000, "PIKdK", "img/eneboliger/swære/1067206-7-1306195722399.jgp",  1, -1, -1, 10, "pikk");
-        Enebolig fire = new Enebolig("Adredesse",24,51, 51, 255000, 256000, "PIKK", "img/eneboliger/vanlige/hus_drag.jpg",  1, -1, -1, 10,"pikk");
+        /* Enebolig en = new Enebolig("Adresse22",11,1, 1, 2000, 206500, "PdIKK", "img/eneboliger/kjipe/rwanda_mudhut.jpg",  1, -1, -1, 10);
+        Enebolig to = new Enebolig("Adresse22",12,1, 1, 2000, 20600, "PIdKK", "img/eneboliger/swære/Schloss_oslo.jgp",  1, -1, -1, 10);
+        Enebolig tre = new Enebolig("22",24,15, 13, 2000, 2000, "PIKdK", "img/eneboliger/swære/1067206-7-1306195722399.jgp",  1, -1, -1, 10);
+        Enebolig fire = new Enebolig("Adredesse",24,51, 51, 255000, 256000, "PIKK", "img/eneboliger/vanlige/hus_drag.jpg",  1, -1, -1, 10);
         System.out.println( en.getId() + " " + to.getId()+" ");
 
         if(leggTil(en))
@@ -39,28 +39,24 @@ public class Boligliste implements Serializable {
         if(leggTil(fire));
             System.out.println("lagt til fire");
 
-        System.out.println(eneboliger.size());
+        System.out.println(eneboliger.size()); */
     }
     public boolean leggTil(Bolig b){
         if(b instanceof Enebolig){
             if(!erUnik(b)){
-                eneboliger.add((Enebolig)b);
-                return true;
+                return eneboliger.add((Enebolig)b);
             }
         }else if(b instanceof Rekkehus){
             if(!erUnik(b)){
-                rekkehus.add((Rekkehus)b);
-                return true;
+                return rekkehus.add((Rekkehus)b);
             }
         }else if(b instanceof Leilighet){
             if(!erUnik(b)){
-                leiligheter.add((Leilighet)b);
-                return true;
+                return leiligheter.add((Leilighet)b);
             }
         }else if(b instanceof Hybel){
             if(!erUnik(b)){
-                hybler.add((Hybel)b);
-                return true;
+                 return hybler.add((Hybel)b);
             }
         }JOptionPane.showMessageDialog(null,"Bolig er allerde lagt til!");
         return false;
@@ -83,9 +79,9 @@ public class Boligliste implements Serializable {
     }
 
     public boolean erUnik(Bolig b){
-        Iterator<? extends Bolig> it = null;
-        String[] spec = null;
-        Bolig be = null;
+        Iterator<? extends Bolig> it;
+        String[] spec;
+        Bolig be;
         if(b instanceof Enebolig) {
             it = eneboliger.iterator();
             spec = ((Enebolig) b).getUnikArray();
