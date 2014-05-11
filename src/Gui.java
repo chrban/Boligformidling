@@ -3032,7 +3032,6 @@ private class resultatTabellModell extends AbstractTableModel
         }
         int rom;
         int antetasjer;
-        int plan = 0;
 
 
         if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
@@ -3172,6 +3171,15 @@ private class resultatTabellModell extends AbstractTableModel
             sluttmåned = sluttmåned-1;
             Calendar start = new GregorianCalendar(startår, startmåned, startdag);
             Calendar slutt = new GregorianCalendar(sluttår, sluttmåned, sluttdag);
+            start.setLenient(false);
+            start.setLenient(false);
+            try{
+                Date dt = start.getTime();
+                Date ft = slutt.getTime();
+            }catch(IllegalArgumentException iae){
+                JOptionPane.showMessageDialog(null, "En av datoene du skrev inn er ugyldig!");
+            }
+
 
             if(start.before(slutt))
             {
