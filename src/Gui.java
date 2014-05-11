@@ -3175,25 +3175,23 @@ private class resultatTabellModell extends AbstractTableModel
             start.setLenient(false);
             try{
                 Date dt = start.getTime();
-                Date ft = slutt.getTime();
+                Date df = slutt.getTime();
+                if(start.before(slutt))
+                {
+                    Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
+                    if(kontrakter.leggTil(ny)){
+                        kontrakthistorie.skrivTilTekstFil(ny.toString());
+                        JOptionPane.showMessageDialog(null, "Kontrakt lagret");
+                        valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
+                        sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
+                        startMånedFelt.setText(null); startDagFelt.setText(null);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
+                }
             }catch(IllegalArgumentException iae){
                 JOptionPane.showMessageDialog(null, "En av datoene du skrev inn er ugyldig!");
-            }
-
-
-            if(start.before(slutt))
-            {
-                Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
-                if(kontrakter.leggTil(ny)){
-                    kontrakthistorie.skrivTilTekstFil(ny.toString());
-                    JOptionPane.showMessageDialog(null, "Kontrakt lagret");
-                    valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
-                    sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
-                    startMånedFelt.setText(null); startDagFelt.setText(null);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
             }
         }
         else{
