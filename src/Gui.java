@@ -3379,7 +3379,7 @@ private class resultatTabellModell extends AbstractTableModel
         //sett utleierid, sånn at det matches på riktig boligsøker
 
         String leietakerId = valgtLeietaker.getText();
-        if(leietakerId.equals("")){
+        if(leietakerId.equals("Ingen leietaker valgt")){
             JOptionPane.showMessageDialog(null, "Ingen boligsøker valgt!");
             return;
         }
