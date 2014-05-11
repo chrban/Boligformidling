@@ -21,7 +21,7 @@ public class Kontrakt implements Serializable{
         bolig = b;
         start = s;
         slutt = sl;
-        df = new SimpleDateFormat("yyyy MM dd");
+        df = new SimpleDateFormat("yyyy/MM/dd");
     }
 
     public Utleier getUtleier(){

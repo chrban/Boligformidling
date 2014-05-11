@@ -73,7 +73,7 @@ public class Gui extends JFrame {
     private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell, visHistorikk;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
-    private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu;
+    private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
     private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private int slettBoligId;
@@ -3145,8 +3145,10 @@ private class resultatTabellModell extends AbstractTableModel
         if(startdag <= 31   &&   startdag > 0   &&   startmåned <= 12   &&   startmåned > 0   &&   startår >=2014   &&  startår <= 2020 &&
            sluttdag <= 31   &&   sluttdag > 0   &&   sluttmåned <= 12   &&   sluttmåned > 0   &&   sluttår >=2014   &&  sluttår <= 2020)
         {
-            Calendar start = new GregorianCalendar(startår, (startmåned-1), startdag);
-            Calendar slutt = new GregorianCalendar(sluttår, (sluttmåned-1), sluttdag);
+            startmåned = startmåned-1;
+            sluttmåned = sluttmåned-1;
+            Calendar start = new GregorianCalendar(startår, startmåned, startdag);
+            Calendar slutt = new GregorianCalendar(sluttår, sluttmåned, sluttdag);
 
             if(start.before(slutt))
             {
@@ -3188,6 +3190,16 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
+    }
+    private void visKontraktHistorie(){
+        visKontraktHistorikk = new JFrame("Kontrakt historikk");
+        JTextArea ko = new JTextArea(30,20);
+        ko.setText(kontrakthistorie.lesFraTekstFil());
+        ko.setEditable(false);
+        JScrollPane scrolle = new JScrollPane(ko);
+        visKontraktHistorikk.add(scrolle);
+        visKontraktHistorikk.pack();
+        visKontraktHistorikk.setVisible(true);
     }
 
     private void visVelgUtleierVindu()
@@ -3514,7 +3526,7 @@ private class resultatTabellModell extends AbstractTableModel
         epost.sendMail(til,n,adresse, sted, pris);
     }
     public void visKontraktFil(){
-        kontrakthistorie.openTekstFil();
+        visKontraktHistorie();
     }
 
 }
