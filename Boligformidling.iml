@@ -24,6 +24,8 @@
     <orderEntry type="library" name="mailfilene" level="project" />
     <orderEntry type="library" name="mailfilene1" level="project" />
     <orderEntry type="library" name="mailfilene2" level="project" />
+    <orderEntry type="library" name="mailfilene3" level="project" />
+    <orderEntry type="library" name="itext" level="project" />
   </component>
 </module>
 

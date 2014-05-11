@@ -3,7 +3,7 @@ import java.io.*;
 public class KontraktHistorikk {
     private File fil;
     public KontraktHistorikk(){
-        fil = new File("D:\\BoligHistorikk.txt");
+        fil = new File("BoligHistorikk.txt");
     }
     public void skrivTilTekstFil(String n){
         try{
@@ -28,7 +28,7 @@ public class KontraktHistorikk {
         try{
             String current;
             String ut = "";
-            br = new BufferedReader(new FileReader("D:\\BoligHistorikk.txt"));
+            br = new BufferedReader(new FileReader("BoligHistorikk.txt"));
 
             while((current = br.readLine()) != null )
                 ut += current + "\n";
@@ -45,10 +45,11 @@ public class KontraktHistorikk {
             }
         }
         return null;
+
     }
     public void openTekstFil(){
         try {
-            ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "D:\\BoligHistorikk.txt");
+            ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "BoligHistorikk.txt");
             pb.start();
         }catch(IOException ioe){
             ioe.printStackTrace();

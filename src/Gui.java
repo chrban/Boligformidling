@@ -2168,7 +2168,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     private class boligsøkerTabellModell extends AbstractTableModel
     {
-        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail"};
+        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail","lll"};
         String [][] celler = boligsøkere.tilMatchTabll();
 
         public int getRowCount() {
@@ -2714,7 +2714,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-            if( fnavn.equals("")||fnavn.length()<2|| enavn.equals("") ||enavn.length()<2|| t.equals("")||t.length()<2 || ad.length()<2 || ad.equals("") || email.equals("") || email.length()<2|| bt == 0 || by == 0 ||  plan == 0 || rom == 0)
+            if( fnavn.equals("")||fnavn.length()<2|| enavn.equals("") ||enavn.length()<2|| t.equals("")||t.length()<2 || ad.length()<2 || ad.equals("") || email.equals("") || email.length()<2|| bt == 0 || by == 0  || rom == 0)
             {
 
                 gyldig(fornavn);
@@ -2750,6 +2750,21 @@ private class resultatTabellModell extends AbstractTableModel
                             return;
                         }
                     }
+
+                    if(bt == 3 &&  plan == 0){
+                        feedbackFane1.setText("Velg ønsket etasje");
+                        gyldigBox(planBox);
+                        return;
+                    }
+
+
+
+
+
+
+
+
+
 
 
                 JOptionPane.showMessageDialog(null,"3");
@@ -2925,6 +2940,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
+
         if(utId.equals("Ingen utleier valgt"))
         {
             JOptionPane.showMessageDialog(null,"Du må velge en utleier!");
@@ -2943,7 +2959,7 @@ private class resultatTabellModell extends AbstractTableModel
             return;
         }
 
-
+        int plan = 0;
         int areal = 0;
         int år = 0;
         int upris = 0;
@@ -2969,7 +2985,7 @@ private class resultatTabellModell extends AbstractTableModel
             areal = Integer.parseInt(arealString);
             år = Integer.parseInt(årString);
             upris = Integer.parseInt(utPrisString);
-            if( btype == 1 || btype == 4){
+            if( btype == 1 || btype == 2){
                 try{
                     tomtareal = Integer.parseInt(tAreal);
                 }catch(NumberFormatException nfe){
@@ -3022,13 +3038,12 @@ private class resultatTabellModell extends AbstractTableModel
         else
             antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
 
-        if(planBoxFane2.isVisible()){
-            if (planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
-                plan = 0;
-            else
-                plan = Integer.parseInt((String) planBoxFane2.getSelectedItem());
-        }
 
+
+        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
+            plan = 0;
+        else
+            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
 
 
 
@@ -3339,25 +3354,26 @@ private class resultatTabellModell extends AbstractTableModel
     }
     public void visPersonInfo()
     {
-        System.out.println("gogo");
-
         try{
         String id = utleiere.finnID(slettPersonFn, slettPersonEn);
-        if(!id.equals(null))
+        if(id != null)
         {
-            feedbackFane3.setText(id.toString());
+            Utleier valgtUtleier = utleiere.getUtleier(id);
+            feedbackFane3.setText(valgtUtleier.toString());
             clearBildePanel();
 
         }
         else {
             String bs = boligsøkere.finnBoligsøkerID(slettPersonFn,slettPersonEn);
-            feedbackFane3.setText(bs.toString());
+            Boligsøker valgtBoligsøker = boligsøkere.getBoligsøker(bs);
+            feedbackFane3.setText(valgtBoligsøker.toString());
             clearBildePanel();
         }
         clearBildePanel();
         }
         catch(NumberFormatException nfe) {
             System.out.println("number formatCare");
+
         }
     }
 

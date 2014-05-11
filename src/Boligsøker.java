@@ -56,7 +56,7 @@ public class Boligsøker extends Person implements Serializable
        ut[2] = super.getAdresse();
        ut[3] = super.getEmail();
        ut[4] = super.getTlf();
-       ut[5] = "";
+       ut[5] = "-";
 
        return ut;
    }
@@ -83,9 +83,57 @@ public class Boligsøker extends Person implements Serializable
 
    public String toString()
    {
-       return super.toString() + " pikk";
-   }
 
+       return super.toString() +
+               "\nBoligsøker ID: "+getId()+
+               "Adresse: " + getAdresse()+
+               "\nMail: " + getEmail()+
+               "\nTlf: " + getTlf()+
+               "\nKrav: " + transform(getKrav());
+   }
+    private String transform(int[]i)
+    {
+        String ut = "Søker etter ";
+        int btype = i[0];
+            switch(btype) {
+                case 1:
+                    ut += "enebolig";
+                    break;
+                case 2:
+                    ut += "rekkehus";
+                    break;
+                case 3:
+                    ut += "leilighet";
+                    break;
+                case 4:
+                    ut += "hybel";
+                    break;
+                default:
+                    ut += "-ikke valgt-";
+                    break;
+            }
+            ut += " i den fine byen ";
+            int by = i[1];
+            switch(by){
+                case 1: ut+= "Oslo";
+                    break;
+                case 2: ut+=  "Bergen";
+                    break;
+                case 3: ut+= "Stavanger";
+                    break;
+                case 4: ut+= "Trondheim";
+                    break;
+                case 5 :ut+= "Kristiansand";
+                    break;
+                case 6:ut+=  "Tromsø";
+                    break;
+                default: ut+=  "-ikke valgt-";
+                    break;
+            }
+
+        ut += " i prisklassen " + minPris + " til " + maxPris;
+        return ut;
+        }
 }
 
 //Visualisering av kravArray:
