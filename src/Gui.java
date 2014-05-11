@@ -194,10 +194,10 @@ public class Gui extends JFrame {
 
         //FARGER
 
-        headerFarge = new Color(24,76,95);
-        bakFarge = new Color(187,175,122);
-        lyseSvart = new Color(38,38,38);
-        comboboxFarge = new Color(163,123,69);
+        comboboxFarge = new Color(97,171,170);
+        bakFarge = new Color(234,237,178);
+        lyseSvart = new Color(43,43,43);
+        headerFarge= new Color(46,110,109);
 
 
 
@@ -833,10 +833,10 @@ public class Gui extends JFrame {
         byBoxFane2 = new JComboBox(byvalg);
         c.gridx = 1;
         c.gridy = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         byBoxFane2.setBackground(comboboxFarge);
-        byBoxFane2.setForeground(bakFarge);
+        byBoxFane2.setForeground(lyseSvart);
         bopanel.add(byBoxFane2, c);
 
         c.gridx = 0;
@@ -848,7 +848,7 @@ public class Gui extends JFrame {
         boligtypeBoxFane2 = new JComboBox(boligtypeValg);
         c.gridx = 1;
         c.gridy = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         boligtypeBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(boligtypeBoxFane2, c);
@@ -924,7 +924,7 @@ public class Gui extends JFrame {
         romBoxFane2 = new JComboBox(romValg);
         c.gridx = 1;
         c.gridy = 8;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         bopanel.add(romBoxFane2, c);
         romBoxFane2.setVisible(false);
@@ -942,7 +942,7 @@ public class Gui extends JFrame {
         etasjeBoxFane2 = new JComboBox(etasjeValg);
         c.gridx = 1;
         c.gridy = 9;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         etasjeBoxFane2.setVisible(false);
         bopanel.add(etasjeBoxFane2, c);
@@ -1040,12 +1040,12 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 14;
         c.gridheight =2;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         bopanel.add(scroll, c);
 
 
-
+        c.gridheight =1;
         bildesti = new JTextField(20);
         c.gridx = 1;
         c.gridy = 16;
