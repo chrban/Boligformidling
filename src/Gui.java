@@ -44,7 +44,7 @@ public class Gui extends JFrame {
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,resultatPanel,velgBsPanel,bildepanel, btpanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, røykerValg, husdyrValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -212,6 +212,7 @@ public class Gui extends JFrame {
         btpanel.setBackground(bakFarge);
         btpanel.setForeground(lyseSvart);
         bopanel.setBackground(bakFarge);
+        panel5.setBackground(bakFarge);
 
 
 
@@ -1430,6 +1431,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         //RESETER
 
+
+        okpanel = new JPanel(layout);
+        vkpanel = new JPanel(layout);
+
+        c.ipadx = 0;
+
         Dimension dim = new Dimension(20,20);
 
         c.gridx = 0;
@@ -1443,13 +1450,13 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.CENTER;
         c.ipady=0;
 
-        c.gridx = 2;
+        c.gridx = 0;
         c.gridy = 1;
-        c.gridwidth = 3;
+        c.gridwidth = 2;
         c.insets = new Insets(0, 0, 50, 0);
         kontraktHeader = new JLabel("Opprett kontrakter");
         kontraktHeader.setFont(headerFont);
-        panel5.add(kontraktHeader,c);
+        okpanel.add(kontraktHeader,c);
 
 
 
@@ -1476,162 +1483,241 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         */
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(0,0,20,5);
+        c.ipadx = 100;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
-        velgLeietakerKnapp.setMargin(new Insets(0,0,0,0));
+        velgLeietakerKnapp.setMargin(new Insets(0,30,0,30));
         velgLeietakerKnapp.setPreferredSize(dim);
-        panel5.add(velgLeietakerKnapp,c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(velgLeietakerKnapp, c);
 
 
-        c.gridx = 2;
+        c.ipadx = 0;
+        c.gridx = 1;
         c.gridy = 2;
         c.insets = new Insets(0,0,20,0);
-        valgtLeietaker = new JTextField(3);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
-        panel5.add(valgtLeietaker,c);
 
-        c.gridx = 1;
+        okpanel.add(valgtLeietaker,c);
+
+        c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(0,0,20,5);
+        c.ipadx = 100;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
-        velgBoligKnapp.setMargin(new Insets(0,0,0,0));
+        velgBoligKnapp.setMargin(new Insets(0,30,0,30));
         velgBoligKnapp.setPreferredSize(dim);
-        panel5.add(velgBoligKnapp, c);
-        velgBoligKnapp.setVisible(false);
+        okpanel.add(velgBoligKnapp, c);
+        velgBoligKnapp.setVisible(true);
 
-        c.gridx = 2;
+
+        c.ipadx = 0;
+        c.gridx = 1;
         c.gridy = 3;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         valgtBolig = new JTextField(10);
         valgtBolig.setEditable(false);
         valgtBolig.setText("Ingen bolig valgt");
-        panel5.add(valgtBolig, c);
-        valgtBolig.setVisible(false);
+        okpanel.add(valgtBolig, c);
+        valgtBolig.setVisible(true);
 
 
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 4;
         utleierLabel = new JLabel("Utleier: ");
-        panel5.add(utleierLabel,c);
-        utleierLabel.setVisible(false);
+        okpanel.add(utleierLabel,c);
+        utleierLabel.setVisible(true);
 
 
 
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 4;
-        valgtUtleier = new JTextField(3);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        valgtUtleier = new JTextField(10);
         valgtUtleier.setEditable(false);
         valgtUtleier.setText("Ingen utleier valgt");
-        panel5.add(valgtUtleier, c);
-        valgtUtleier.setVisible(false);
+        okpanel.add(valgtUtleier, c);
+        valgtUtleier.setVisible(true);
 
 
 
 
 
-        startDagFelt = new JTextField(3);
-        startMånedFelt = new JTextField(3);
-        startÅrFelt = new JTextField(3);
-        sluttDagFelt = new JTextField(3);
-        sluttMånedFelt = new JTextField(3);
-        sluttårFelt = new JTextField(3);
+        startDagFelt = new JTextField(10);
+        startMånedFelt = new JTextField(10);
+        startÅrFelt = new JTextField(10);
+        sluttDagFelt = new JTextField(10);
+        sluttMånedFelt = new JTextField(10);
+        sluttårFelt = new JTextField(10);
 
 
-        c.gridx = 2;
+        c.gridx = 0;
         c.gridy = 5;
-        c.gridwidth = 3;
+        c.gridwidth = 1;
         c.insets = new Insets(30, 0, 7, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
-        panel5.add(new JLabel("Kontrakten starter:"),c);
+        okpanel.add(new JLabel("Kontrakten starter:"),c);
 
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(0, 0, 5, 3);
         c.fill = GridBagConstraints.NONE;
-        panel5.add(new JLabel("Dag(DD)"),c);
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("Dag(DD)"),c);
 
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 6;
-        panel5.add(startDagFelt,c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add(startDagFelt,c);
+
+        c.gridx = 0;
+        c.gridy = 7;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("Måned(MM)"),c);
 
         c.gridx = 1;
         c.gridy = 7;
-        panel5.add(new JLabel("Måned(MM)"),c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add((startMånedFelt),c);
 
-        c.gridx = 2;
-        c.gridy = 7;
-        panel5.add((startMånedFelt),c);
+        c.gridx = 0;
+        c.gridy = 8;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("År(ÅÅÅÅ)"),c);
 
         c.gridx = 1;
         c.gridy = 8;
-        panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
-
-        c.gridx = 2;
-        c.gridy = 8;
-        panel5.add((startÅrFelt),c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add((startÅrFelt),c);
 
 
 
 
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 9;
-        c.gridwidth = 3;
+        c.gridwidth = 1;
         c.insets = new Insets(30, 0, 7, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
-        panel5.add(new JLabel("Kontrakten Slutter"),c);
+        okpanel.add(new JLabel("Kontrakten Slutter"),c);
 
 
         c.insets = new Insets(0, 0, 5, 3);
+        c.gridx = 0;
+        c.gridy = 10;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("Dag(DD)"),c);
+
         c.gridx = 1;
         c.gridy = 10;
         c.fill = GridBagConstraints.NONE;
-        panel5.add(new JLabel("Dag(DD)"),c);
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add((sluttDagFelt),c);
 
-        c.gridx = 2;
-        c.gridy = 10;
-        panel5.add((sluttDagFelt),c);
+        c.gridx = 0;
+        c.gridy = 11;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("Måned(MM)"),c);
 
         c.gridx = 1;
         c.gridy = 11;
-        panel5.add(new JLabel("Måned(MM)"),c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add((sluttMånedFelt),c);
 
-        c.gridx = 2;
-        c.gridy = 11;
-        panel5.add((sluttMånedFelt),c);
-
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 12;
-        panel5.add(new JLabel("År(ÅÅÅÅ)"),c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        okpanel.add(new JLabel("År(ÅÅÅÅ)"),c);
 
         c.insets = new Insets(0, 3, 20, 3);
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 12;
-        panel5.add((sluttårFelt),c);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        okpanel.add((sluttårFelt),c);
 
 
         c.insets = new Insets(0, 0, 5, 0);
-        c.gridx = 3;
+        c.gridx = 1;
         c.gridy = 13;
+        c.ipadx = 100;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         lagreKontrakt = new JButton("Lagre kontrakt");
         lagreKontrakt.addActionListener(lytter);
         lagreKontrakt.setMargin(new Insets(0,0,0,0));
         lagreKontrakt.setPreferredSize(dim);
-        panel5.add(lagreKontrakt, c);
+        okpanel.add(lagreKontrakt, c);
 
 
-        c.gridx = 3;
+        c.gridx = 1;
         c.gridy = 14;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         oppdaterKontrakter = new JButton("Oppdater Register");
         oppdaterKontrakter.addActionListener(lytter);
         oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
         oppdaterKontrakter.setPreferredSize(dim);
-        panel5.add(oppdaterKontrakter, c);
+        okpanel.add(oppdaterKontrakter, c);
+
+        c.ipadx = 0;
+
+        c.gridx = 0;
+        c.gridy = 0;
+
+        panel5.add(okpanel);
+
+
+
+
+
+
+        //viskontrakterpanel
+
+
+
+
+
+
+
+        c.gridx = 1;
+        c.gridy = 0;
+        panel5.add(vkpanel);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2259,6 +2345,7 @@ private class resultatTabellModell extends AbstractTableModel
 
     Object[][] celler = boliger.matchPåKrav(kravene);
 
+
     public int getRowCount() {
         return celler.length;
     }
@@ -2408,7 +2495,7 @@ private class resultatTabellModell extends AbstractTableModel
         String[][] første =  boligsøkere.tilTabell();
         String[][] andre =utleiere.tilTabell();
         String[][] joina = new String[første.length + andre.length][6];
-        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
+        String[][] dummy = {{"Tabellen","er","tom","Tabellen","er","tom"}};
 
 
         int i = 0;
@@ -2556,6 +2643,7 @@ private class resultatTabellModell extends AbstractTableModel
         Object[][] andre = boliger.hyblerTilTabell();
         Object[][] tredje = boliger.leiligheterTilTabell();
         Object[][] fjerde = boliger.rekkehusTilTabell();
+        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom","tom","tom","tom"}};
         System.out.println("første "+første.length);
 
         Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
@@ -2581,8 +2669,17 @@ private class resultatTabellModell extends AbstractTableModel
             joina[i++] = fjerde[l];
             l++;
         }
+        if(i==0)
+            joina = dummy;
+
         return joina;
     }
+
+
+
+    /*
+    String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
+     */
 
 
 
@@ -2967,7 +3064,7 @@ private class resultatTabellModell extends AbstractTableModel
             return;
         }
 
-        int plan = 0;
+
         int areal = 0;
         int år = 0;
         int upris = 0;
@@ -3030,14 +3127,15 @@ private class resultatTabellModell extends AbstractTableModel
             default:            byvalg = 0;
                                 break;
         }
-        int rom;
+        int rom = 0;
         int antetasjer;
+        int plan = 0;
 
 
-        if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
-            rom = 0;
-        else
-            rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
+        if(btype!=4)
+            if(romBoxFane2.getSelectedIndex()==0)
+                gyldigBox(romBoxFane2);
+            else Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
 
         if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
@@ -3047,10 +3145,10 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
-        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
-            plan = 0;
-        else
-            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
+        if(btype==3)
+            if(planBoxFane2.getSelectedIndex() == 0)
+                gyldigBox(planBoxFane2);
+            else plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
 
 
 
@@ -3062,17 +3160,17 @@ private class resultatTabellModell extends AbstractTableModel
         int kjøkkenInt = -1;
         int balkong = -1;
 
-        if(kjellerValg.isSelected())
+        if(kjellerValgFane2.isSelected())
             kjeller = 1;
-        if(heisValg.isSelected())
+        if(heisValgFane2.isSelected())
             heis = 1;
-        if(garasjeValg.isSelected())
+        if(garasjeValgFane2.isSelected())
             garasje = 1;
         if(balkongValgFane2.isSelected())
             balkong = 1;
-        if(badValg.isSelected())
+        if(badValgFane2.isSelected())
             badInt = 1;
-        if(kjøkkenValg.isSelected())
+        if(kjøkkenValgFane2.isSelected())
             kjøkkenInt = 1;
 
         Bolig ny = null;
@@ -3248,6 +3346,7 @@ private class resultatTabellModell extends AbstractTableModel
         velgUtleierVindu.add(utleierValgTabell);
         velgUtleierVindu.pack();
         velgUtleierVindu.setVisible(true);
+        velgUtleierVindu.setLocationRelativeTo(velgUtleier);
 
 
     }
@@ -3353,9 +3452,9 @@ private class resultatTabellModell extends AbstractTableModel
         JOptionPane.showMessageDialog(null, "Viskontakter-metoden kjører");
 
         kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
-        c.gridx = 1;
-        c.gridy = 15;
-        panel5.add(kontraktHistorikkTabell, c);
+        c.gridx = 0;
+        c.gridy = 0;
+        vkpanel.add(kontraktHistorikkTabell, c);
         revalidate();
         /*
         - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.

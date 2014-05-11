@@ -234,11 +234,11 @@
     </library>
     <library name="mailfilene3">
       <CLASSES>
-        <root url="file://D:/../mailfilene" />
+        <root url="file://$USER_HOME$/mailfilene" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
+      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
     </library>
   </component>
 </project>
