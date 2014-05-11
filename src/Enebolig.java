@@ -174,7 +174,14 @@ public class Enebolig extends Bolig implements Serializable
         }
         return sted;
     }
-
+    public void skrivIdTilFil(){
+        try {
+            DataOutputStream ut = new DataOutputStream(new FileOutputStream("id.data"));
+            ut.writeInt(eneboligid);
+        }catch(IOException ioe){
+            JOptionPane.showMessageDialog(null, "Feil med lesing fra idfil");
+        }
+    }
 
     /*
     public datatype[] specs()

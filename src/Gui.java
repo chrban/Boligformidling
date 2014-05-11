@@ -2658,7 +2658,7 @@ private class resultatTabellModell extends AbstractTableModel
                 }
 
                 if(planBox.isVisible())
-                plan = Integer.parseInt((String)planBox.getSelectedItem());
+                    plan = Integer.parseInt((String)planBox.getSelectedItem());
             }
             catch(NumberFormatException nfe){
                 System.out.println("NFE i trycatchen noe ikke er valgt. enten rom,plan,etg");
@@ -3008,7 +3008,7 @@ private class resultatTabellModell extends AbstractTableModel
         }
         int rom;
         int antetasjer;
-        int plan;
+        int plan = 0;
 
 
         if(romBoxFane2.getSelectedItem().equals("Velg ant. rom."))
@@ -3022,11 +3022,12 @@ private class resultatTabellModell extends AbstractTableModel
         else
             antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
 
-
-        if(planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
-            plan = 0;
-        else
-            plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
+        if(planBoxFane2.isVisible()){
+            if (planBoxFane2.getSelectedItem().equals("velg antall etasjer"))
+                plan = 0;
+            else
+                plan = Integer.parseInt((String) planBoxFane2.getSelectedItem());
+        }
 
 
 
@@ -3056,24 +3057,34 @@ private class resultatTabellModell extends AbstractTableModel
 
         String sti = bildesti.getText();
 
-
+        System.out.println(btype);
 
         switch(btype){
             case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
+                    System.out.println("Kommer hit!");
+                    System.out.println(nyEnebolig.getId());
                          if(boliger.leggTil(nyEnebolig))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket!");
+                         else
+                            JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
                          break;
             case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
                          if(boliger.leggTil(nyttRekkehus))
                              JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                         else
+                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
                          break;
             case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
                          if(boliger.leggTil(nyLeilighet))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                         else
+                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
                          break;
             case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
                          if(boliger.leggTil(nyHybel))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                         else
+                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
                          break;
         }
     }
@@ -3143,6 +3154,9 @@ private class resultatTabellModell extends AbstractTableModel
                 if(kontrakter.leggTil(ny)){
                     kontrakthistorie.skrivTilTekstFil(ny.toString());
                     JOptionPane.showMessageDialog(null, "Kontrakt lagret");
+                    valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
+                    sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
+                    startMånedFelt.setText(null); startDagFelt.setText(null);
                 }
             }
             else{
@@ -3301,6 +3315,7 @@ private class resultatTabellModell extends AbstractTableModel
         c.gridx = 1;
         c.gridy = 15;
         panel5.add(kontraktHistorikkTabell, c);
+        revalidate();
         /*
         - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
 
