@@ -228,21 +228,27 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.CENTER;
         panel1.add(regPersonHeader,c);
 
+
+
+
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(0,0,0,0);
         panel1.add(pepanel,c);
 
+
+
         c.gridx = 0;
         c.gridy = 2;
-        c.insets = new Insets(30,150,0,0);
         c.weighty = -10;
         c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0,60,0,0);
         bspanel.setSize(bspanel.getPreferredSize());
-
         panel1.add(bspanel,c);
+
+
+
         c.insets = new Insets(50,0,0,0);
         panel1.add(utpanel,c);
        // bspanel.setPreferredSize(bspanel.getPreferredSize());
@@ -348,10 +354,9 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 1;
-        c.insets = new Insets(0, 0, 0, 0);
+        c.insets = new Insets(0, 0, 5, 5);
         c.gridheight = 1;
-        c.gridwidth=0;
+        c.gridwidth=1;
         c.weightx=0;
 
 
@@ -359,7 +364,8 @@ public class Gui extends JFrame {
         //Inndatafelt
         c.gridx = 0;
         c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
 
         pepanel.add(new JLabel("Fornavn: "), c);
 
@@ -375,11 +381,12 @@ public class Gui extends JFrame {
 
 
 
-        fornavn = new JTextField();
+        fornavn = new JTextField(20);
         c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         fornavn.getDocument().addDocumentListener(documentListener);
 
         //c.ipadx = ;
@@ -390,57 +397,73 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.gridy = 1;
         c.ipadx = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         pepanel.add(new JLabel("Etternavn: "), c);
 
-        etternavn = new JTextField();
+        etternavn = new JTextField(20);
         c.gridx = 1;
         c.gridy = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-            etternavn.getDocument().addDocumentListener(documentListener);
-
-
-
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
+        etternavn.getDocument().addDocumentListener(documentListener);
         pepanel.add(etternavn, c);
 
 
+
+
         c.gridx = 0;
         c.gridy = 2;
         c.ipadx = 0;
+        c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         pepanel.add(new JLabel("Adresse: "), c);
 
-        adresse = new JTextField();
-
+        adresse = new JTextField(20);
         c.gridx = 1;
         c.gridy = 2;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         pepanel.add(adresse, c);
 
+
+
+
         c.gridx = 0;
         c.gridy = 3;
         c.ipadx = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         pepanel.add(new JLabel("Mail: "), c);
 
-        mail = new JTextField();
+        mail = new JTextField(20);
         c.gridx = 1;
         c.gridy = 3;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         pepanel.add(mail, c);
+
+
+
+
+
 
         c.gridx = 0;
         c.gridy = 4;
         c.ipadx = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         pepanel.add(new JLabel("Telefon: "), c);
 
-        tlf = new JTextField();
+        tlf = new JTextField(20);
         c.gridx = 1;
         c.gridy = 4;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         pepanel.add(tlf, c);
+
+
+
 
 
         radioLytter = new PersonTypeLytter();
@@ -450,16 +473,19 @@ public class Gui extends JFrame {
         utleier.addActionListener(radioLytter);
         utleier.setBackground(bakFarge);
         c.ipadx = 0;
-        c.gridx = 0;
+        c.gridx = 1;
         c.gridy = 5;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
         pepanel.add(utleier, c);
+
+
 
         c.ipadx = 0;
         c.gridx = 1;
         c.gridy = 5;
-        c.fill = GridBagConstraints.HORIZONTAL;
-
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         boligsøker = new JRadioButton("Boligsøker", false);
         boligsøker.addActionListener(radioLytter);
         boligsøker.setBackground(bakFarge);
@@ -509,7 +535,8 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         c.weightx = 0;
         boligtypeBox = new JComboBox(boligtypeValg);
-        boligtypeBox.setBackground(bakFarge);
+        boligtypeBox.setBackground(comboboxFarge);
+        boligtypeBox.setPreferredSize(new Dimension(200,20));
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -529,6 +556,8 @@ public class Gui extends JFrame {
         c.gridy = 1;
         c.anchor = GridBagConstraints.WEST;
         c.fill = GridBagConstraints.NONE;
+        byBox.setBackground(comboboxFarge);
+        byBox.setPreferredSize(new Dimension(200,20));
         byBox.addActionListener(new boligTypeLytter());
         bspanel.add(byBox, c);
 
@@ -545,6 +574,8 @@ public class Gui extends JFrame {
         c.gridy = 2;
         c.anchor = GridBagConstraints.WEST;
         c.fill = GridBagConstraints.NONE;
+        romBox.setBackground(comboboxFarge);
+        romBox.setPreferredSize(new Dimension(200,20));
         romBox.addActionListener(new boligTypeLytter());
         bspanel.add(romBox, c);
 
@@ -561,6 +592,7 @@ public class Gui extends JFrame {
         c.gridy = 3;
         c.gridwidth =2;
         c.ipadx = 100;
+        c.insets = new Insets(5, 0, 10, 5);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
@@ -576,9 +608,10 @@ public class Gui extends JFrame {
         minPrisSlider.setPaintLabels(true);
         minPrisSlider.addChangeListener(new minPrisLytter());
         minPrisSlider.setSnapToTicks(true);
+        minPrisSlider.setBackground(bakFarge);
         bspanel.add(minPrisSlider, c);
 
-
+        c.insets = new Insets(5, 10, 10, 5);
         maxPris = new JLabel("Max Pris: ");
         c.gridx = 0;
         c.gridy = 4;
@@ -593,6 +626,7 @@ public class Gui extends JFrame {
         c.gridy = 4;
         c.ipadx = 100;
         c.gridwidth = 2;
+        c.insets = new Insets(5, 0, 10, 5);
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
 
@@ -606,26 +640,29 @@ public class Gui extends JFrame {
         maxPrisSlider.setPaintLabels(true);
         maxPrisSlider.addChangeListener(new maxPrisLytter());
         maxPrisSlider.setSnapToTicks(true);
+        maxPrisSlider.setBackground(bakFarge);
         bspanel.add(maxPrisSlider, c);
 
-
+        c.insets = new Insets(5, 10, 10, 5);
         røykerValg = new JCheckBox("Røker");
         c.ipadx = 0;
-        c.gridx = 0;
+        c.gridx = 1;
         c.gridwidth = 1;
         c.gridy = 6;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.WEST;
         røykerValg.setVisible(true);
+        røykerValg.setBackground(bakFarge);
         bspanel.add(røykerValg, c);
 
 
         husdyrValg = new JCheckBox("Husdyr");
         c.gridx = 1;
         c.gridy = 6;
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.EAST;
         c.fill = GridBagConstraints.NONE;
         husdyrValg.setVisible(true);
+        husdyrValg.setBackground(bakFarge);
         bspanel.add(husdyrValg, c);
 
 
@@ -634,98 +671,95 @@ public class Gui extends JFrame {
 
 
 
-        // BoligtypePanel
-
-        antEgtLabel = new JLabel("Ant Etasjer: ");
-        c.gridx = 0;
-        c.ipadx = 0;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        c.anchor = GridBagConstraints.EAST;
-        c.fill = GridBagConstraints.NONE;
-        antEgtLabel.setVisible(false);
-        btpanel.add(antEgtLabel, c);
-
-
-        etasjeBox = new JComboBox(etasjeValg);
-        c.gridx = 1;
-        c.gridy = 0;
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.NONE;
-        etasjeBox.setVisible(false);
-        btpanel.add(etasjeBox, c);
-
         garasjeValg = new JCheckBox("Garasje");
-        c.gridx = 0;
-        c.gridy = 1;
+        c.gridx = 1;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.WEST;
         garasjeValg.setVisible(false);
-        btpanel.add(garasjeValg, c);
-
-
+        garasjeValg.setBackground(bakFarge);
+        bspanel.add(garasjeValg, c);
 
 
         kjellerValg = new JCheckBox("Kjeller");
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.EAST;
         kjellerValg.setVisible(false);
-        btpanel.add(kjellerValg, c);
+        kjellerValg.setBackground(bakFarge);
+        bspanel.add(kjellerValg, c);
 
 
 
 
 
         heisValg = new JCheckBox("Heis");
-        c.gridx = 0;
-        c.gridy = 2;
+        c.gridx = 1;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.WEST;
         heisValg.setVisible(false);
-        btpanel.add(heisValg, c);
+        heisValg.setBackground(bakFarge);
+        bspanel.add(heisValg, c);
 
 
 
 
         balkongValg = new JCheckBox("Balkong");
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.EAST;
         balkongValg.setVisible(false);
-        btpanel.add(balkongValg, c);
+        balkongValg.setBackground(bakFarge);
+        bspanel.add(balkongValg, c);
+
+
 
 
 
 
         badValg = new JCheckBox("Eget Bad");
-        c.gridx = 0;
-        c.gridy = 2;
+        c.gridx = 1;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.WEST;
         badValg.setVisible(false);
-        btpanel.add(badValg, c);
-
-
-
-
+        badValg.setBackground(bakFarge);
+        bspanel.add(badValg, c);
 
 
         kjøkkenValg = new JCheckBox("Eget kjøkken");
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;;
+        c.anchor = GridBagConstraints.EAST;
         kjøkkenValg.setVisible(false);
-        btpanel.add(kjøkkenValg, c);
+        kjøkkenValg.setBackground(bakFarge);
+        bspanel.add(kjøkkenValg, c);
 
 
 
+        antEgtLabel = new JLabel("Ant Etasjer: ");
+        c.gridx = 0;
+        c.ipadx = 0;
+        c.gridy = 8;
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.EAST;
+        c.fill = GridBagConstraints.NONE;
+        antEgtLabel.setVisible(false);
+        bspanel.add(antEgtLabel, c);
 
 
-
+        etasjeBox = new JComboBox(etasjeValg);
+        c.gridx = 1;
+        c.gridy = 8;
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.NONE;
+        etasjeBox.setVisible(false);
+        etasjeBox.setBackground(comboboxFarge);
+        bspanel.add(etasjeBox, c);
 
 
 
@@ -733,25 +767,30 @@ public class Gui extends JFrame {
 
 
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 8;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.EAST;
         c.fill = GridBagConstraints.NONE;
         planLabel = new JLabel("Plan: ");
-        btpanel.add(planLabel, c);
+        bspanel.add(planLabel, c);
         planLabel.setVisible(false);
-
-
 
 
         planBox = new JComboBox(planValg);
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 8;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        planBox.setBackground(comboboxFarge);
         planBox.addActionListener(new boligTypeLytter());
-        btpanel.add(planBox, c);
+        bspanel.add(planBox, c);
         planBox.setVisible(false);
+
+
+
+        // BoligtypePanel
+
+
 
 
 
