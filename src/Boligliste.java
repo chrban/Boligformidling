@@ -43,24 +43,48 @@ public class Boligliste implements Serializable {
     }
     public boolean leggTil(Bolig b){
         if(b instanceof Enebolig){
-            if(!erUnik(b)){
-                eneboliger.add((Enebolig)b);
-                return true;
+            if(erUnik(b)){
+                if(eneboliger.isEmpty())
+                    b.setId(1);
+                else if(!eneboliger.isEmpty()) {
+                    int eId = eneboliger.first().getId() + 1;
+                    System.out.println("bolig lagres med id: " + eId);
+                    b.setId(eId);
+                }
+                return eneboliger.add((Enebolig)b);
             }
         }else if(b instanceof Rekkehus){
-            if(!erUnik(b)){
-                rekkehus.add((Rekkehus)b);
-                return true;
+            if(erUnik(b)){
+                if(rekkehus.isEmpty())
+                    b.setId(1000);
+                else if(!rekkehus.isEmpty()) {
+                    int rId = rekkehus.first().getId() + 1;
+                    System.out.println("bolig lagres med id: " + rId);
+                    b.setId(rId);
+                }
+                return rekkehus.add((Rekkehus)b);
             }
         }else if(b instanceof Leilighet){
-            if(!erUnik(b)){
-                leiligheter.add((Leilighet)b);
-                return true;
+            if(erUnik(b)){
+                if(leiligheter.isEmpty())
+                    b.setId(2000);
+                else if(!leiligheter.isEmpty()) {
+                    int lId = leiligheter.first().getId() + 1;
+                    System.out.println("bolig lagres med id: " + lId);
+                    b.setId(lId);
+                }
+                return leiligheter.add((Leilighet)b);
             }
         }else if(b instanceof Hybel){
-            if(!erUnik(b)){
-                hybler.add((Hybel)b);
-                return true;
+            if(erUnik(b)){
+                if(hybler.isEmpty())
+                    b.setId(3000);
+                else if(!hybler.isEmpty()) {
+                    int hId = hybler.first().getId() + 1;
+                    System.out.println("bolig lagres med id: " + hId);
+                    b.setId(hId);
+                }
+                return hybler.add((Hybel)b);
             }
         }JOptionPane.showMessageDialog(null,"Bolig er allerde lagt til!");
         return false;
@@ -106,20 +130,20 @@ public class Boligliste implements Serializable {
             be = it.next();
             if(be instanceof Enebolig){
                 if(((Enebolig) be).erLik(spec))
-                    return true;
+                    return false;
             }else if(be instanceof Rekkehus){
                 if(((Rekkehus) be).erLik(spec))
-                    return true;
+                    return false;
             }else if(be instanceof Leilighet){
                 if(((Leilighet) be).erLik(spec))
-                    return true;
+                    return false;
             }else{
                 if(((Hybel)be).erLik(spec))
-                    return true;
+                    return false;
             }
 
         }
-        return false;
+        return true;
     }
     public Object[][] matchPåKrav(int[] krav)
     {

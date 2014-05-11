@@ -11,11 +11,15 @@ public class Hybel extends Bolig implements Serializable {
     }
 
     public Hybel(String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj, String be) {
-        super(id++, ad, s, b, r, by, u, uid, sti, be);
+        super(ad, s, b, r, by, u, uid, sti, be);
         egetBad= bad;
         egetKjøkken = kj;
     }
 
+    public void setID(int i)
+    {
+        super.setId(i);
+    }
 
 
     public int[]getSpecArray(){
@@ -40,8 +44,8 @@ public class Hybel extends Bolig implements Serializable {
 
         unik[0] = getEierID();
         unik[1] = getAdresse();
-        unik[3] = Integer.toString(getBoareal());
-        unik[4] = Integer.toString(getUtleiepris());
+        unik[2] = Integer.toString(getBoareal());
+        unik[3] = Integer.toString(getUtleiepris());
 
         return unik;
     }

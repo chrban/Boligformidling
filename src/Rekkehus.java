@@ -17,11 +17,16 @@ import java.io.*;
 
         public Rekkehus(String ad,int s, int b, int r, int by, int u ,String uid, String sti, int e, int p, int k, int t, String be)
         {
-            super(id++,ad,s, b, r, by, u, uid, sti, be);
+            super(ad,s, b, r, by, u, uid, sti, be);
             etasjer = e;
             parkering = p;
             kjeller = k;
             tomtstørrelse = t;
+        }
+
+        public void setID(int i)
+        {
+            super.setId(i);
         }
 
 

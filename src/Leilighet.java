@@ -15,10 +15,15 @@ public class Leilighet extends Bolig implements Serializable
 
     public Leilighet(String ad,int s, int b, int r, int by, int u, String uid, String sti, int e, int bal, int h, String be)
     {
-        super(id++,ad,s, b, r, by, u, uid, sti, be);
+        super(ad,s, b, r, by, u, uid, sti, be);
         etasje = e;
         balkong = bal;
         heis = h;
+    }
+
+    public void setID(int i)
+    {
+        super.setId(i);
     }
 
     public int getEtasje(){
