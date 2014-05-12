@@ -41,7 +41,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -78,7 +78,7 @@ public class Gui extends JFrame {
     private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private int slettBoligId;
-    private Font headerFont;
+    private Font headerFont,header2Font;
     private Color bakFarge, headerFarge,lyseSvart, comboboxFarge;
 
 
@@ -92,6 +92,7 @@ public class Gui extends JFrame {
         super("Boligformidling for svaksynte");
 
         headerFont = new Font("Arial",Font.BOLD,50);
+        header2Font = new Font("Arial",Font.BOLD,20);
 
         øre = new menyLytter();
 
@@ -1535,7 +1536,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBoligKnapp.setMargin(new Insets(0,30,0,30));
         velgBoligKnapp.setPreferredSize(dim);
         okpanel.add(velgBoligKnapp, c);
-        velgBoligKnapp.setVisible(true);
+        velgBoligKnapp.setVisible(false);
 
 
         c.ipadx = 0;
@@ -1547,15 +1548,17 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         valgtBolig.setEditable(false);
         valgtBolig.setText("Ingen bolig valgt");
         okpanel.add(valgtBolig, c);
-        valgtBolig.setVisible(true);
+        valgtBolig.setVisible(false);
 
 
 
         c.gridx = 0;
         c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
         utleierLabel = new JLabel("Utleier: ");
         okpanel.add(utleierLabel,c);
-        utleierLabel.setVisible(true);
+        utleierLabel.setVisible(false);
 
 
 
@@ -1567,7 +1570,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         valgtUtleier.setEditable(false);
         valgtUtleier.setText("Ingen utleier valgt");
         okpanel.add(valgtUtleier, c);
-        valgtUtleier.setVisible(true);
+        valgtUtleier.setVisible(false);
 
 
 
@@ -1583,12 +1586,16 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         c.gridx = 0;
         c.gridy = 5;
-        c.gridwidth = 1;
-        c.insets = new Insets(30, 0, 7, 0);
+        c.gridwidth = 2;
+        c.insets = new Insets(30,30, 15, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
-        okpanel.add(new JLabel("Kontrakten starter:"),c);
+        c.anchor = GridBagConstraints.CENTER;
+        startLabel = new JLabel("Kontrakten starter:");
+        startLabel.setFont(header2Font);
+        okpanel.add(startLabel,c);
 
 
+        c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(0, 0, 5, 3);
@@ -1629,14 +1636,18 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 9;
-        c.gridwidth = 1;
-        c.insets = new Insets(30, 0, 7, 0);
+        c.gridwidth = 2;
+        c.insets = new Insets(30, 30, 15, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
-        okpanel.add(new JLabel("Kontrakten Slutter"),c);
+        c.anchor = GridBagConstraints.CENTER;
+        sluttLabel = new JLabel("Kontrakten slutter");
+        sluttLabel.setFont(header2Font);
+        okpanel.add(sluttLabel,c);
 
 
+        c.gridwidth = 1;
         c.insets = new Insets(0, 0, 5, 3);
         c.gridx = 0;
         c.gridy = 10;
@@ -1662,13 +1673,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.WEST;
         okpanel.add((sluttMånedFelt),c);
 
+        c.insets = new Insets(0, 0, 20, 3);
         c.gridx = 0;
         c.gridy = 12;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         okpanel.add(new JLabel("År(ÅÅÅÅ)"),c);
 
-        c.insets = new Insets(0, 3, 20, 3);
+
         c.gridx = 1;
         c.gridy = 12;
         c.fill = GridBagConstraints.NONE;
@@ -1703,8 +1715,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         c.gridx = 0;
         c.gridy = 0;
+        c.insets = new Insets(0,50,0,0);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
 
-        panel5.add(okpanel);
+        panel5.add(okpanel,c);
 
 
 
@@ -1712,6 +1727,21 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         //viskontrakterpanel
+        vkpanel.setPreferredSize(okpanel.getPreferredSize());
+        visKontrakterLabel = new JLabel("Lagrede kontrakter");
+        visKontrakterLabel.setFont(headerFont);
+        visKontrakterLabel.setForeground(headerFarge);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.insets = new Insets(20,20,0,20);
+        c.anchor = GridBagConstraints.CENTER;
+        vkpanel.add(visKontrakterLabel, c);
+
+        visKontrakter();
+
+
+
+
 
 
 
@@ -1721,7 +1751,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         c.gridx = 1;
         c.gridy = 0;
-        panel5.add(vkpanel);
+        c.insets = new Insets(0,0,0,50);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.EAST;
+        panel5.add(vkpanel,c);
 
 
 
@@ -3489,7 +3522,9 @@ private class resultatTabellModell extends AbstractTableModel
 
         kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
         c.gridx = 0;
-        c.gridy = 0;
+        c.gridy = 1;
+        c.insets = new Insets(30,20,0,20);
+        c.anchor = GridBagConstraints.CENTER;
         vkpanel.add(kontraktHistorikkTabell, c);
         revalidate();
         /*
