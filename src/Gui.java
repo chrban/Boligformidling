@@ -303,11 +303,14 @@ public class Gui extends JFrame {
         ImageIcon personIkon  = new ImageIcon(getClass().getResource("icon/personadd.png"));
         ImageIcon tabellIkon = new ImageIcon(getClass().getResource("icon/tabell.png"));
         ImageIcon kontraktIkon = new ImageIcon(getClass().getResource("icon/kontrakt.png"));
+        ImageIcon boligIkon= new ImageIcon(getClass().getResource("icon/addBoligIkon.png"));
+        ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
+
 
         fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
-        fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
-        fane.addTab("Register", tabellIkon, panel3, "Register med alle datananenen");
-        fane.addTab("MatchMaking", null, panel4, "Tinde");
+        fane.addTab("Registrer bolig", boligIkon, panel2, "Registrere ny bolig");
+        fane.addTab("Register", tabellIkon, panel3, "Vis register");
+        fane.addTab("MatchMaking", matchIkon, panel4, "Finn bolig til registrerte boligsøkere");
         fane.addTab("Kontrakter", kontraktIkon, new JScrollPane(panel5), "Registrer og se kontrakter");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
         fane.setMnemonicAt(1, KeyEvent.VK_2);
@@ -387,6 +390,7 @@ public class Gui extends JFrame {
         c.gridwidth = 1;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        fornavn.setToolTipText("Skriv inn fornavn");
         fornavn.getDocument().addDocumentListener(documentListener);
 
         //c.ipadx = ;
@@ -407,6 +411,7 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         etternavn.getDocument().addDocumentListener(documentListener);
+        etternavn.setToolTipText("Skriv inn etternavn");
         pepanel.add(etternavn, c);
 
 
