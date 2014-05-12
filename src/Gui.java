@@ -70,13 +70,13 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger,matching,kontraktHistorikk;
-    private JMenuItem om, lagre, angre,tabell,oppdaterBoligsøkerTabell, visHistorikk;
+    private JMenu filmeny, rediger, matching, kontraktHistorikk;
+    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
     private Container kassa;
-    private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
+    private String valgtId, valgtBoligId, id, slettPersonFn, slettPersonEn;
     private int slettBoligId;
     private Font headerFont,header2Font, header3Font;
     private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
@@ -153,9 +153,8 @@ public class Gui extends JFrame {
         kontrakthistorie = new KontraktHistorikk();
         lytter = new knappLytter();
         faneøre = new fanelytter();
-        personTabellScroll= new JScrollPane(personTabell);
-        boligTabellScroll=new JScrollPane(boligTabellTabellen);
-
+        personTabellScroll = new JScrollPane(personTabell);
+        boligTabellScroll = new JScrollPane(boligTabellTabellen);
 
 
         //alt dette bare for skjermstørrelsen hehehe
@@ -163,10 +162,10 @@ public class Gui extends JFrame {
         Toolkit tools = Toolkit.getDefaultToolkit();
         Dimension skjerm = tools.getScreenSize();
 //        int bredde = (int) (Math.round(skjerm.width * 0.80));
-  //      int høyde = (int) (Math.round(skjerm.height * 0.80));
+        //      int høyde = (int) (Math.round(skjerm.height * 0.80));
         //setSize(bredde, høyde);
         setLocationByPlatform(true);
-        setSize(1400,1050);
+        setSize(1400, 1050);
 
         int bredde = getWidth();
         int høyde = getHeight();
@@ -192,7 +191,6 @@ public class Gui extends JFrame {
         velgBsPanel = new JPanel(layout);
         bildepanel = new JPanel(new BorderLayout());
         btpanel = new JPanel(layout);
-
 
 
         //FARGER
@@ -222,7 +220,6 @@ public class Gui extends JFrame {
 
 
 
-
         regPersonHeader = new JLabel("Registrer en klient");
         regPersonHeader.setFont(headerFont);
         regPersonHeader.setForeground(headerFarge);
@@ -230,68 +227,52 @@ public class Gui extends JFrame {
         c.gridx = 0;
         c.weightx = 0;
         c.weighty = 0;
-        c.insets = new Insets(20,0,20,0);
+        c.insets = new Insets(20, 0, 20, 0);
         c.anchor = GridBagConstraints.CENTER;
-        panel1.add(regPersonHeader,c);
-
-
+        panel1.add(regPersonHeader, c);
 
 
         c.anchor = GridBagConstraints.NORTH;
         c.gridx = 0;
         c.gridy = 1;
         c.weighty = 1;
-        c.insets = new Insets(0,0,0,0);
-        panel1.add(pepanel,c);
-
+        c.insets = new Insets(0, 0, 0, 0);
+        panel1.add(pepanel, c);
 
 
         c.gridx = 0;
         c.gridy = 2;
         c.weighty = 2;
         c.anchor = GridBagConstraints.NORTH;
-        c.insets = new Insets(0,50,0,0);
+        c.insets = new Insets(0, 50, 0, 0);
         bspanel.setSize(bspanel.getPreferredSize());
-        panel1.add(bspanel,c);
+        panel1.add(bspanel, c);
 
         c.weighty = 0;
 
-        c.insets = new Insets(50,0,0,0);
-        panel1.add(utpanel,c);
-       // bspanel.setPreferredSize(bspanel.getPreferredSize());
+        c.insets = new Insets(50, 0, 0, 0);
+        panel1.add(utpanel, c);
+        // bspanel.setPreferredSize(bspanel.getPreferredSize());
 
         c.gridx = 0;
         c.anchor = GridBagConstraints.CENTER;
         c.gridy = 3;
-        c.insets = new Insets(0,20,0,0);
+        c.insets = new Insets(0, 20, 0, 0);
         c.weighty = -10;
-        panel1.add(btpanel,c);
-
-
-
+        panel1.add(btpanel, c);
 
 
         feedbackFane1 = new JTextArea("");
         feedbackFane1.setEditable(false);
         feedbackFane1.setBackground(bakFarge);
-        feedbackFane1.setPreferredSize(new Dimension(200,20));
+        feedbackFane1.setPreferredSize(new Dimension(200, 20));
         c.gridx = 0;
         c.gridy = 4;
 
-        panel1.add(feedbackFane1,c);
-
-
-
+        panel1.add(feedbackFane1, c);
 
 
         panel2.add(bopanel);
-
-
-
-
-
-
-
 
 
         //til hit
@@ -305,17 +286,17 @@ public class Gui extends JFrame {
         //oppretter Fanene
 
 
-        ImageIcon personIkon  = sjekkPath("icon/personadd.png");
+        ImageIcon personIkon = sjekkPath("icon/personadd.png");
         ImageIcon tabellIkon = sjekkPath("icon/tabell.png");
         ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
         ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
-        ImageIcon matchIkon =sjekkPath("icon/match.png");
+        ImageIcon matchIkon = sjekkPath("icon/match.png");
 
         //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
 
         ImageIcon logo = sjekkPath("icon/logo_ikon.png");
-        if(logo!=null)
-        setIconImage(logo.getImage());
+        if (logo != null)
+            setIconImage(logo.getImage());
 
         fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", boligIkon, panel2, "Registrere ny bolig");
@@ -356,22 +337,14 @@ public class Gui extends JFrame {
 */
 
 
-
-
-
-
-
-
-
         // Reseter
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(0, 0, 5, 5);
         c.gridheight = 1;
-        c.gridwidth=1;
-        c.weightx=0;
-
+        c.gridwidth = 1;
+        c.weightx = 0;
 
 
         //Inndatafelt
@@ -383,15 +356,8 @@ public class Gui extends JFrame {
         pepanel.add(new JLabel("Fornavn: "), c);
 
 
-
-
-
         //navnLabel  = new JLabel("NAVN");
         //navnLabel.setComponentPopupMenu();
-
-
-
-
 
 
         fornavn = new JTextField(20);
@@ -405,7 +371,6 @@ public class Gui extends JFrame {
 
         //c.ipadx = ;
         pepanel.add(fornavn, c);
-
 
 
         c.gridx = 0;
@@ -425,8 +390,6 @@ public class Gui extends JFrame {
         pepanel.add(etternavn, c);
 
 
-
-
         c.gridx = 0;
         c.gridy = 2;
         c.ipadx = 0;
@@ -440,8 +403,6 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         pepanel.add(adresse, c);
-
-
 
 
         c.gridx = 0;
@@ -459,10 +420,6 @@ public class Gui extends JFrame {
         pepanel.add(mail, c);
 
 
-
-
-
-
         c.gridx = 0;
         c.gridy = 4;
         c.ipadx = 0;
@@ -478,9 +435,6 @@ public class Gui extends JFrame {
         pepanel.add(tlf, c);
 
 
-
-
-
         radioLytter = new PersonTypeLytter();
         radioPerson = new ButtonGroup();
         utleier = new JRadioButton("Utleier", false);
@@ -493,7 +447,6 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         pepanel.add(utleier, c);
-
 
 
         c.ipadx = 0;
@@ -533,15 +486,16 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(20, 0, 5, 5);
-        regUtleierKnapp.setMargin(new Insets(0,30,0,30));
+        regUtleierKnapp.setMargin(new Insets(0, 30, 0, 30));
         regUtleierKnapp.setVisible(false);
         regUtleierKnapp.setIcon(personIkon);
+        regUtleierKnapp.setIconTextGap(2);
         pepanel.add(regUtleierKnapp, c);
 
 
         //BOLISØKER PANEL (bspanel)
 
-        c.ipadx= 0;
+        c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -549,13 +503,13 @@ public class Gui extends JFrame {
         c.weightx = 0;
         c.insets = new Insets(5, 10, 10, 5);
         boligtypeLabel = new JLabel("Boligtype");
-        bspanel.add(boligtypeLabel,c);
+        bspanel.add(boligtypeLabel, c);
 
         c.anchor = GridBagConstraints.WEST;
         c.weightx = 0;
         boligtypeBox = new JComboBox(boligtypeValg);
         boligtypeBox.setBackground(comboboxFarge);
-        boligtypeBox.setPreferredSize(new Dimension(200,20));
+        boligtypeBox.setPreferredSize(new Dimension(200, 20));
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -576,7 +530,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         c.fill = GridBagConstraints.NONE;
         byBox.setBackground(comboboxFarge);
-        byBox.setPreferredSize(new Dimension(200,20));
+        byBox.setPreferredSize(new Dimension(200, 20));
         byBox.addActionListener(new boligTypeLytter());
         bspanel.add(byBox, c);
 
@@ -594,7 +548,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         c.fill = GridBagConstraints.NONE;
         romBox.setBackground(comboboxFarge);
-        romBox.setPreferredSize(new Dimension(200,20));
+        romBox.setPreferredSize(new Dimension(200, 20));
         romBox.addActionListener(new boligTypeLytter());
         bspanel.add(romBox, c);
 
@@ -609,7 +563,7 @@ public class Gui extends JFrame {
 
         c.gridx = 1;
         c.gridy = 3;
-        c.gridwidth =2;
+        c.gridwidth = 2;
         c.ipadx = 100;
         c.insets = new Insets(5, 0, 10, 5);
 
@@ -685,11 +639,6 @@ public class Gui extends JFrame {
         bspanel.add(husdyrValg, c);
 
 
-
-
-
-
-
         garasjeValg = new JCheckBox("Garasje");
         c.gridx = 1;
         c.gridy = 7;
@@ -710,9 +659,6 @@ public class Gui extends JFrame {
         bspanel.add(kjellerValg, c);
 
 
-
-
-
         heisValg = new JCheckBox("Heis");
         c.gridx = 1;
         c.gridy = 7;
@@ -723,8 +669,6 @@ public class Gui extends JFrame {
         bspanel.add(heisValg, c);
 
 
-
-
         balkongValg = new JCheckBox("Balkong");
         c.gridx = 1;
         c.gridy = 7;
@@ -733,10 +677,6 @@ public class Gui extends JFrame {
         balkongValg.setVisible(false);
         balkongValg.setBackground(bakFarge);
         bspanel.add(balkongValg, c);
-
-
-
-
 
 
         badValg = new JCheckBox("Eget Bad");
@@ -759,7 +699,6 @@ public class Gui extends JFrame {
         bspanel.add(kjøkkenValg, c);
 
 
-
         antEgtLabel = new JLabel("Ant Etasjer: ");
         c.gridx = 0;
         c.ipadx = 0;
@@ -779,10 +718,6 @@ public class Gui extends JFrame {
         etasjeBox.setVisible(false);
         etasjeBox.setBackground(comboboxFarge);
         bspanel.add(etasjeBox, c);
-
-
-
-
 
 
         c.gridx = 0;
@@ -813,7 +748,7 @@ public class Gui extends JFrame {
 
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(15, 10, 0, 0);
-        regPersonKnapp.setMargin(new Insets(0,30,0,30));
+        regPersonKnapp.setMargin(new Insets(0, 30, 0, 30));
         regPersonKnapp.setVisible(false);
         bspanel.add(regPersonKnapp, c);
 
@@ -844,12 +779,6 @@ public class Gui extends JFrame {
 */
 
 
-
-
-
-
-
-
         // FANE NR 2, REGISTRER NY BOLIg *****************************************************************************
 
         //RESETER
@@ -866,14 +795,12 @@ public class Gui extends JFrame {
         c.insets = new Insets(0, 0, 50, 0);
         c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 3 ;
+        c.gridwidth = 3;
         c.anchor = GridBagConstraints.CENTER;
         regBoligHeader = new JLabel("Registrer bolig");
         regBoligHeader.setFont(headerFont);
         regBoligHeader.setForeground(headerFarge);
         bopanel.add(regBoligHeader, c);
-
-
 
 
         c.gridwidth = 1;
@@ -982,7 +909,6 @@ public class Gui extends JFrame {
         bopanel.add(byggår, c);
 
 
-
         c.gridx = 0;
         c.gridy = 8;
         c.fill = GridBagConstraints.NONE;
@@ -1042,8 +968,6 @@ public class Gui extends JFrame {
         planBoxFane2.setVisible(false);
 
 
-
-
         garasjeValgFane2 = new JCheckBox("Garasje");
         c.gridx = 1;
         c.gridy = 11;
@@ -1064,10 +988,6 @@ public class Gui extends JFrame {
         kjellerValgFane2.setForeground(lyseSvart);
         kjellerValgFane2.setVisible(false);
         bopanel.add(kjellerValgFane2, c);
-
-
-
-
 
 
         heisValgFane2 = new JCheckBox("Heis");
@@ -1092,10 +1012,6 @@ public class Gui extends JFrame {
         bopanel.add(balkongValgFane2, c);
 
 
-
-
-
-
         badValgFane2 = new JCheckBox("Eget Bad");
         c.gridx = 1;
         c.gridy = 11;
@@ -1117,8 +1033,6 @@ public class Gui extends JFrame {
         bopanel.add(kjøkkenValgFane2, c);
 
 
-
-
         c.gridx = 0;
         c.gridy = 14;
         c.fill = GridBagConstraints.NONE;
@@ -1129,13 +1043,13 @@ public class Gui extends JFrame {
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
         c.gridy = 14;
-        c.gridheight =2;
+        c.gridheight = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         bopanel.add(scroll, c);
 
 
-        c.gridheight =1;
+        c.gridheight = 1;
         bildesti = new JTextField(20);
         c.gridx = 1;
         c.gridy = 16;
@@ -1146,7 +1060,7 @@ public class Gui extends JFrame {
 
         finnBildeKnapp = new JButton("Finn bilde");
         finnBildeKnapp.addActionListener(lytter);
-        finnBildeKnapp.setMargin(new Insets(0,13,0,13));
+        finnBildeKnapp.setMargin(new Insets(0, 13, 0, 13));
 
         c.gridx = 2;
         c.gridy = 16;
@@ -1154,10 +1068,10 @@ public class Gui extends JFrame {
 
         velgUtleier = new JButton("Velg utleier");
         velgUtleier.addActionListener(lytter);
-        velgUtleier.setMargin(new Insets(0,8,0,8));
+        velgUtleier.setMargin(new Insets(0, 8, 0, 8));
         c.gridx = 2;
         c.gridy = 17;
-        bopanel.add(velgUtleier,c);
+        bopanel.add(velgUtleier, c);
 
 
         c.gridx = 1;
@@ -1175,11 +1089,10 @@ public class Gui extends JFrame {
         bopanel.add(utleierId, c);
 
 
-
         c.ipady = 0;
         regBoligKnapp = new JButton("Registrer");
         regBoligKnapp.addActionListener(lytter);
-        regBoligKnapp.setMargin(new Insets(0,14,0,14));
+        regBoligKnapp.setMargin(new Insets(0, 14, 0, 14));
         c.gridx = 2;
         c.gridy = 18;
         c.anchor = GridBagConstraints.WEST;
@@ -1228,61 +1141,55 @@ public class Gui extends JFrame {
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
-        c.anchor=GridBagConstraints.NONE;
-        c.weightx=0;
-        c.weighty=0;
+        c.anchor = GridBagConstraints.NONE;
+        c.weightx = 0;
+        c.weighty = 0;
 
 
         registerHeader = new JLabel("Register");
         registerHeader.setFont(headerFont);
-        c.insets=new Insets(50,10,50,10);
-        c.gridx=6;
-        c.gridy=0;
-        c.anchor=GridBagConstraints.PAGE_START;
-        panel3.add(registerHeader,c);
+        c.insets = new Insets(50, 10, 50, 10);
+        c.gridx = 6;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.PAGE_START;
+        panel3.add(registerHeader, c);
         c.insets = new Insets(0, 0, 0, 0);
 
 
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridheight = 10;
+        c.gridwidth = 2;
+        c.weightx = 100;
+        c.weighty = 0.1;
 
-
-
-
-
-
-        c.gridx=0;
-        c.gridy=1;
-        c.gridheight=10;
-        c.gridwidth=2;
-        c.weightx=100;
-        c.weighty=0.1;
-
-        c.anchor=GridBagConstraints.FIRST_LINE_START;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.fill =GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        c.fill = GridBagConstraints.BOTH;
 
 
-        panel3.add(new JScrollPane(tapanel),c);
+        panel3.add(new JScrollPane(tapanel), c);
         c.fill = GridBagConstraints.NONE;
 
 
         radioTabellLytter = new tabellTypeLytter();
         radioTabell = new ButtonGroup();
-        persontabellRadioknapp = new JRadioButton("Vis personer",false);
+        persontabellRadioknapp = new JRadioButton("Vis personer", false);
         persontabellRadioknapp.addActionListener(radioTabellLytter);
         //c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weightx=0.5;
-        c.gridwidth=1;
-        c.gridheight=1;
+        c.weightx = 0.5;
+        c.gridwidth = 1;
+        c.gridheight = 1;
         c.gridx = 11;
         c.gridy = 1;
-        panel3.add(persontabellRadioknapp,c);
+        panel3.add(persontabellRadioknapp, c);
 
 
-        boligtabellRadioknapp = new JRadioButton("Vis boliger:",false);
+        boligtabellRadioknapp = new JRadioButton("Vis boliger:", false);
         boligtabellRadioknapp.addActionListener(radioTabellLytter);
         c.gridx = 12;
         c.gridy = 1;
-        panel3.add(boligtabellRadioknapp,c);
+        panel3.add(boligtabellRadioknapp, c);
 
 
         radioTabell.add(persontabellRadioknapp);
@@ -1291,37 +1198,37 @@ public class Gui extends JFrame {
         slettPerson.addActionListener(lytter);
         c.gridx = 11;
         c.gridy = 2;
-        panel3.add(slettPerson,c);
+        panel3.add(slettPerson, c);
 
         slettBoligKnapp = new JButton("Slett bolig");
         slettBoligKnapp.addActionListener(lytter);
         c.gridx = 12;
         c.gridy = 2;
-        panel3.add(slettBoligKnapp,c);
+        panel3.add(slettBoligKnapp, c);
 
 
         feedbackFane3 = new JTextArea("feedbackfelt");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
         feedbackFane3.setBackground(bakFarge);
-        feedbackFane3.setSize(600,200);
-       // c.gridwidth=30;
-        c.gridx=0;
-        c.gridy=15;
-        c.gridwidth=10;
+        feedbackFane3.setSize(600, 200);
+        // c.gridwidth=30;
+        c.gridx = 0;
+        c.gridy = 15;
+        c.gridwidth = 10;
 
-        c.anchor=GridBagConstraints.FIRST_LINE_START;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
         //c.ipadx=30;
         //c.gridy=30;
-        c.weighty=10;
+        c.weighty = 10;
         //c.fill=GridBagConstraints
-        panel3.add(feedbackFane3,c);
+        panel3.add(feedbackFane3, c);
 
         c.gridx = 11;
-        c.gridy=3;
-        c.gridheight=5;
+        c.gridy = 3;
+        c.gridheight = 5;
         c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weighty=100;
-        panel3.add(bildepanel,c);
+        c.weighty = 100;
+        panel3.add(bildepanel, c);
         bildepanel.setMaximumSize(bildepanel.getSize());
         bildepanel.setBackground(bakFarge);
         panel3.setBackground(bakFarge);
@@ -1352,63 +1259,125 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         //SLUTT FANE 3
 
         //FANE 4 - MATCHMAKING ************************************************************************************************************************************************************************
-        //RESETER
+
+
+        visMatch();
+        //RESETER GridBag påsan! c
         c.gridx = 0;
         c.gridy = 0;
-        c.weighty=0;
-        c.weightx=0;
+        c.weighty = 0;
+        c.weightx = 0;
         c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
+        //RESATT
 
-
-        boligsøkerOverskrift = new JLabel("Boligsøkere");
+        matchHeader = new JLabel("MachMaking");
         c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 1;
-        panel4.add(boligsøkerOverskrift,c);
 
-
+        matchHeader.setFont(headerFont);
+        panel4.add(matchHeader);
 
         finnMatch = new JButton("Finn Match!");
-        c.gridx = 2;
-        c.gridy = 1;
-        c.gridheight = 3;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridheight = 1;
         c.gridwidth = 1;
-        c.ipady=30;
-
+        c.ipady = 30;
+        c.anchor = GridBagConstraints.PAGE_END;
         finnMatch.addActionListener(lytter);
-        panel4.add(finnMatch,c);
-        velgBsPanel.setBackground(Color.RED);
+        panel4.add(finnMatch, c);
 
-        c.ipady=0;
 
         sendMail = new JButton("Send mail");
-        c.gridx = 2;
-        c.gridy = 15;
+        c.gridx = 1;
+        c.gridy = 2;
+        c.ipady = 20;
         sendMail.addActionListener(lytter);
-        panel4.add(sendMail,c);
+        panel4.add(sendMail, c);
 
-       // visBoligsøkere();
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 0;
+        c.weightx = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
+        c.ipady = 0;
+        //RESATT
+
+
+        Dimension textfelt = new Dimension(200, 200);
+
+
+        feedbackMail = new JTextArea("", 40, 15);
+        JScrollPane sspp = new JScrollPane(feedbackMail);
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridheight = 1;
+        c.weighty = 19;
+        c.fill = GridBagConstraints.BOTH;
+        //feedbackMail.setPreferredSize(textfelt);
+        //feedbackMail.setMinimumSize(textfelt);
+        //feedbackMail.setMaximumSize(textfelt);
+        //feedbackMail.setSize(textfelt);
+        panel4.add(sspp, c);
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.weighty = -1;
+        panel4.add(new JLabel("Skriv beskjed"), c);
+
+
+        c.gridx = 1;
+        c.gridy = 3;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        c.weighty = -1;
+        panel4.add(new JLabel("Mail status.."), c);
+
+
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 0;
+        c.weightx = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
+        c.ipady = 0;
+        //RESATT
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(5, 5, 5, 5);
+        panel4.add(velgBsPanel, c);
 
 
         c.gridx = 0;
-        c.gridy = 4;
-        panel4.add(velgBsPanel,c);
+        c.gridy = 3;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(5, 5, 5, 5);
+        panel4.add(resultatPanel, c);
+
+        panel4.setBackground(bakFarge);
 
 
-
-
-        c.gridx = 4;
-        c.gridy = 0;
-        panel4.add(new JLabel("Boliger, må endre til noe annet enn denne dumme tabellen her"),c);
-      //  visMatch();
-
-        c.gridx = 4;
-        c.gridy = 4;
-        panel4.add(resultatPanel,c);
-        resultatPanel.setBackground(Color.BLUE);
 
 
 
@@ -1443,11 +1412,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 */
 
 
-
-
-
-
-
         //Slutt fane 4
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
         //RESETER
@@ -1460,7 +1424,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         c.ipadx = 0;
 
-        Dimension dim = new Dimension(20,20);
+        Dimension dim = new Dimension(20, 20);
 
         c.gridx = 0;
         c.gridy = 0;
@@ -1471,7 +1435,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         c.anchor = GridBagConstraints.CENTER;
-        c.ipady=0;
+        c.ipady = 0;
 
         c.gridx = 0;
         c.gridy = 1;
@@ -1483,10 +1447,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         okpanel.add(kontraktHeader,c);
 
 
-
-
-
-        c.gridwidth= 1;
+        c.gridwidth = 1;
 
 
         /*
@@ -1510,7 +1471,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         c.gridx = 0;
         c.gridy = 2;
-        c.insets = new Insets(0,0,20,5);
+        c.insets = new Insets(0, 0, 20, 5);
         c.ipadx = 100;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
@@ -1524,18 +1485,18 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.ipadx = 0;
         c.gridx = 1;
         c.gridy = 2;
-        c.insets = new Insets(0,0,20,0);
+        c.insets = new Insets(0, 0, 20, 0);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
 
-        okpanel.add(valgtLeietaker,c);
+        okpanel.add(valgtLeietaker, c);
 
         c.gridx = 0;
         c.gridy = 3;
-        c.insets = new Insets(0,0,20,5);
+        c.insets = new Insets(0, 0, 20, 5);
         c.ipadx = 100;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
@@ -1559,7 +1520,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         valgtBolig.setVisible(false);
 
 
-
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
@@ -1567,7 +1527,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         utleierLabel = new JLabel("Utleier: ");
         okpanel.add(utleierLabel,c);
         utleierLabel.setVisible(false);
-
 
 
         c.gridx = 1;
@@ -1579,9 +1538,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         valgtUtleier.setText("Ingen utleier valgt");
         okpanel.add(valgtUtleier, c);
         valgtUtleier.setVisible(false);
-
-
-
 
 
         startDagFelt = new JTextField(10);
@@ -1610,37 +1566,37 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.insets = new Insets(0, 0, 5, 3);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("Dag(DD)"),c);
+        okpanel.add(new JLabel("Dag(DD)"), c);
 
         c.gridx = 1;
         c.gridy = 6;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add(startDagFelt,c);
+        okpanel.add(startDagFelt, c);
 
         c.gridx = 0;
         c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("Måned(MM)"),c);
+        okpanel.add(new JLabel("Måned(MM)"), c);
 
         c.gridx = 1;
         c.gridy = 7;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add((startMånedFelt),c);
+        okpanel.add((startMånedFelt), c);
 
         c.gridx = 0;
         c.gridy = 8;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("År(ÅÅÅÅ)"),c);
+        okpanel.add(new JLabel("År(ÅÅÅÅ)"), c);
 
         c.gridx = 1;
         c.gridy = 8;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add((startÅrFelt),c);
+        okpanel.add((startÅrFelt), c);
 
 
 
@@ -1663,39 +1619,39 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.gridy = 10;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("Dag(DD)"),c);
+        okpanel.add(new JLabel("Dag(DD)"), c);
 
         c.gridx = 1;
         c.gridy = 10;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add((sluttDagFelt),c);
+        okpanel.add((sluttDagFelt), c);
 
         c.gridx = 0;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("Måned(MM)"),c);
+        okpanel.add(new JLabel("Måned(MM)"), c);
 
         c.gridx = 1;
         c.gridy = 11;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add((sluttMånedFelt),c);
+        okpanel.add((sluttMånedFelt), c);
 
         c.insets = new Insets(0, 0, 20, 3);
         c.gridx = 0;
         c.gridy = 12;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        okpanel.add(new JLabel("År(ÅÅÅÅ)"),c);
+        okpanel.add(new JLabel("År(ÅÅÅÅ)"), c);
 
 
         c.gridx = 1;
         c.gridy = 12;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        okpanel.add((sluttårFelt),c);
+        okpanel.add((sluttårFelt), c);
 
 
         c.insets = new Insets(0, 0, 5, 0);
@@ -1706,7 +1662,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.WEST;
         lagreKontrakt = new JButton("Lagre kontrakt");
         lagreKontrakt.addActionListener(lytter);
-        lagreKontrakt.setMargin(new Insets(0,0,0,0));
+        lagreKontrakt.setMargin(new Insets(0, 0, 0, 0));
         lagreKontrakt.setPreferredSize(dim);
         okpanel.add(lagreKontrakt, c);
 
@@ -1797,25 +1753,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         panel5.add(vkpanel,c);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
 
         //Dimension heleSkjermen = new Dimension(bredde-20, høyde-20);
-        fane.setPreferredSize(new Dimension(1380,1010));
+        fane.setPreferredSize(new Dimension(1380, 1010));
         fane.setBackground(bakFarge);
 
 
@@ -1826,19 +1767,17 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         //add(new JScrollPane(getContentPane()));
 
 
-
-
-
         lesFraFil();
         visKontrakter();
     } // End GUI konstruktør
 
-    private ImageIcon sjekkPath(String s)
+
+    private ImageIcon sjekkPath(String s)//Kontrollerer at bildet k8
     {
         ImageIcon bilde;
         java.net.URL kilde = getClass().getResource(s);
 
-        if(kilde != null)
+        if (kilde != null)
             bilde = new ImageIcon(kilde);
         else {
             System.out.println("Fant ikke bilde");
@@ -1847,11 +1786,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         return bilde;
 
 
-
     }
-   // ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
-
-
+    // ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
 
 
     // LYTTERE
@@ -1867,36 +1803,32 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 finnBilde();
             else if (e.getSource() == velgUtleier)
                 visVelgUtleierVindu();
-            else if(e.getSource() == oppdaterKontrakter)
+            else if (e.getSource() == oppdaterKontrakter)
                 visKontrakter();
-            else if(e.getSource() == velgUtleierKnapp)
+            else if (e.getSource() == velgUtleierKnapp)
                 visVelgUtleierVindu();
-            else if(e.getSource() == velgLeietakerKnapp)
+            else if (e.getSource() == velgLeietakerKnapp)
                 visVelgLeietakerVindu();
-            else if(e.getSource() == velgBoligKnapp)
+            else if (e.getSource() == velgBoligKnapp)
                 visVelgBoligVindu();
-            else if(e.getSource() == lagreKontrakt)
+            else if (e.getSource() == lagreKontrakt)
                 mekkKontrakt();
-            else if(e.getSource() == finnMatch ){
+            else if (e.getSource() == finnMatch) {
 
                 // her henter jeg inn tabellverdin
                 visMatch();
-            }
-            else if (e.getSource() == sendMail){
-                sendEmail();
-            }
-            else if (e.getSource() == slettPerson){
+            } else if (e.getSource() == sendMail) {
+                sendEpost();
+            } else if (e.getSource() == slettPerson) {
                 slettBoligsøker();
-            }
-            else if (e.getSource() == slettBoligKnapp){
+            } else if (e.getSource() == slettBoligKnapp) {
                 slettBolig();
             }
 
         }
     }
 
-    private DocumentListener documentListener = new DocumentListener()
-        {
+    private DocumentListener documentListener = new DocumentListener() {
         public void changedUpdate(DocumentEvent documentEvent) {
             printIt(documentEvent);
         }
@@ -1931,14 +1863,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
             }*/
 
-          //  valider();
+            //  valider();
 
 
             System.out.println("Length: " + length);
         }
     };
-
-
 
 
     private class menyLytter implements ActionListener {
@@ -1950,27 +1880,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 skrivTilFil();
 
             } else if (e.getSource() == angre) {
+                visMatch();
                 System.out.println("du anger på at du tryka på angre");
-                clearResultatPanel();
-                visBoligsøkere();
-                resultatPanel.add(new JScrollPane(boligSøkereForMatch));
-                resultatPanel.add(new JScrollPane(resultatTabell));
-                revalidate();
-                repaint();
-            }
-            else if(e.getSource() ==tabell){
+            } else if (e.getSource() == tabell) {
                 System.out.println("Hente inn tabell på nytt");
                 panel3.remove(personTabellScroll);
                 panel3.remove(boligTabellScroll);
                 lagTabellen();
-                panel3.add(personTabellScroll = new JScrollPane(personTabell),BorderLayout.LINE_END);
-                panel3.add(boligTabellScroll = new JScrollPane(boligTabellTabellen),BorderLayout.BEFORE_LINE_BEGINS);
-            }
-            else if(e.getSource()==oppdaterBoligsøkerTabell){
+                panel3.add(personTabellScroll = new JScrollPane(personTabell), BorderLayout.LINE_END);
+                panel3.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), BorderLayout.BEFORE_LINE_BEGINS);
+            } else if (e.getSource() == oppdaterBoligsøkerTabell) {
                 visBoligsøkere();
                 System.out.println("Lastet inn boligsøkertabellen på nytt");
-            }
-            else if(e.getSource() == visHistorikk){
+            } else if (e.getSource() == visHistorikk) {
                 visKontraktFil();
             }
 
@@ -1981,20 +1903,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     //tabellSplittPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,personTabellScroll,boligTabellScroll);
 
 
-    private class fanelytter implements ChangeListener{
+    private class fanelytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
-           if(fane.getSelectedIndex()==2) {
+            if (fane.getSelectedIndex() == 2) {
                 System.out.println("Trykka på fane; vis tabell!");
+            } else if (fane.getSelectedIndex() == 3) {
+                System.out.println("oppdaterer boligsøkerlista siden matchfane er velgt, dvs kaller på visBoligsøkere()");
+                visBoligsøkere();
             }
-            else if(fane.getSelectedIndex()==3){
-               System.out.println("oppdaterer boligsøkerlista siden matchfane er velgt, dvs kaller på visBoligsøkere()");
-               visBoligsøkere();
-           }
             repaint();
         }
     }
 
-//her er nfm
+    //her er nfm
     private void togler() //Metode for å skjule alle BT-avhengige valg.
     {
         System.out.println("TOGLA!");
@@ -2010,7 +1931,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         planBox.setVisible(false);
         revalidate();
     }
-    private void toglerFane2(){
+
+    private void toglerFane2() {
         System.out.println("Togla fane2 for faen");
         garasjeValgFane2.setVisible(false);
         kjellerValgFane2.setVisible(false);
@@ -2036,11 +1958,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             String boligTypeFane2 = (String) boligtypeBoxFane2.getSelectedItem();
 
 
-            if(romBox.getSelectedIndex()!=0)romBox.setForeground(Color.BLACK);
-            if(byBox.getSelectedIndex()!=0) byBox.setForeground(Color.BLACK);
-            if(romBox.getSelectedIndex()!=0)romBox.setForeground(Color.BLACK);
-            if(etasjeBox.getSelectedIndex()!=0)etasjeBox.setForeground(Color.BLACK);
-            if(planBox.getSelectedIndex()!=0)planBox.setForeground(Color.BLACK);
+            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
+            if (byBox.getSelectedIndex() != 0) byBox.setForeground(Color.BLACK);
+            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
+            if (etasjeBox.getSelectedIndex() != 0) etasjeBox.setForeground(Color.BLACK);
+            if (planBox.getSelectedIndex() != 0) planBox.setForeground(Color.BLACK);
 
 
             switch (typenTil) {
@@ -2089,7 +2011,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     revalidate();
                     break;
             }
-            switch (boligTypeFane2){
+            switch (boligTypeFane2) {
                 case "Enebolig":
                     toglerFane2();
                     garasjeValgFane2.setVisible(true);
@@ -2141,7 +2063,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-
     private class minPrisLytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
             minPris.setText("Min Pris: " + minPrisSlider.getValue());
@@ -2178,19 +2099,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             }
         }
     }
-    private void clearPanel3()
-    {
-       tapanel.removeAll();
+
+    private void clearPanel3() {
+        tapanel.removeAll();
         revalidate();
         repaint();
     }
 
 
     //For fane 3, om det skal vises boligtabell  eller persontabell
-    private class tabellTypeLytter implements ActionListener{
+    private class tabellTypeLytter implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            if(boligtabellRadioknapp.isSelected()){
+            if (boligtabellRadioknapp.isSelected()) {
                 clearPanel3();
                 lagBoligTabellen();
                 c.anchor = GridBagConstraints.CENTER;
@@ -2199,23 +2120,22 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 c.gridwidth = 1;
                 c.insets = new Insets(0, 0, 0, 0);
                 c.gridheight = 1;
-                c.gridwidth=0;
-                c.weightx=0;
+                c.gridwidth = 0;
+                c.weightx = 0;
                 // resartt
 
-                c.ipady=250;
-                c.gridx=0;
-                c.gridy=0;
-                c.anchor=GridBagConstraints.FIRST_LINE_START;
-                c.fill =GridBagConstraints.BOTH;
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen),c);
+                c.ipady = 250;
+                c.gridx = 0;
+                c.gridy = 0;
+                c.anchor = GridBagConstraints.FIRST_LINE_START;
+                c.fill = GridBagConstraints.BOTH;
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
                 revalidate();
                 repaint();
-            }
-            else if(persontabellRadioknapp.isSelected()){
+            } else if (persontabellRadioknapp.isSelected()) {
                 clearPanel3();
                 lagTabellen();
-                tapanel.add(personTabellScroll = new JScrollPane(personTabell),c);
+                tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
                 revalidate();
                 repaint();
             }
@@ -2224,25 +2144,20 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     // UTVALGSLYTTER
 
-    private class Utvalgslytter implements ListSelectionListener
-    {
+    private class Utvalgslytter implements ListSelectionListener {
         private TableModel tabellmodell;
 
-        public Utvalgslytter(TableModel m)
-        {
+        public Utvalgslytter(TableModel m) {
             tabellmodell = m;
         }
 
-        public void valueChanged(ListSelectionEvent e)
-        {
-            if(e.getValueIsAdjusting())
+        public void valueChanged(ListSelectionEvent e) {
+            if (e.getValueIsAdjusting())
                 return;
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if(tabellmodell instanceof resultatTabellModell)
-            {
-                if(!lsm.isSelectionEmpty())
-                {
+            if (tabellmodell instanceof resultatTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
                     System.out.println("Lytter til riktig vindu");
                     int valgtRad = lsm.getMinSelectionIndex();
                     valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
@@ -2253,8 +2168,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         return;
                     }
                     String stringId = Integer.toString(id);
-                    
-                    if(fane.getSelectedIndex() == 4) {
+
+                    if (fane.getSelectedIndex() == 4) {
                         String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
                         valgtUtleier.setText(uid);
                         valgtBolig.setText(stringId);
@@ -2265,13 +2180,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     else if(fane.getSelectedIndex() == 3)
                     {
                         valgtBoligId = stringId;
+                        sendEmail();
                     }
 
                 }
-            }
-
-
-            else if(tabellmodell instanceof utleierTabellModell) {
+            } else if (tabellmodell instanceof utleierTabellModell) {
                 if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMinSelectionIndex();
                     String id = (String) tabellmodell.getValueAt(valgtRad, 0);
@@ -2280,10 +2193,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
                     velgUtleierVindu.dispose();
                 }
-            }
-
-            else if(tabellmodell instanceof boligsøkerTabellModell)
-            {
+            } else if (tabellmodell instanceof boligsøkerTabellModell) {
                 if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMinSelectionIndex();
                     id = (String) tabellmodell.getValueAt(valgtRad, 0);
@@ -2294,30 +2204,26 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     velgBoligKnapp.setVisible(true);
                     valgtBolig.setVisible(true);
                 }
-            }
-            else if(tabellmodell instanceof boligSøkerTabellModellForMatch)
-            {
-                if(!lsm.isSelectionEmpty()) {
+            } else if (tabellmodell instanceof boligSøkerTabellModellForMatch) {
+                if (!lsm.isSelectionEmpty()) {
                     System.out.println("inne i tabbelyttern nå! panel 4 altså matching");
                     int valgtRad = lsm.getMaxSelectionIndex();
-                    valgtId = (String) tabellmodell.getValueAt(valgtRad,0);
+                    valgtId = (String) tabellmodell.getValueAt(valgtRad, 0);
                     System.out.println(valgtId);
                 }
 
-            }
-            else if(tabellmodell instanceof personTabellFabrikk){
-                if(!lsm.isSelectionEmpty()){
+            } else if (tabellmodell instanceof personTabellFabrikk) {
+                if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMaxSelectionIndex();
-                    slettPersonFn = (String)tabellmodell.getValueAt(valgtRad, 0);
-                    slettPersonEn = (String)tabellmodell.getValueAt(valgtRad, 1);
+                    slettPersonFn = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    slettPersonEn = (String) tabellmodell.getValueAt(valgtRad, 1);
                     visPersonInfo();
 
                 }
-            }
-            else if(tabellmodell instanceof boligTabellFabrikk){
-                if(!lsm.isSelectionEmpty()){
+            } else if (tabellmodell instanceof boligTabellFabrikk) {
+                if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMaxSelectionIndex();
-                    slettBoligId = (int)tabellmodell.getValueAt(valgtRad, 8);
+                    slettBoligId = (int) tabellmodell.getValueAt(valgtRad, 8);
                     System.out.println("B tabel ja");
                     visBoligInfo();
                 }
@@ -2335,21 +2241,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-
         }
     }
-
-
-
-
-
 
 
     // UTLEIERTABELLMODELL
-    private class utleierTabellModell extends AbstractTableModel
-    {
-        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
-        String [][] celler = utleiere.tilTabellMedId();
+    private class utleierTabellModell extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
+        String[][] celler = utleiere.tilTabellMedId();
 
         public int getRowCount() {
             return celler.length;
@@ -2363,22 +2262,21 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
         }
-        public boolean isCellEditable(int rad, int kolonne)
-        {
+
+        public boolean isCellEditable(int rad, int kolonne) {
             return kolonne == 2;
         }
     }
 
 
-
-    private class boligsøkerTabellModell extends AbstractTableModel
-    {
-        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Telefon", "eMail","lll"};
-        String [][] celler = boligsøkere.tilMatchTabll();
+    private class boligsøkerTabellModell extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "lll"};
+        String[][] celler = boligsøkere.tilMatchTabll();
 
         public int getRowCount() {
             return celler.length;
@@ -2392,77 +2290,92 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
         }
-        public boolean isCellEditable(int rad, int kolonne)
-        {
+
+        public boolean isCellEditable(int rad, int kolonne) {
             return kolonne == 2;
         }
     }
-
-
 
 
 // HERFRA
 
 
+    public String[] getKolonneNavnForBoligtype(int[] krav) {
+        String[] kolonnenavn1 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Parkering", "Kjeller", "Bilde", "id"};
+        String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
+        String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
+
+        if (krav != null) {
+            switch (krav[0]) {
+                case 1:
+                    return kolonnenavn1;
+
+                case 2:
+                    return kolonnenavn1;
+
+                case 3:
+                    return kolonnenavn2;
+
+                case 4:
+                    return kolonnenavn3;
+
+            }
+        }
+        return kolonnenavn1;
+    }
 
 
+    private class resultatTabellModell extends AbstractTableModel {
 
 
+        int[] kravene = boligsøkere.getKravPåId(valgtId);
+        //int type = kravene[0];
 
 
+        String[] kolonnenavn = getKolonneNavnForBoligtype(kravene);
+
+        Object[][] celler = boliger.matchPåKrav(kravene);
 
 
-public String[] getKolonneNavnForBoligtype(int[] krav)
-{
-    String[] kolonnenavn1 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Parkering", "Kjeller", "Bilde", "id"};
-    String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
-    String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
+        public int getRowCount() {
+            return celler.length;
+        }
 
-    if(krav != null) {
-        switch (krav[0]) {
-            case 1:
-                return kolonnenavn1;
+        public int getColumnCount() {
+            return celler[0].length;
 
-            case 2:
-                return kolonnenavn1;
+        }
 
-            case 3:
-                return kolonnenavn2;
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
 
-            case 4:
-                return kolonnenavn3;
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+        public boolean isCellEditable(int rad, int kolonne) {
+            return kolonne == 2;
+        }
+
+        public void setValueAt(String nyVerdi, int rad, int kolonne) {
+            celler[rad][kolonne] = nyVerdi;
+        }
+
+        public Class getColumnClass(int k) {
+
+
+            return getValueAt(0, k).getClass();
 
         }
     }
-        return kolonnenavn1;
-}
 
-
-private class resultatTabellModell extends AbstractTableModel
-{
-
-
-    int[] kravene = boligsøkere.getKravPåId(valgtId);
-    //int type = kravene[0];
-
-
-
-
-    String [] kolonnenavn = getKolonneNavnForBoligtype(kravene);
-
-    Object[][] celler = boliger.matchPåKrav(kravene);
-
-
-    public int getRowCount() {
-        return celler.length;
-    }
-
-    public int getColumnCount() {
-        return celler[0].length;
 
     }
 
@@ -2490,13 +2403,13 @@ private class resultatTabellModell extends AbstractTableModel
     }
 }
 
-    private void visMatch()
-    {
+
+    private void visMatch() {
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
 
-        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>( resultatModell );
+        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
 
 
         List<TableRowSorter.SortKey> sortKeys
@@ -2509,41 +2422,39 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
 
 
+        if (resultatModell.getValueAt(0, 0) != null) {
+            System.out.println("Er her nå");
+            sorterer.setSortKeys(sortKeys);
+        }
 
-        sorterer.setSortKeys(sortKeys);
+        //resultatTabell.setRowSorter(sorterer);
+        c.gridx = 1;
+        c.gridy = 3;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(5, 5, 5, 5);
 
-        resultatTabell.setRowSorter(sorterer);
-        resultatPanel.add(new JScrollPane(resultatTabell));
+        resultatPanel.add(new JScrollPane(resultatTabell), c);
         revalidate();
         repaint();
 
 
-
-        /*
-                        clearResultatPanel();
-                visBoligsøkere();
-                resultatPanel.add(new JScrollPane(boligSøkereForMatch));
-                resultatPanel.add(new JScrollPane(resultatTabell));
-                revalidate();
-                repaint();
-         */
-
     }
-    private void clearResultatPanel()
-    {
+
+    private void clearResultatPanel() {
         resultatPanel.removeAll();
         revalidate();
         repaint();
     }
-    private void clearVelgBsPanel(){
+
+    private void clearVelgBsPanel() {
         velgBsPanel.removeAll();
         revalidate();
         repaint();
 
     }
-
-
-
 
 
     public void visBoligsøkere() {
@@ -2557,19 +2468,33 @@ private class resultatTabellModell extends AbstractTableModel
         ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
 
-        velgBsPanel.add(new JScrollPane(boligSøkereForMatch));
+        c.gridx = 1;
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(5, 5, 5, 5);
+        velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
 
+
+        /*
+                c.gridx = 1;
+        c.gridy = 3;
+        c.anchor=GridBagConstraints.LINE_START;
+        c.fill =GridBagConstraints.BOTH;
+        c.weightx=10;
+        c.weighty=40;
+        c.insets = new Insets(5,5,5,5);
+         */
 
 
     }
 
 
-
-    //Starter tabellmodell for visVoligSøkere
-    private class boligSøkerTabellModellForMatch extends AbstractTableModel
-    {
-        String [] kolonnenavn = {"Id", "Fornavn","Etternavn", "Adresse", "Email", "Telefon"};
-        String [][] celler = boligsøkere.tilMatchTabll();
+    private class boligSøkerTabellModellForMatch extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Email", "Telefon"};
+        String[][] celler = boligsøkere.tilMatchTabll();
 
         public int getRowCount() {
             return celler.length;
@@ -2583,29 +2508,23 @@ private class resultatTabellModell extends AbstractTableModel
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
         }
-        public boolean isCellEditable(int rad, int kolonne)
-        {
+
+        public boolean isCellEditable(int rad, int kolonne) {
             return kolonne == 2;
         }
     }
-     ////SSLUTTER tabellmodell for visVoligSøkere
-
-//TIL HIT
-
-
-
-
 
 
     private String[][] joinPersonArray() {
-        String[][] første =  boligsøkere.tilTabell();
-        String[][] andre =utleiere.tilTabell();
+        String[][] første = boligsøkere.tilTabell();
+        String[][] andre = utleiere.tilTabell();
         String[][] joina = new String[første.length + andre.length][6];
-        String[][] dummy = {{"Tabellen","er","tom","Tabellen","er","tom"}};
+        String[][] dummy = {{"Tabellen", "er", "tom", "Tabellen", "er", "tom"}};
 
 
         int i = 0;
@@ -2613,12 +2532,12 @@ private class resultatTabellModell extends AbstractTableModel
             joina[i] = første[i];
             i++;
         }
-        int j=0;
-        while(j<andre.length){
-            joina[i++]=andre[j];
+        int j = 0;
+        while (j < andre.length) {
+            joina[i++] = andre[j];
             j++;
         }
-        if(i==0)
+        if (i == 0)
             joina = dummy;
 
         return joina;
@@ -2626,16 +2545,15 @@ private class resultatTabellModell extends AbstractTableModel
 
     private class personTabellFabrikk extends AbstractTableModel {
 
-      //  int  = boligsøkere.tellOpp();
+        //  int  = boligsøkere.tellOpp();
 
 
-        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon","Firma"};
+        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon", "Firma"};
 
         String[][] celler = joinPersonArray();
 
 
-
-      // THEM RULES for tabellen Altså tabellmodellen
+        // THEM RULES for tabellen Altså tabellmodellen
         public int getRowCount() {
             return celler.length;
         }
@@ -2649,12 +2567,13 @@ private class resultatTabellModell extends AbstractTableModel
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
         }
-        public boolean isCellEditable(int rad, int kolonne)
-        {
+
+        public boolean isCellEditable(int rad, int kolonne) {
             return kolonne == 2;
         }
     }    // end personTabellFabrikk
@@ -2668,8 +2587,8 @@ private class resultatTabellModell extends AbstractTableModel
         lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
     }
-    private void lagBoligTabellen()
-    {
+
+    private void lagBoligTabellen() {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
         boligTabellTabellen = new JTable(boligTabellModell);
         ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
@@ -2694,12 +2613,10 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
-
-
     private class boligTabellFabrikk extends AbstractTableModel {
 
 
-        String[] boligkolonnenavn = {"By","Kvadrat","Pris","Adresse","Rom","Parkering","Kjeller","Bilde","Id"};
+        String[] boligkolonnenavn = {"By", "Kvadrat", "Pris", "Adresse", "Rom", "Parkering", "Kjeller", "Bilde", "Id"};
 
 
         Object[][] boligceller = joinBoligArray();
@@ -2719,6 +2636,7 @@ private class resultatTabellModell extends AbstractTableModel
         public Object getValueAt(int rad, int kolonne) {
             return boligceller[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return boligkolonnenavn[kolonne];
@@ -2739,8 +2657,8 @@ private class resultatTabellModell extends AbstractTableModel
         Object[][] andre = boliger.hyblerTilTabell();
         Object[][] tredje = boliger.leiligheterTilTabell();
         Object[][] fjerde = boliger.rekkehusTilTabell();
-        String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom","tom","tom","tom"}};
-        System.out.println("første "+første.length);
+        String[][] dummy = {{"Tabellen", "er", "tom", "tom", "tom", "tom", "tom", "tom", "tom"}};
+        System.out.println("første " + første.length);
 
         Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
         int i = 0;
@@ -2749,23 +2667,23 @@ private class resultatTabellModell extends AbstractTableModel
             i++;
             System.out.println(i);
         }
-        int j=0;
-        while(j<andre.length){
-            JOptionPane.showMessageDialog(null,j);
-            joina[i++]=andre[j];
+        int j = 0;
+        while (j < andre.length) {
+            JOptionPane.showMessageDialog(null, j);
+            joina[i++] = andre[j];
             j++;
         }
-        int k=0;
-        while(k<tredje.length){
-            joina[i++]=tredje[k];
+        int k = 0;
+        while (k < tredje.length) {
+            joina[i++] = tredje[k];
             k++;
         }
-        int l=0;
-        while(l<fjerde.length) {
+        int l = 0;
+        while (l < fjerde.length) {
             joina[i++] = fjerde[l];
             l++;
         }
-        if(i==0)
+        if (i == 0)
             joina = dummy;
 
         return joina;
@@ -2809,10 +2727,8 @@ private class resultatTabellModell extends AbstractTableModel
      */
 
 
-
-
-        //private TableModel tabellModell;
-        //private personTabellFabrikk vindu;
+    //private TableModel tabellModell;
+    //private personTabellFabrikk vindu;
 /*
         Utvalgslytter(TableModel m, personTabellFabrikk v)
         {
@@ -2822,37 +2738,35 @@ private class resultatTabellModell extends AbstractTableModel
 */
 
 
-        /*
-        public void valueChanged(ListSelectionEvent e)
+    /*
+    public void valueChanged(ListSelectionEvent e)
+    {
+        String utskrift = "";
+        if(e.getValueIsAdjusting()) //vent med handlig før valg er avsluttet
+            return;
+
+
+        ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+        if(!lsm.isSelectionEmpty())
         {
-            String utskrift = "";
-            if(e.getValueIsAdjusting()) //vent med handlig før valg er avsluttet
-                return;
+            int valgtrad = lsm.getMinSelectionIndex();
+
+            utskrift += "Navn: " + (String) tabellModell.getValueAt(valgtrad, 0 );
+            utskrift += "EtterNavn: " + (String) tabellModell.getValueAt(valgtrad,1);
+        }
+        utskriftsområde.setText(utskrift);
+       // vindu.visNavndata(navndata)
 
 
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if(!lsm.isSelectionEmpty())
-            {
-                int valgtrad = lsm.getMinSelectionIndex();
-
-                utskrift += "Navn: " + (String) tabellModell.getValueAt(valgtrad, 0 );
-                utskrift += "EtterNavn: " + (String) tabellModell.getValueAt(valgtrad,1);
-            }
-            utskriftsområde.setText(utskrift);
-           // vindu.visNavndata(navndata)
-
-
-        }//end valuechange
-    }
+    }//end valuechange
+}
 
 
 */
-    public void regPerson()
-    {
+    public void regPerson() {
 
 
-        if(boligsøker.isSelected())
-        {
+        if (boligsøker.isSelected()) {
 
             int bt, by, rom, minPris, maxPris, park, antE, kjeller,heis, balkong, dbm, dkm, plan;
 
@@ -2866,7 +2780,7 @@ private class resultatTabellModell extends AbstractTableModel
             rom = 0;
             minPris = 0;
             maxPris = 0;
-            plan=0;
+            plan = 0;
 
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
@@ -2876,78 +2790,85 @@ private class resultatTabellModell extends AbstractTableModel
             String bType = (String) boligtypeBox.getSelectedItem();
             String byInn = (String) byBox.getSelectedItem();
 
-            try{
-                if(romBox.isVisible())
-                rom = Integer.parseInt((String) romBox.getSelectedItem());
+            try {
+                if (romBox.isVisible())
+                    rom = Integer.parseInt((String) romBox.getSelectedItem());
 
                 minPris = minPrisSlider.getValue();
 
                 maxPris = maxPrisSlider.getValue();
 
-                if(etasjeBox.isVisible()){
+                if (etasjeBox.isVisible()) {
                     System.out.println("Inni try iffen");
-                antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
+                    antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
                 }
 
-                if(planBox.isVisible())
-                    plan = Integer.parseInt((String)planBox.getSelectedItem());
-            }
-            catch(NumberFormatException nfe){
+                if (planBox.isVisible())
+                    plan = Integer.parseInt((String) planBox.getSelectedItem());
+            } catch (NumberFormatException nfe) {
                 System.out.println("NFE i trycatchen noe ikke er valgt. enten rom,plan,etg");
 
             }
 
 
-            switch (bType)
-            {
-                case "Enebolig" : bt = 1;
+            switch (bType) {
+                case "Enebolig":
+                    bt = 1;
                     break;
-                case "Rekkehus" : bt = 2;
+                case "Rekkehus":
+                    bt = 2;
                     break;
-                case "Leilighet" : bt = 3;
+                case "Leilighet":
+                    bt = 3;
                     break;
-                case "Hybel" : bt = 4;
+                case "Hybel":
+                    bt = 4;
                     break;
-                default: bt = 0;
-                    break;
-            }
-
-            switch(byInn){
-                case "Oslo":        by = 1;
-                    break;
-                case "Bergen":      by = 2;
-                    break;
-                case "Stavanger":   by = 3;
-                    break;
-                case "Trondheim":   by = 4;
-                    break;
-                case "Kristiansand":by = 5;
-                    break;
-                case "Tromsø":      by = 6;
-                    break;
-                default:            by = 0;
+                default:
+                    bt = 0;
                     break;
             }
 
+            switch (byInn) {
+                case "Oslo":
+                    by = 1;
+                    break;
+                case "Bergen":
+                    by = 2;
+                    break;
+                case "Stavanger":
+                    by = 3;
+                    break;
+                case "Trondheim":
+                    by = 4;
+                    break;
+                case "Kristiansand":
+                    by = 5;
+                    break;
+                case "Tromsø":
+                    by = 6;
+                    break;
+                default:
+                    by = 0;
+                    break;
+            }
 
-            if(garasjeValg.isSelected())
+
+            if (garasjeValg.isSelected())
                 park = 1;
-            if(heisValg.isSelected())
+            if (heisValg.isSelected())
                 heis = 1;
-            if(kjellerValg.isSelected())
+            if (kjellerValg.isSelected())
                 kjeller = 0;
-            if(badValg.isSelected())
+            if (badValg.isSelected())
                 dbm = 1;
-            if(kjøkkenValg.isSelected())
+            if (kjøkkenValg.isSelected())
                 dkm = 1;
-            if(balkongValg.isSelected())
+            if (balkongValg.isSelected())
                 balkong = 1;
 
 
-
-
-            if( fnavn.equals("")||fnavn.length()<2|| enavn.equals("") ||enavn.length()<2|| t.equals("")||t.length()<2 || ad.length()<2 || ad.equals("") || email.equals("") || email.length()<2|| bt == 0 || by == 0  || rom == 0)
-            {
+            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || t.equals("") || t.length() < 2 || ad.length() < 2 || ad.equals("") || email.equals("") || email.length() < 2 || bt == 0 || by == 0 || rom == 0) {
 
                 gyldig(fornavn);
                 gyldig(etternavn);
@@ -2961,46 +2882,34 @@ private class resultatTabellModell extends AbstractTableModel
                 gyldigBox(romBox);
                 gyldigBox(planBox);
 
-            }
-            else {
-                String id = idGenerator(enavn,fnavn);
+            } else {
+                String id = idGenerator(enavn, fnavn);
 
-                    if(bt == 1 || bt == 2) //hvis enebolig
-                    {
-                        if(antE != 0)
-                        {
-                            JOptionPane.showMessageDialog(null,"1");
-                            Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
-                            boligsøkere.settInnNy(ny);
-                            clearPersonFelt();
-                            clearBSfelt();
-                            return;
-                        }
-                        else{
-                            JOptionPane.showMessageDialog(null,"2");
-                            gyldigBox(etasjeBox);
-                            return;
-                        }
-                    }
-
-                    if(bt == 3 &&  plan == 0){
-                        feedbackFane1.setText("Velg ønsket etasje");
-                        gyldigBox(planBox);
+                if (bt == 1 || bt == 2) //hvis enebolig
+                {
+                    if (antE != 0) {
+                        JOptionPane.showMessageDialog(null, "1");
+                        Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
+                        boligsøkere.settInnNy(ny);
+                        clearPersonFelt();
+                        clearBSfelt();
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "2");
+                        gyldigBox(etasjeBox);
                         return;
                     }
+                }
+
+                if (bt == 3 && plan == 0) {
+                    feedbackFane1.setText("Velg ønsket etasje");
+                    gyldigBox(planBox);
+                    return;
+                }
 
 
-
-
-
-
-
-
-
-
-
-                JOptionPane.showMessageDialog(null,"3");
-                Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm );
+                JOptionPane.showMessageDialog(null, "3");
+                Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                 boligsøkere.settInnNy(ny);
                 clearPersonFelt();
                 clearBSfelt();
@@ -3017,8 +2926,7 @@ private class resultatTabellModell extends AbstractTableModel
 
 
         // regger utleier
-        else if(utleier.isSelected())
-        {
+        else if (utleier.isSelected()) {
             String fnavn = fornavn.getText();
             String enavn = etternavn.getText();
             String ad = adresse.getText();
@@ -3027,25 +2935,24 @@ private class resultatTabellModell extends AbstractTableModel
             String firm = firma.getText();
 
 
-            if( fnavn.equals("") || fnavn.length()<2 || enavn.equals("") ||enavn.length()<2|| ad.equals("")||ad.length()<2 || t.equals("")||t.length()<2 || email.equals("") ||email.length()<2|| firm.equals("")||firm.length()<2){
+            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || ad.equals("") || ad.length() < 2 || t.equals("") || t.length() < 2 || email.equals("") || email.length() < 2 || firm.equals("") || firm.length() < 2) {
                 gyldig(fornavn);
                 gyldig(etternavn);
                 gyldig(adresse);
                 gyldig(tlf);
                 gyldig(mail);
                 gyldig(firma);
-            }
-            else {
+            } else {
 
-                String id = idGenerator(firm,enavn,fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
+                String id = idGenerator(firm, enavn, fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
 
 
-                Utleier ny = new Utleier(id, fnavn, enavn, ad ,t ,email, firm);
+                Utleier ny = new Utleier(id, fnavn, enavn, ad, t, email, firm);
                 utleiere.settInn(ny);
                 clearPersonFelt();
                 clearBSfelt();
                 feedbackFane1.setText("Utleier registrert med id: " + ny.getId());
-               
+
                 return;
             }
             feedbackFane1.setText("Du må skrive inn i alle feltene");
@@ -3056,20 +2963,17 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
-
-    private boolean gyldig(JTextField f)
-    {
-        if( f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
+    private boolean gyldig(JTextField f) {
+        if (f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
             f.setBackground(Color.RED);
             return true;
-        }
-        else{
+        } else {
             f.setBackground(Color.WHITE);
             return false;
-       }
+        }
     }
-    private void clearBSfelt()
-    {
+
+    private void clearBSfelt() {
         boligtypeBox.setSelectedIndex(0);
         byBox.setSelectedIndex(0);
         romBox.setSelectedIndex(0);
@@ -3088,8 +2992,7 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
-    private void clearPersonFelt()
-    {
+    private void clearPersonFelt() {
         fornavn.setText("");
         etternavn.setText("");
         adresse.setText("");
@@ -3105,14 +3008,12 @@ private class resultatTabellModell extends AbstractTableModel
         System.out.println("Clear person feltene");
     }
 
-    private boolean gyldigBox(JComboBox f)
-    {
-        if(f.getSelectedIndex()==0 && f.isVisible()) {
+    private boolean gyldigBox(JComboBox f) {
+        if (f.getSelectedIndex() == 0 && f.isVisible()) {
             f.setForeground(Color.RED);
             return true;
-        }
-        else
-        f.setForeground(Color.BLACK);
+        } else
+            f.setForeground(Color.BLACK);
         return false;
 
     }
@@ -3122,16 +3023,14 @@ private class resultatTabellModell extends AbstractTableModel
     {
         String id = "";
 
-       try{
-           id = f.substring(0,2).toUpperCase()+en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();
-       }
-       catch (StringIndexOutOfBoundsException sioobe)
-       {
-           System.out.println();
-       }
+        try {
+            id = f.substring(0, 2).toUpperCase() + en.substring(0, 2).toUpperCase() + fn.substring(0, 2).toUpperCase();
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            System.out.println();
+        }
 
 
-        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
+        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
 
         return id;
 
@@ -3143,15 +3042,14 @@ private class resultatTabellModell extends AbstractTableModel
         catch(StringIndexOutOfBoundsException sioobe){
             System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
 
-        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
+        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
 
         return id;
 
     }
 
 
-    public void regBolig()
-    {
+    public void regBolig() {
         JOptionPane.showMessageDialog(null, "Regbolig kjører");
 
         String adr = adresseFane2.getText();
@@ -3163,19 +3061,14 @@ private class resultatTabellModell extends AbstractTableModel
         String beskrivelseString = beskrivelse.getText();
 
 
-
-
-        if(utId.equals("Ingen utleier valgt"))
-        {
-            JOptionPane.showMessageDialog(null,"Du må velge en utleier!");
+        if (utId.equals("Ingen utleier valgt")) {
+            JOptionPane.showMessageDialog(null, "Du må velge en utleier!");
             return;
         }
 
 
-
         // innfelter
-        if(arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals(""))
-        {
+        if (arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals("")) {
             gyldig(adresseFane2);
             gyldig(boareal);
             gyldig(byggår);
@@ -3193,84 +3086,90 @@ private class resultatTabellModell extends AbstractTableModel
         switch(valg){
             case "Enebolig":    btype = 1;
                 break;
-            case "Rekkehus":       btype = 2;
+            case "Rekkehus":
+                btype = 2;
                 break;
-            case "Leilighet":   btype = 3;
+            case "Leilighet":
+                btype = 3;
                 break;
-            case "Hybel":    btype = 4;
+            case "Hybel":
+                btype = 4;
                 break;
-            case "Velg boligtype..": btype = 0;
+            case "Velg boligtype..":
+                btype = 0;
                 break;
-            default:            btype = 0;
+            default:
+                btype = 0;
                 break;
         }
-        try
-        {
+        try {
             areal = Integer.parseInt(arealString);
             år = Integer.parseInt(årString);
             upris = Integer.parseInt(utPrisString);
-            if( btype == 1 || btype == 2){
-                try{
+            if (btype == 1 || btype == 2) {
+                try {
                     tomtareal = Integer.parseInt(tAreal);
-                }catch(NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
-        }
-        }
-        catch(NumberFormatException e)
-        {
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
             return;
         }
 
 
-
-    // Comboboxer
-        String by = (String)byBoxFane2.getSelectedItem();
+        // Comboboxer
+        String by = (String) byBoxFane2.getSelectedItem();
         int byvalg = 0;
-        switch(by){
-            case "Oslo":        byvalg = 1;
-                                break;
-            case "Bergen":      byvalg = 2;
-                                break;
-            case "Stavanger":   byvalg = 3;
-                                break;
-            case "Trondheim":   byvalg = 4;
-                                break;
-            case "Kristiansand":byvalg = 5;
-                                break;
-            case "Tromsø":      byvalg = 6;
-                                break;
-            case "Velg by..":   byvalg = 0;
-                                break;
-            default:            byvalg = 0;
-                                break;
+        switch (by) {
+            case "Oslo":
+                byvalg = 1;
+                break;
+            case "Bergen":
+                byvalg = 2;
+                break;
+            case "Stavanger":
+                byvalg = 3;
+                break;
+            case "Trondheim":
+                byvalg = 4;
+                break;
+            case "Kristiansand":
+                byvalg = 5;
+                break;
+            case "Tromsø":
+                byvalg = 6;
+                break;
+            case "Velg by..":
+                byvalg = 0;
+                break;
+            default:
+                byvalg = 0;
+                break;
         }
         int rom = 0;
         int antetasjer;
         int plan = 0;
 
 
-        if(btype!=4)
-            if(romBoxFane2.getSelectedIndex()==0)
+        if (btype != 4)
+            if (romBoxFane2.getSelectedIndex() == 0)
                 gyldigBox(romBoxFane2);
             else
                 Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
 
-        if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
+        if (etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
             antetasjer = 0;
         else
-            antetasjer = Integer.parseInt((String)etasjeBoxFane2.getSelectedItem());
+            antetasjer = Integer.parseInt((String) etasjeBoxFane2.getSelectedItem());
 
 
-
-        if(btype==3)
-            if(planBoxFane2.getSelectedIndex() == 0)
+        if (btype == 3)
+            if (planBoxFane2.getSelectedIndex() == 0)
                 gyldigBox(planBoxFane2);
-            else plan = Integer.parseInt((String)planBoxFane2.getSelectedItem());
-
-
+            else plan = Integer.parseInt((String) planBoxFane2.getSelectedItem());
 
 
         int kjeller = -1;
@@ -3280,17 +3179,17 @@ private class resultatTabellModell extends AbstractTableModel
         int kjøkkenInt = -1;
         int balkong = -1;
 
-        if(kjellerValgFane2.isSelected())
+        if (kjellerValgFane2.isSelected())
             kjeller = 1;
-        if(heisValgFane2.isSelected())
+        if (heisValgFane2.isSelected())
             heis = 1;
-        if(garasjeValgFane2.isSelected())
+        if (garasjeValgFane2.isSelected())
             garasje = 1;
-        if(balkongValgFane2.isSelected())
+        if (balkongValgFane2.isSelected())
             balkong = 1;
-        if(badValgFane2.isSelected())
+        if (badValgFane2.isSelected())
             badInt = 1;
-        if(kjøkkenValgFane2.isSelected())
+        if (kjøkkenValgFane2.isSelected())
             kjøkkenInt = 1;
 
         String sti = bildesti.getText();
@@ -3325,14 +3224,12 @@ private class resultatTabellModell extends AbstractTableModel
         }
     }
 
-    public void finnBilde()
-    {
+    public void finnBilde() {
         JFileChooser filvelger = new JFileChooser();
-        filvelger.setCurrentDirectory( new File( "." ) );
+        filvelger.setCurrentDirectory(new File("."));
         int resultat = filvelger.showOpenDialog(this);
 
-        if(resultat == JFileChooser.APPROVE_OPTION)
-        {
+        if (resultat == JFileChooser.APPROVE_OPTION) {
             File f = filvelger.getSelectedFile();
             String filsti = f.getPath();
             bildesti.setText(filsti);
@@ -3340,60 +3237,53 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
-
     public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
     {
         Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
         Bolig bolig = boliger.finnBolig(valgtBolig.getText());
         Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
-        int sluttår, sluttmåned, sluttdag, startår, startmåned,startdag;
+        int sluttår, sluttmåned, sluttdag, startår, startmåned, startdag;
 
-        if(leietaker == null )  {
+        if (leietaker == null) {
             System.out.println("leietaker var null");
             return;
         }
-        if(bolig == null )  {
-        System.out.println("boligen var null");
-        return;
+        if (bolig == null) {
+            System.out.println("boligen var null");
+            return;
         }
-        if(utleier == null ) {
-        System.out.println("utleieren var null");
-        return;
+        if (utleier == null) {
+            System.out.println("utleieren var null");
+            return;
         }
 
 
-
-        try{
+        try {
             sluttår = Integer.parseInt((String) sluttårFelt.getText());
             sluttmåned = Integer.parseInt((String) sluttMånedFelt.getText());
             sluttdag = Integer.parseInt((String) sluttDagFelt.getText());
             startår = Integer.parseInt((String) startÅrFelt.getText());
             startmåned = Integer.parseInt((String) startMånedFelt.getText());
             startdag = Integer.parseInt((String) startDagFelt.getText());
-        }
-
-        catch(NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Du må skrive inn ordentlige tall i datofeltene");
             return;
         }
 
-        if(startdag <= 31   &&   startdag > 0   &&   startmåned <= 12   &&   startmåned > 0   &&   startår >=2014   &&  startår <= 2020 &&
-           sluttdag <= 31   &&   sluttdag > 0   &&   sluttmåned <= 12   &&   sluttmåned > 0   &&   sluttår >=2014   &&  sluttår <= 2020)
-        {
-            startmåned = startmåned-1;
-            sluttmåned = sluttmåned-1;
+        if (startdag <= 31 && startdag > 0 && startmåned <= 12 && startmåned > 0 && startår >= 2014 && startår <= 2020 &&
+                sluttdag <= 31 && sluttdag > 0 && sluttmåned <= 12 && sluttmåned > 0 && sluttår >= 2014 && sluttår <= 2020) {
+            startmåned = startmåned - 1;
+            sluttmåned = sluttmåned - 1;
             Calendar start = new GregorianCalendar(startår, startmåned, startdag);
             Calendar slutt = new GregorianCalendar(sluttår, sluttmåned, sluttdag);
             start.setLenient(false);
             start.setLenient(false);
-            try{
+            try {
                 Date dt = start.getTime();
                 Date df = slutt.getTime();
-                if(start.before(slutt))
-                {
-                    Kontrakt ny = new Kontrakt(utleier,leietaker, bolig, start, slutt );
-                    if(kontrakter.leggTil(ny)){
+                if (start.before(slutt)) {
+                    Kontrakt ny = new Kontrakt(utleier, leietaker, bolig, start, slutt);
+                    if (kontrakter.leggTil(ny)) {
                         kontrakthistorie.skrivTilTekstFil(ny.toString());
                         JOptionPane.showMessageDialog(null, "Kontrakt lagret");
                         valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
@@ -3401,24 +3291,20 @@ private class resultatTabellModell extends AbstractTableModel
                         startMånedFelt.setText(null); startDagFelt.setText(null);
                         visKontrakter();
                     }
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
                 }
-            }catch(IllegalArgumentException iae){
+            } catch (IllegalArgumentException iae) {
                 JOptionPane.showMessageDialog(null, "En av datoene du skrev inn er ugyldig!");
             }
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Du må skriver gyldige tall i datofeltene!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Du må skriver gyldige tall i datofeltene!");
         }
 
     }
 
 
-
-    public void matchPåKrav()
-    {
+    public void matchPåKrav() {
         /*
         - velge boligsøker:
             - ved hjelp av jtable
@@ -3433,11 +3319,11 @@ private class resultatTabellModell extends AbstractTableModel
         */
 
 
-
     }
-    private void visKontraktHistorie(){
+
+    private void visKontraktHistorie() {
         visKontraktHistorikk = new JFrame("Kontrakt historikk");
-        JTextArea ko = new JTextArea(30,20);
+        JTextArea ko = new JTextArea(30, 20);
         ko.setText(kontrakthistorie.lesFraTekstFil());
         ko.setEditable(false);
         JScrollPane scrolle = new JScrollPane(ko);
@@ -3446,17 +3332,16 @@ private class resultatTabellModell extends AbstractTableModel
         visKontraktHistorikk.setVisible(true);
     }
 
-    private void visVelgUtleierVindu()
-    {
+    private void visVelgUtleierVindu() {
         velgUtleierVindu = new JFrame("Velg Eier");
 
-       // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
+        // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
 
         utleierTabellModell modell = new utleierTabellModell();
         utleierValgTabell = new JTable(modell);
 
 
-        utleierValgTabell.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        utleierValgTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = utleierValgTabell.getSelectionModel();
 
         lsm.addListSelectionListener(new Utvalgslytter(modell));
@@ -3469,8 +3354,7 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
-    private void visVelgLeietakerVindu()
-    {
+    private void visVelgLeietakerVindu() {
         velgLeietakerVindu = new JFrame("Velg Leietaker");
 
 
@@ -3488,32 +3372,27 @@ private class resultatTabellModell extends AbstractTableModel
 
 
     }
-    public void visVelgBoligVindu()
-    {
+
+    public void visVelgBoligVindu() {
         velgBoligVindu = new JFrame("Velg bolig");
 
 
         //sett utleierid, sånn at det matches på riktig boligsøker
 
         String leietakerId = valgtLeietaker.getText();
-        if(leietakerId.equals("Ingen leietaker valgt")){
+        if (leietakerId.equals("Ingen leietaker valgt")) {
             JOptionPane.showMessageDialog(null, "Ingen boligsøker valgt!");
             return;
         }
         valgtId = leietakerId;
 
 
-
-
-
         resultatTabellModell resultatModell = new resultatTabellModell();
         resultatTabell = new JTable(resultatModell);
 
 
-
-
         //sorter på matchkoefisient
-        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>( resultatModell );
+        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
         List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
         sorterer.setSortKeys(sortKeys);
@@ -3533,6 +3412,7 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
 
+    public void visKontrakter() {
 
 
 
@@ -3624,26 +3504,30 @@ private class resultatTabellModell extends AbstractTableModel
             feedbackFane3.setText(valgtUtleier.toString());
             clearBildePanel();
 
-        }
-        else {
-            String bs = boligsøkere.finnBoligsøkerID(slettPersonFn,slettPersonEn);
-            Boligsøker valgtBoligsøker = boligsøkere.getBoligsøker(bs);
-            feedbackFane3.setText(valgtBoligsøker.toString());
+    public void visPersonInfo() {
+        try {
+            String id = utleiere.finnID(slettPersonFn, slettPersonEn);
+            if (id != null) {
+                Utleier valgtUtleier = utleiere.getUtleier(id);
+                feedbackFane3.setText(valgtUtleier.toString());
+                clearBildePanel();
+
+            } else {
+                String bs = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
+                Boligsøker valgtBoligsøker = boligsøkere.getBoligsøker(bs);
+                feedbackFane3.setText(valgtBoligsøker.toString());
+                clearBildePanel();
+            }
             clearBildePanel();
-        }
-        clearBildePanel();
-        }
-        catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             System.out.println("number formatCare");
 
         }
     }
 
 
-
     public void visBoligInfo() {
         String id = Integer.toString(slettBoligId);
-
 
 
         Bolig valgtBolig = boliger.finnBolig(id);
@@ -3657,11 +3541,8 @@ private class resultatTabellModell extends AbstractTableModel
 
         ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
         Image img = image.getImage();
-        Image skalert = img.getScaledInstance(330,310, Image.SCALE_SMOOTH);
+        Image skalert = img.getScaledInstance(330, 310, Image.SCALE_SMOOTH);
         image = new ImageIcon(skalert);
-
-
-
 
 
         JLabel label = new JLabel("", image, JLabel.CENTER);
@@ -3669,107 +3550,102 @@ private class resultatTabellModell extends AbstractTableModel
         bildepanel.add(label, BorderLayout.CENTER);
 
     }
-    private void clearBildePanel()
-    {
+
+    private void clearBildePanel() {
         bildepanel.removeAll();
         revalidate();
     }
 
 
-
-    public void slettBoligsøker()
-    {
+    public void slettBoligsøker() {
         String[] alternativer = {"Ja", "Nei"};
-        if(slettPersonFn.equals("") || slettPersonEn.equals("")){
+        if (slettPersonFn.equals("") || slettPersonEn.equals("")) {
             JOptionPane.showMessageDialog(null, "DUUUURT");
             return;
         }
-        int svar = JOptionPane.showOptionDialog(null,"Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
-        , null, alternativer, alternativer[0]);
-        if( svar == JOptionPane.YES_OPTION){
+        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
+                , null, alternativer, alternativer[0]);
+        if (svar == JOptionPane.YES_OPTION) {
             String id = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
-            if(!id.equals("")) {
+            if (!id.equals("")) {
                 Boligsøker slett = boligsøkere.getBoligsøker(id);
-                if(boligsøkere.fjernSøker(slett)){
+                if (boligsøkere.fjernSøker(slett)) {
                     kontrakter.fjernKontrakt(slett);
                     JOptionPane.showMessageDialog(null, "Personen er slettet");
                     slettPersonEn = "";
                     slettPersonFn = "";
                 }
-            }
-            else{
+            } else {
                 id = utleiere.finnID(slettPersonFn, slettPersonEn);
                 Utleier woop = utleiere.getUtleier(id);
-                if(!utleiere.harBoliger(woop)){
-                    utleiere.fjernUtleier(slettPersonFn,slettPersonEn);
-                    JOptionPane.showMessageDialog(null,"Personen ble slettet");
-                }else{
-                    JOptionPane.showMessageDialog(null,"Personen har boliger registrert på seg!");
+                if (!utleiere.harBoliger(woop)) {
+                    utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
+                    JOptionPane.showMessageDialog(null, "Personen ble slettet");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
                 }
 
             }
         }
     } //  var det dette som vi skulle kunne slette, eller noe annet?
-    public void slettBolig(){
+
+    public void slettBolig() {
         String[] alternativer = {"Ja", "Nei"};
         String slettDenne = Integer.toString(slettBoligId);
-        if(slettDenne.equals("")){
-            JOptionPane.showMessageDialog(null,"Velg bolig");
+        if (slettDenne.equals("")) {
+            JOptionPane.showMessageDialog(null, "Velg bolig");
             return;
         }
         Bolig slett = boliger.finnBolig(slettDenne);
-        if(slett.getUtleid()){
-            JOptionPane.showMessageDialog(null,"Boligen er utleid, kan ikke slettes!");
+        if (slett.getUtleid()) {
+            JOptionPane.showMessageDialog(null, "Boligen er utleid, kan ikke slettes!");
             return;
         }
-        int svar = JOptionPane.showOptionDialog(null,"Sikker på at du vil slette boligen med " + slett.getAdresse() + "?","Slett bolig",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, alternativer, alternativer[0]);
-        if( svar == JOptionPane.YES_OPTION){
-            if(boliger.slettBolig(slett))
-                JOptionPane.showMessageDialog(null,"Boligen ble slettet");
+        if (svar == JOptionPane.YES_OPTION) {
+            if (boliger.slettBolig(slett))
+                JOptionPane.showMessageDialog(null, "Boligen ble slettet");
             else
-                JOptionPane.showMessageDialog(null,"DUUURT!");
+                JOptionPane.showMessageDialog(null, "DUUURT!");
         }
 
     }
 
-    public void lesFraFil(){
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))){
+    public void lesFraFil() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))) {
 
             utleiere = (UtleierListe) in.readObject();
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
             boliger = (Boligliste) in.readObject();
-        }
-        catch( ClassNotFoundException cnfe ){
-            JOptionPane.showMessageDialog(null,"Kunne ikke finne programmets klasse");
-        }
-        catch( FileNotFoundException fnfe ){
+        } catch (ClassNotFoundException cnfe) {
+            JOptionPane.showMessageDialog(null, "Kunne ikke finne programmets klasse");
+        } catch (FileNotFoundException fnfe) {
             JOptionPane.showMessageDialog(null, "Fant ikke fildata.data");
-        }
-        catch( IOException ioe ){
+        } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null, "Feil med lesing fra fil");
         }
     }
-    public void skrivTilFil(){
-        try( ObjectOutputStream ut = new ObjectOutputStream(new FileOutputStream("fildata.data"))){
+
+    public void skrivTilFil() {
+        try (ObjectOutputStream ut = new ObjectOutputStream(new FileOutputStream("fildata.data"))) {
             ut.writeObject(utleiere);
             ut.writeObject(boligsøkere);
             ut.writeObject(kontrakter);
             ut.writeObject(boliger);
             System.out.println("Skriver til fil, ");
-        }
-        catch( NotSerializableException nse ){
+        } catch (NotSerializableException nse) {
             JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");
-        }
-        catch( IOException ioe ){
-            JOptionPane.showMessageDialog(null,"Feil med skriving til fil");
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Feil med skriving til fil");
         }
     }
-    public void sendEmail(){
-        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
+
+    public void sendEmail() {
+
         Boligsøker send = boligsøkere.getBoligsøker(valgtId);
-        if(send == null){
+        if (send == null) {
             JOptionPane.showMessageDialog(null, "Velg en bolisøker");
             return;
         }
@@ -3777,34 +3653,49 @@ private class resultatTabellModell extends AbstractTableModel
         //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
 
         Bolig sendTil = boliger.finnBolig(valgtBoligId);
-        if(sendTil == null){
+        if (sendTil == null) {
             JOptionPane.showMessageDialog(null, "Velg en bolig");
             return;
         }
         JOptionPane.showMessageDialog(null, valgtBoligId);
-        String adresse = sendTil.getAdresse();
+
         int stedInt = sendTil.getSted();
         String sted = "";
-        switch (stedInt){
-            case 1: sted = "Oslo";
-                    break;
-            case 2: sted = "Bergen";
-                    break;
-            case 3: sted = "Stavanger";
-                    break;
-            case 4: sted = "Trondheim";
-                    break;
-            case 5: sted = "Kristiansand";
-                    break;
-            case 6: sted = "Tromsø";
-                    break;
+        switch (stedInt) {
+            case 1:
+                sted = "Oslo";
+                break;
+            case 2:
+                sted = "Bergen";
+                break;
+            case 3:
+                sted = "Stavanger";
+                break;
+            case 4:
+                sted = "Trondheim";
+                break;
+            case 5:
+                sted = "Kristiansand";
+                break;
+            case 6:
+                sted = "Tromsø";
+                break;
 
         }
-        int pris = sendTil.getUtleiepris();
-        epost.sendMail(til,n,adresse, sted, pris);
+
+        feedbackMail.setText("Hei " + send.getNavn() + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
+                + sendTil.getAdresse() + "\n" + sted + "\n" + sendTil.getUtleiepris() + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
+
     }
-    public void visKontraktFil(){
+
+    public void visKontraktFil() {
         visKontraktHistorie();
     }
 
-}
+
+    public void sendEpost() {
+        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
+        epost.sendMail(til, feedbackMail.getText());
+    }
+
+}// EOLAWKI

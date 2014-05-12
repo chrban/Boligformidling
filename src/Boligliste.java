@@ -155,8 +155,11 @@ public class Boligliste implements Serializable {
         double matchkoeffisient;
         double urelevante = 0;
         int teller = 0;
-        String[][] dummy = {{"Fant","desverre","ingen","passende","bolig","for","valgt","boligsøker","!"}};
+        Object[][] dummy = {{"Fant","desverre","ingen","passende","bolig","for","valgt","boligsøker","!"}};
+        Object[][] initial = {{"Velg","en","søker","for","å","finne","match",2,"!"}};
 
+       if(krav==null)
+       return initial; //Når det kjøres for første gang.
 
         // enebol
         if(krav[0] == 1)
