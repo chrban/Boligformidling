@@ -55,8 +55,8 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,visBoligsøkereTabell,visBoligTabell,resultatTabell,boligSøkereForMatch,boligValgTabell;
-    private JScrollPane scroll, mainScroll;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch;
+    private JScrollPane scroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
     private ButtonGroup radioPerson, radioTabell;
@@ -1796,7 +1796,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     private ImageIcon sjekkPath(String s)
     {
-        ImageIcon bilde = null;
+        ImageIcon bilde;
         java.net.URL kilde = getClass().getResource(s);
 
         if(kilde != null)
@@ -1872,8 +1872,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
 
         private void printIt(DocumentEvent documentEvent) {
-            DocumentEvent.EventType type = documentEvent.getType();
-            String typeString = null;
             Document source = documentEvent.getDocument();
             int length = source.getLength();
 
@@ -2224,7 +2222,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         valgtUtleier.setVisible(true);
                         utleierLabel.setVisible(true);
                         velgBoligVindu.dispose();
-                        return;
                     }
                     else if(fane.getSelectedIndex() == 3)
                     {
@@ -2243,7 +2240,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     utleierId.setText(id);
 
                     velgUtleierVindu.dispose();
-                    return;
                 }
             }
 
@@ -2258,7 +2254,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     velgLeietakerVindu.dispose();
                     velgBoligKnapp.setVisible(true);
                     valgtBolig.setVisible(true);
-                    return;
                 }
             }
             else if(tabellmodell instanceof boligSøkerTabellModellForMatch)
@@ -2268,8 +2263,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     int valgtRad = lsm.getMaxSelectionIndex();
                     valgtId = (String) tabellmodell.getValueAt(valgtRad,0);
                     System.out.println(valgtId);
-
-                    return;
                 }
 
             }
@@ -2329,10 +2322,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         {
             return kolonne == 2;
         }
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            celler[rad][kolonne] = nyVerdi;
-        }
     }
 
 
@@ -2361,10 +2350,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         public boolean isCellEditable(int rad, int kolonne)
         {
             return kolonne == 2;
-        }
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            celler[rad][kolonne] = nyVerdi;
         }
     }
 
@@ -2449,10 +2434,6 @@ private class resultatTabellModell extends AbstractTableModel
     public boolean isCellEditable(int rad, int kolonne)
     {
         return kolonne == 2;
-    }
-    public void setValueAt(String nyVerdi, int rad, int kolonne)
-    {
-        celler[rad][kolonne] = nyVerdi;
     }
     public Class getColumnClass( int k )
     {
@@ -2561,10 +2542,6 @@ private class resultatTabellModell extends AbstractTableModel
         {
             return kolonne == 2;
         }
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            celler[rad][kolonne] = nyVerdi;
-        }
     }
      ////SSLUTTER tabellmodell for visVoligSøkere
 
@@ -2631,15 +2608,6 @@ private class resultatTabellModell extends AbstractTableModel
         {
             return kolonne == 2;
         }
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            celler[rad][kolonne] = nyVerdi;
-        }
-
-
-
-
-
     }    // end personTabellFabrikk
 
 
@@ -2705,13 +2673,6 @@ private class resultatTabellModell extends AbstractTableModel
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return boligkolonnenavn[kolonne];
-        }
-
-
-
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            boligceller[rad][kolonne] = nyVerdi;
         }
         public Class getColumnClass( int k )
         {
@@ -2811,7 +2772,7 @@ private class resultatTabellModell extends AbstractTableModel
         if(boligsøker.isSelected())
         {
 
-            int bt, by, rom, minPris, maxPris, park, antE, kjeller, minTomt, maxTomt, heis, balkong, dbm, dkm, plan;
+            int bt, by, rom, minPris, maxPris, park, antE, kjeller,heis, balkong, dbm, dkm, plan;
 
             park = 0;
             heis = 0;
@@ -2837,9 +2798,9 @@ private class resultatTabellModell extends AbstractTableModel
                 if(romBox.isVisible())
                 rom = Integer.parseInt((String) romBox.getSelectedItem());
 
-                minPris = (int) minPrisSlider.getValue();
+                minPris = minPrisSlider.getValue();
 
-                maxPris = (int) maxPrisSlider.getValue();
+                maxPris = maxPrisSlider.getValue();
 
                 if(etasjeBox.isVisible()){
                     System.out.println("Inni try iffen");
@@ -3077,9 +3038,6 @@ private class resultatTabellModell extends AbstractTableModel
 
     private String idGenerator(String f, String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
     {
-        String firma = f;
-        String eNavn = en;
-        String fNavn = fn;
         String id = "";
 
        try{
@@ -3099,11 +3057,6 @@ private class resultatTabellModell extends AbstractTableModel
 
     private String idGenerator(String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
     {
-
-        String eNavn = en;
-        String fNavn = fn;
-        String id = "";
-        //todo legge inn try; gir String out of bounds exeption
         try{id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();}
         catch(StringIndexOutOfBoundsException sioobe){
             System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
@@ -3149,12 +3102,12 @@ private class resultatTabellModell extends AbstractTableModel
         }
 
 
-        int areal = 0;
-        int år = 0;
-        int upris = 0;
+        int areal;
+        int år;
+        int upris;
         int tomtareal = 0;
         String valg = (String)boligtypeBoxFane2.getSelectedItem();
-        int btype = 0;
+        int btype;
         switch(valg){
             case "Enebolig":    btype = 1;
                 break;
@@ -3219,7 +3172,8 @@ private class resultatTabellModell extends AbstractTableModel
         if(btype!=4)
             if(romBoxFane2.getSelectedIndex()==0)
                 gyldigBox(romBoxFane2);
-            else Integer.parseInt((String)romBoxFane2.getSelectedItem());
+            else
+                Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
 
         if(etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
@@ -3257,16 +3211,12 @@ private class resultatTabellModell extends AbstractTableModel
         if(kjøkkenValgFane2.isSelected())
             kjøkkenInt = 1;
 
-        Bolig ny = null;
-
         String sti = bildesti.getText();
 
         System.out.println(btype);
 
         switch(btype){
             case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
-                    System.out.println("Kommer hit!");
-                    System.out.println(nyEnebolig.getId());
                          if(boliger.leggTil(nyEnebolig))
                              JOptionPane.showMessageDialog(null,"Registrering vellykket!");
                          else
