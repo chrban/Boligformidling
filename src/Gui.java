@@ -1875,7 +1875,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private class menyLytter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == om) {
-                JOptionPane.showMessageDialog(null, boligsøkere.toString());
+                FrameWork.showFrame("Om", boligsøkere.toString());
             } else if (e.getSource() == lagre) {
                 System.out.println("Trykka på lagre, som kaller på skrivTilFil()");
                 skrivTilFil();
@@ -2642,7 +2642,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
         int j = 0;
         while (j < andre.length) {
-            JOptionPane.showMessageDialog(null, j);
+            FrameWork.showFrame(null,Integer.toString(j));
             joina[i++] = andre[j];
             j++;
         }
@@ -2861,14 +2861,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 if (bt == 1 || bt == 2) //hvis enebolig
                 {
                     if (antE != 0) {
-                        JOptionPane.showMessageDialog(null, "1");
+                        FrameWork.showFrame(null, "1");
                         Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                         boligsøkere.settInnNy(ny);
                         clearPersonFelt();
                         clearBSfelt();
                         return;
                     } else {
-                        JOptionPane.showMessageDialog(null, "2");
+                        FrameWork.showFrame(null, "2");
                         gyldigBox(etasjeBox);
                         return;
                     }
@@ -2881,7 +2881,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
 
 
-                JOptionPane.showMessageDialog(null, "3");
+                FrameWork.showFrame(null, "3");
                 Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                 boligsøkere.settInnNy(ny);
                 clearPersonFelt();
@@ -2932,7 +2932,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             return;
 
         }
-        JOptionPane.showMessageDialog(null, "du må velge en av typene..."); //vil aldri kicke inn siden return hehe heehe
+        FrameWork.showFrame(null, "du må velge en av typene..."); //vil aldri kicke inn siden return hehe heehe
     }
 
 
@@ -3003,7 +3003,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
 
 
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
+        FrameWork.showFrame(null, "Autogenrert ID: " + id);
 
         return id;
 
@@ -3015,7 +3015,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         catch(StringIndexOutOfBoundsException sioobe){
             System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
 
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
+        FrameWork.showFrame(null, "Autogenrert ID: " + id);
 
         return id;
 
@@ -3023,7 +3023,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
     public void regBolig() {
-        JOptionPane.showMessageDialog(null, "Regbolig kjører");
+        FrameWork.showFrame(null, "Regbolig kjører");
 
         String adr = adresseFane2.getText();
         String arealString = boareal.getText();
@@ -3035,7 +3035,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         if (utId.equals("Ingen utleier valgt")) {
-            JOptionPane.showMessageDialog(null, "Du må velge en utleier!");
+            FrameWork.showFrame(null, "Du må velge en utleier!");
             return;
         }
 
@@ -3087,7 +3087,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
+            FrameWork.showFrame(null, "Du må skrive inn skikkelige verdier!");
             return;
         }
 
@@ -3172,27 +3172,27 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         switch(btype){
             case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
                          if(boliger.leggTil(nyEnebolig))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket!");
+                             FrameWork.showFrame(null,"Registrering vellykket!");
                          else
-                            JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                            FrameWork.showFrame(null,"Ble ikke registrert!");
                          break;
             case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
                          if(boliger.leggTil(nyttRekkehus))
-                             JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                             FrameWork.showFrame(null, "Registrering vellykket");
                          else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                             FrameWork.showFrame(null,"Ble ikke registrert!");
                          break;
             case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
                          if(boliger.leggTil(nyLeilighet))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                             FrameWork.showFrame(null,"Registrering vellykket");
                          else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                             FrameWork.showFrame(null,"Ble ikke registrert!");
                          break;
             case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
                          if(boliger.leggTil(nyHybel))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                             FrameWork.showFrame(null,"Registrering vellykket");
                          else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                             FrameWork.showFrame(null,"Ble ikke registrert!");
                          break;
         }
     }
@@ -3239,7 +3239,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             startmåned = Integer.parseInt((String) startMånedFelt.getText());
             startdag = Integer.parseInt((String) startDagFelt.getText());
         } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Du må skrive inn ordentlige tall i datofeltene");
+            FrameWork.showFrame(null, "Du må skrive inn ordentlige tall i datofeltene");
             return;
         }
 
@@ -3258,20 +3258,20 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     Kontrakt ny = new Kontrakt(utleier, leietaker, bolig, start, slutt);
                     if (kontrakter.leggTil(ny)) {
                         kontrakthistorie.skrivTilTekstFil(ny.toString());
-                        JOptionPane.showMessageDialog(null, "Kontrakt lagret");
+                        FrameWork.showFrame(null, "Kontrakt lagret");
                         valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
                         sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
                         startMånedFelt.setText(null); startDagFelt.setText(null);
                         visKontrakter();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
+                    FrameWork.showFrame(null, "Disse datoene samsvarer ikke!");
                 }
             } catch (IllegalArgumentException iae) {
-                JOptionPane.showMessageDialog(null, "En av datoene du skrev inn er ugyldig!");
+                FrameWork.showFrame(null, "En av datoene du skrev inn er ugyldig!");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Du må skriver gyldige tall i datofeltene!");
+            FrameWork.showFrame(null, "Du må skriver gyldige tall i datofeltene!");
         }
 
     }
@@ -3354,7 +3354,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         String leietakerId = valgtLeietaker.getText();
         if (leietakerId.equals("Ingen leietaker valgt")) {
-            JOptionPane.showMessageDialog(null, "Ingen boligsøker valgt!");
+            FrameWork.showFrame(null, "Ingen boligsøker valgt!");
             return;
         }
         valgtId = leietakerId;
@@ -3503,7 +3503,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     public void slettBoligsøker() {
         String[] alternativer = {"Ja", "Nei"};
         if (slettPersonFn.equals("") || slettPersonEn.equals("")) {
-            JOptionPane.showMessageDialog(null, "DUUUURT");
+            FrameWork.showFrame(null, "DUUUURT");
             return;
         }
         int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
@@ -3514,7 +3514,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 Boligsøker slett = boligsøkere.getBoligsøker(id);
                 if (boligsøkere.fjernSøker(slett)) {
                     kontrakter.fjernKontrakt(slett);
-                    JOptionPane.showMessageDialog(null, "Personen er slettet");
+                    FrameWork.showFrame(null, "Personen er slettet");
                     slettPersonEn = "";
                     slettPersonFn = "";
                 }
@@ -3523,9 +3523,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 Utleier woop = utleiere.getUtleier(id);
                 if (!utleiere.harBoliger(woop)) {
                     utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
-                    JOptionPane.showMessageDialog(null, "Personen ble slettet");
+                    FrameWork.showFrame(null, "Personen ble slettet");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
+                    FrameWork.showFrame(null, "Personen har boliger registrert på seg!");
                 }
 
             }
@@ -3536,21 +3536,21 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String[] alternativer = {"Ja", "Nei"};
         String slettDenne = Integer.toString(slettBoligId);
         if (slettDenne.equals("")) {
-            JOptionPane.showMessageDialog(null, "Velg bolig");
+            FrameWork.showFrame(null, "Velg bolig");
             return;
         }
         Bolig slett = boliger.finnBolig(slettDenne);
         if (slett.getUtleid()) {
-            JOptionPane.showMessageDialog(null, "Boligen er utleid, kan ikke slettes!");
+            FrameWork.showFrame(null, "Boligen er utleid, kan ikke slettes!");
             return;
         }
         int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, alternativer, alternativer[0]);
         if (svar == JOptionPane.YES_OPTION) {
             if (boliger.slettBolig(slett))
-                JOptionPane.showMessageDialog(null, "Boligen ble slettet");
+                FrameWork.showFrame(null, "Boligen ble slettet");
             else
-                JOptionPane.showMessageDialog(null, "DUUURT!");
+                FrameWork.showFrame(null, "DUUURT!");
         }
 
     }
@@ -3563,11 +3563,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             kontrakter = (KontraktListe) in.readObject();
             boliger = (Boligliste) in.readObject();
         } catch (ClassNotFoundException cnfe) {
-            JOptionPane.showMessageDialog(null, "Kunne ikke finne programmets klasse");
+            FrameWork.showFrame(null, "Kunne ikke finne programmets klasse");
         } catch (FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(null, "Fant ikke fildata.data");
+            FrameWork.showFrame(null, "Fant ikke fildata.data");
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(null, "Feil med lesing fra fil");
+            FrameWork.showFrame(null, "Feil med lesing fra fil");
         }
     }
 
@@ -3579,9 +3579,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             ut.writeObject(boliger);
             System.out.println("Skriver til fil, ");
         } catch (NotSerializableException nse) {
-            JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");
+            FrameWork.showFrame(null, "En av programmets klasser er ikke serialisert");
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(null, "Feil med skriving til fil");
+            FrameWork.showFrame(null, "Feil med skriving til fil");
         }
     }
 
@@ -3589,7 +3589,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         Boligsøker send = boligsøkere.getBoligsøker(valgtId);
         if (send == null) {
-            JOptionPane.showMessageDialog(null, "Velg en bolisøker");
+            FrameWork.showFrame(null, "Velg en bolisøker");
             return;
         }
         String n = send.getFornavn() + " " + send.getEtternavn();
@@ -3597,10 +3597,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         Bolig sendTil = boliger.finnBolig(valgtBoligId);
         if (sendTil == null) {
-            JOptionPane.showMessageDialog(null, "Velg en bolig");
+            FrameWork.showFrame(null, "Velg en bolig");
             return;
         }
-        JOptionPane.showMessageDialog(null, valgtBoligId);
+        FrameWork.showFrame(null, valgtBoligId);
 
         int stedInt = sendTil.getSted();
         String sted = "";
