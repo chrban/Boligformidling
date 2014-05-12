@@ -6,7 +6,7 @@ import javax.activation.*;
 
 public class Mail
 {
-    public void sendMail(String epost, String tekst){
+    public boolean sendMail(String epost, String tekst){
         String to = epost;
         final String from = "kamera@bang.is";
         final String brukernavn = "bangis5";
@@ -32,10 +32,17 @@ public class Mail
             message.setText(tekst);
 
             Transport.send(message);
-            JOptionPane.showMessageDialog(null, "Mailen ble sendt!");
+            //JOptionPane.showMessageDialog(null, "Mailen ble sendt!");
+            return true;
         }catch (MessagingException mex){
-            mex.printStackTrace();
-            throw new RuntimeException(mex);
+            return false;
+          //  mex.printStackTrace();
+          //  throw new RuntimeException(mex);
+
+        }
+        catch (RuntimeException re){
+            return false;
         }
     }
+
 }

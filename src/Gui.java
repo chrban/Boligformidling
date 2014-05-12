@@ -41,7 +41,7 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader, mailLabel, mailStatusLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt,feedbackMail;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
@@ -90,6 +90,8 @@ public class Gui extends JFrame {
 
     public Gui() {
         super("Boligformidling for svaksynte");
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         headerFont = new Font("Arial",Font.BOLD,50);
         header2Font = new Font("Arial",Font.BOLD,20);
@@ -1274,11 +1276,16 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.gridwidth = 1;
         //RESATT
 
+
+
         matchHeader = new JLabel("MachMaking");
         c.gridx = 0;
         c.gridy = 0;
 
+
+        c.insets = new Insets(10, 0, 30, 0);
         matchHeader.setFont(headerFont);
+        matchHeader.setForeground(headerFarge);
         panel4.add(matchHeader);
 
         finnMatch = new JButton("Finn Match!");
@@ -1287,17 +1294,14 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.gridheight = 1;
         c.gridwidth = 1;
         c.ipady = 30;
+        c.insets = new Insets(10, 0, 10, 0);
+
         c.anchor = GridBagConstraints.PAGE_END;
         finnMatch.addActionListener(lytter);
         panel4.add(finnMatch, c);
 
 
-        sendMail = new JButton("Send mail");
-        c.gridx = 1;
-        c.gridy = 2;
-        c.ipady = 20;
-        sendMail.addActionListener(lytter);
-        panel4.add(sendMail, c);
+
 
         //RESETER
         c.gridx = 0;
@@ -1312,35 +1316,67 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.ipady = 0;
         //RESATT
 
+        c.insets = new Insets(10, 60, 10, 0);
 
-        Dimension textfelt = new Dimension(200, 200);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.weighty = -1;
+        mailLabel = new JLabel("Mail:");
+        mailLabel.setFont(headerFont);
+        mailLabel.setForeground(headerFarge);
+        panel4.add(mailLabel, c);
 
 
-        feedbackMail = new JTextArea("", 40, 15);
+
+
+
+        Dimension textfelt = new Dimension(10, 200);
+
+
+        feedbackMail = new JTextArea("", 15, 15);
         JScrollPane sspp = new JScrollPane(feedbackMail);
         c.gridx = 1;
         c.gridy = 1;
-        c.gridheight = 1;
-        c.weighty = 19;
+        c.ipadx = 150;
+        c.gridheight = 2;
+        c.weighty = 0;
+        c.insets = new Insets(0, 60, 0, 20);
         c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.SOUTHWEST;
+
         //feedbackMail.setPreferredSize(textfelt);
         //feedbackMail.setMinimumSize(textfelt);
         //feedbackMail.setMaximumSize(textfelt);
         //feedbackMail.setSize(textfelt);
         panel4.add(sspp, c);
+        c.gridheight = 1;
+        c.ipadx = 100;
 
+
+
+        sendMail = new JButton("Send mail");
         c.gridx = 1;
-        c.gridy = 0;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weighty = -1;
-        panel4.add(new JLabel("Skriv beskjed"), c);
+        c.gridy = 3;
+        c.ipady = 0;
+
+        c.insets = new Insets(20, 60, 20, 40);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.NORTH;
+        sendMail.setMargin(new Insets(0,0,0,0));
+        sendMail.addActionListener(lytter);
+        panel4.add(sendMail, c);
+
+
 
 
         c.gridx = 1;
         c.gridy = 3;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weighty = -1;
-        panel4.add(new JLabel("Mail status.."), c);
+        c.insets = new Insets(0, 60, 80, 20);
+        c.anchor = GridBagConstraints.CENTER;
+        c.weighty = 0;
+        mailStatusLabel = new JLabel("");
+        panel4.add(mailStatusLabel, c);
 
 
         //RESETER
@@ -1362,7 +1398,7 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 10;
         c.weighty = 40;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(0, 20, 5, 0);
         panel4.add(velgBsPanel, c);
 
 
@@ -1372,7 +1408,7 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 10;
         c.weighty = 40;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(5, 20, 20, 0);
         panel4.add(resultatPanel, c);
 
         panel4.setBackground(bakFarge);
@@ -2407,7 +2443,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 10;
         c.weighty = 40;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(0, 0, 0, 0);
+
+        resultatTabell.setRowHeight(70);
 
         resultatPanel.add(new JScrollPane(resultatTabell), c);
         revalidate();
@@ -2447,7 +2485,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 10;
         c.weighty = 40;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(0, 0, 0, 0);
         velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
 
 
@@ -3638,7 +3676,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     public void sendEpost() {
         String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
-        epost.sendMail(til, feedbackMail.getText());
+
+        mailStatusLabel.setText("sender mail...");
+
+        if(epost.sendMail(til, feedbackMail.getText()))
+            mailStatusLabel.setText("Mail Sendt!");
+        else
+            mailStatusLabel.setText("Sending mislykket");
+
     }
 
 }// EOLAWKI
