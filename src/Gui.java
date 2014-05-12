@@ -309,7 +309,9 @@ public class Gui extends JFrame {
 
         //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
 
-        setIconImage(personIkon.getImage()); //bare for å teste, Osen; funker det?
+        ImageIcon logo = sjekkPath("icon/logo_ikon.png");
+        if(logo!=null)
+        setIconImage(logo.getImage());
 
         fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", boligIkon, panel2, "Registrere ny bolig");
