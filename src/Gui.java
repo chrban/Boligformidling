@@ -2230,6 +2230,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     {
                         valgtBoligId = stringId;
                     }
+
                 }
             }
 
@@ -2435,8 +2436,9 @@ private class resultatTabellModell extends AbstractTableModel
         try{
             return celler[rad][kolonne];
         }catch(ArrayIndexOutOfBoundsException ai){
-            JOptionPane.showMessageDialog(null, "Ingenting å velge");
-
+            if(fane.getSelectedIndex() == 4){
+                JOptionPane.showMessageDialog(null, "Ingenting å velge");
+            }
         }
         return null;
     }

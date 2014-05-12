@@ -423,8 +423,6 @@ public class Boligliste implements Serializable {
         }
         catch (NumberFormatException nfe)
         {
-            JOptionPane.showMessageDialog(null, "Noe er galt med boligvalget ditt :(");
-            System.out.println("det fucket seg i parsingen");
             return null;
         }
 
