@@ -3,6 +3,7 @@ import java.io.Serializable;
 /*
 Filen inneholder metoder for å lage og gjøre opperasjoner på en liste av Kontrakt objekter.
 Skrevet av: Emil, s198772.
+
 Sist oppdatert: 10/04/2014
  */
 public class KontraktListe implements Serializable {
@@ -36,6 +37,26 @@ public class KontraktListe implements Serializable {
             return true;
         }
     }
+
+    public Kontrakt finnKontrakt(String id)
+    {
+        System.out.println("leter etter kontrakt med id:" + id);
+        Kontrakt løper = første;
+
+        if(løper == null)
+            return null;
+
+        while(løper != null)
+        {
+            if(løper.getId().equals(id))
+                return løper;
+
+            løper = løper.neste;
+        }
+        return null;
+    }
+
+
     //Denne metoden fjerner en gitt kontrakt, samtidig som den setter bolig til ikke utleid.
     //Denne metoden blir kun brukt når en boligsøker ønsker å slette seg selv og informasjon om seg fra programmet
     public boolean fjernKontrakt(Boligsøker b){
@@ -87,29 +108,7 @@ public class KontraktListe implements Serializable {
 
         return i;
     }
-    //I GUI blir det brukt JTable til å vise informasjon, da må informasjonen komme i form av en Stringarray, denne
-    // metoden returnerer en slik array.
-    public String[][] tilTabell()
-    {
-        String[][] ut = new String[tellOpp()][4];
 
-        Kontrakt løper = første;
-        int i = 0;
-
-        if(løper == null)
-        {
-            ut[0][0] = "Ingen kontrakter lagret";
-            return ut;
-        }
-
-        while(løper != null)
-        {
-            ut[i++] = løper.tilTabell();
-            løper = løper.neste;
-        }
-        return ut;
-    }
-    //En helt vanlig toString metode som henter opp toString til alle kontrakt objektene i listen.
     public String toString()
     {
         String ut = "";
@@ -126,4 +125,29 @@ public class KontraktListe implements Serializable {
 
         return ut;
     }
-}//end of class KontraktListe
+
+
+    //I GUI blir det brukt JTable til å vise informasjon, da må informasjonen komme i form av en Stringarray, denne
+    // metoden returnerer en slik array.
+    public String[][] tilTabell()
+    {
+        String[][] ut = new String[tellOpp()][4];
+
+        String[][] dummy = {{"Det er", "ikke","registrert", "noen","kontrakter"}};
+
+        Kontrakt løper = første;
+        int i = 0;
+
+        if(løper == null)
+        {
+            return dummy;
+        }
+
+        while(løper != null)
+        {
+            ut[i++] = løper.tilTabell();
+            løper = løper.neste;
+        }
+        return ut;
+    }
+}

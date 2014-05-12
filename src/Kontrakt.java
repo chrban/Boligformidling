@@ -14,9 +14,11 @@ public class Kontrakt implements Serializable{
     private Boligsøker leier;
     private Bolig bolig;
     Kontrakt neste;
+    private Calendar lagret;
     private Calendar start;
     private Calendar slutt;
     private SimpleDateFormat df;
+    private String id;
 
 
     public Kontrakt(Utleier e, Boligsøker l, Bolig b, Calendar s, Calendar sl){
@@ -25,7 +27,45 @@ public class Kontrakt implements Serializable{
         bolig = b;
         start = s;
         slutt = sl;
+        lagret = Calendar.getInstance();
         df = new SimpleDateFormat("yyyy/MM/dd");
+        id = genererId(e,l,b);
+    }
+
+
+    private String genererId(Utleier utleier, Boligsøker leietaker, Bolig b)
+    {
+        String ID ="ID";
+        try{
+            ID = utleier.getEtternavn().substring(0,2) + leietaker.getEtternavn().substring(0,2)+bolig.getId();
+        }
+        catch(StringIndexOutOfBoundsException SIOOBE)
+        {
+            ID = "AUTOID";
+        }
+        return ID;
+    }
+
+
+  /*  private String idGenerator(String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
+    {
+
+        String eNavn = en;
+        String fNavn = fn;
+        String id = "";
+        //todo legge inn try; gir String out of bounds exeption
+        try{id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();}
+        catch(StringIndexOutOfBoundsException sioobe){
+            System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
+
+        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
+
+        return id;
+
+    }*/
+    public String getId()
+    {
+        return id;
     }
     //getMetoder for forskjellige datafelt, mangle blir ikke brukt, men de er her om det i fremtiden ved en
     // oppdatering av programmet skulle får bruk for dem.
@@ -51,7 +91,14 @@ public class Kontrakt implements Serializable{
         return slutt;
     }
     public String toString(){
-        return "Kontrakt for: " + bolig.getAdresse() + " \nUtleier: " + eier.getNavn() + " \nLeier: " + leier.getFornavn()+ " "+ leier.getEtternavn() + " \nKontraktstart: " + df.format(start.getTime()) + " \nKontraktslutt: " + df.format(slutt.getTime()) + "\n";
+
+        return "_______________LEIEKONTRAKT_______________"+
+               "\n\n Denne leiekontrakten gjelder for følgende parter:\n\n"+
+               "Utleier: " + eier.getFornavn() + " " + eier.getEtternavn()+
+               "\nLeieteker: " + leier.getFornavn()+ " "+ leier.getEtternavn() +
+               "\n\nGjelder for bolig med adresse: "+bolig.getAdresse() +
+               "\n\nDet er tegnet kontrakt fra: " + df.format(start.getTime()) + " \nTil: " + df.format(slutt.getTime()) +
+               "\n\nKontrakten ble tegnet: " + df.format(lagret.getTime());
     }
     //end of getMetoder
     //setMetodene har i oppgave å sette bolig og boligsøker sine boolean felt til true, slik at disse ikke lengre
@@ -67,11 +114,12 @@ public class Kontrakt implements Serializable{
     //denne metoden returnerer en Stringarray med informasjon om kontrakten.
     public String[] tilTabell()
     {
-        String [] ut = new String[4];
+        String [] ut = new String[5];
         ut[0] = eier.getNavn();
         ut[1] = leier.getNavn();
         ut[2] = df.format(start.getTime());
         ut[3] = df.format(slutt.getTime());
+        ut[4] = id;
 
         return ut;
     }

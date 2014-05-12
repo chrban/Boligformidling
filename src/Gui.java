@@ -42,10 +42,10 @@ public class Gui extends JFrame {
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
     private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel;
-    private JTextArea beskrivelse,feedbackFane1,feedbackFane3;
+    private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel, kontraktTabellPanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, røykerValg, husdyrValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -78,8 +78,8 @@ public class Gui extends JFrame {
     private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn,slettPersonEn;
     private int slettBoligId;
-    private Font headerFont,header2Font;
-    private Color bakFarge, headerFarge,lyseSvart, comboboxFarge;
+    private Font headerFont,header2Font, header3Font;
+    private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
 
 
     //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
@@ -93,6 +93,7 @@ public class Gui extends JFrame {
 
         headerFont = new Font("Arial",Font.BOLD,50);
         header2Font = new Font("Arial",Font.BOLD,20);
+        header3Font = new Font("Arial",Font.BOLD,40);
 
         øre = new menyLytter();
 
@@ -200,6 +201,7 @@ public class Gui extends JFrame {
         bakFarge = new Color(253,255,232);
         lyseSvart = new Color(43,43,43);
         headerFarge= new Color(46,110,109);
+        tabellFarge = new Color(204,204,187);
 
 
 
@@ -215,6 +217,7 @@ public class Gui extends JFrame {
         btpanel.setForeground(lyseSvart);
         bopanel.setBackground(bakFarge);
         panel5.setBackground(bakFarge);
+
 
 
 
@@ -1452,6 +1455,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         okpanel = new JPanel(layout);
         vkpanel = new JPanel(layout);
+        kontraktTabellPanel = new JPanel(layout);
+        kontraktTabellPanel.setBackground(tabellFarge);
 
         c.ipadx = 0;
 
@@ -1472,8 +1477,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.gridy = 1;
         c.gridwidth = 2;
         c.insets = new Insets(0, 0, 50, 0);
-        kontraktHeader = new JLabel("Opprett kontrakter");
-        kontraktHeader.setFont(headerFont);
+        kontraktHeader = new JLabel("Opprett kontrakt");
+        kontraktHeader.setFont(header3Font);
+        kontraktHeader.setForeground(headerFarge);
         okpanel.add(kontraktHeader,c);
 
 
@@ -1508,7 +1514,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.ipadx = 100;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
-        velgLeietakerKnapp.setMargin(new Insets(0,30,0,30));
+        velgLeietakerKnapp.setMargin(new Insets(0,5,0,5));
         velgLeietakerKnapp.setPreferredSize(dim);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
@@ -1535,7 +1541,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.EAST;
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
-        velgBoligKnapp.setMargin(new Insets(0,30,0,30));
+        velgBoligKnapp.setMargin(new Insets(0,10,0,10));
         velgBoligKnapp.setPreferredSize(dim);
         okpanel.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
@@ -1594,6 +1600,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.CENTER;
         startLabel = new JLabel("Kontrakten starter:");
         startLabel.setFont(header2Font);
+        startLabel.setForeground(headerFarge);
         okpanel.add(startLabel,c);
 
 
@@ -1646,6 +1653,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.CENTER;
         sluttLabel = new JLabel("Kontrakten slutter");
         sluttLabel.setFont(header2Font);
+        sluttLabel.setForeground(headerFarge);
         okpanel.add(sluttLabel,c);
 
 
@@ -1703,23 +1711,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         okpanel.add(lagreKontrakt, c);
 
 
-        c.gridx = 1;
-        c.gridy = 14;
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;
-        oppdaterKontrakter = new JButton("Oppdater Register");
-        oppdaterKontrakter.addActionListener(lytter);
-        oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
-        oppdaterKontrakter.setPreferredSize(dim);
-        okpanel.add(oppdaterKontrakter, c);
+
 
         c.ipadx = 0;
 
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,50,0,0);
+        c.insets = new Insets(0,0,0,100);
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.NORTH;
+
+        okpanel.setBackground(bakFarge);
+        vkpanel.setBackground(bakFarge);
+
 
         panel5.add(okpanel,c);
 
@@ -1729,17 +1733,40 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         //viskontrakterpanel
-        vkpanel.setPreferredSize(okpanel.getPreferredSize());
+       // vkpanel.setPreferredSize(okpanel.getPreferredSize());
         visKontrakterLabel = new JLabel("Lagrede kontrakter");
-        visKontrakterLabel.setFont(headerFont);
+        visKontrakterLabel.setFont(header3Font);
         visKontrakterLabel.setForeground(headerFarge);
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(20,20,0,20);
+        c.insets = new Insets(0,0,40,0);
         c.anchor = GridBagConstraints.CENTER;
         vkpanel.add(visKontrakterLabel, c);
 
-        visKontrakter();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(0,0,0,0);
+        c.anchor = GridBagConstraints.CENTER;
+        vkpanel.add(kontraktTabellPanel, c);
+
+
+
+
+        c.gridx = 0;
+        c.gridy = 3;
+        c.ipadx = 100;
+        c.gridwidth = 2;
+        c.insets = new Insets(30,0,30,0);
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        oppdaterKontrakter = new JButton("Oppdater Register");
+        oppdaterKontrakter.addActionListener(lytter);
+        oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
+        oppdaterKontrakter.setPreferredSize(dim);
+        vkpanel.add(oppdaterKontrakter, c);
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.gridwidth = 1;
 
 
 
@@ -1747,15 +1774,26 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
+
+        kontraktInfoFelt = new JTextArea(10,30);
+        kontraktInfoFelt.setBackground(tabellFarge);
+        c.anchor = GridBagConstraints.WEST;
+
+        c.insets = new Insets(0,0,10,0);
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.NONE;
+
+        vkpanel.add(kontraktInfoFelt,c);
 
 
 
 
         c.gridx = 1;
         c.gridy = 0;
-        c.insets = new Insets(0,0,0,50);
+        c.insets = new Insets(0,80,0,0);
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.NORTH;
         panel5.add(vkpanel,c);
 
 
@@ -1792,6 +1830,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         lesFraFil();
+        visKontrakter();
     } // End GUI konstruktør
 
     private ImageIcon sjekkPath(String s)
@@ -2284,6 +2323,16 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
             }
 
+            else if(tabellmodell instanceof kontraktTabellModell){
+                if(!lsm.isSelectionEmpty()){
+                    System.out.println("kontrakttabellutvalgslytter");
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    String kid = (String)tabellmodell.getValueAt(valgtRad,4);
+                    Kontrakt k = kontrakter.finnKontrakt(kid);
+                    skrivKontraktInfo(k);
+                }
+            }
+
 
 
 
@@ -2682,6 +2731,8 @@ private class resultatTabellModell extends AbstractTableModel
     }    // end boligTabellFabrikk
 
 
+
+
     private Object[][] joinBoligArray() {
 
         Object[][] første = boliger.eneboligerTilTabell();
@@ -2718,6 +2769,37 @@ private class resultatTabellModell extends AbstractTableModel
             joina = dummy;
 
         return joina;
+    }
+
+    public class kontraktTabellModell extends AbstractTableModel
+    {
+        String[] kolonnenavn = {"Utleier", "Leietaker", "Startdato", "Sluttdato","ID"};
+
+        Object[][] celler = kontrakter.tilTabell();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+        /*public boolean isCellEditable(int rad, int kolonne)
+        {
+            return kolonne == 2;
+        }*/
+        public void setValueAt(String nyVerdi, int rad, int kolonne)
+        {
+            celler[rad][kolonne] = nyVerdi;
+        }
+
     }
 
 
@@ -3317,6 +3399,7 @@ private class resultatTabellModell extends AbstractTableModel
                         valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
                         sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
                         startMånedFelt.setText(null); startDagFelt.setText(null);
+                        visKontrakter();
                     }
                 }
                 else{
@@ -3480,27 +3563,57 @@ private class resultatTabellModell extends AbstractTableModel
 
 
 
+
     public void visKontrakter()
     {
+        kontraktTabellPanel.removeAll();
 
-        JOptionPane.showMessageDialog(null, "Viskontakter-metoden kjører");
+        kontraktTabellModell kmodell = new kontraktTabellModell();
 
-        kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
+        kontraktHistorikkTabell = new JTable(kmodell);
+        kontraktHistorikkTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = kontraktHistorikkTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(kmodell));
+
+        TableColumn utleierkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 0);
+        TableColumn leietakerkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 1);
+
+       // utleierkolonne.setPreferredWidth(40);
+        //leietakerkolonne.setPreferredWidth(40);
+       // kontraktHistorikkTabell.setPreferredSize(new Dimension(150,100));
+
+
+        JScrollPane kontraktScroll = new JScrollPane(kontraktHistorikkTabell);
+
+        kontraktScroll.setPreferredSize(new Dimension(500,250));
+        kontraktScroll.getViewport().setBackground(tabellFarge);
+       // kontraktHistorikkTabell.setSize(new Dimension(200,100));
+
+
+        kontraktHistorikkTabell.setBackground(tabellFarge);
         c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(30,20,0,20);
-        c.anchor = GridBagConstraints.CENTER;
-        vkpanel.add(kontraktHistorikkTabell, c);
+        c.gridy = 0;
+        c.insets = new Insets(0,0,0,0);
+    ;
+        kontraktTabellPanel.add(kontraktScroll, c);
         revalidate();
-        /*
-        - Burde være easymode. Lage en toString i kontraktliste som sender med en superlang String som kan skrives ut.
 
-        */
-        /*
-        String ut = kontrakter.toString();
-        utområde.append(ut);
-        */
     }
+
+    public void skrivKontraktInfo(Kontrakt k)
+    {
+        if(k == null) {
+            System.out.println("fant ikke kontrakt");
+            return;
+        }
+        System.out.println("skriver ut kontrakt!");
+        kontraktInfoFelt.setText(k.toString());
+    }
+
+
+
+
+
     public void visPersonInfo()
     {
         try{
