@@ -2209,7 +2209,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     System.out.println("Lytter til riktig vindu");
                     int valgtRad = lsm.getMinSelectionIndex();
                     valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
-                    int id = (int) tabellmodell.getValueAt(valgtRad,9);
+                    int id;
+                    try{
+                        id = (int) tabellmodell.getValueAt(valgtRad,9);
+                    }catch(NullPointerException npe){
+                        return;
+                    }
                     String stringId = Integer.toString(id);
                     
                     if(fane.getSelectedIndex() == 4) {
@@ -2427,7 +2432,13 @@ private class resultatTabellModell extends AbstractTableModel
     }
 
     public Object getValueAt(int rad, int kolonne) {
-        return celler[rad][kolonne];
+        try{
+            return celler[rad][kolonne];
+        }catch(ArrayIndexOutOfBoundsException ai){
+            JOptionPane.showMessageDialog(null, "Ingenting å velge");
+
+        }
+        return null;
     }
     public String getColumnName(int kolonne)//for kolonnenavn
     {
