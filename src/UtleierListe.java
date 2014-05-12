@@ -34,6 +34,7 @@ public class UtleierListe implements Serializable{
     {
         String[][] ut = new String[liste.size()][6];
         Utleier utleier;
+        sorter();
         Iterator<Utleier> iter = liste.iterator();
         int i = 0;
 
@@ -48,6 +49,7 @@ public class UtleierListe implements Serializable{
     {
         String[][] ut = new String[liste.size()][7];
         Utleier utleier;
+        sorter();
         Iterator<Utleier> iter = liste.iterator();
         int i = 0;
 
