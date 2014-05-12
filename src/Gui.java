@@ -41,8 +41,8 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel;
-    private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader;
+    private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt,feedbackMail;
     private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel, kontraktTabellPanel;
@@ -55,7 +55,7 @@ public class Gui extends JFrame {
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
     private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch, boligValgTabell;
     private JScrollPane scroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -1768,13 +1768,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         lesFraFil();
+
         visKontrakter();
     } // End GUI konstruktør
 
 
     private ImageIcon sjekkPath(String s)//Kontrollerer at bildet k8
     {
-        ImageIcon bilde;
+        ImageIcon bilde = null;
         java.net.URL kilde = getClass().getResource(s);
 
         if (kilde != null)
@@ -2375,34 +2376,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
     }
-
-
-    }
-
-    public Object getValueAt(int rad, int kolonne) {
-        try{
-            return celler[rad][kolonne];
-        }catch(ArrayIndexOutOfBoundsException ai){
-            if(fane.getSelectedIndex() == 4){
-                JOptionPane.showMessageDialog(null, "Ingenting å velge");
-            }
-        }
-        return null;
-    }
-    public String getColumnName(int kolonne)//for kolonnenavn
-    {
-        return kolonnenavn[kolonne];
-    }
-    public boolean isCellEditable(int rad, int kolonne)
-    {
-        return kolonne == 2;
-    }
-    public Class getColumnClass( int k )
-    {
-       return getValueAt( 0, k ).getClass();
-    }
-}
-
 
     private void visMatch() {
         clearResultatPanel();
@@ -3412,40 +3385,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-    public void visKontrakter() {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void visKontrakter()
-    {
+    public void visKontrakter(){
         kontraktTabellPanel.removeAll();
 
         kontraktTabellModell kmodell = new kontraktTabellModell();
@@ -3493,18 +3435,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-
+/*
     public void visPersonInfo()
     {
         try{
         String id = utleiere.finnID(slettPersonFn, slettPersonEn);
-        if(id != null)
-        {
+        if(id != null) {
             Utleier valgtUtleier = utleiere.getUtleier(id);
             feedbackFane3.setText(valgtUtleier.toString());
             clearBildePanel();
+        }
+        */
 
-    public void visPersonInfo() {
+    public void visPersonInfo(){
         try {
             String id = utleiere.finnID(slettPersonFn, slettPersonEn);
             if (id != null) {
