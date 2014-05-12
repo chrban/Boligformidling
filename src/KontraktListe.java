@@ -1,13 +1,19 @@
 import javax.swing.*;
 import java.io.Serializable;
-
+/*
+Filen inneholder metoder for å lage og gjøre opperasjoner på en liste av Kontrakt objekter.
+Skrevet av: Emil, s198772.
+Sist oppdatert: 10/04/2014
+ */
 public class KontraktListe implements Serializable {
     private Kontrakt første;
 
     public KontraktListe(){
         første = null;
     }
-
+    //metoden legger til en ny kontrakt, samtidig som den setter boligen til utleid og boligsøkeren til å ha fått bolig
+    //slik at de ikke dukker opp når vi skal matche og registrere ny kontrakt.
+    //ny kontrakt blir satt inn bakerst i listen.
     public boolean leggTil(Kontrakt ny){
         if(ny == null)
             return false;
@@ -30,6 +36,8 @@ public class KontraktListe implements Serializable {
             return true;
         }
     }
+    //Denne metoden fjerner en gitt kontrakt, samtidig som den setter bolig til ikke utleid.
+    //Denne metoden blir kun brukt når en boligsøker ønsker å slette seg selv og informasjon om seg fra programmet
     public boolean fjernKontrakt(Boligsøker b){
 
         if(første == null)
@@ -62,7 +70,7 @@ public class KontraktListe implements Serializable {
         }
         return false;
     }
-
+    //Teller opp antall kontrakter i listen slik at arrayen i neste metode får riktig lengde
     public int tellOpp()
     {
         Kontrakt løper = første;
@@ -79,24 +87,8 @@ public class KontraktListe implements Serializable {
 
         return i;
     }
-
-    public String toString()
-    {
-        String ut = "";
-        Kontrakt løper = første;
-
-        if(løper == null)
-            return "Finner ingen registrerte kontrakter";
-
-        while(løper != null)
-        {
-            ut += løper.toString();
-            løper = løper.neste;
-        }
-
-        return ut;
-    }
-
+    //I GUI blir det brukt JTable til å vise informasjon, da må informasjonen komme i form av en Stringarray, denne
+    // metoden returnerer en slik array.
     public String[][] tilTabell()
     {
         String[][] ut = new String[tellOpp()][4];
@@ -117,4 +109,21 @@ public class KontraktListe implements Serializable {
         }
         return ut;
     }
-}
+    //En helt vanlig toString metode som henter opp toString til alle kontrakt objektene i listen.
+    public String toString()
+    {
+        String ut = "";
+        Kontrakt løper = første;
+
+        if(løper == null)
+            return "Finner ingen registrerte kontrakter";
+
+        while(løper != null)
+        {
+            ut += løper.toString();
+            løper = løper.neste;
+        }
+
+        return ut;
+    }
+}//end of class KontraktListe
