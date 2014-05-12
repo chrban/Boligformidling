@@ -14,15 +14,13 @@ public class KontraktHistorikk {
     //oppretter metoden en slik fil.
     public void skrivTilTekstFil(String n){
         try{
-            String content = n;
-
             if(!fil.exists())
                 fil.createNewFile();
 
             FileWriter fw = new FileWriter(fil.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.newLine();
-            bw.write(content);
+            bw.write(n);
             bw.close();
             System.out.println();
 
