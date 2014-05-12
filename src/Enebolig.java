@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 /**
  * Created by Kristoffer on 02.04.2014.
@@ -93,7 +94,13 @@ public class Enebolig extends Bolig implements Serializable
         ut[5] = Integer.toString(super.getRom());
         ut[6] = getBooleanVerdiPark();
         ut[7] = getBooleanVerdiKjeller();
-        ut[8] = new ImageIcon(getClass().getResource("img/eneboliger/kjipe/rwanda_mudhut.jpg"));
+
+        ImageIcon image = new ImageIcon(getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(90, 70, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+        ut[8] = image;
         ut[9] = super.getId();
 
         return ut;

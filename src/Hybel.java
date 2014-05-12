@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 
 public class Hybel extends Bolig implements Serializable {
@@ -81,7 +83,14 @@ public class Hybel extends Bolig implements Serializable {
         ut[5] = Integer.toString(super.getRom());
         ut[6] = getBooleanVerdiBad();
         ut[7] = getBooleanVerdiKjøkken();
-        ut[8] = super.getBildesti();
+
+
+        ImageIcon image = new ImageIcon(getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(330, 310, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+        ut[8] = image;
         ut[9] = id;
 
         return ut;

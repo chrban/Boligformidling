@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -82,7 +84,14 @@ public class Leilighet extends Bolig implements Serializable
         ut[5] = Integer.toString(super.getRom());
         ut[6] = getBooleanVerdiBalkong();
         ut[7] = getBooleanVerdiHeis();
-        ut[8] = super.getBildesti();
+
+
+        ImageIcon image = new ImageIcon(getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(330, 310, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+        ut[8] = image;
         ut[9] = id;
 
         return ut;

@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -74,7 +76,13 @@ import java.io.*;
             ut[5] = Integer.toString(super.getRom());
             ut[6] = Integer.toString(parkering);
             ut[7] = Integer.toString(kjeller);
-            ut[8] = super.getBildesti();
+
+            ImageIcon image = new ImageIcon(getBildesti());
+            Image img = image.getImage();
+            Image skalert = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            image = new ImageIcon(skalert);
+
+            ut[8] = image;
             ut[9] = id;
 
             return ut;
