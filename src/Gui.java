@@ -299,11 +299,16 @@ public class Gui extends JFrame {
         velgBsPanel.setVisible(true);
         //oppretter Fanene
 
-        fane.addTab("Registrer Person", null, panel1, "Registrere ny boligsøker eller utleier");
+
+        ImageIcon personIkon  = new ImageIcon(getClass().getResource("icon/personadd.png"));
+        ImageIcon tabellIkon = new ImageIcon(getClass().getResource("icon/tabell.png"));
+        ImageIcon kontraktIkon = new ImageIcon(getClass().getResource("icon/kontrakt.png"));
+
+        fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", null, panel2, "Registrere ny bolig");
-        fane.addTab("Register", null, panel3, "Register med alle datananenen");
+        fane.addTab("Register", tabellIkon, panel3, "Register med alle datananenen");
         fane.addTab("MatchMaking", null, panel4, "Tinde");
-        fane.addTab("Kontrakter", null, new JScrollPane(panel5), "Registrer og se kontrakter");
+        fane.addTab("Kontrakter", kontraktIkon, new JScrollPane(panel5), "Registrer og se kontrakter");
         fane.setMnemonicAt(0, KeyEvent.VK_1);
         fane.setMnemonicAt(1, KeyEvent.VK_2);
         fane.setMnemonicAt(2, KeyEvent.VK_3);
@@ -515,6 +520,7 @@ public class Gui extends JFrame {
         c.insets = new Insets(20, 0, 5, 5);
         regUtleierKnapp.setMargin(new Insets(0,30,0,30));
         regUtleierKnapp.setVisible(false);
+        regUtleierKnapp.setIcon(personIkon);
         pepanel.add(regUtleierKnapp, c);
 
 
@@ -1457,6 +1463,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         kontraktHeader = new JLabel("Opprett kontrakter");
         kontraktHeader.setFont(headerFont);
         okpanel.add(kontraktHeader,c);
+
 
 
 
