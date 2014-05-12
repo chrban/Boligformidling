@@ -293,6 +293,9 @@ public class Gui extends JFrame {
         ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
         ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
         ImageIcon matchIkon = sjekkPath("icon/match.png");
+        ImageIcon slettpersonIkon = sjekkPath("icon/personSlett.png");
+        ImageIcon slettboligIkon = sjekkPath("icon/boligSlett.png");
+
 
         //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
 
@@ -1129,68 +1132,82 @@ public class Gui extends JFrame {
         //RESETER
 
         //RESETER
-        c.ipadx = 100;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridheight = 1;
-        c.gridwidth = 1;
-        c.insets = new Insets(0, 0, 0, 0);
-
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
-        c.anchor = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
         c.weightx = 0;
         c.weighty = 0;
+        //resatt
+
+
 
 
         registerHeader = new JLabel("Register");
         registerHeader.setFont(headerFont);
-        c.insets = new Insets(50, 10, 50, 10);
-        c.gridx = 6;
+        //c.insets = new Insets(50, 10, 50, 10);
+        c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.PAGE_START;
         panel3.add(registerHeader, c);
-        c.insets = new Insets(0, 0, 0, 0);
+        c.insets = new Insets(0, 0, 0, 0);//reseter
 
 
         c.gridx = 0;
-        c.gridy = 1;
-        c.gridheight = 10;
-        c.gridwidth = 2;
-        c.weightx = 100;
-        c.weighty = 0.1;
-
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        c.gridy = 2;
+        c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+       // c.gridheight=2;
+        c.insets = new Insets(5, 5, 5, 5);
+        panel3.add(tapanel, c);
+
+        /*
+                c.gridx = 0;
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(5, 5, 5, 5);
+        panel4.add(velgBsPanel, c);
+         */
 
 
-        panel3.add(new JScrollPane(tapanel), c);
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.CENTER;
+        c.weightx = 0;
+        c.weighty = 0;
+        //resatt
+
 
 
         radioTabellLytter = new tabellTypeLytter();
         radioTabell = new ButtonGroup();
-        persontabellRadioknapp = new JRadioButton("Vis personer", false);
+
+        persontabellRadioknapp = new JRadioButton("Personregister", false);
         persontabellRadioknapp.addActionListener(radioTabellLytter);
-        //c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.gridx = 11;
+        c.insets = new Insets(10,50,50,0);
+        c.gridx = 1;
         c.gridy = 1;
         panel3.add(persontabellRadioknapp, c);
 
 
-        boligtabellRadioknapp = new JRadioButton("Vis boliger:", false);
+        boligtabellRadioknapp = new JRadioButton("Boligregister", false);
         boligtabellRadioknapp.addActionListener(radioTabellLytter);
-        c.gridx = 12;
+        c.gridx = 2;
         c.gridy = 1;
+        c.insets = new Insets(10,0,50,50);
         panel3.add(boligtabellRadioknapp, c);
 
 
@@ -1198,43 +1215,100 @@ public class Gui extends JFrame {
         radioTabell.add(boligtabellRadioknapp);
         slettPerson = new JButton("Slett person");
         slettPerson.addActionListener(lytter);
-        c.gridx = 11;
+        c.gridx = 1;
         c.gridy = 2;
+        c.ipady = 30;
+        c.gridwidth=2;
+        c.ipady = 30;
+        c.insets = new Insets(0,50,0,30);
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        slettPerson.setVisible(false);
+        slettPerson.setIcon(slettpersonIkon);
         panel3.add(slettPerson, c);
 
         slettBoligKnapp = new JButton("Slett bolig");
         slettBoligKnapp.addActionListener(lytter);
-        c.gridx = 12;
+        c.gridx = 1;
         c.gridy = 2;
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.gridwidth=2;
+        c.ipady = 30;
+        c.insets = new Insets(0,50,0,50);
+        c.anchor = GridBagConstraints.PAGE_START;
+        slettBoligKnapp.setVisible(false);
+        slettBoligKnapp.setIcon(slettboligIkon);
         panel3.add(slettBoligKnapp, c);
+
+        //reset
+        c.gridwidth=1;
+        c.insets = new Insets(0,0,0,0);
+        c.ipadx = 0;
+
+
 
 
         feedbackFane3 = new JTextArea("feedbackfelt");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
         feedbackFane3.setBackground(bakFarge);
-        feedbackFane3.setSize(600, 200);
-        // c.gridwidth=30;
+        feedbackFane3.setSize(500, 200);
         c.gridx = 0;
-        c.gridy = 15;
-        c.gridwidth = 10;
-
+        c.gridy = 3;
+        c.weightx = 10;
+        c.weighty = 5;
+        c.fill=GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        //c.ipadx=30;
-        //c.gridy=30;
-        c.weighty = 10;
-        //c.fill=GridBagConstraints
         panel3.add(feedbackFane3, c);
 
-        c.gridx = 11;
+
+        //RESETER
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        c.gridheight = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.CENTER;
+        c.weightx = 0;
+        c.weighty = 0;
+        //resatt
+
+        c.gridx = 1;
         c.gridy = 3;
-        c.gridheight = 5;
-        c.anchor = GridBagConstraints.LAST_LINE_END;
-        c.weighty = 100;
+        c.gridwidth=2;
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.insets = new Insets(0,0,10,10);
+
+        c.anchor=GridBagConstraints.PAGE_END;
         panel3.add(bildepanel, c);
-        bildepanel.setMaximumSize(bildepanel.getSize());
-        bildepanel.setBackground(bakFarge);
+
+
+
+        bildepanel.setBackground(Color.LIGHT_GRAY);
         panel3.setBackground(bakFarge);
         tapanel.setBackground(bakFarge);
+
+
+
+/*
+        ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        //prøv etterpå label.setBounds();
+        bildepanel.add(label, BorderLayout.CENTER);
+ */
+
+
+
+
+
+
+
 
 
 /*
@@ -1943,11 +2017,79 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private class fanelytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
             if (fane.getSelectedIndex() == 2) {
-                System.out.println("Trykka på fane; vis tabell!");
+                System.out.println("Trykka på fane; Register");
+                if(persontabellRadioknapp.isSelected()){
+                    clearPanel3();
+                    lagTabellen();
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    slettPerson.setVisible(true);
+                    slettBoligKnapp.setVisible(false);
+                    revalidate();
+                    repaint();
+                    //gjøre no
+                }
+                else if(boligtabellRadioknapp.isSelected()){
+                    clearPanel3();
+                    lagBoligTabellen();
+                    c.anchor = GridBagConstraints.CENTER;
+                    c.gridx = 0;
+                    c.gridy = 0;
+                    c.gridwidth = 1;
+                    c.insets = new Insets(0, 0, 0, 0);
+                    c.gridheight = 1;
+                    c.gridwidth = 0;
+                    c.weightx = 0;
+                    // resartt
+
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
+                    slettBoligKnapp.setVisible(true);
+                    slettPerson.setVisible(false);
+                    revalidate();
+                    repaint();
+                    //vis bolig tabell
+                }
+                else{
+                    clearPanel3();
+                    lagTabellen();
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    persontabellRadioknapp.setSelected(true);
+                    slettPerson.setVisible(true);
+                    slettBoligKnapp.setVisible(false);
+                    revalidate();
+                    repaint();
+
+                    //vis personregister
+                }
+
+
+
+
+
+
+
             } else if (fane.getSelectedIndex() == 3) {
                 System.out.println("oppdaterer boligsøkerlista siden matchfane er velgt, dvs kaller på visBoligsøkere()");
                 visBoligsøkere();
             }
+
             repaint();
         }
     }
@@ -2144,7 +2286,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-    //For fane 3, om det skal vises boligtabell  eller persontabell
+    //For fane 3, om det skal vises boligtabell  eller persontabell  slettBoligKnapp.setVisible(false);slettPerson.setVisible(false);
     private class tabellTypeLytter implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -2161,18 +2303,35 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 c.weightx = 0;
                 // resartt
 
-                c.ipady = 250;
-                c.gridx = 0;
-                c.gridy = 0;
+                c.weightx=100;
+                c.weighty=100;
+                c.gridx=0;
+                c.gridy=0;
                 c.anchor = GridBagConstraints.FIRST_LINE_START;
                 c.fill = GridBagConstraints.BOTH;
                 tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
+
+
+
+
+
+                slettBoligKnapp.setVisible(true);
+                slettPerson.setVisible(false);
                 revalidate();
                 repaint();
+
             } else if (persontabellRadioknapp.isSelected()) {
                 clearPanel3();
                 lagTabellen();
+                c.weightx=100;
+                c.weighty=100;
+                c.gridx=0;
+                c.gridy=0;
+                c.anchor = GridBagConstraints.FIRST_LINE_START;
+                c.fill = GridBagConstraints.BOTH;
                 tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                slettPerson.setVisible(true);
+                slettBoligKnapp.setVisible(false);
                 revalidate();
                 repaint();
             }
@@ -3420,6 +3579,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
         velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
+        velgBoligVindu.setLocationRelativeTo(getParent());
     }
 
 
@@ -3493,13 +3653,32 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 feedbackFane3.setText(valgtUtleier.toString());
                 clearBildePanel();
 
+                ImageIcon image = sjekkPath("icon/bsperson.png");// new ImageIcon("icon/bsperson.png");
+                Image img = image.getImage();
+                Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
+                image = new ImageIcon(skalert);
+                JLabel label = new JLabel("", image, JLabel.CENTER);
+                bildepanel.add(label, BorderLayout.CENTER);
+                System.out.println("er i person bilde1");
+
+
+
+
             } else {
                 String bs = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
                 Boligsøker valgtBoligsøker = boligsøkere.getBoligsøker(bs);
                 feedbackFane3.setText(valgtBoligsøker.toString());
                 clearBildePanel();
+                ImageIcon image = sjekkPath("icon/bsperson.png");// new ImageIcon("icon/bsperson.png");
+                Image img = image.getImage();
+                Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
+                image = new ImageIcon(skalert);
+                JLabel label = new JLabel("", image, JLabel.CENTER);
+                bildepanel.add(label, BorderLayout.CENTER);
+                System.out.println("er i person bilde2");
+
             }
-            clearBildePanel();
+
         } catch (NumberFormatException nfe) {
             System.out.println("number formatCare");
 
@@ -3522,7 +3701,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
         Image img = image.getImage();
-        Image skalert = img.getScaledInstance(330, 310, Image.SCALE_SMOOTH);
+        Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
         image = new ImageIcon(skalert);
 
 
