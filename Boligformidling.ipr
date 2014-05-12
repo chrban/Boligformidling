@@ -197,17 +197,6 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="itext">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/itext" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/itext" />
-      </SOURCES>
-      <jarDirectory url="file://$PROJECT_DIR$/itext" recursive="false" />
-      <jarDirectory url="file://$PROJECT_DIR$/itext" recursive="false" type="SOURCES" />
-    </library>
     <library name="mailfilene">
       <CLASSES>
         <root url="file://D:/../mailfilene" />
@@ -247,6 +236,14 @@
       <JAVADOC />
       <SOURCES />
       <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
+    </library>
+    <library name="mailfilene5">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../../mailfilene" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/../../mailfilene" recursive="false" />
     </library>
   </component>
 </project>

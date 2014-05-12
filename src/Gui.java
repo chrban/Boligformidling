@@ -1,6 +1,7 @@
 import javafx.geometry.HorizontalDirection;
 
 import javax.imageio.ImageIO;
+import javax.print.DocFlavor;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -300,12 +301,15 @@ public class Gui extends JFrame {
         //oppretter Fanene
 
 
-        ImageIcon personIkon  = new ImageIcon(getClass().getResource("icon/personadd.png"));
-        ImageIcon tabellIkon = new ImageIcon(getClass().getResource("icon/tabell.png"));
-        ImageIcon kontraktIkon = new ImageIcon(getClass().getResource("icon/kontrakt.png"));
-        ImageIcon boligIkon= new ImageIcon(getClass().getResource("icon/addBoligIkon.png"));
-        ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
+        ImageIcon personIkon  = sjekkPath("icon/personadd.png");
+        ImageIcon tabellIkon = sjekkPath("icon/tabell.png");
+        ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
+        ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
+        ImageIcon matchIkon =sjekkPath("icon/match.png");
 
+        //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
+
+        setIconImage(personIkon.getImage()); //bare for å teste, Osen; funker det?
 
         fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", boligIkon, panel2, "Registrere ny bolig");
@@ -1754,6 +1758,26 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         lesFraFil();
     } // End GUI konstruktør
+
+    private ImageIcon sjekkPath(String s)
+    {
+        ImageIcon bilde = null;
+        java.net.URL kilde = getClass().getResource(s);
+
+        if(kilde != null)
+            bilde = new ImageIcon(kilde);
+        else {
+            System.out.println("Fant ikke bilde");
+            return null;
+        }
+        return bilde;
+
+
+
+    }
+   // ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
+
+
 
 
     // LYTTERE
