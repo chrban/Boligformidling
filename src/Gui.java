@@ -3591,7 +3591,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
         velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
-        velgBoligVindu.setLocationRelativeTo(getParent());
     }
 
 
