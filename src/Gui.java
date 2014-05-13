@@ -2565,10 +2565,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
 
         public Class getColumnClass(int k) {
-
-
-            return getValueAt(0, k).getClass();
-
+            for(int i = 0;i<getRowCount(); i++){
+                Object value = getValueAt(i,k);
+                if( value != null)
+                    return value.getClass();
+            }
+            return Object.class;
         }
     }
 

@@ -113,21 +113,24 @@ public class Boligliste implements Serializable {
         if(b instanceof Enebolig) {
             it = eneboliger.iterator();
             spec = ((Enebolig) b).getUnikArray();
+            be = eneboliger.first();
         }
         else if(b instanceof Rekkehus) {
             it = rekkehus.iterator();
             spec = ((Rekkehus) b).getUnikArray();
+            be = rekkehus.first();
         }
         else if(b instanceof Leilighet) {
             it = leiligheter.iterator();
             spec = ((Leilighet) b).getUnikArray();
+            be = leiligheter.first();
         }
         else {
             it = hybler.iterator();
             spec = ((Hybel) b).getUnikArray();
+            be = hybler.first();
         }
         while(it.hasNext()){
-            be = it.next();
             if(be instanceof Enebolig){
                 if(((Enebolig) be).erLik(spec))
                     return false;
@@ -141,6 +144,7 @@ public class Boligliste implements Serializable {
                 if(((Hybel)be).erLik(spec))
                     return false;
             }
+            be = it.next();
 
         }
         return true;
@@ -165,9 +169,9 @@ public class Boligliste implements Serializable {
         if(krav[0] == 1)
         {
             Iterator<Enebolig> iter = eneboliger.iterator();
+            Enebolig enebolig = eneboliger.first();
             while(iter.hasNext())// gjønogang av listen
             {
-                Enebolig enebolig = iter.next();
                 specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
                 if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() && krav[1] == specs[1])// dette er ikke idiotsikkert.
                 {
@@ -191,6 +195,7 @@ public class Boligliste implements Serializable {
                         teller++;
                     }
                 }
+                enebolig = iter.next();
             }
         }
 
@@ -198,9 +203,9 @@ public class Boligliste implements Serializable {
         if(krav[0] == 2)
         {
             Iterator<Rekkehus> iter = rekkehus.iterator();
+            Rekkehus rekkehuset = rekkehus.first();
             while(iter.hasNext())
             {
-                Rekkehus rekkehuset = iter.next();
                 specs = rekkehuset.getSpecArray();
                 if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehuset.getUtleid() && krav[1] == specs[1])
                 {
@@ -222,6 +227,7 @@ public class Boligliste implements Serializable {
                         teller++;
                     }
                 }
+                rekkehuset = iter.next();
             }
         }
 
@@ -229,9 +235,9 @@ public class Boligliste implements Serializable {
         if(krav[0] == 3)
         {
             Iterator<Leilighet> iter = leiligheter.iterator();
+            Leilighet leilighet = leiligheter.first();
             while (iter.hasNext())
             {
-                Leilighet leilighet = iter.next();
                 specs = leilighet.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid() && krav[1] == specs[1])
                 {
@@ -254,14 +260,15 @@ public class Boligliste implements Serializable {
                         teller++;
                     }
                 }
+                leilighet = iter.next();
             }
         }
 
         // hyble
-        if(krav[0] == 2) {
+        if(krav[0] == 4) {
             Iterator<Hybel> iter = hybler.iterator();
+            Hybel hybel = hybler.first();
             while (iter.hasNext()) {
-                Hybel hybel = iter.next();
                 specs = hybel.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid() && krav[1] == specs[1]) {
                     ut = new Object[hybler.size()][10];
@@ -280,17 +287,20 @@ public class Boligliste implements Serializable {
                         teller++;
                     }
                 }
+                iter.next();
             }
         }
-        Object[][] temp = new Object[teller][10];
+        Object[][] temp = new Object[plass][10];
         for(int i = 0; i < temp.length; i++){
             temp[i] = ut[i];
-            temp[i][0] = ut[i][0];
+            System.out.println(temp[i][9]);
         }
 
-        if (teller == 0)
-            temp = dummy;
-
+        if (teller == 0) {
+            FrameWork.showFrame("Melding", "Fant ingen matcher!");
+            return dummy;
+        }
+        FrameWork.showFrame("Melding", Integer.toString(temp.length));
         return temp;
         /*todo
         - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
