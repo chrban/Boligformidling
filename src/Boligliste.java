@@ -46,7 +46,7 @@ public class Boligliste implements Serializable {
             if(erUnik(b)){
                 if(eneboliger.isEmpty())
                     b.setId(1);
-                else if(!eneboliger.isEmpty()) {
+                if(!eneboliger.isEmpty()) {
                     int eId = eneboliger.first().getId() + 1;
                     System.out.println("bolig lagres med id: " + eId);
                     b.setId(eId);
@@ -113,24 +113,21 @@ public class Boligliste implements Serializable {
         if(b instanceof Enebolig) {
             it = eneboliger.iterator();
             spec = ((Enebolig) b).getUnikArray();
-            be = eneboliger.first();
         }
         else if(b instanceof Rekkehus) {
             it = rekkehus.iterator();
             spec = ((Rekkehus) b).getUnikArray();
-            be = rekkehus.first();
         }
         else if(b instanceof Leilighet) {
             it = leiligheter.iterator();
             spec = ((Leilighet) b).getUnikArray();
-            be = leiligheter.first();
         }
         else {
             it = hybler.iterator();
             spec = ((Hybel) b).getUnikArray();
-            be = hybler.first();
         }
         while(it.hasNext()){
+            be = it.next();
             if(be instanceof Enebolig){
                 if(((Enebolig) be).erLik(spec))
                     return false;
@@ -144,8 +141,6 @@ public class Boligliste implements Serializable {
                 if(((Hybel)be).erLik(spec))
                     return false;
             }
-            be = it.next();
-
         }
         return true;
     }
@@ -163,117 +158,112 @@ public class Boligliste implements Serializable {
         Object[][] initial = {{"Velg","en","søker","for","å","finne","match",2,"!"}};
 
        if(krav==null)
-       return initial; //Når det kjøres for første gang.
+            return initial; //Når det kjøres for første gang.
 
         // enebol
-        if(krav[0] == 1)
-        {
-            Iterator<Enebolig> iter = eneboliger.iterator();
-            Enebolig enebolig = eneboliger.first();
-            while(iter.hasNext())// gjønogang av listen
-            {
-                specs = enebolig.getSpecArray(); // hva nå med den første? siden vi bruker next..
-                if(krav[10] < specs[10] && krav[11]> specs[10] && !enebolig.getUtleid() && krav[1] == specs[1])// dette er ikke idiotsikkert.
-                {
-                    ut = new Object[eneboliger.size()][10];
-                    for (int i = 1; i <= 5; i++)// av krav
-                    {
-                        if(krav[i] == 0)
-                            urelevante++;
+       if(krav[0] == 1) {
+           Iterator<Enebolig> iter = eneboliger.iterator();
+           Enebolig bolig = iter.next();
+           ut = new Object[eneboliger.size()][10];
+           while (iter.hasNext()) {
+               specs = bolig.getSpecArray();
+               if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1]) {
+                   for (int o = 1; o <= 5; o++) {
+                       if (krav[o] == 0)
+                           urelevante++;
+                       if (specs[o] == krav[o])
+                           matches++;
+                   }
+                   if (matches >= (3 - urelevante)) {
+                       matchkoeffisient = matches / (5 - urelevante);
+                       ut[plass] = bolig.tilMatchTabell();
+                       ut[plass++][0] = df.format(matchkoeffisient);
+                       teller++;
+                   }
+               }
+               matchkoeffisient = 0;
+               matches = 0;
+               urelevante = 0;
+               bolig = iter.next();
 
-                        if(specs[i] == krav[i])
-                            matches++;
-                    }
-                    if(matches >= (4-urelevante))
-                    {
-                        matchkoeffisient = matches/(5-urelevante);
-                        ut[plass] = enebolig.tilMatchTabell();
-                        ut[plass++][0] = df.format(matchkoeffisient);
-                        matchkoeffisient = 0;
-                        matches = 0;
-                        urelevante = 0;
-                        teller++;
-                    }
-                }
-                enebolig = iter.next();
-            }
-        }
-
-        // rekkehus
-        if(krav[0] == 2)
+           }
+       }
+       else if(krav[0] == 2)
         {
             Iterator<Rekkehus> iter = rekkehus.iterator();
-            Rekkehus rekkehuset = rekkehus.first();
-            while(iter.hasNext())
-            {
-                specs = rekkehuset.getSpecArray();
-                if(krav[10] < specs[10] && krav[11]> specs[10] && !rekkehuset.getUtleid() && krav[1] == specs[1])
-                {
-                    ut = new Object[rekkehus.size()][10];
-                    for (int i = 1; i <= 5; i++)// av krav
-                    {
-
-                        if(specs[i] == krav[i])
+            Rekkehus bolig = iter.next();
+            ut = new Object[rekkehus.size()][10];
+            while (iter.hasNext()) {
+                specs = bolig.getSpecArray();
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1]) {
+                    for (int o = 1; o <= 5; o++) {
+                        if (krav[o] == 0)
+                            urelevante++;
+                        if (specs[o] == krav[o])
                             matches++;
                     }
-                    if(matches >= 4)
-                    {
-                        matchkoeffisient = matches/(5-urelevante);
-                        ut[plass] = rekkehuset.tilMatchTabell();
+                    if (matches >= (3 - urelevante)) {
+                        matchkoeffisient = matches / (5 - urelevante);
+                        ut[plass] = bolig.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
-                        matchkoeffisient = 0;
-                        matches = 0;
-                        urelevante = 0;
                         teller++;
                     }
                 }
-                rekkehuset = iter.next();
+                matchkoeffisient = 0;
+                matches = 0;
+                urelevante = 0;
+                bolig = iter.next();
+
             }
         }
-
         // leileiheiget
-        if(krav[0] == 3)
+        else if(krav[0] == 3)
         {
             Iterator<Leilighet> iter = leiligheter.iterator();
-            Leilighet leilighet = leiligheter.first();
+            Leilighet bolig = iter.next();
+            ut = new Object[leiligheter.size()][10];
             while (iter.hasNext())
             {
-                specs = leilighet.getSpecArray();
-                if (krav[10] < specs[10] && krav[11] > specs[10] && !leilighet.getUtleid() && krav[1] == specs[1])
+                specs = bolig.getSpecArray();
+                if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1])
                 {
                     ut = new Object[leiligheter.size()][10];
-                    for(int i = 1; i <= 2; i++)// av krav
+                    for(int i = 1; i <= 8; i++) {
+                        if(krav[i] == 0)
+                            urelevante++;
                         if (specs[i] == krav[i])
                             matches++;
+                        if( i == 2)
+                            i = 6;
+                    }
 
-                    for(int i =6; i <= 8;i++)
-                        if(specs[i] == krav[i])
-                            matches++;
-
-                    if (matches >= 3) {
-                        matchkoeffisient = matches/(4-urelevante);
-                        ut[plass] = leilighet.tilMatchTabell();
+                    if (matches >= 2) {
+                        matchkoeffisient = matches/(5-urelevante);
+                        ut[plass] = bolig.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
-                        matchkoeffisient = 0;
-                        matches = 0;
-                        urelevante = 0;
                         teller++;
                     }
+                    matchkoeffisient = 0;
+                    matches = 0;
+                    urelevante = 0;
                 }
-                leilighet = iter.next();
+                bolig = iter.next();
             }
         }
 
         // hyble
-        if(krav[0] == 4) {
+        else if(krav[0] == 4) {
             Iterator<Hybel> iter = hybler.iterator();
-            Hybel hybel = hybler.first();
+            Hybel hybel = iter.next();
+            ut = new Object[hybler.size()][10];
             while (iter.hasNext()) {
                 specs = hybel.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid() && krav[1] == specs[1]) {
                     ut = new Object[hybler.size()][10];
                     for (int i = 1; i <= 5; i++)// av krav
                     {
+                        if (krav[i] == 0)
+                            urelevante++;
                         if (specs[i] == krav[i])
                             matches++;
                     }
@@ -281,52 +271,25 @@ public class Boligliste implements Serializable {
                         matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = hybel.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
-                        matchkoeffisient = 0;
-                        matches = 0;
-                        urelevante = 0;
-                        teller++;
                     }
                 }
-                iter.next();
+                matchkoeffisient = 0;
+                matches = 0;
+                urelevante = 0;
+                hybel = iter.next();
             }
         }
-        Object[][] temp = new Object[plass][10];
-        for(int i = 0; i < temp.length; i++){
-            temp[i] = ut[i];
-            System.out.println(temp[i][9]);
-        }
-
-        if (teller == 0) {
+        if (plass == 0) {
             FrameWork.showFrame("Melding", "Fant ingen matcher!");
             return dummy;
         }
-        FrameWork.showFrame("Melding", Integer.toString(temp.length));
+
+        Object[][] temp = new Object[plass][10];
+        for(int i = 0; i < temp.length; i++){
+            temp[i] = ut[i];
+        }
+
         return temp;
-        /*todo
-        - hvem skal det matches på? hvordan velger vi hvilken boligsøker vi skal finne boliger til?
-            - Velge fra liste i gui?(liker denne best, sikkert mulig å få til med JTable)
-            - skrive inn kundenummer eller noe?
-
-        - Finne boligsøker og få tak i kravene
-        - test på boligtype
-            - Hent liste til riktig boligtype, mekk iterator
-            - Løkke(For gjennomgang av boliglisten)
-                - Løkke(For gjennomløping av krav og specs)
-                    - Hvis match, legg til poeng
-                    - hvis null, reg som blankt felt
-
-                - kalkuler matchkoefisient og lagre den et sted. Hvor? jeg vet ikke.
-
-            Må på en måte skrive ut en sortert liste av boliger som har høy nok matchkoefisient.
-                - Kan lagre koefisienten i boligobjektet og endre den naturlige sorteringen til å ta hensyn på
-                  koefisienten, ikke på prisen.
-                - Kan lagre bolignr og score i todimmensjonell array, sortere den på score og så lage en turskrift ved
-                  å kalle opp toString for hver bolig i rekkefølgen definert av arrayen.
-
-
-
-
-     */
     }
 
     public Object[][] eneboligerTilTabell()

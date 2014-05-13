@@ -2552,9 +2552,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         public Class getColumnClass(int k) {
-            for(int i = 0;i<getRowCount(); i++){
+            for(int i = 0;i<getRowCount();i++){
                 Object value = getValueAt(i,k);
-                if( value != null)
+                if(value != null)
                     return value.getClass();
             }
             return Object.class;
@@ -3305,7 +3305,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             if (romBoxFane2.getSelectedIndex() == 0)
                 gyldigBox(romBoxFane2);
             else
-                Integer.parseInt((String)romBoxFane2.getSelectedItem());
+                rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
 
 
         if (etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
