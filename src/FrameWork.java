@@ -52,16 +52,26 @@ public class FrameWork{
         frame.setSize(400, 150);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+
+
      }
+
     private static class WindowEventHandler extends WindowAdapter{
         public void windowShutDown(WindowEvent ev){
             frame.dispose();
+            frame.notifyAll();
         }
     }
     private static class Listener implements ActionListener{
         public void actionPerformed(ActionEvent o){
-            if(o.getSource() == button)
+            if(o.getSource() == button){
+
                 frame.dispose();
+                System.out.println("TRYKKA");
+            }
+
         }
     }
 }
