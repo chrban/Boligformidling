@@ -2547,6 +2547,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
 
+        /*public void oppdaterCeller(){
+            kravene = boligsøker.getKravPåId(valgtId)
+            celler = boliger.matchPåKrav(kravene); }
+*/
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
@@ -2565,9 +2569,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
 
         public Class getColumnClass(int k) {
-
-
-            return getValueAt(0, k).getClass();
+                return getValueAt(0, k).getClass();
 
         }
     }
@@ -2608,7 +2610,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         resultatPanel.add(new JScrollPane(resultatTabell), c);
         revalidate();
-        repaint();
+       // repaint();
 
 
     }
@@ -2616,7 +2618,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private void clearResultatPanel() {
         resultatPanel.removeAll();
         revalidate();
-        repaint();
+       // repaint();
     }
 
     private void clearVelgBsPanel() {
@@ -3368,8 +3370,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         switch(btype){
             case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
-                         if(boliger.leggTil(nyEnebolig))
-                             FrameWork.showFrame(null,"Registrering vellykket!");
+                         if(boliger.leggTil(nyEnebolig)) {
+                             FrameWork.showFrame(null, "Registrering vellykket!");
+                         visKlasser(nyEnebolig);}
                          else
                             FrameWork.showFrame(null,"Ble ikke registrert!");
                          break;
@@ -3405,6 +3408,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             bildesti.setText(filsti);
         }
     }
+
+    public void visKlasser(Enebolig e)
+    {
+        System.out.println("den kjørte");
+        Object[] a = e.tilMatchTabell();
+
+        for(int i = 0; i<= 9;i++)
+        {
+            if(a[i].getClass() == null)
+                JOptionPane.showMessageDialog(null, i);
+        }
+    }
+
 
 
     public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
