@@ -70,8 +70,8 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger, matching, kontraktHistorikk;
-    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk;
+    private JMenu filmeny, rediger, matching, kontraktHistorikk,hjelp;
+    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
@@ -91,15 +91,17 @@ public class Gui extends JFrame {
     public Gui() {
         super("Boligformidling for svaksynte");
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); //Setter vinduet maksimert
+        setLocationByPlatform(true);
 
         headerFont = new Font("Arial",Font.BOLD,50);
         header2Font = new Font("Arial",Font.BOLD,20);
         header3Font = new Font("Arial",Font.BOLD,40);
 
+
+        //Oppretter Menylinjen
         øre = new menyLytter();
 
-        // temp, start filmeny
         filmeny = new JMenu("Fil");
         filmeny.setMnemonic('F');
 
@@ -109,18 +111,35 @@ public class Gui extends JFrame {
         om.addActionListener(øre);
 
 
-        lagre = new JMenuItem("Lagre");
+        lagre = new JMenuItem(" Lagre");
         lagre.addActionListener(øre);
+        ImageIcon lagreIkon= sjekkPath("icon/lagre.png");
+        lagre.setIcon(lagreIkon);
 
-        tabell = new JMenuItem("Last inn tabell på nytt");//bate temp ass
+        instillinger = new JMenuItem("Instillinger");
+
+        avslutt = new JMenuItem("Avslutt");
+
+        tabell = new JMenuItem("Last inn tabell på nytt");
         tabell.addActionListener(øre);
 
-        //kontraktHistorikkTabell = new JTable(kontrakter.tilTabell(),kontraktTabellKolonneNavn);
+
 
         rediger = new JMenu("Rediger");
 
+        hjelp = new JMenu("Hjelp");
+
+
         angre = new JMenuItem("Angre");
         angre.addActionListener(øre);
+
+        klipput = new JMenuItem("Klipp ut");
+
+        kopier = new JMenuItem("Kopier");
+
+        liminn = new JMenuItem("Lim inn");
+
+
 
         matching = new JMenu("Matching");
         oppdaterBoligsøkerTabell = new JMenuItem("Oppdater BS tabell");
@@ -131,12 +150,16 @@ public class Gui extends JFrame {
         visHistorikk.addActionListener(øre);
 
         rediger.add(angre);
-        filmeny.add(om);
+        rediger.add(klipput);
+        rediger.add(kopier);
+        rediger.add(liminn);
+        hjelp.add(om);
         filmeny.add(lagre);
+        filmeny.add(instillinger);
+        filmeny.add(avslutt);
         rediger.add(tabell);
         matching.add(oppdaterBoligsøkerTabell);
         kontraktHistorikk.add(visHistorikk);
-
 
         menylinje = new JMenuBar();
         setJMenuBar(menylinje);
@@ -144,9 +167,12 @@ public class Gui extends JFrame {
         menylinje.add(rediger);
         menylinje.add(matching);
         menylinje.add(kontraktHistorikk);
+        menylinje.add(hjelp);
+        //Slutt menylinje
 
 
-//temp, filmeny slutt
+
+
         boliger = new Boligliste();
         utleiere = new UtleierListe(boliger);
         boligsøkere = new BoligsøkerListe();
@@ -158,23 +184,7 @@ public class Gui extends JFrame {
         personTabellScroll = new JScrollPane(personTabell);
         boligTabellScroll = new JScrollPane(boligTabellTabellen);
 
-
-        //alt dette bare for skjermstørrelsen hehehe
-
-        Toolkit tools = Toolkit.getDefaultToolkit();
-        Dimension skjerm = tools.getScreenSize();
-//        int bredde = (int) (Math.round(skjerm.width * 0.80));
-        //      int høyde = (int) (Math.round(skjerm.height * 0.80));
-        //setSize(bredde, høyde);
-        setLocationByPlatform(true);
-        setSize(1400, 1050);
-
-        int bredde = getWidth();
-        int høyde = getHeight();
-        System.out.println("Skjermstr: " + bredde + "x" + høyde);
-
-
-        //Oppretter panelene
+        
 
         panel1 = new JPanel(layout);  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
@@ -292,6 +302,9 @@ public class Gui extends JFrame {
         ImageIcon matchIkon = sjekkPath("icon/match.png");
         ImageIcon slettpersonIkon = sjekkPath("icon/personSlett.png");
         ImageIcon slettboligIkon = sjekkPath("icon/boligSlett.png");
+        ImageIcon mailIkoin = sjekkPath("icon/mail.png");
+        ImageIcon finnmatchIkon = sjekkPath("icon/matchbolig.png");
+
 
 
         //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
@@ -480,7 +493,7 @@ public class Gui extends JFrame {
         firma.setVisible(false);
         pepanel.add(firma, c);
 
-        regUtleierKnapp = new JButton("Registrer");
+        regUtleierKnapp = new JButton("Registrer  ");
         regUtleierKnapp.addActionListener(lytter);
         c.ipadx = 0;
         c.gridx = 1;
@@ -491,8 +504,10 @@ public class Gui extends JFrame {
         regUtleierKnapp.setMargin(new Insets(0, 30, 0, 30));
         regUtleierKnapp.setVisible(false);
         regUtleierKnapp.setIcon(personIkon);
-        regUtleierKnapp.setIconTextGap(2);
+        regUtleierKnapp.setVerticalTextPosition(SwingConstants.CENTER);
+        regUtleierKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         pepanel.add(regUtleierKnapp, c);
+
 
 
         //BOLISØKER PANEL (bspanel)
@@ -743,7 +758,7 @@ public class Gui extends JFrame {
         planBox.setVisible(false);
 
 
-        regPersonKnapp = new JButton("Registrer");
+        regPersonKnapp = new JButton("Registrer  ");
         regPersonKnapp.addActionListener(lytter);
         c.gridx = 1;
         c.gridy = 9;
@@ -752,7 +767,15 @@ public class Gui extends JFrame {
         c.insets = new Insets(15, 10, 0, 0);
         regPersonKnapp.setMargin(new Insets(0, 30, 0, 30));
         regPersonKnapp.setVisible(false);
+        regPersonKnapp.setIcon(personIkon);
+        regPersonKnapp.setVerticalTextPosition(SwingConstants.CENTER);
+        regPersonKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         bspanel.add(regPersonKnapp, c);
+
+
+
+
+
 
         // BoligtypePanel
 
@@ -1092,14 +1115,16 @@ public class Gui extends JFrame {
 
 
         c.ipady = 0;
-        regBoligKnapp = new JButton("Registrer");
+        regBoligKnapp = new JButton("Registrer  ");
         regBoligKnapp.addActionListener(lytter);
         regBoligKnapp.setMargin(new Insets(0, 14, 0, 14));
         c.gridx = 2;
         c.gridy = 18;
         c.anchor = GridBagConstraints.WEST;
-
         c.insets = new Insets(10, 0, 5, 10);
+        regBoligKnapp.setIcon(boligIkon);
+        regBoligKnapp.setVerticalTextPosition(SwingConstants.CENTER);
+        regBoligKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         bopanel.add(regBoligKnapp, c);
 
 
@@ -1212,7 +1237,7 @@ public class Gui extends JFrame {
 
         radioTabell.add(persontabellRadioknapp);
         radioTabell.add(boligtabellRadioknapp);
-        slettPerson = new JButton("Slett person");
+        slettPerson = new JButton("Slett person  ");
         slettPerson.addActionListener(lytter);
         c.gridx = 1;
         c.gridy = 2;
@@ -1224,9 +1249,11 @@ public class Gui extends JFrame {
         c.fill=GridBagConstraints.HORIZONTAL;
         slettPerson.setVisible(false);
         slettPerson.setIcon(slettpersonIkon);
+        slettPerson.setVerticalTextPosition(SwingConstants.CENTER);
+        slettPerson.setHorizontalTextPosition(SwingConstants.LEFT);
         panel3.add(slettPerson, c);
 
-        slettBoligKnapp = new JButton("Slett bolig");
+        slettBoligKnapp = new JButton("Slett bolig  ");
         slettBoligKnapp.addActionListener(lytter);
         c.gridx = 1;
         c.gridy = 2;
@@ -1237,6 +1264,8 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.PAGE_START;
         slettBoligKnapp.setVisible(false);
         slettBoligKnapp.setIcon(slettboligIkon);
+        slettBoligKnapp.setVerticalTextPosition(SwingConstants.CENTER);
+        slettBoligKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         panel3.add(slettBoligKnapp, c);
 
         //reset
@@ -1361,18 +1390,19 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         matchHeader.setForeground(headerFarge);
         panel4.add(matchHeader);
 
-        finnMatch = new JButton("Finn Match!");
+        finnMatch = new JButton("Finn Match!   ");
         c.gridx = 0;
         c.gridy = 2;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.ipady = 30;
         c.insets = new Insets(10, 0, 10, 0);
-
+        finnMatch.setIcon(finnmatchIkon);
+        finnMatch.setVerticalTextPosition(SwingConstants.CENTER);
+        finnMatch.setHorizontalTextPosition(SwingConstants.LEFT);
         c.anchor = GridBagConstraints.PAGE_END;
         finnMatch.addActionListener(lytter);
         panel4.add(finnMatch, c);
-
 
 
 
@@ -1428,21 +1458,25 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
 
 
 
-        sendMail = new JButton("Send mail");
+        sendMail = new JButton("Send mail   ");
         c.gridx = 1;
         c.gridy = 3;
-        c.ipady = 0;
+        c.ipady = 30;
 
         c.insets = new Insets(20, 60, 20, 40);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
         sendMail.setMargin(new Insets(0,0,0,0));
         sendMail.addActionListener(lytter);
+        sendMail.setIcon(mailIkoin);
+        sendMail.setVerticalTextPosition(SwingConstants.CENTER);
+        sendMail.setHorizontalTextPosition(SwingConstants.LEFT);
         panel4.add(sendMail, c);
 
 
 
 
+        c.ipady = 0;
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(0, 60, 80, 20);
