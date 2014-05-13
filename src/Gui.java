@@ -173,13 +173,10 @@ public class Gui extends JFrame {
         int høyde = getHeight();
         System.out.println("Skjermstr: " + bredde + "x" + høyde);
 
-        //todo Finne en fin skjermstørrelse, er nå 80% av skjermstr.
-
 
         //Oppretter panelene
 
         panel1 = new JPanel(layout);  // FANE panel
-        // panel1 = new JPanel(new BorderLayout());  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
         panel3 = new JPanel(layout);  // FANE panel
         panel4 = new JPanel(layout);  // FANE panel
@@ -1148,6 +1145,8 @@ public class Gui extends JFrame {
 
         registerHeader = new JLabel("Register");
         registerHeader.setFont(headerFont);
+        registerHeader.setForeground(headerFarge);
+
         //c.insets = new Insets(50, 10, 50, 10);
         c.gridx = 0;
         c.gridy = 0;
@@ -2492,13 +2491,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             return kolonnenavn[kolonne];
         }
 
-        public boolean isCellEditable(int rad, int kolonne) {
-            return kolonne == 2;
-        }
     }
 
-
-// HERFRA
 
 
     public String[] getKolonneNavnForBoligtype(int[] krav) {
@@ -2556,13 +2550,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             return kolonnenavn[kolonne];
         }
 
-        public boolean isCellEditable(int rad, int kolonne) {
-            return kolonne == 2;
-        }
-
-        public void setValueAt(String nyVerdi, int rad, int kolonne) {
-            celler[rad][kolonne] = nyVerdi;
-        }
 
         public Class getColumnClass(int k) {
             for(int i = 0;i<getRowCount(); i++){
@@ -2650,17 +2637,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
 
 
-        /*
-                c.gridx = 1;
-        c.gridy = 3;
-        c.anchor=GridBagConstraints.LINE_START;
-        c.fill =GridBagConstraints.BOTH;
-        c.weightx=10;
-        c.weighty=40;
-        c.insets = new Insets(5,5,5,5);
-         */
-
-
     }
 
 
@@ -2686,9 +2662,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             return kolonnenavn[kolonne];
         }
 
-        public boolean isCellEditable(int rad, int kolonne) {
-            return kolonne == 2;
-        }
+
     }
 
 
@@ -2768,6 +2742,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         //skjuler på en teit måte
+
         boligTabellTabellen.getColumn("Parkering").setMaxWidth(0);
         boligTabellTabellen.getColumn("Parkering").setMinWidth(0);
         boligTabellTabellen.getColumn("Parkering").setPreferredWidth(0);
@@ -2781,7 +2756,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         boligTabellTabellen.getColumn("Id").setMinWidth(0);
         boligTabellTabellen.getColumn("Id").setPreferredWidth(0);
 
-        boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+       // boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
 
@@ -3223,6 +3198,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     public void regBolig() {
         FrameWork.showFrame(null, "Regbolig kjører");
+
 
         String adr = adresseFane2.getText();
         String arealString = boareal.getText();
