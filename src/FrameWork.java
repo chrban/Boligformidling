@@ -54,6 +54,8 @@ public class FrameWork{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
+        
+
 
 
      }
