@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.awt.print.PrinterException;
 import java.io.*;
 import java.rmi.server.UID;
 import java.util.*;
@@ -70,15 +71,15 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger, matching, kontraktHistorikk,hjelp;
-    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt;
+    private JMenu filmeny, rediger, matching, kontrakt,register,hjelp;
+    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
     private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn, slettPersonEn;
     private int slettBoligId;
-    private Font headerFont,header2Font, header3Font;
+    private Font headerFont,header2Font, header3Font,knappFont;
     private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
 
 
@@ -95,9 +96,12 @@ public class Gui extends JFrame {
         setLocationByPlatform(true);
 
         headerFont = new Font("Arial",Font.BOLD,50);
+        knappFont = new Font("Arial",Font.PLAIN,15);
         header2Font = new Font("Arial",Font.BOLD,20);
         header3Font = new Font("Arial",Font.BOLD,40);
 
+
+        ImageIcon skrivutIkon = sjekkPath("icon/print.png");
 
         //Oppretter Menylinjen
         øre = new menyLytter();
@@ -145,9 +149,30 @@ public class Gui extends JFrame {
         oppdaterBoligsøkerTabell = new JMenuItem("Oppdater BS tabell");
         oppdaterBoligsøkerTabell.addActionListener(øre);
 
-        kontraktHistorikk = new JMenu("Kontrakthistorikk");
+        printmatch = new JMenuItem("Skriv ut Matchresultat");
+        printmatch.addActionListener(øre);
+        printmatch.setIcon(skrivutIkon);
+
+        kontrakt = new JMenu("Kontrakt");
         visHistorikk = new JMenuItem("Vis kontrakhistorikk");
         visHistorikk.addActionListener(øre);
+
+        printkontrakter = new JMenuItem("Skriv ut Kontrakter");
+        printkontrakter.addActionListener(øre);
+        printkontrakter.setIcon(skrivutIkon);
+
+
+        register = new JMenu("Register");
+
+        printbolig = new JMenuItem("skriv ut Boligregister");
+        printbolig.addActionListener(øre);
+        printbolig.setIcon(skrivutIkon);
+
+        printperson = new JMenuItem("Skriv ut Personregister");
+        printperson.addActionListener(øre);
+        printperson.setIcon(skrivutIkon);
+
+
 
         rediger.add(angre);
         rediger.add(klipput);
@@ -159,14 +184,19 @@ public class Gui extends JFrame {
         filmeny.add(avslutt);
         rediger.add(tabell);
         matching.add(oppdaterBoligsøkerTabell);
-        kontraktHistorikk.add(visHistorikk);
+        matching.add(printmatch);
+        register.add(printbolig);
+        register.add(printperson);
+        kontrakt.add(visHistorikk);
+        kontrakt.add(printkontrakter);
 
         menylinje = new JMenuBar();
         setJMenuBar(menylinje);
         menylinje.add(filmeny);
         menylinje.add(rediger);
         menylinje.add(matching);
-        menylinje.add(kontraktHistorikk);
+        menylinje.add(register);
+        menylinje.add(kontrakt);
         menylinje.add(hjelp);
         //Slutt menylinje
 
@@ -300,10 +330,11 @@ public class Gui extends JFrame {
         ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
         ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
         ImageIcon matchIkon = sjekkPath("icon/match.png");
-        ImageIcon slettpersonIkon = sjekkPath("icon/personSlett.png");
-        ImageIcon slettboligIkon = sjekkPath("icon/boligSlett.png");
+        ImageIcon slettpersonIkon = sjekkPath("icon/personSlettBig.png");
+        ImageIcon slettboligIkon = sjekkPath("icon/boligSlettBig.png");
         ImageIcon mailIkoin = sjekkPath("icon/mail.png");
         ImageIcon finnmatchIkon = sjekkPath("icon/matchbolig.png");
+
 
 
 
@@ -1251,6 +1282,8 @@ public class Gui extends JFrame {
         slettPerson.setIcon(slettpersonIkon);
         slettPerson.setVerticalTextPosition(SwingConstants.CENTER);
         slettPerson.setHorizontalTextPosition(SwingConstants.LEFT);
+        slettPerson.setFont(knappFont);
+
         panel3.add(slettPerson, c);
 
         slettBoligKnapp = new JButton("Slett bolig  ");
@@ -1262,10 +1295,12 @@ public class Gui extends JFrame {
         c.ipady = 30;
         c.insets = new Insets(0,50,0,50);
         c.anchor = GridBagConstraints.PAGE_START;
+        c.fill=GridBagConstraints.HORIZONTAL;
         slettBoligKnapp.setVisible(false);
         slettBoligKnapp.setIcon(slettboligIkon);
         slettBoligKnapp.setVerticalTextPosition(SwingConstants.CENTER);
         slettBoligKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
+        slettBoligKnapp.setFont(knappFont);
         panel3.add(slettBoligKnapp, c);
 
         //reset
@@ -1276,7 +1311,7 @@ public class Gui extends JFrame {
 
 
 
-        feedbackFane3 = new JTextArea("feedbackfelt");
+        feedbackFane3 = new JTextArea("");
         //feedbackFane3.setPreferredSize(new Dimension(800,100));
         feedbackFane3.setBackground(bakFarge);
         feedbackFane3.setSize(500, 200);
@@ -1284,6 +1319,7 @@ public class Gui extends JFrame {
         c.gridy = 3;
         c.weightx = 10;
         c.weighty = 5;
+        c.insets = new Insets(2,40,40,0);
         c.fill=GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         panel3.add(feedbackFane3, c);
@@ -1313,7 +1349,7 @@ public class Gui extends JFrame {
 
 
 
-        bildepanel.setBackground(Color.LIGHT_GRAY);
+        bildepanel.setBackground(bakFarge);
         panel3.setBackground(bakFarge);
         tapanel.setBackground(bakFarge);
 
@@ -2018,33 +2054,49 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private class menyLytter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == om) {
-                FrameWork.showFrame("Om", boligsøkere.toString());
+                FrameWork.showFrame("Om..","BoligFormidling - Versjon 1.0  \n Av:\n Emil Oppegård, \nKristoffer Osen & \nChrister Bang");
             } else if (e.getSource() == lagre) {
-                System.out.println("Trykka på lagre, som kaller på skrivTilFil()");
                 skrivTilFil();
-
-            } else if (e.getSource() == angre) {
-                visMatch();
-                System.out.println("du anger på at du tryka på angre");
-            } else if (e.getSource() == tabell) {
-                System.out.println("Hente inn tabell på nytt");
-                panel3.remove(personTabellScroll);
-                panel3.remove(boligTabellScroll);
-                lagTabellen();
-                panel3.add(personTabellScroll = new JScrollPane(personTabell), BorderLayout.LINE_END);
-                panel3.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), BorderLayout.BEFORE_LINE_BEGINS);
-            } else if (e.getSource() == oppdaterBoligsøkerTabell) {
-                visBoligsøkere();
-                System.out.println("Lastet inn boligsøkertabellen på nytt");
             } else if (e.getSource() == visHistorikk) {
                 visKontraktFil();
+            }
+            else if(e.getSource() == printmatch){
+                try {
+                    resultatTabell.print();
+                }
+                catch(PrinterException pe)
+                {
+                    System.out.println("feil ved print");
+                }
+            }
+            else if(e.getSource() == printkontrakter){
+                try{
+                    kontraktHistorikkTabell.print();
+                }
+                catch (PrinterException pe){
+                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
+                }
+            }
+            else if(e.getSource()==printbolig) {
+                try {
+                    boligTabellTabellen.print();
+                } catch (PrinterException pe) {
+                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
+                }
+            }
+            else if(e.getSource()==printperson){
+                try{
+                    personTabell.print();
+                }catch(PrinterException pe){
+                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
+                }
+
             }
 
 
         }
     }
 
-    //tabellSplittPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,personTabellScroll,boligTabellScroll);
 
 
     private class fanelytter implements ChangeListener {
@@ -2598,7 +2650,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private void visMatch() {
         clearResultatPanel();
         resultatTabellModell resultatModell = new resultatTabellModell();
-        resultatTabell = new JTable(resultatModell);
+       // resultatTabell = new JTable(resultatModell);
+        resultatTabell = new SvartHvitRad(resultatModell);
 
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
 
@@ -2655,7 +2708,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
-        boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
+        //boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
+        boligSøkereForMatch = new SvartHvitRad(boligSøkerTabellModellForMatch);
         boligSøkereForMatch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
@@ -2753,24 +2807,70 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             return kolonnenavn[kolonne];
         }
 
-        public boolean isCellEditable(int rad, int kolonne) {
-            return kolonne == 2;
-        }
     }    // end personTabellFabrikk
 
 
-    private void lagTabellen() // legge til boligTabell her ogsÅ?
+    class SvartHvitRad extends JTable
+    {
+        private boolean utskrift = false;
+
+
+        public SvartHvitRad(TableModel modell)
+        {
+            super(modell);
+        }
+        public void print(Graphics g)
+        {
+            utskrift = true;
+            try {
+                super.print(g);
+            }
+            finally {
+                utskrift = false;
+            }
+        }
+
+
+
+        public Component prepareRenderer(
+                TableCellRenderer rendrer, int rad, int kolonne)
+        {
+            Component c = super.prepareRenderer(rendrer, rad, kolonne);
+
+            if(utskrift)
+                c.setBackground(getBackground());
+            else if (rad % 2 == 0 && !isCellSelected(rad, kolonne))
+            {
+                c.setBackground(Color.LIGHT_GRAY);
+            }
+            else if (isCellSelected(rad, kolonne))
+            {
+                c.setBackground(getSelectionBackground());
+            }
+            else
+            {
+                c.setBackground(getBackground());
+            }
+            return c;
+        }
+    }
+
+
+    private void lagTabellen()
     {
         personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
-        personTabell = new JTable(personTabellModell);
+        personTabell = new SvartHvitRad(personTabellModell);
+        //personTabell = new JTable(personTabellModell);
         ListSelectionModel lsm = personTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
+
 
     }
 
     private void lagBoligTabellen() {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
-        boligTabellTabellen = new JTable(boligTabellModell);
+        //boligTabellTabellen = new JTable(boligTabellModell);
+       boligTabellTabellen = new SvartHvitRad(boligTabellModell);
         ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
 
@@ -3520,7 +3620,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
 
         utleierTabellModell modell = new utleierTabellModell();
-        utleierValgTabell = new JTable(modell);
+        utleierValgTabell = new SvartHvitRad(modell);
 
 
         utleierValgTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -3601,7 +3701,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         kontraktTabellModell kmodell = new kontraktTabellModell();
 
-        kontraktHistorikkTabell = new JTable(kmodell);
+        //kontraktHistorikkTabell = new JTable(kmodell);
+        kontraktHistorikkTabell = new SvartHvitRad(kmodell);
         kontraktHistorikkTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = kontraktHistorikkTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(kmodell));
@@ -3642,19 +3743,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-
-
-/*
-    public void visPersonInfo()
-    {
-        try{
-        String id = utleiere.finnID(slettPersonFn, slettPersonEn);
-        if(id != null) {
-            Utleier valgtUtleier = utleiere.getUtleier(id);
-            feedbackFane3.setText(valgtUtleier.toString());
-            clearBildePanel();
-        }
-        */
 
     public void visPersonInfo(){
         try {
