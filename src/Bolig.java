@@ -21,13 +21,9 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private boolean utleid;
     private String beskrivelse;
 
-    public Bolig(){}
-
-
-
-
-    public Bolig(String ad,int s, int b, int r, int by, int u, String e, String sti, String be)
+    public Bolig(int i,String ad,int s, int b, int r, int by, int u, String e, String sti, String be)
     {
+        id = i;
         adresse = ad;
         sted = s;
         boareal = b;
@@ -39,11 +35,6 @@ abstract class Bolig implements Serializable, Comparable<Object>
         bildesti = sti;
         utleid = false;
         beskrivelse = be;
-    }
-    //setter id på bolig
-    public void setId(int i)
-    {
-        id = i;
     }
     //get metoder for klassen Bolig
     public int getId(){return id;}

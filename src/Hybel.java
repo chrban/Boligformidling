@@ -10,17 +10,11 @@ public class Hybel extends Bolig implements Serializable {
     private int egetBad;
     private int egetKjøkken;
     private int[] specArray;
-    private static int id = 3000;
 
-    public Hybel(String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj, String be) {
-        super(ad, s, b, r, by, u, uid, sti, be);
+    public Hybel(int i,String ad,int s, int b, int r, int by, int u, String uid, String sti, int bad, int kj, String be) {
+        super(i,ad, s, b, r, by, u, uid, sti, be);
         egetBad= bad;
         egetKjøkken = kj;
-    }
-
-    public void setID(int i)
-    {
-        super.setId(i);
     }
     //getMetoder
     public boolean getBooleanVerdiBad()
@@ -117,7 +111,7 @@ public class Hybel extends Bolig implements Serializable {
     {
         Object[] ut = new Object[8];
 
-        ut[0] = new Integer(0);
+        ut[0] = 0;
         ut[1] = sted();
         ut[2] = getBoareal() + " m²";
         ut[3] = getUtleiepris() + " kr/m";
@@ -133,7 +127,7 @@ public class Hybel extends Bolig implements Serializable {
         image = new ImageIcon(skalert);
 
         ut[8] = image;
-        ut[9] = id;
+        ut[9] = super.getId();
 
         return ut;
     }

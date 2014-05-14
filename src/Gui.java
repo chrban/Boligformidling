@@ -1,31 +1,28 @@
-import javafx.geometry.HorizontalDirection;
-
+/*import javafx.geometry.HorizontalDirection;
 import javax.imageio.ImageIO;
 import javax.print.DocFlavor;
+*/
 import javax.swing.*;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 import java.awt.*;
 
 
 import java.awt.event.*;
 import java.awt.print.PrinterException;
 import java.io.*;
-import java.rmi.server.UID;
+//import java.rmi.server.UID;
 import java.util.*;
 import java.util.List;
-import java.util.regex.Matcher;
+/*import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.border.MatteBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+*/
 import javax.swing.event.*;
 import javax.swing.table.*;
-import javax.swing.DefaultRowSorter;
-import javax.swing.text.Document;
+//import javax.swing.DefaultRowSorter;
+//import javax.swing.text.Document;
 import java.lang.*;
-import javax.swing.RowSorter.*;
+//import javax.swing.RowSorter.*;
 
 
 /**
@@ -38,9 +35,8 @@ public class Gui extends JFrame {
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
     private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt,søkefelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader, mailLabel, mailStatusLabel;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader, mailLabel, mailStatusLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt,feedbackMail;
-    private JMenuBar menybar = new JMenuBar();
     private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
     private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel, kontraktTabellPanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
@@ -51,18 +47,17 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private String[] kontraktTabellKolonneNavn = {"Eier,","Leietaker","Startdato","Sluttdato"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch, boligValgTabell;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch;
     private JScrollPane scroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
     private ButtonGroup radioPerson, radioTabell;
-    private Border ramme = BorderFactory.createLineBorder(Color.BLACK);
     private UtleierListe utleiere;
     private BoligsøkerListe boligsøkere;
     private KontraktListe kontrakter;
     private Mail epost;
     private KontraktHistorikk kontrakthistorie;
+    private idGenerator idMekking;
     private knappLytter lytter;
     private menyLytter øre;
     private Boligliste boliger;
@@ -72,17 +67,11 @@ public class Gui extends JFrame {
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
-    private Container kassa;
     private String valgtId, valgtBoligId, id, slettPersonFn, slettPersonEn;
     private int slettBoligId;
     private Font headerFont,header2Font, header3Font,knappFont;
     private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
-
-
-    //private JScrollPane personTabellScroll,boligTabellScroll, kontraktHistorikkTabellScroll;
-    //private JTextArea utskriftsområde;
     private fanelytter faneøre;
-    //private Utvalgslytter lsm;
 
 
     public Gui() {
@@ -212,6 +201,7 @@ public class Gui extends JFrame {
         kontrakter = new KontraktListe();
         epost = new Mail();
         kontrakthistorie = new KontraktHistorikk();
+        idMekking = new idGenerator();
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll = new JScrollPane(personTabell);
@@ -1487,7 +1477,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
 
 
 
-        Dimension textfelt = new Dimension(10, 200);
 
 
         feedbackMail = new JTextArea("", 15, 15);
@@ -1968,1093 +1957,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         visKontrakter();
     } // End GUI konstruktør
 
-
-    private ImageIcon sjekkPath(String s)//Kontrollerer at bildet k8
-    {
-        ImageIcon bilde = null;
-        java.net.URL kilde = getClass().getResource(s);
-
-        if (kilde != null)
-            bilde = new ImageIcon(kilde);
-        else {
-            System.out.println("Fant ikke bilde");
-            return null;
-        }
-        return bilde;
-
-
-    }
-    // ImageIcon matchIkon= new ImageIcon(getClass().getResource("icon/match.png"));
-
-
-    // LYTTERE
-    private class knappLytter implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == regBoligKnapp)
-                regBolig();
-            else if (e.getSource() == regPersonKnapp)
-                regPerson();
-            else if (e.getSource() == regUtleierKnapp)
-                regPerson();
-            else if (e.getSource() == finnBildeKnapp)
-                finnBilde();
-            else if (e.getSource() == velgUtleier)
-                visVelgUtleierVindu();
-            else if (e.getSource() == oppdaterKontrakter)
-                visKontrakter();
-            else if (e.getSource() == velgUtleierKnapp)
-                visVelgUtleierVindu();
-            else if (e.getSource() == velgLeietakerKnapp)
-                visVelgLeietakerVindu();
-            else if (e.getSource() == velgBoligKnapp)
-                visVelgBoligVindu();
-            else if (e.getSource() == lagreKontrakt)
-                mekkKontrakt();
-            else if (e.getSource() == finnMatch) {
-
-                // her henter jeg inn tabellverdin
-                visMatch();
-            } else if (e.getSource() == sendMail) {
-                sendEpost();
-            } else if (e.getSource() == slettPerson) {
-                slettBoligsøker();
-            } else if (e.getSource() == slettBoligKnapp) {
-                slettBolig();
-            }
-
-        }
-    }
-    private class HighlightRenderer extends DefaultTableCellRenderer{
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if(row==table.getSelectedRow()){
-                setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
-            }
-            return this;
-        }
-    }
-    private DocumentListener documentListener = new DocumentListener() {
-        public void changedUpdate(DocumentEvent documentEvent) {
-            søkPersonregister(søkefelt.getText());
-            søkBoligregister(søkefelt.getText());
-        }
-
-        public void insertUpdate(DocumentEvent documentEvent) {
-            søkPersonregister(søkefelt.getText());
-            søkBoligregister(søkefelt.getText());
-        }
-
-        public void removeUpdate(DocumentEvent documentEvent) {
-            søkPersonregister(søkefelt.getText());
-            søkBoligregister(søkefelt.getText());
-        }
-
-    };
-    private void søkPersonregister(String v) {
-
-
-        for (int rad = 0; rad <= personTabell.getRowCount() - 1; rad++) {
-            for (int col = 0; col <= 1; col++) {
-                String r = (personTabell.getValueAt(rad, col).toString());
-
-                if (v.equalsIgnoreCase(r)) {
-                    personTabell.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-                    personTabell.setRowSelectionInterval(rad,rad);
-                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
-                        personTabell.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
-                    }
-
-                }
-            }
-        }
-    }// end Personsøk
-
-    private void søkBoligregister(String v){
-
-        for(int rad = 0; rad <= boligTabellTabellen.getRowCount() -1; rad++){
-            for(int col=0; col <= boligTabellTabellen.getColumnCount()-1;col++){
-
-                String r = boligTabellTabellen.getValueAt(rad,col).toString();
-
-
-                if(v.equalsIgnoreCase(r)){
-                    boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-                    boligTabellTabellen.setRowSelectionInterval(rad,rad);
-                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
-                        boligTabellTabellen.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
-
-                    }
-
-                }
-        }
-
-    }
-    } // end Boligsøk
-
-
-
-
-
-
-
-
-
-
-    private class menyLytter implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == om) {
-                JOptionPane.showMessageDialog(null, boligsøkere.toString());
-            } else if (e.getSource() == lagre) {
-                skrivTilFil();
-            } else if (e.getSource() == visHistorikk) {
-                visKontraktFil();
-            }
-            else if(e.getSource() == printmatch){
-                try {
-                    resultatTabell.print();
-                }
-                catch(PrinterException pe)
-                {
-                    System.out.println("feil ved print");
-                }
-            }
-            else if(e.getSource() == printkontrakter){
-                try{
-                    kontraktHistorikkTabell.print();
-                }
-                catch (PrinterException pe){
-                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
-                }
-            }
-            else if(e.getSource()==printbolig) {
-                try {
-                    boligTabellTabellen.print();
-                } catch (PrinterException pe) {
-                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
-                }
-            }
-            else if(e.getSource()==printperson){
-                try{
-                    personTabell.print();
-                }catch(PrinterException pe){
-                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
-                }
-
-            }
-            else if(e.getSource()==statistikk){
-                lagTabellen();
-                lagBoligTabellen();
-                JOptionPane.showMessageDialog(null,"Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount() );
-            }
-
-        }
-    }
-
-    private class fanelytter implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            if (fane.getSelectedIndex() == 2) {
-                System.out.println("Trykka på fane; Register");
-                if(persontabellRadioknapp.isSelected()){
-                    clearPanel3();
-                    lagTabellen();
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
-                    c.anchor = GridBagConstraints.FIRST_LINE_START;
-                    c.fill = GridBagConstraints.BOTH;
-                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
-                    slettPerson.setVisible(true);
-                    slettBoligKnapp.setVisible(false);
-                    revalidate();
-                    repaint();
-                    //gjøre no
-                }
-                else if(boligtabellRadioknapp.isSelected()){
-                    clearPanel3();
-                    lagBoligTabellen();
-                    c.anchor = GridBagConstraints.CENTER;
-                    c.gridx = 0;
-                    c.gridy = 0;
-                    c.gridwidth = 1;
-                    c.insets = new Insets(0, 0, 0, 0);
-                    c.gridheight = 1;
-                    c.gridwidth = 0;
-                    c.weightx = 0;
-                    // resartt
-
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
-                    c.anchor = GridBagConstraints.FIRST_LINE_START;
-                    c.fill = GridBagConstraints.BOTH;
-                    tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
-                    slettBoligKnapp.setVisible(true);
-                    slettPerson.setVisible(false);
-                    revalidate();
-                    repaint();
-                    //vis bolig tabell
-                }
-                else{
-                    lagBoligTabellen();
-                    clearPanel3();
-                    lagTabellen();
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
-                    c.anchor = GridBagConstraints.FIRST_LINE_START;
-                    c.fill = GridBagConstraints.BOTH;
-                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
-                    persontabellRadioknapp.setSelected(true);
-                    slettPerson.setVisible(true);
-                    slettBoligKnapp.setVisible(false);
-                    revalidate();
-                    repaint();
-
-                    //vis personregister
-                }
-
-
-
-
-
-
-
-            } else if (fane.getSelectedIndex() == 3) {
-                System.out.println("oppdaterer boligsøkerlista siden matchfane er velgt, dvs kaller på visBoligsøkere()");
-                visBoligsøkere();
-            }
-
-            repaint();
-        }
-    }
-
-    //her er nfm
-    private void togler() //Metode for å skjule alle BT-avhengige valg.
-    {
-        System.out.println("TOGLA!");
-        garasjeValg.setVisible(false);
-        kjellerValg.setVisible(false);
-        etasjeBox.setVisible(false);
-        heisValg.setVisible(false);
-        balkongValg.setVisible(false);
-        badValg.setVisible(false);
-        kjøkkenValg.setVisible(false);
-        antEgtLabel.setVisible(false);
-        planLabel.setVisible(false);
-        planBox.setVisible(false);
-        revalidate();
-    }
-
-    private void toglerFane2() {
-        System.out.println("Togla fane2 for faen");
-        garasjeValgFane2.setVisible(false);
-        kjellerValgFane2.setVisible(false);
-        etasjeBoxFane2.setVisible(false);
-        heisValgFane2.setVisible(false);
-        balkongValgFane2.setVisible(false);
-        badValgFane2.setVisible(false);
-        kjøkkenValgFane2.setVisible(false);
-        antEgtLabelFane2.setVisible(false);
-        tomtAreal.setVisible(false);
-        tomtArealLabel.setVisible(false);
-        planLabelFane2.setVisible(false);
-        planBoxFane2.setVisible(false);
-        romLabelFane2.setVisible(false);
-        romBoxFane2.setVisible(false);
-        revalidate();
-    }
-
-    private class boligTypeLytter implements ActionListener { //Lytter som hører på BT-boksen og gjør som den sier!
-
-        public void actionPerformed(ActionEvent e) {
-            String typenTil = (String) boligtypeBox.getSelectedItem();
-            String boligTypeFane2 = (String) boligtypeBoxFane2.getSelectedItem();
-
-
-            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
-            if (byBox.getSelectedIndex() != 0) byBox.setForeground(Color.BLACK);
-            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
-            if (etasjeBox.getSelectedIndex() != 0) etasjeBox.setForeground(Color.BLACK);
-            if (planBox.getSelectedIndex() != 0) planBox.setForeground(Color.BLACK);
-
-
-            switch (typenTil) {
-                case "Enebolig":
-                    togler();
-                    garasjeValg.setVisible(true);
-                    kjellerValg.setVisible(true);
-                    etasjeBox.setVisible(true);
-                    boligtypeBox.setForeground(Color.BLACK);
-                    antEgtLabel.setVisible(true);
-                    regPersonKnapp.setVisible(true);
-                    revalidate();
-                    break;
-                case "Rekkehus":
-                    togler();
-                    garasjeValg.setVisible(true);
-                    kjellerValg.setVisible(true);
-                    etasjeBox.setVisible(true);
-                    antEgtLabel.setVisible(true);
-                    boligtypeBox.setForeground(Color.BLACK);
-                    regPersonKnapp.setVisible(true);
-
-                    revalidate();
-                    break;
-                case "Leilighet":
-                    togler();
-                    heisValg.setVisible(true);
-                    balkongValg.setVisible(true);
-                    boligtypeBox.setForeground(Color.BLACK);
-                    regPersonKnapp.setVisible(true);
-                    planLabel.setVisible(true);
-                    planBox.setVisible(true);
-                    revalidate();
-                    break;
-                case "Hybel":
-                    togler();
-                    badValg.setVisible(true);
-                    kjøkkenValg.setVisible(true);
-                    boligtypeBox.setForeground(Color.BLACK);
-                    regPersonKnapp.setVisible(true);
-                    revalidate();
-                    break;
-                default:
-                    System.out.println("Default");
-                    togler();
-                    revalidate();
-                    break;
-            }
-            switch (boligTypeFane2) {
-                case "Enebolig":
-                    toglerFane2();
-                    garasjeValgFane2.setVisible(true);
-                    kjellerValgFane2.setVisible(true);
-                    etasjeBoxFane2.setVisible(true);
-                    antEgtLabelFane2.setVisible(true);
-                    tomtAreal.setVisible(true);
-                    tomtArealLabel.setVisible(true);
-                    romLabelFane2.setVisible(true);
-                    romBoxFane2.setVisible(true);
-                    revalidate();
-                    break;
-                case "Rekkehus":
-                    toglerFane2();
-                    garasjeValgFane2.setVisible(true);
-                    kjellerValgFane2.setVisible(true);
-                    etasjeBoxFane2.setVisible(true);
-                    antEgtLabelFane2.setVisible(true);
-                    tomtAreal.setVisible(true);
-                    tomtArealLabel.setVisible(true);
-                    romLabelFane2.setVisible(true);
-                    romBoxFane2.setVisible(true);
-                    revalidate();
-                    break;
-                case "Leilighet":
-                    toglerFane2();
-                    heisValgFane2.setVisible(true);
-                    balkongValgFane2.setVisible(true);
-                    planLabelFane2.setVisible(true);
-                    planBoxFane2.setVisible(true);
-                    romLabelFane2.setVisible(true);
-                    romBoxFane2.setVisible(true);
-                    revalidate();
-                    break;
-                case "Hybel":
-                    toglerFane2();
-                    badValgFane2.setVisible(true);
-                    kjøkkenValgFane2.setVisible(true);
-                    revalidate();
-                    break;
-                default:
-                    System.out.println("DefaultFane2");
-                    toglerFane2();
-                    revalidate();
-                    break;
-
-            }
-        }
-    }
-
-
-    private class minPrisLytter implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            minPris.setText("Min Pris: " + minPrisSlider.getValue());
-
-        }
-    }
-
-    private class maxPrisLytter implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            maxPris.setText("Max Pris :" + maxPrisSlider.getValue());
-        }
-    }
-
-    private class PersonTypeLytter implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (utleier.isSelected()) {
-
-                firma.setVisible(true);
-                firmaLabel.setVisible(true);
-                regUtleierKnapp.setVisible(true);
-                bspanel.setVisible(false);
-                btpanel.setVisible(false);
-                regPersonKnapp.setVisible(false);
-                revalidate();
-
-
-            } else if (boligsøker.isSelected()) {
-                bspanel.setVisible(true);
-                firma.setVisible(false);
-                firmaLabel.setVisible(false);
-                regUtleierKnapp.setVisible(false);
-                btpanel.setVisible(true);
-                revalidate();
-            }
-        }
-    }
-
-    private void clearPanel3() {
-        tapanel.removeAll();
-        revalidate();
-        repaint();
-    }
-
-
-    //For fane 3, om det skal vises boligtabell  eller persontabell  slettBoligKnapp.setVisible(false);slettPerson.setVisible(false);
-    private class tabellTypeLytter implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            if (boligtabellRadioknapp.isSelected()) {
-                clearPanel3();
-                lagBoligTabellen();
-                c.anchor = GridBagConstraints.CENTER;
-                c.gridx = 0;
-                c.gridy = 0;
-                c.gridwidth = 1;
-                c.insets = new Insets(0, 0, 0, 0);
-                c.gridheight = 1;
-                c.gridwidth = 0;
-                c.weightx = 0;
-                // resartt
-
-                c.weightx=100;
-                c.weighty=100;
-                c.gridx=0;
-                c.gridy=0;
-                c.anchor = GridBagConstraints.FIRST_LINE_START;
-                c.fill = GridBagConstraints.BOTH;
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
-
-
-
-
-
-                slettBoligKnapp.setVisible(true);
-                slettPerson.setVisible(false);
-                revalidate();
-                repaint();
-
-            } else if (persontabellRadioknapp.isSelected()) {
-                clearPanel3();
-                lagTabellen();
-                c.weightx=100;
-                c.weighty=100;
-                c.gridx=0;
-                c.gridy=0;
-                c.anchor = GridBagConstraints.FIRST_LINE_START;
-                c.fill = GridBagConstraints.BOTH;
-                tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
-                slettPerson.setVisible(true);
-                slettBoligKnapp.setVisible(false);
-                revalidate();
-                repaint();
-            }
-        }
-    }
-
-    // UTVALGSLYTTER
-
-    private class Utvalgslytter implements ListSelectionListener {
-        private TableModel tabellmodell;
-
-        public Utvalgslytter(TableModel m) {
-            tabellmodell = m;
-        }
-
-        public void valueChanged(ListSelectionEvent e) {
-            if (e.getValueIsAdjusting())
-                return;
-
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            if (tabellmodell instanceof resultatTabellModell) {
-                if (!lsm.isSelectionEmpty()) {
-                    System.out.println("Lytter til riktig vindu");
-                    int valgtRad = lsm.getMinSelectionIndex();
-                    valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
-                    int id;
-                    try{
-                        id = (int) tabellmodell.getValueAt(valgtRad,9);
-                    }catch(NullPointerException npe){
-                        return;
-                    }
-                    String stringId = Integer.toString(id);
-
-                    if (fane.getSelectedIndex() == 4) {
-                        String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
-                        valgtUtleier.setText(uid);
-                        valgtBolig.setText(stringId);
-                        valgtUtleier.setVisible(true);
-                        utleierLabel.setVisible(true);
-                        velgBoligVindu.dispose();
-                    }
-                    else if(fane.getSelectedIndex() == 3)
-                    {
-                        valgtBoligId = stringId;
-                        sendEmail();
-                    }
-
-                }
-            } else if (tabellmodell instanceof utleierTabellModell) {
-                if (!lsm.isSelectionEmpty()) {
-                    int valgtRad = lsm.getMinSelectionIndex();
-                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
-                    System.out.println("nå har programmet fått med seg at du har valgt noe fra utleiertabbel");
-                    utleierId.setText(id);
-
-                    velgUtleierVindu.dispose();
-                }
-            } else if (tabellmodell instanceof boligsøkerTabellModell) {
-                if (!lsm.isSelectionEmpty()) {
-                    int valgtRad = lsm.getMinSelectionIndex();
-                    id = (String) tabellmodell.getValueAt(valgtRad, 0);
-                    System.out.println("nå har programmet fått med seg at du har valgt noe fra boligsøkertabbel");
-                    valgtLeietaker.setText(id);
-
-                    velgLeietakerVindu.dispose();
-                    velgBoligKnapp.setVisible(true);
-                    valgtBolig.setVisible(true);
-                }
-            } else if (tabellmodell instanceof boligSøkerTabellModellForMatch) {
-                if (!lsm.isSelectionEmpty()) {
-                    System.out.println("inne i tabbelyttern nå! panel 4 altså matching");
-                    int valgtRad = lsm.getMaxSelectionIndex();
-                    valgtId = (String) tabellmodell.getValueAt(valgtRad, 0);
-                    System.out.println(valgtId);
-                }
-
-            } else if (tabellmodell instanceof personTabellFabrikk) {
-                if (!lsm.isSelectionEmpty()) {
-                    int valgtRad = lsm.getMaxSelectionIndex();
-                    slettPersonFn = (String) tabellmodell.getValueAt(valgtRad, 0);
-                    slettPersonEn = (String) tabellmodell.getValueAt(valgtRad, 1);
-                    visPersonInfo();
-
-                }
-            } else if (tabellmodell instanceof boligTabellFabrikk) {
-                if (!lsm.isSelectionEmpty()) {
-                    int valgtRad = lsm.getMaxSelectionIndex();
-                    slettBoligId = (int) tabellmodell.getValueAt(valgtRad, 8);
-                    System.out.println("B tabel ja");
-                    visBoligInfo();
-                }
-            }
-
-            else if(tabellmodell instanceof kontraktTabellModell){
-                if(!lsm.isSelectionEmpty()){
-                    System.out.println("kontrakttabellutvalgslytter");
-                    int valgtRad = lsm.getMaxSelectionIndex();
-                    String kid = (String)tabellmodell.getValueAt(valgtRad,4);
-                    Kontrakt k = kontrakter.finnKontrakt(kid);
-                    skrivKontraktInfo(k);
-                }
-            }
-
-
-
-        }
-    }
-
-
-    // UTLEIERTABELLMODELL
-    private class utleierTabellModell extends AbstractTableModel {
-        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
-        String[][] celler = utleiere.tilTabellMedId();
-
-        public int getRowCount() {
-            return celler.length;
-        }
-
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-
-        public boolean isCellEditable(int rad, int kolonne) {
-            return kolonne == 2;
-        }
-    }
-
-
-    private class boligsøkerTabellModell extends AbstractTableModel {
-        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "lll"};
-        String[][] celler = boligsøkere.tilMatchTabll();
-
-        public int getRowCount() {
-            return celler.length;
-        }
-
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-
-    }
-
-
-
-    public String[] getKolonneNavnForBoligtype(int[] krav) {
-        String[] kolonnenavn1 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Parkering", "Kjeller", "Bilde", "id"};
-        String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
-        String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
-
-        if (krav != null) {
-            switch (krav[0]) {
-                case 1:
-                    return kolonnenavn1;
-
-                case 2:
-                    return kolonnenavn1;
-
-                case 3:
-                    return kolonnenavn2;
-
-                case 4:
-                    return kolonnenavn3;
-
-            }
-        }
-        return kolonnenavn1;
-    }
-
-
-    private class resultatTabellModell extends AbstractTableModel {
-
-
-        int[] kravene = boligsøkere.getKravPåId(valgtId);
-        //int type = kravene[0];
-
-
-        String[] kolonnenavn = getKolonneNavnForBoligtype(kravene);
-
-        Object[][] celler = boliger.matchPåKrav(kravene);
-
-
-        public int getRowCount() {
-            return celler.length;
-        }
-
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-
-
-        public Class getColumnClass(int k) {
-            for(int i = 0;i<getRowCount();i++){
-                Object value = getValueAt(i,k);
-                if(value != null)
-                    return value.getClass();
-            }
-            return Object.class;
-        }
-    }
-
-    private void visMatch() {
-        clearResultatPanel();
-        resultatTabellModell resultatModell = new resultatTabellModell();
-       // resultatTabell = new JTable(resultatModell);
-        resultatTabell = new SvartHvitRad(resultatModell);
-
-        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
-
-
-        List<TableRowSorter.SortKey> sortKeys
-                = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
-        ));
-
-        resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        ListSelectionModel lsm = resultatTabell.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
-
-
-        if (resultatModell.getValueAt(0, 0) != null) {
-            System.out.println("Er her nå");
-            sorterer.setSortKeys(sortKeys);
-        }
-
-        //resultatTabell.setRowSorter(sorterer);
-        c.gridx = 1;
-        c.gridy = 3;
-        c.anchor = GridBagConstraints.LINE_START;
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 10;
-        c.weighty = 40;
-        c.insets = new Insets(0, 0, 0, 0);
-
-        resultatTabell.setRowHeight(70);
-
-        resultatPanel.add(new JScrollPane(resultatTabell), c);
-        revalidate();
-        repaint();
-
-
-    }
-
-    private void clearResultatPanel() {
-        resultatPanel.removeAll();
-        revalidate();
-        repaint();
-    }
-
-    private void clearVelgBsPanel() {
-        velgBsPanel.removeAll();
-        revalidate();
-        repaint();
-
-    }
-
-
-    public void visBoligsøkere() {
-        clearVelgBsPanel();
-
-
-        boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
-        //boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
-        boligSøkereForMatch = new SvartHvitRad(boligSøkerTabellModellForMatch);
-        boligSøkereForMatch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
-
-        c.gridx = 1;
-        c.gridy = 1;
-        c.anchor = GridBagConstraints.LINE_START;
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 10;
-        c.weighty = 40;
-        c.insets = new Insets(0, 0, 0, 0);
-        velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
-
-
-    }
-
-
-    private class boligSøkerTabellModellForMatch extends AbstractTableModel {
-        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Email", "Telefon"};
-        String[][] celler = boligsøkere.tilMatchTabll();
-
-        public int getRowCount() {
-            return celler.length;
-        }
-
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-
-
-    }
-
-
-    private String[][] joinPersonArray() {
-        String[][] første = boligsøkere.tilTabell();
-        String[][] andre = utleiere.tilTabell();
-        String[][] joina = new String[første.length + andre.length][6];
-        String[][] dummy = {{"Tabellen", "er", "tom", "Tabellen", "er", "tom"}};
-
-
-        int i = 0;
-        while (i < første.length) {
-            joina[i] = første[i];
-            i++;
-        }
-        int j = 0;
-        while (j < andre.length) {
-            joina[i++] = andre[j];
-            j++;
-        }
-        if (i == 0)
-            joina = dummy;
-
-        return joina;
-    }
-
-    private class personTabellFabrikk extends AbstractTableModel {
-
-        //  int  = boligsøkere.tellOpp();
-
-
-        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon", "Firma"};
-
-        String[][] celler = joinPersonArray();
-
-
-        // THEM RULES for tabellen Altså tabellmodellen
-        public int getRowCount() {
-            return celler.length;
-        }
-
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-
-
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-
-    }    // end personTabellFabrikk
-
-
-    class SvartHvitRad extends JTable
-    {
-        private boolean utskrift = false;
-
-
-        public SvartHvitRad(TableModel modell)
-        {
-            super(modell);
-        }
-        public void print(Graphics g)
-        {
-            utskrift = true;
-            try {
-                super.print(g);
-            }
-            finally {
-                utskrift = false;
-            }
-        }
-
-
-
-        public Component prepareRenderer(
-                TableCellRenderer rendrer, int rad, int kolonne)
-        {
-            Component c = super.prepareRenderer(rendrer, rad, kolonne);
-
-            if(utskrift)
-                c.setBackground(getBackground());
-            else if (rad % 2 == 0 && !isCellSelected(rad, kolonne))
-            {
-                c.setBackground(Color.LIGHT_GRAY);
-            }
-            else if (isCellSelected(rad, kolonne))
-            {
-                c.setBackground(getSelectionBackground());
-            }
-            else
-            {
-                c.setBackground(getBackground());
-            }
-            return c;
-        }
-    }// end class SvartHvitRad
-
-
-    private void lagTabellen()
-    {
-        personTabellFabrikk personTabellModell = new personTabellFabrikk();
-        personTabell = new SvartHvitRad(personTabellModell);
-        personTabell.setRowSelectionAllowed(true);
-        ListSelectionModel lsm = personTabell.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
-
-
-    }
-
-    private void lagBoligTabellen() {
-        boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
-        //boligTabellTabellen = new JTable(boligTabellModell);
-       boligTabellTabellen = new SvartHvitRad(boligTabellModell);
-        ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
-        lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
-
-
-        //skjuler på en teit måte
-
-        boligTabellTabellen.getColumn("Parkering").setMaxWidth(0);
-        boligTabellTabellen.getColumn("Parkering").setMinWidth(0);
-        boligTabellTabellen.getColumn("Parkering").setPreferredWidth(0);
-        boligTabellTabellen.getColumn("Kjeller").setMaxWidth(0);
-        boligTabellTabellen.getColumn("Kjeller").setMinWidth(0);
-        boligTabellTabellen.getColumn("Kjeller").setPreferredWidth(0);
-        boligTabellTabellen.getColumn("Bilde").setMaxWidth(0);
-        boligTabellTabellen.getColumn("Bilde").setMinWidth(0);
-        boligTabellTabellen.getColumn("Bilde").setPreferredWidth(0);
-        boligTabellTabellen.getColumn("Id").setMaxWidth(0);
-        boligTabellTabellen.getColumn("Id").setMinWidth(0);
-        boligTabellTabellen.getColumn("Id").setPreferredWidth(0);
-
-       // boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    }
-
-
-    private class boligTabellFabrikk extends AbstractTableModel {
-
-
-        String[] boligkolonnenavn = {"By", "Kvadrat", "Pris", "Adresse", "Rom", "Parkering", "Kjeller", "Bilde", "Id"};
-
-
-        Object[][] boligceller = joinBoligArray();
-
-
-        // THEM RULES for tabellen Altså tabellmodellen
-        public int getRowCount() {
-            return boligceller.length;
-        }
-
-        public int getColumnCount() {
-            return boligceller[0].length;
-
-        }
-
-
-        public Object getValueAt(int rad, int kolonne) {
-            return boligceller[rad][kolonne];
-        }
-
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return boligkolonnenavn[kolonne];
-        }
-        public Class getColumnClass( int k )
-        {
-            return getValueAt( 0, k ).getClass();
-        }
-
-    }    // end boligTabellFabrikk
-
-
-
-
-    private Object[][] joinBoligArray() {
-
-        Object[][] første = boliger.eneboligerTilTabell();
-        Object[][] andre = boliger.hyblerTilTabell();
-        Object[][] tredje = boliger.leiligheterTilTabell();
-        Object[][] fjerde = boliger.rekkehusTilTabell();
-        String[][] dummy = {{"Tabellen", "er", "tom", "tom", "tom", "tom", "tom", "tom", "tom"}};
-        System.out.println("første " + første.length);
-
-        Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
-        int i = 0;
-        while (i < første.length) {
-            joina[i] = første[i];
-            i++;
-            System.out.println(i);
-        }
-        int j = 0;
-        while (j < andre.length) {
-            JOptionPane.showMessageDialog(null,Integer.toString(j));
-            joina[i++] = andre[j];
-            j++;
-        }
-        int k = 0;
-        while (k < tredje.length) {
-            joina[i++] = tredje[k];
-            k++;
-        }
-        int l = 0;
-        while (l < fjerde.length) {
-            joina[i++] = fjerde[l];
-            l++;
-        }
-        if (i == 0)
-            joina = dummy;
-
-        return joina;
-    }
-
-    public class kontraktTabellModell extends AbstractTableModel
-    {
-        String[] kolonnenavn = {"Utleier", "Leietaker", "Startdato", "Sluttdato","ID"};
-
-        Object[][] celler = kontrakter.tilTabell();
-
-        public int getRowCount() {
-            return celler.length;
-        }
-        public int getColumnCount() {
-            return celler[0].length;
-
-        }
-        public Object getValueAt(int rad, int kolonne) {
-            return celler[rad][kolonne];
-        }
-        public String getColumnName(int kolonne)//for kolonnenavn
-        {
-            return kolonnenavn[kolonne];
-        }
-        /*public boolean isCellEditable(int rad, int kolonne)
-        {
-            return kolonne == 2;
-        }*/
-        public void setValueAt(String nyVerdi, int rad, int kolonne)
-        {
-            celler[rad][kolonne] = nyVerdi;
-        }
-
-    }
-
+    //----------------------------------------------------
+    //---------------START OF REG-METODER-----------------
+    //----------------------------------------------------
 
     public void regPerson() {
 
@@ -3092,15 +1997,13 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 maxPris = maxPrisSlider.getValue();
 
                 if (etasjeBox.isVisible()) {
-                    System.out.println("Inni try iffen");
-                    antE = Integer.parseInt((String) etasjeBox.getSelectedItem()); //todo BUG, hvis du trykker registrer uten å ha valgt
+                    antE = Integer.parseInt((String) etasjeBox.getSelectedItem());
                 }
 
                 if (planBox.isVisible())
                     plan = Integer.parseInt((String) planBox.getSelectedItem());
             } catch (NumberFormatException nfe) {
-                System.out.println("NFE i trycatchen noe ikke er valgt. enten rom,plan,etg");
-
+                return;
             }
 
 
@@ -3176,7 +2079,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 gyldigBox(planBox);
 
             } else {
-                String id = idGenerator(enavn, fnavn);
+                String id = idMekking.setIdPåBoligsøker(enavn, fnavn);
 
                 if (bt == 1 || bt == 2) //hvis enebolig
                 {
@@ -3237,8 +2140,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 gyldig(firma);
             } else {
 
-                String id = idGenerator(firm, enavn, fnavn); // todo: Christer, fiks en fet måte yes, denne må også bulletproofes
-
+                String id = idMekking.setIdPåUtleier(firm, enavn, fnavn);
 
                 Utleier ny = new Utleier(id, fnavn, enavn, ad, t, email, firm);
                 utleiere.settInn(ny);
@@ -3255,96 +2157,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         JOptionPane.showMessageDialog(null, "du må velge en av typene..."); //vil aldri kicke inn siden return hehe heehe
     }
 
-
-    private boolean gyldig(JTextField f) {
-        if (f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
-            f.setBackground(Color.RED);
-            return true;
-        } else {
-            f.setBackground(Color.WHITE);
-            return false;
-        }
-    }
-
-    private void clearBSfelt() {
-        boligtypeBox.setSelectedIndex(0);
-        byBox.setSelectedIndex(0);
-        romBox.setSelectedIndex(0);
-        minPrisSlider.setValue(0);
-        maxPrisSlider.setValue(50000);
-        etasjeBox.setSelectedIndex(0);
-        planBox.setSelectedIndex(0);
-        garasjeValg.setSelected(false);
-        kjellerValg.setSelected(false);
-        heisValg.setSelected(false);
-        balkongValg.setSelected(false);
-        kjøkkenValg.setSelected(false);
-        badValg.setSelected(false);
-        feedbackFane1.setText("");
-        System.out.println("Boligsøkerfelt er klarert");
-    }
-
-
-    private void clearPersonFelt() {
-        fornavn.setText("");
-        etternavn.setText("");
-        adresse.setText("");
-        tlf.setText("");
-        mail.setText("");
-        firma.setText("");
-        fornavn.setBackground(Color.WHITE);
-        etternavn.setBackground(Color.WHITE);
-        adresse.setBackground(Color.WHITE);
-        tlf.setBackground(Color.WHITE);
-        mail.setBackground(Color.WHITE);
-        firma.setBackground(Color.WHITE);
-        System.out.println("Clear person feltene");
-    }
-
-    private boolean gyldigBox(JComboBox f) {
-        if (f.getSelectedIndex() == 0 && f.isVisible()) {
-            f.setForeground(Color.RED);
-            return true;
-        } else
-            f.setForeground(Color.BLACK);
-        return false;
-
-    }
-
-
-    private String idGenerator(String f, String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
-    {
-        String id = "";
-
-        try {
-            id = f.substring(0, 2).toUpperCase() + en.substring(0, 2).toUpperCase() + fn.substring(0, 2).toUpperCase();
-        } catch (StringIndexOutOfBoundsException sioobe) {
-            System.out.println();
-        }
-
-
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
-
-        return id;
-
-    }
-
-    private String idGenerator(String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
-    {
-        try{id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();}
-        catch(StringIndexOutOfBoundsException sioobe){
-            System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
-
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
-
-        return id;
-
-    }
-
-
     public void regBolig() {
-        JOptionPane.showMessageDialog(null, "Regbolig kjører");
-
 
         String adr = adresseFane2.getText();
         String arealString = boareal.getText();
@@ -3415,7 +2228,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         // Comboboxer
         String by = (String) byBoxFane2.getSelectedItem();
-        int byvalg = 0;
+        int byvalg;
         switch (by) {
             case "Oslo":
                 byvalg = 1;
@@ -3488,33 +2301,37 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         String sti = bildesti.getText();
 
-        System.out.println(btype);
+        int id = 0;
 
         switch(btype){
-            case 1: Enebolig nyEnebolig = new Enebolig(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
-                         if(boliger.leggTil(nyEnebolig))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket!");
-                         else
-                            JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                         break;
-            case 2: Rekkehus nyttRekkehus = new Rekkehus(adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
-                         if(boliger.leggTil(nyttRekkehus))
-                             JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                         else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                         break;
-            case 3: Leilighet nyLeilighet = new Leilighet(adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
-                         if(boliger.leggTil(nyLeilighet))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
-                         else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                         break;
-            case 4: Hybel nyHybel = new Hybel(adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
-                         if(boliger.leggTil(nyHybel))
-                             JOptionPane.showMessageDialog(null,"Registrering vellykket");
-                         else
-                             JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                         break;
+            case 1:      id = idMekking.setIdPåBolig(1);
+                Enebolig nyEnebolig = new Enebolig(id, adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
+                if(boliger.leggTil(nyEnebolig))
+                    JOptionPane.showMessageDialog(null,"Registrering vellykket!");
+                else
+                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                break;
+            case 2:      id = idMekking.setIdPåBolig(2);
+                Rekkehus nyttRekkehus = new Rekkehus(id, adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
+                if(boliger.leggTil(nyttRekkehus))
+                    JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                else
+                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                break;
+            case 3:      id = idMekking.setIdPåBolig(3);
+                Leilighet nyLeilighet = new Leilighet(id, adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
+                if(boliger.leggTil(nyLeilighet))
+                    JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                else
+                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                break;
+            case 4:      id = idMekking.setIdPåBolig(4);
+                Hybel nyHybel = new Hybel(id,adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
+                if(boliger.leggTil(nyHybel))
+                    JOptionPane.showMessageDialog(null,"Registrering vellykket");
+                else
+                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
+                break;
         }
     }
 
@@ -3530,35 +2347,133 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
     }
 
+    public void slettBoligsøker() {
+        String[] alternativer = {"Ja", "Nei"};
+        if (slettPersonFn.equals("") || slettPersonEn.equals("")) {
+            JOptionPane.showMessageDialog(null, "DUUUURT");
+            return;
+        }
+        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
+                , null, alternativer, alternativer[0]);
+        if (svar == JOptionPane.YES_OPTION) {
+            String id = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
+            if (!id.equals("")) {
+                Boligsøker slett = boligsøkere.getBoligsøker(id);
+                if (boligsøkere.fjernSøker(slett)) {
+                    kontrakter.fjernKontrakt(slett);
+                    JOptionPane.showMessageDialog(null, "Personen er slettet");
+                    slettPersonEn = "";
+                    slettPersonFn = "";
+                }
+            } else {
+                id = utleiere.finnID(slettPersonFn, slettPersonEn);
+                Utleier woop = utleiere.getUtleier(id);
+                if (!utleiere.harBoliger(woop)) {
+                    utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
+                    JOptionPane.showMessageDialog(null, "Personen ble slettet");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
+                }
 
-    public void mekkKontrakt()// DETTE ER JÆLA BRA KODE, men må kommentere den vekk til vi har innfelter.
+            }
+        }
+    }
+
+    public void slettBolig() {
+        String[] alternativer = {"Ja", "Nei"};
+        String slettDenne = Integer.toString(slettBoligId);
+        if (slettDenne.equals("")) {
+            JOptionPane.showMessageDialog(null, "Velg bolig");
+            return;
+        }
+        Bolig slett = boliger.finnBolig(slettDenne);
+        if (slett.getUtleid()) {
+            JOptionPane.showMessageDialog(null, "Boligen er utleid, kan ikke slettes!");
+            return;
+        }
+        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, alternativer, alternativer[0]);
+        if (svar == JOptionPane.YES_OPTION) {
+            if (boliger.slettBolig(slett))
+                JOptionPane.showMessageDialog(null, "Boligen ble slettet");
+            else
+                JOptionPane.showMessageDialog(null, "DUUURT!");
+        }
+
+    }
+
+    public void sendEmail() {
+
+        Boligsøker send = boligsøkere.getBoligsøker(valgtId);
+        if (send == null) {
+            JOptionPane.showMessageDialog(null, "Velg en bolisøker");
+            return;
+        }
+        String n = send.getFornavn() + " " + send.getEtternavn();
+        //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
+
+        Bolig sendTil = boliger.finnBolig(valgtBoligId);
+        if (sendTil == null) {
+            JOptionPane.showMessageDialog(null, "Velg en bolig");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, valgtBoligId);
+
+        int stedInt = sendTil.getSted();
+        String sted = "";
+        switch (stedInt) {
+            case 1:
+                sted = "Oslo";
+                break;
+            case 2:
+                sted = "Bergen";
+                break;
+            case 3:
+                sted = "Stavanger";
+                break;
+            case 4:
+                sted = "Trondheim";
+                break;
+            case 5:
+                sted = "Kristiansand";
+                break;
+            case 6:
+                sted = "Tromsø";
+                break;
+
+        }
+
+        feedbackMail.setText("Hei " + send.getNavn() + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
+                + sendTil.getAdresse() + "\n" + sted + "\n" + sendTil.getUtleiepris() + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
+
+    }
+
+    public void sendEpost() {
+        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
+
+        mailStatusLabel.setText("sender mail...");
+
+        if(epost.sendMail(til, feedbackMail.getText()))
+            mailStatusLabel.setText("Mail Sendt!");
+        else
+            mailStatusLabel.setText("Sending mislykket");
+
+    }
+
+    public void mekkKontrakt()
     {
         Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
         Bolig bolig = boliger.finnBolig(valgtBolig.getText());
         Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
         int sluttår, sluttmåned, sluttdag, startår, startmåned, startdag;
 
-        if (leietaker == null) {
-            System.out.println("leietaker var null");
-            return;
-        }
-        if (bolig == null) {
-            System.out.println("boligen var null");
-            return;
-        }
-        if (utleier == null) {
-            System.out.println("utleieren var null");
-            return;
-        }
-
-
         try {
-            sluttår = Integer.parseInt((String) sluttårFelt.getText());
-            sluttmåned = Integer.parseInt((String) sluttMånedFelt.getText());
-            sluttdag = Integer.parseInt((String) sluttDagFelt.getText());
-            startår = Integer.parseInt((String) startÅrFelt.getText());
-            startmåned = Integer.parseInt((String) startMånedFelt.getText());
-            startdag = Integer.parseInt((String) startDagFelt.getText());
+            sluttår = Integer.parseInt(sluttårFelt.getText());
+            sluttmåned = Integer.parseInt(sluttMånedFelt.getText());
+            sluttdag = Integer.parseInt(sluttDagFelt.getText());
+            startår = Integer.parseInt(startÅrFelt.getText());
+            startmåned = Integer.parseInt(startMånedFelt.getText());
+            startdag = Integer.parseInt(startDagFelt.getText());
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Du må skrive inn ordentlige tall i datofeltene");
             return;
@@ -3576,7 +2491,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 Date dt = start.getTime();
                 Date df = slutt.getTime();
                 if (start.before(slutt)) {
-                    Kontrakt ny = new Kontrakt(utleier, leietaker, bolig, start, slutt);
+                    String iden = idMekking.setIdPåKontrakt(utleier, leietaker, bolig);
+                    Kontrakt ny = new Kontrakt(utleier, leietaker, bolig, start, slutt, iden);
                     if (kontrakter.leggTil(ny)) {
                         kontrakthistorie.skrivTilTekstFil(ny.toString());
                         JOptionPane.showMessageDialog(null, "Kontrakt lagret");
@@ -3597,9 +2513,66 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     }
 
+    //----------------------------------------------------
+    //----------------END OF REG-METODER------------------
+    //----------------------------------------------------
 
 
-    private void visKontraktHistorie() {
+    //----------------------------------------------------
+    //---------------START OF SØKEMETODER-----------------
+    //----------------------------------------------------
+
+    private void søkPersonregister(String v) {
+
+
+        for (int rad = 0; rad <= personTabell.getRowCount() - 1; rad++) {
+            for (int col = 0; col <= 1; col++) {
+                String r = (personTabell.getValueAt(rad, col).toString());
+
+                if (v.equalsIgnoreCase(r)) {
+                    personTabell.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
+                    personTabell.setRowSelectionInterval(rad,rad);
+                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                        personTabell.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+                    }
+
+                }
+            }
+        }
+    }// end Personsøk
+
+    private void søkBoligregister(String v){
+
+        for(int rad = 0; rad <= boligTabellTabellen.getRowCount() -1; rad++){
+            for(int col=0; col <= boligTabellTabellen.getColumnCount()-1;col++){
+
+                String r = boligTabellTabellen.getValueAt(rad,col).toString();
+
+
+                if(v.equalsIgnoreCase(r)){
+                    boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
+                    boligTabellTabellen.setRowSelectionInterval(rad,rad);
+                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                        boligTabellTabellen.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+
+                    }
+
+                }
+            }
+
+        }
+    } // end Boligsøk
+
+    //----------------------------------------------------
+    //----------------END OF SØKEMETODER------------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //----------------START OF VIS-METODER----------------
+    //----------------------------------------------------
+
+    public void visKontraktHistorie() {
         visKontraktHistorikk = new JFrame("Kontrakt historikk");
         JTextArea ko = new JTextArea(30, 30);
         ko.setText(kontrakthistorie.lesFraTekstFil());
@@ -3610,7 +2583,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         visKontraktHistorikk.setVisible(true);
     }
 
-    private void visVelgUtleierVindu() {
+    public void visVelgUtleierVindu() {
         velgUtleierVindu = new JFrame("Velg Eier");
 
         // utleierValgTabell = new JTable(utleiere.tilTabellMedId(),kolonnenavn);
@@ -3631,8 +2604,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     }
 
-
-    private void visVelgLeietakerVindu() {
+    public void visVelgLeietakerVindu() {
         velgLeietakerVindu = new JFrame("Velg Leietaker");
 
 
@@ -3689,9 +2661,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
     }
 
-
-
-
     public void visKontrakter(){
         kontraktTabellPanel.removeAll();
 
@@ -3706,39 +2675,92 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         TableColumn utleierkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 0);
         TableColumn leietakerkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 1);
 
-       // utleierkolonne.setPreferredWidth(40);
+        // utleierkolonne.setPreferredWidth(40);
         //leietakerkolonne.setPreferredWidth(40);
-       // kontraktHistorikkTabell.setPreferredSize(new Dimension(150,100));
+        // kontraktHistorikkTabell.setPreferredSize(new Dimension(150,100));
 
 
         JScrollPane kontraktScroll = new JScrollPane(kontraktHistorikkTabell);
 
         kontraktScroll.setPreferredSize(new Dimension(500,250));
         kontraktScroll.getViewport().setBackground(tabellFarge);
-       // kontraktHistorikkTabell.setSize(new Dimension(200,100));
+        // kontraktHistorikkTabell.setSize(new Dimension(200,100));
 
 
         kontraktHistorikkTabell.setBackground(tabellFarge);
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(0,0,0,0);
-    ;
+
         kontraktTabellPanel.add(kontraktScroll, c);
         revalidate();
 
     }
 
-    public void skrivKontraktInfo(Kontrakt k)
-    {
-        if(k == null) {
-            System.out.println("fant ikke kontrakt");
-            return;
+    public void visMatch() {
+        clearResultatPanel();
+        resultatTabellModell resultatModell = new resultatTabellModell();
+        // resultatTabell = new JTable(resultatModell);
+        resultatTabell = new SvartHvitRad(resultatModell);
+
+        TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
+
+
+        List<TableRowSorter.SortKey> sortKeys
+                = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
+        ));
+
+        resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = resultatTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
+
+
+        if (resultatModell.getValueAt(0, 0) != null) {
+            sorterer.setSortKeys(sortKeys);
         }
-        System.out.println("skriver ut kontrakt!");
-        kontraktInfoFelt.setText(k.toString());
+
+        //resultatTabell.setRowSorter(sorterer);
+        c.gridx = 1;
+        c.gridy = 3;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(0, 0, 0, 0);
+
+        resultatTabell.setRowHeight(70);
+
+        resultatPanel.add(new JScrollPane(resultatTabell), c);
+        revalidate();
+        repaint();
+
+
     }
 
+    public void visBoligsøkere() {
+        clearVelgBsPanel();
 
+
+        boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
+        //boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
+        boligSøkereForMatch = new SvartHvitRad(boligSøkerTabellModellForMatch);
+        boligSøkereForMatch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        ListSelectionModel lsm = boligSøkereForMatch.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(boligSøkerTabellModellForMatch));
+
+        c.gridx = 1;
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 10;
+        c.weighty = 40;
+        c.insets = new Insets(0, 0, 0, 0);
+        velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
+
+
+    }
 
     public void visPersonInfo(){
         try {
@@ -3754,11 +2776,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 image = new ImageIcon(skalert);
                 JLabel label = new JLabel("", image, JLabel.CENTER);
                 bildepanel.add(label, BorderLayout.CENTER);
-                System.out.println("er i person bilde1");
-
-
-
-
             } else {
                 String bs = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
                 Boligsøker valgtBoligsøker = boligsøkere.getBoligsøker(bs);
@@ -3770,16 +2787,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 image = new ImageIcon(skalert);
                 JLabel label = new JLabel("", image, JLabel.CENTER);
                 bildepanel.add(label, BorderLayout.CENTER);
-                System.out.println("er i person bilde2");
-
             }
 
         } catch (NumberFormatException nfe) {
-            System.out.println("number formatCare");
-
         }
     }
-
 
     public void visBoligInfo() {
         String id = Integer.toString(slettBoligId);
@@ -3806,66 +2818,1069 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     }
 
+    public void visKontraktFil() {
+        visKontraktHistorie();
+    }
+
+    //----------------------------------------------------
+    //----------------END OF VIS-METODER------------------
+    //----------------------------------------------------
+
+    //----------------------------------------------------
+    //---------------START OF TABELLMETODER---------------
+    //----------------------------------------------------
+
+    private class utleierTabellModell extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "Firma"};
+        String[][] celler = utleiere.tilTabellMedId();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+        public boolean isCellEditable(int rad, int kolonne) {
+            return kolonne == 2;
+        }
+    }
+
+    private class boligsøkerTabellModell extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Telefon", "eMail", "lll"};
+        String[][] celler = boligsøkere.tilMatchTabll();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+    }
+
+    private class resultatTabellModell extends AbstractTableModel {
+
+
+        int[] kravene = boligsøkere.getKravPåId(valgtId);
+        //int type = kravene[0];
+
+
+        String[] kolonnenavn = getKolonneNavnForBoligtype(kravene);
+
+        Object[][] celler = boliger.matchPåKrav(kravene);
+
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+
+        public Class getColumnClass(int k) {
+            for(int i = 0;i<getRowCount();i++){
+                Object value = getValueAt(i,k);
+                if(value != null)
+                    return value.getClass();
+            }
+            return Object.class;
+        }
+    }
+
+    private class boligTabellFabrikk extends AbstractTableModel {
+
+
+        String[] boligkolonnenavn = {"By", "Kvadrat", "Pris", "Adresse", "Rom", "Parkering", "Kjeller", "Bilde", "Id"};
+
+
+        Object[][] boligceller = joinBoligArray();
+
+
+        // THEM RULES for tabellen Altså tabellmodellen
+        public int getRowCount() {
+            return boligceller.length;
+        }
+
+        public int getColumnCount() {
+            return boligceller[0].length;
+
+        }
+
+
+        public Object getValueAt(int rad, int kolonne) {
+            return boligceller[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return boligkolonnenavn[kolonne];
+        }
+        public Class getColumnClass( int k )
+        {
+            return getValueAt( 0, k ).getClass();
+        }
+
+    }
+
+    private class boligSøkerTabellModellForMatch extends AbstractTableModel {
+        String[] kolonnenavn = {"Id", "Fornavn", "Etternavn", "Adresse", "Email", "Telefon"};
+        String[][] celler = boligsøkere.tilMatchTabll();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+
+    }
+
+    private class personTabellFabrikk extends AbstractTableModel {
+
+        //  int  = boligsøkere.tellOpp();
+
+
+        String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon", "Firma"};
+
+        String[][] celler = joinPersonArray();
+
+
+        // THEM RULES for tabellen Altså tabellmodellen
+        public int getRowCount() {
+            return celler.length;
+        }
+
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+
+
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+
+    }
+
+    private class kontraktTabellModell extends AbstractTableModel
+    {
+        String[] kolonnenavn = {"Utleier", "Leietaker", "Startdato", "Sluttdato","ID"};
+
+        Object[][] celler = kontrakter.tilTabell();
+
+        public int getRowCount() {
+            return celler.length;
+        }
+        public int getColumnCount() {
+            return celler[0].length;
+
+        }
+        public Object getValueAt(int rad, int kolonne) {
+            return celler[rad][kolonne];
+        }
+        public String getColumnName(int kolonne)//for kolonnenavn
+        {
+            return kolonnenavn[kolonne];
+        }
+    }
+
+    //----------------------------------------------------
+    //----------------END OF TABELLMETODER----------------
+    //----------------------------------------------------
+
+    //----------------------------------------------------
+    //---------------START OF LAGTABELLER-----------------
+    //----------------------------------------------------
+
+    public void lagTabellen()
+    {
+        personTabellFabrikk personTabellModell = new personTabellFabrikk();
+        personTabell = new SvartHvitRad(personTabellModell);
+        personTabell.setRowSelectionAllowed(true);
+        ListSelectionModel lsm = personTabell.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
+
+
+    }
+
+    public void lagBoligTabellen() {
+        boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
+        //boligTabellTabellen = new JTable(boligTabellModell);
+        boligTabellTabellen = new SvartHvitRad(boligTabellModell);
+        ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
+        lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
+
+
+        //skjuler på en teit måte
+
+        boligTabellTabellen.getColumn("Parkering").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Parkering").setMinWidth(0);
+        boligTabellTabellen.getColumn("Parkering").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setMinWidth(0);
+        boligTabellTabellen.getColumn("Kjeller").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setMinWidth(0);
+        boligTabellTabellen.getColumn("Bilde").setPreferredWidth(0);
+        boligTabellTabellen.getColumn("Id").setMaxWidth(0);
+        boligTabellTabellen.getColumn("Id").setMinWidth(0);
+        boligTabellTabellen.getColumn("Id").setPreferredWidth(0);
+
+        // boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    }
+
+    private Object[][] joinBoligArray() {
+
+        Object[][] første = boliger.eneboligerTilTabell();
+        Object[][] andre = boliger.hyblerTilTabell();
+        Object[][] tredje = boliger.leiligheterTilTabell();
+        Object[][] fjerde = boliger.rekkehusTilTabell();
+        String[][] dummy = {{"Tabellen", "er", "tom", "tom", "tom", "tom", "tom", "tom", "tom"}};
+
+        Object[][] joina = new Object[første.length + andre.length + tredje.length + fjerde.length][9];
+        int i = 0;
+        while (i < første.length) {
+            joina[i] = første[i];
+            i++;
+        }
+        int j = 0;
+        while (j < andre.length) {
+            JOptionPane.showMessageDialog(null,Integer.toString(j));
+            joina[i++] = andre[j];
+            j++;
+        }
+        int k = 0;
+        while (k < tredje.length) {
+            joina[i++] = tredje[k];
+            k++;
+        }
+        int l = 0;
+        while (l < fjerde.length) {
+            joina[i++] = fjerde[l];
+            l++;
+        }
+        if (i == 0)
+            joina = dummy;
+
+        return joina;
+    }
+
+    public String[][] joinPersonArray() {
+        String[][] første = boligsøkere.tilTabell();
+        String[][] andre = utleiere.tilTabell();
+        String[][] joina = new String[første.length + andre.length][6];
+        String[][] dummy = {{"Tabellen", "er", "tom", "Tabellen", "er", "tom"}};
+
+
+        int i = 0;
+        while (i < første.length) {
+            joina[i] = første[i];
+            i++;
+        }
+        int j = 0;
+        while (j < andre.length) {
+            joina[i++] = andre[j];
+            j++;
+        }
+        if (i == 0)
+            joina = dummy;
+
+        return joina;
+    }
+
+    //----------------------------------------------------
+    //----------------END OF LAGTABLLER-------------------
+    //----------------------------------------------------
+
+    //----------------------------------------------------
+    //---------------START OF CLEAR-METODER---------------
+    //----------------------------------------------------
+
+    private void clearResultatPanel() {
+        resultatPanel.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    private void clearVelgBsPanel() {
+        velgBsPanel.removeAll();
+        revalidate();
+        repaint();
+
+    }
+
+    private void clearBSfelt() {
+        boligtypeBox.setSelectedIndex(0);
+        byBox.setSelectedIndex(0);
+        romBox.setSelectedIndex(0);
+        minPrisSlider.setValue(0);
+        maxPrisSlider.setValue(50000);
+        etasjeBox.setSelectedIndex(0);
+        planBox.setSelectedIndex(0);
+        garasjeValg.setSelected(false);
+        kjellerValg.setSelected(false);
+        heisValg.setSelected(false);
+        balkongValg.setSelected(false);
+        kjøkkenValg.setSelected(false);
+        badValg.setSelected(false);
+        feedbackFane1.setText("");
+    }
+
+    private void clearPersonFelt() {
+        fornavn.setText("");
+        etternavn.setText("");
+        adresse.setText("");
+        tlf.setText("");
+        mail.setText("");
+        firma.setText("");
+        fornavn.setBackground(Color.WHITE);
+        etternavn.setBackground(Color.WHITE);
+        adresse.setBackground(Color.WHITE);
+        tlf.setBackground(Color.WHITE);
+        mail.setBackground(Color.WHITE);
+        firma.setBackground(Color.WHITE);
+    }
+
+    private void clearPanel3() {
+        tapanel.removeAll();
+        revalidate();
+        repaint();
+    }
+
     private void clearBildePanel() {
         bildepanel.removeAll();
         revalidate();
     }
 
+    //----------------------------------------------------
+    //----------------END OF CLEAR-METODER----------------
+    //----------------------------------------------------
 
-    public void slettBoligsøker() {
-        String[] alternativer = {"Ja", "Nei"};
-        if (slettPersonFn.equals("") || slettPersonEn.equals("")) {
-            JOptionPane.showMessageDialog(null, "DUUUURT");
-            return;
+
+    // ---------------------------------------------------
+    //---------START OF CHANGELISTENER-METODER------------
+    //----------------------------------------------------
+
+    private class fanelytter implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            if (fane.getSelectedIndex() == 2) {
+                if(persontabellRadioknapp.isSelected()){
+                    clearPanel3();
+                    lagTabellen();
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    slettPerson.setVisible(true);
+                    slettBoligKnapp.setVisible(false);
+                    revalidate();
+                    repaint();
+                    //gjøre no
+                }
+                else if(boligtabellRadioknapp.isSelected()){
+                    clearPanel3();
+                    lagBoligTabellen();
+                    c.anchor = GridBagConstraints.CENTER;
+                    c.gridx = 0;
+                    c.gridy = 0;
+                    c.gridwidth = 1;
+                    c.insets = new Insets(0, 0, 0, 0);
+                    c.gridheight = 1;
+                    c.gridwidth = 0;
+                    c.weightx = 0;
+                    // resartt
+
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
+                    slettBoligKnapp.setVisible(true);
+                    slettPerson.setVisible(false);
+                    revalidate();
+                    repaint();
+                    //vis bolig tabell
+                }
+                else{
+                    lagBoligTabellen();
+                    clearPanel3();
+                    lagTabellen();
+                    c.weightx=100;
+                    c.weighty=100;
+                    c.gridx=0;
+                    c.gridy=0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    persontabellRadioknapp.setSelected(true);
+                    slettPerson.setVisible(true);
+                    slettBoligKnapp.setVisible(false);
+                    revalidate();
+                    repaint();
+                }
+            } else if (fane.getSelectedIndex() == 3) {
+                visBoligsøkere();
+            }
+
+            repaint();
         }
-        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette: " + slettPersonFn + " " + slettPersonEn, "Slett person", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
-                , null, alternativer, alternativer[0]);
-        if (svar == JOptionPane.YES_OPTION) {
-            String id = boligsøkere.finnBoligsøkerID(slettPersonFn, slettPersonEn);
-            if (!id.equals("")) {
-                Boligsøker slett = boligsøkere.getBoligsøker(id);
-                if (boligsøkere.fjernSøker(slett)) {
-                    kontrakter.fjernKontrakt(slett);
-                    JOptionPane.showMessageDialog(null, "Personen er slettet");
-                    slettPersonEn = "";
-                    slettPersonFn = "";
-                }
-            } else {
-                id = utleiere.finnID(slettPersonFn, slettPersonEn);
-                Utleier woop = utleiere.getUtleier(id);
-                if (!utleiere.harBoliger(woop)) {
-                    utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
-                    JOptionPane.showMessageDialog(null, "Personen ble slettet");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
-                }
+    }
+
+    private class minPrisLytter implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            minPris.setText("Min Pris: " + minPrisSlider.getValue());
+
+        }
+    }
+
+    private class maxPrisLytter implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            maxPris.setText("Max Pris :" + maxPrisSlider.getValue());
+        }
+    }
+
+    //----------------------------------------------------
+    //-----------END OF CHANGELISTENER-METODER------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //----------START OF ACTIONLISTENER-METODER-----------
+    //----------------------------------------------------
+
+    private class knappLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == regBoligKnapp)
+                regBolig();
+            else if (e.getSource() == regPersonKnapp)
+                regPerson();
+            else if (e.getSource() == regUtleierKnapp)
+                regPerson();
+            else if (e.getSource() == finnBildeKnapp)
+                finnBilde();
+            else if (e.getSource() == velgUtleier)
+                visVelgUtleierVindu();
+            else if (e.getSource() == oppdaterKontrakter)
+                visKontrakter();
+            else if (e.getSource() == velgUtleierKnapp)
+                visVelgUtleierVindu();
+            else if (e.getSource() == velgLeietakerKnapp)
+                visVelgLeietakerVindu();
+            else if (e.getSource() == velgBoligKnapp)
+                visVelgBoligVindu();
+            else if (e.getSource() == lagreKontrakt)
+                mekkKontrakt();
+            else if (e.getSource() == finnMatch) {
+
+                // her henter jeg inn tabellverdin
+                visMatch();
+            } else if (e.getSource() == sendMail) {
+                sendEpost();
+            } else if (e.getSource() == slettPerson) {
+                slettBoligsøker();
+            } else if (e.getSource() == slettBoligKnapp) {
+                slettBolig();
+            }
+
+        }
+    }
+
+    private class boligTypeLytter implements ActionListener { //Lytter som hører på BT-boksen og gjør som den sier!
+
+        public void actionPerformed(ActionEvent e) {
+            String typenTil = (String) boligtypeBox.getSelectedItem();
+            String boligTypeFane2 = (String) boligtypeBoxFane2.getSelectedItem();
+
+
+            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
+            if (byBox.getSelectedIndex() != 0) byBox.setForeground(Color.BLACK);
+            if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
+            if (etasjeBox.getSelectedIndex() != 0) etasjeBox.setForeground(Color.BLACK);
+            if (planBox.getSelectedIndex() != 0) planBox.setForeground(Color.BLACK);
+
+
+            switch (typenTil) {
+                case "Enebolig":
+                    togler();
+                    garasjeValg.setVisible(true);
+                    kjellerValg.setVisible(true);
+                    etasjeBox.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
+                    antEgtLabel.setVisible(true);
+                    regPersonKnapp.setVisible(true);
+                    revalidate();
+                    break;
+                case "Rekkehus":
+                    togler();
+                    garasjeValg.setVisible(true);
+                    kjellerValg.setVisible(true);
+                    etasjeBox.setVisible(true);
+                    antEgtLabel.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
+
+                    revalidate();
+                    break;
+                case "Leilighet":
+                    togler();
+                    heisValg.setVisible(true);
+                    balkongValg.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
+                    planLabel.setVisible(true);
+                    planBox.setVisible(true);
+                    revalidate();
+                    break;
+                case "Hybel":
+                    togler();
+                    badValg.setVisible(true);
+                    kjøkkenValg.setVisible(true);
+                    boligtypeBox.setForeground(Color.BLACK);
+                    regPersonKnapp.setVisible(true);
+                    revalidate();
+                    break;
+                default:
+                    togler();
+                    revalidate();
+                    break;
+            }
+            switch (boligTypeFane2) {
+                case "Enebolig":
+                    toglerFane2();
+                    garasjeValgFane2.setVisible(true);
+                    kjellerValgFane2.setVisible(true);
+                    etasjeBoxFane2.setVisible(true);
+                    antEgtLabelFane2.setVisible(true);
+                    tomtAreal.setVisible(true);
+                    tomtArealLabel.setVisible(true);
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
+                    revalidate();
+                    break;
+                case "Rekkehus":
+                    toglerFane2();
+                    garasjeValgFane2.setVisible(true);
+                    kjellerValgFane2.setVisible(true);
+                    etasjeBoxFane2.setVisible(true);
+                    antEgtLabelFane2.setVisible(true);
+                    tomtAreal.setVisible(true);
+                    tomtArealLabel.setVisible(true);
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
+                    revalidate();
+                    break;
+                case "Leilighet":
+                    toglerFane2();
+                    heisValgFane2.setVisible(true);
+                    balkongValgFane2.setVisible(true);
+                    planLabelFane2.setVisible(true);
+                    planBoxFane2.setVisible(true);
+                    romLabelFane2.setVisible(true);
+                    romBoxFane2.setVisible(true);
+                    revalidate();
+                    break;
+                case "Hybel":
+                    toglerFane2();
+                    badValgFane2.setVisible(true);
+                    kjøkkenValgFane2.setVisible(true);
+                    revalidate();
+                    break;
+                default:
+                    toglerFane2();
+                    revalidate();
+                    break;
 
             }
         }
-    } //  var det dette som vi skulle kunne slette, eller noe annet?
+    }
 
-    public void slettBolig() {
-        String[] alternativer = {"Ja", "Nei"};
-        String slettDenne = Integer.toString(slettBoligId);
-        if (slettDenne.equals("")) {
-            JOptionPane.showMessageDialog(null, "Velg bolig");
-            return;
+    private class PersonTypeLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (utleier.isSelected()) {
+
+                firma.setVisible(true);
+                firmaLabel.setVisible(true);
+                regUtleierKnapp.setVisible(true);
+                bspanel.setVisible(false);
+                btpanel.setVisible(false);
+                regPersonKnapp.setVisible(false);
+                revalidate();
+
+
+            } else if (boligsøker.isSelected()) {
+                bspanel.setVisible(true);
+                firma.setVisible(false);
+                firmaLabel.setVisible(false);
+                regUtleierKnapp.setVisible(false);
+                btpanel.setVisible(true);
+                revalidate();
+            }
         }
-        Bolig slett = boliger.finnBolig(slettDenne);
-        if (slett.getUtleid()) {
-            JOptionPane.showMessageDialog(null, "Boligen er utleid, kan ikke slettes!");
-            return;
+    }
+
+    private class tabellTypeLytter implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            if (boligtabellRadioknapp.isSelected()) {
+                clearPanel3();
+                lagBoligTabellen();
+                c.anchor = GridBagConstraints.CENTER;
+                c.gridx = 0;
+                c.gridy = 0;
+                c.gridwidth = 1;
+                c.insets = new Insets(0, 0, 0, 0);
+                c.gridheight = 1;
+                c.gridwidth = 0;
+                c.weightx = 0;
+                // resartt
+
+                c.weightx=100;
+                c.weighty=100;
+                c.gridx=0;
+                c.gridy=0;
+                c.anchor = GridBagConstraints.FIRST_LINE_START;
+                c.fill = GridBagConstraints.BOTH;
+                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
+
+
+
+
+
+                slettBoligKnapp.setVisible(true);
+                slettPerson.setVisible(false);
+                revalidate();
+                repaint();
+
+            } else if (persontabellRadioknapp.isSelected()) {
+                clearPanel3();
+                lagTabellen();
+                c.weightx=100;
+                c.weighty=100;
+                c.gridx=0;
+                c.gridy=0;
+                c.anchor = GridBagConstraints.FIRST_LINE_START;
+                c.fill = GridBagConstraints.BOTH;
+                tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                slettPerson.setVisible(true);
+                slettBoligKnapp.setVisible(false);
+                revalidate();
+                repaint();
+            }
         }
-        int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, alternativer, alternativer[0]);
-        if (svar == JOptionPane.YES_OPTION) {
-            if (boliger.slettBolig(slett))
-                JOptionPane.showMessageDialog(null, "Boligen ble slettet");
-            else
-                JOptionPane.showMessageDialog(null, "DUUURT!");
+    }
+
+    private class menyLytter implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == om) {
+                JOptionPane.showMessageDialog(null, boligsøkere.toString());
+            } else if (e.getSource() == lagre) {
+                skrivTilFil();
+            } else if (e.getSource() == visHistorikk) {
+                visKontraktFil();
+            }
+            else if(e.getSource() == printmatch){
+                try {
+                    resultatTabell.print();
+                }
+                catch(PrinterException pe){
+                }
+            }
+            else if(e.getSource() == printkontrakter){
+                try{
+                    kontraktHistorikkTabell.print();
+                }
+                catch (PrinterException pe){
+                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
+                }
+            }
+            else if(e.getSource()==printbolig) {
+                try {
+                    boligTabellTabellen.print();
+                } catch (PrinterException pe) {
+                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
+                }
+            }
+            else if(e.getSource()==printperson){
+                try{
+                    personTabell.print();
+                }catch(PrinterException pe){
+                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
+                }
+
+            }
+            else if(e.getSource()==statistikk){
+                lagTabellen();
+                lagBoligTabellen();
+                JOptionPane.showMessageDialog(null,"Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount() );
+            }
+
         }
+    }
+    //----------------------------------------------------
+    //-----------END OF ACTIONLISTENER-METODER------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //------------START OF LISTENER-METODER---------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //-------------END OF LISTENER-METODER----------------
+    //----------------------------------------------------
+
+    private DocumentListener documentListener = new DocumentListener() {
+        public void changedUpdate(DocumentEvent documentEvent) {
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
+        }
+
+        public void insertUpdate(DocumentEvent documentEvent) {
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
+        }
+
+        public void removeUpdate(DocumentEvent documentEvent) {
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
+        }
+
+    };
+
+    private class Utvalgslytter implements ListSelectionListener {
+        private TableModel tabellmodell;
+
+        public Utvalgslytter(TableModel m) {
+            tabellmodell = m;
+        }
+
+        public void valueChanged(ListSelectionEvent e) {
+            if (e.getValueIsAdjusting())
+                return;
+
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if (tabellmodell instanceof resultatTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
+                    int id;
+                    try{
+                        id = (int) tabellmodell.getValueAt(valgtRad,9);
+                    }catch(NullPointerException npe){
+                        return;
+                    }
+                    String stringId = Integer.toString(id);
+
+                    if (fane.getSelectedIndex() == 4) {
+                        String uid = boliger.finnUtleier(boliger.finnBolig(stringId));
+                        valgtUtleier.setText(uid);
+                        valgtBolig.setText(stringId);
+                        valgtUtleier.setVisible(true);
+                        utleierLabel.setVisible(true);
+                        velgBoligVindu.dispose();
+                    }
+                    else if(fane.getSelectedIndex() == 3)
+                    {
+                        valgtBoligId = stringId;
+                        sendEmail();
+                    }
+
+                }
+            } else if (tabellmodell instanceof utleierTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    String id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    utleierId.setText(id);
+
+                    velgUtleierVindu.dispose();
+                }
+            } else if (tabellmodell instanceof boligsøkerTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMinSelectionIndex();
+                    id = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    valgtLeietaker.setText(id);
+
+                    velgLeietakerVindu.dispose();
+                    velgBoligKnapp.setVisible(true);
+                    valgtBolig.setVisible(true);
+                }
+            } else if (tabellmodell instanceof boligSøkerTabellModellForMatch) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    valgtId = (String) tabellmodell.getValueAt(valgtRad, 0);
+                }
+
+            } else if (tabellmodell instanceof personTabellFabrikk) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    slettPersonFn = (String) tabellmodell.getValueAt(valgtRad, 0);
+                    slettPersonEn = (String) tabellmodell.getValueAt(valgtRad, 1);
+                    visPersonInfo();
+
+                }
+            } else if (tabellmodell instanceof boligTabellFabrikk) {
+                if (!lsm.isSelectionEmpty()) {
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    slettBoligId = (int) tabellmodell.getValueAt(valgtRad, 8);
+                    visBoligInfo();
+                }
+            }
+
+            else if(tabellmodell instanceof kontraktTabellModell){
+                if(!lsm.isSelectionEmpty()){
+                    int valgtRad = lsm.getMaxSelectionIndex();
+                    String kid = (String)tabellmodell.getValueAt(valgtRad,4);
+                    Kontrakt k = kontrakter.finnKontrakt(kid);
+                    skrivKontraktInfo(k);
+                }
+            }
+        }
+    }
+
+    private class HighlightRenderer extends DefaultTableCellRenderer{
+
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if(row==table.getSelectedRow()){
+                setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
+            }
+            return this;
+        }
+    }
+
+    //----------------------------------------------------
+    //-------------START OF TOGGLE-METODER----------------
+    //----------------------------------------------------
+
+    private void togler()
+    {
+        garasjeValg.setVisible(false);
+        kjellerValg.setVisible(false);
+        etasjeBox.setVisible(false);
+        heisValg.setVisible(false);
+        balkongValg.setVisible(false);
+        badValg.setVisible(false);
+        kjøkkenValg.setVisible(false);
+        antEgtLabel.setVisible(false);
+        planLabel.setVisible(false);
+        planBox.setVisible(false);
+        revalidate();
+    }
+
+    private void toglerFane2() {
+        garasjeValgFane2.setVisible(false);
+        kjellerValgFane2.setVisible(false);
+        etasjeBoxFane2.setVisible(false);
+        heisValgFane2.setVisible(false);
+        balkongValgFane2.setVisible(false);
+        badValgFane2.setVisible(false);
+        kjøkkenValgFane2.setVisible(false);
+        antEgtLabelFane2.setVisible(false);
+        tomtAreal.setVisible(false);
+        tomtArealLabel.setVisible(false);
+        planLabelFane2.setVisible(false);
+        planBoxFane2.setVisible(false);
+        romLabelFane2.setVisible(false);
+        romBoxFane2.setVisible(false);
+        revalidate();
+    }
+
+    //----------------------------------------------------
+    //--------------END OF TOGGLE-METODER-----------------
+    //----------------------------------------------------
+
+    //----------------------------------------------------
+    //-------------START OF GYLDIG-METODER----------------
+    //----------------------------------------------------
+
+    private boolean gyldig(JTextField f) {
+        if (f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
+            f.setBackground(Color.RED);
+            return true;
+        } else {
+            f.setBackground(Color.WHITE);
+            return false;
+        }
+    }
+
+    private boolean gyldigBox(JComboBox f) {
+        if (f.getSelectedIndex() == 0 && f.isVisible()) {
+            f.setForeground(Color.RED);
+            return true;
+        } else
+            f.setForeground(Color.BLACK);
+        return false;
 
     }
+
+    //----------------------------------------------------
+    //--------------END OF GYLDIG-METODER-----------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //---------------START OF YOLO-METODER----------------
+    //----------------------------------------------------
+
+    public String[] getKolonneNavnForBoligtype(int[] krav) {
+        String[] kolonnenavn1 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Parkering", "Kjeller", "Bilde", "id"};
+        String[] kolonnenavn2 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Balkong", "Heis", "Bilde", "id"};
+        String[] kolonnenavn3 = {"Matchresultat", "By", "Areal", "Pris/m", "Adresse", "Antall rom", "Deler bad med", "Deler kjøkken med", "Bilde", "id"};
+
+        if (krav != null) {
+            switch (krav[0]) {
+                case 1:
+                    return kolonnenavn1;
+
+                case 2:
+                    return kolonnenavn1;
+
+                case 3:
+                    return kolonnenavn2;
+
+                case 4:
+                    return kolonnenavn3;
+
+            }
+        }
+        return kolonnenavn1;
+    }
+
+    public class SvartHvitRad extends JTable
+    {
+        private boolean utskrift = false;
+
+
+        public SvartHvitRad(TableModel modell)
+        {
+            super(modell);
+        }
+        public void print(Graphics g)
+        {
+            utskrift = true;
+            try {
+                super.print(g);
+            }
+            finally {
+                utskrift = false;
+            }
+        }
+
+
+
+        public Component prepareRenderer(
+                TableCellRenderer rendrer, int rad, int kolonne)
+        {
+            Component c = super.prepareRenderer(rendrer, rad, kolonne);
+
+            if(utskrift)
+                c.setBackground(getBackground());
+            else if (rad % 2 == 0 && !isCellSelected(rad, kolonne))
+            {
+                c.setBackground(Color.LIGHT_GRAY);
+            }
+            else if (isCellSelected(rad, kolonne))
+            {
+                c.setBackground(getSelectionBackground());
+            }
+            else
+            {
+                c.setBackground(getBackground());
+            }
+            return c;
+        }
+    }
+
+    public void skrivKontraktInfo(Kontrakt k)
+    {
+        if(k == null) {
+            return;
+        }
+        kontraktInfoFelt.setText(k.toString());
+    }
+
+    private ImageIcon sjekkPath(String s)
+    {
+        ImageIcon bilde;
+        java.net.URL kilde = getClass().getResource(s);
+
+        if (kilde != null)
+            bilde = new ImageIcon(kilde);
+        else {
+            return null;
+        }
+        return bilde;
+
+
+    }
+
+    //----------------------------------------------------
+    //----------------END OF YOLO-METODER-----------------
+    //----------------------------------------------------
+
+
+    //----------------------------------------------------
+    //---------START OF LES TIL OG FRA - METODER----------
+    //----------------------------------------------------
 
     public void lesFraFil() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("fildata.data"))) {
@@ -3874,6 +3889,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             boligsøkere = (BoligsøkerListe) in.readObject();
             kontrakter = (KontraktListe) in.readObject();
             boliger = (Boligliste) in.readObject();
+            idMekking = (idGenerator) in.readObject();
         } catch (ClassNotFoundException cnfe) {
             JOptionPane.showMessageDialog(null, "Kunne ikke finne programmets klasse");
         } catch (FileNotFoundException fnfe) {
@@ -3889,7 +3905,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             ut.writeObject(boligsøkere);
             ut.writeObject(kontrakter);
             ut.writeObject(boliger);
-            System.out.println("Skriver til fil, ");
+            ut.writeObject(idMekking);
         } catch (NotSerializableException nse) {
             JOptionPane.showMessageDialog(null, "En av programmets klasser er ikke serialisert");
         } catch (IOException ioe) {
@@ -3897,67 +3913,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
     }
 
-    public void sendEmail() {
-
-        Boligsøker send = boligsøkere.getBoligsøker(valgtId);
-        if (send == null) {
-            JOptionPane.showMessageDialog(null, "Velg en bolisøker");
-            return;
-        }
-        String n = send.getFornavn() + " " + send.getEtternavn();
-        //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
-
-        Bolig sendTil = boliger.finnBolig(valgtBoligId);
-        if (sendTil == null) {
-            JOptionPane.showMessageDialog(null, "Velg en bolig");
-            return;
-        }
-        JOptionPane.showMessageDialog(null, valgtBoligId);
-
-        int stedInt = sendTil.getSted();
-        String sted = "";
-        switch (stedInt) {
-            case 1:
-                sted = "Oslo";
-                break;
-            case 2:
-                sted = "Bergen";
-                break;
-            case 3:
-                sted = "Stavanger";
-                break;
-            case 4:
-                sted = "Trondheim";
-                break;
-            case 5:
-                sted = "Kristiansand";
-                break;
-            case 6:
-                sted = "Tromsø";
-                break;
-
-        }
-
-        feedbackMail.setText("Hei " + send.getNavn() + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
-                + sendTil.getAdresse() + "\n" + sted + "\n" + sendTil.getUtleiepris() + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
-
-    }
-
-    public void visKontraktFil() {
-        visKontraktHistorie();
-    }
-
-
-    public void sendEpost() {
-        String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
-
-        mailStatusLabel.setText("sender mail...");
-
-        if(epost.sendMail(til, feedbackMail.getText()))
-            mailStatusLabel.setText("Mail Sendt!");
-        else
-            mailStatusLabel.setText("Sending mislykket");
-
-    }
-
-}// EOLAWKI
+    //----------------------------------------------------
+    //-----------END OF LES TIL OG FRA - METODER----------
+    //----------------------------------------------------
+}// END OF CLASS GUI

@@ -20,7 +20,7 @@ public class Kontrakt implements Serializable{
     private SimpleDateFormat df;
     private String id;
 
-    public Kontrakt(Utleier e, Boligsøker l, Bolig b, Calendar s, Calendar sl){
+    public Kontrakt(Utleier e, Boligsøker l, Bolig b, Calendar s, Calendar sl, String i){
         eier = e;
         leier = l;
         bolig = b;
@@ -28,19 +28,7 @@ public class Kontrakt implements Serializable{
         slutt = sl;
         lagret = Calendar.getInstance();
         df = new SimpleDateFormat("yyyy/MM/dd");
-        id = genererId(e,l,b);
-    }
-    private String genererId(Utleier utleier, Boligsøker leietaker, Bolig b)
-    {
-        String ID ="ID";
-        try{
-            ID = utleier.getEtternavn().substring(0,2) + leietaker.getEtternavn().substring(0,2)+b.getId();
-        }
-        catch(StringIndexOutOfBoundsException SIOOBE)
-        {
-            ID = "AUTOID";
-        }
-        return ID;
+        id = i;
     }
     //getMetoder for forskjellige datafelt, mangle blir ikke brukt, men de er her om det i fremtiden ved en
     // oppdatering av programmet skulle får bruk for dem.

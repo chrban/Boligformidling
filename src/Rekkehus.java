@@ -14,21 +14,16 @@ Siste versjon:
         private int parkering;
         private int tomtstørrelse;
         private int[] specArray;
-        private static int id = 1000;
 
-        public Rekkehus(String ad,int s, int b, int r, int by, int u ,String uid, String sti, int e, int p, int k, int t, String be)
+        public Rekkehus(int i,String ad,int s, int b, int r, int by, int u ,String uid, String sti, int e, int p, int k, int t, String be)
         {
-            super(ad,s, b, r, by, u, uid, sti, be);
+            super(i,ad,s, b, r, by, u, uid, sti, be);
             etasjer = e;
             parkering = p;
             kjeller = k;
             tomtstørrelse = t;
         }
 
-        public void setID(int i)
-        {
-            super.setId(i);
-        }
         //start of getMetoder
         public boolean getBooleanVerdiPark()
         {
@@ -141,7 +136,7 @@ Siste versjon:
             image = new ImageIcon(skalert);
 
             ut[8] = image;
-            ut[9] = id;
+            ut[9] = super.getId();
 
             return ut;
         }

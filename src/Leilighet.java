@@ -12,19 +12,13 @@ public class Leilighet extends Bolig implements Serializable
     private int balkong;
     private int heis;
     private int[] specArray;
-    private static int id = 2000;
 
-    public Leilighet(String ad,int s, int b, int r, int by, int u, String uid, String sti, int e, int bal, int h, String be)
+    public Leilighet(int i,String ad,int s, int b, int r, int by, int u, String uid, String sti, int e, int bal, int h, String be)
     {
-        super(ad,s, b, r, by, u, uid, sti, be);
+        super(i,ad,s, b, r, by, u, uid, sti, be);
         etasje = e;
         balkong = bal;
         heis = h;
-    }
-
-    public void setID(int i)
-    {
-        super.setId(i);
     }
     //getMetoder, noen blir ikke brukt, men lar disse være her til videreutvikling
     public int getEtasje(){
@@ -131,7 +125,7 @@ public class Leilighet extends Bolig implements Serializable
     {
         Object[] ut = new Object[10];
 
-        ut[0] = new Integer(0);
+        ut[0] = 0;
         ut[1] = sted();
         ut[2] = getBoareal() + " m²";
         ut[3] = getUtleiepris() + " kr/m";
@@ -147,7 +141,7 @@ public class Leilighet extends Bolig implements Serializable
         image = new ImageIcon(skalert);
 
         ut[8] = image;
-        ut[9] = id;
+        ut[9] = super.getId();
 
         return ut;
     }

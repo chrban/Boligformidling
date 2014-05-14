@@ -27,42 +27,18 @@ public class Boligliste implements Serializable {
     public boolean leggTil(Bolig b){
         if(b instanceof Enebolig){
             if(erUnik(b)){
-                if(eneboliger.isEmpty())
-                    b.setId(1);
-                if(!eneboliger.isEmpty()) {
-                    int eId = eneboliger.first().getId() + 1;
-                    b.setId(eId);
-                }
                 return eneboliger.add((Enebolig)b);
             }
         }else if(b instanceof Rekkehus){
             if(erUnik(b)){
-                if(rekkehus.isEmpty())
-                    b.setId(1000);
-                else if(!rekkehus.isEmpty()) {
-                    int rId = rekkehus.first().getId() + 1;
-                    b.setId(rId);
-                }
                 return rekkehus.add((Rekkehus)b);
             }
         }else if(b instanceof Leilighet){
             if(erUnik(b)){
-                if(leiligheter.isEmpty())
-                    b.setId(2000);
-                else if(!leiligheter.isEmpty()) {
-                    int lId = leiligheter.first().getId() + 1;
-                    b.setId(lId);
-                }
                 return leiligheter.add((Leilighet)b);
             }
         }else if(b instanceof Hybel){
             if(erUnik(b)){
-                if(hybler.isEmpty())
-                    b.setId(3000);
-                else if(!hybler.isEmpty()) {
-                    int hId = hybler.first().getId() + 1;
-                    b.setId(hId);
-                }
                 return hybler.add((Hybel)b);
             }
         }JOptionPane.showMessageDialog(null,"Bolig er allerde lagt til!");

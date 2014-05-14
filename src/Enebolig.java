@@ -14,19 +14,14 @@ public class Enebolig extends Bolig implements Serializable
     private int parkering;
     private int[] specArray;
 
-    public Enebolig(String ad, int s, int b, int r, int by, int u, String id, String sti,  int e, int park, int k, int t, String be)
+    public Enebolig(int i,String ad, int s, int b, int r, int by, int u, String id, String sti,  int e, int park, int k, int t, String be)
     {
-        super(ad,s, b, r, by, u, id, sti, be);
+        super(i,ad,s, b, r, by, u, id, sti, be);
 
         etasjer = e;
         kjeller = k;
         tomtstørrelse = t;
         parkering = park;
-    }
-
-    public void setId(int i)
-    {
-        super.setId(i);
     }
     //start of getMetoder
     public boolean getBooleanVerdiPark()
@@ -127,7 +122,7 @@ public class Enebolig extends Bolig implements Serializable
     public Object[] tilMatchTabell()
     {
         Object[] ut = new Object [10];
-        ut[0] = new Integer(0);
+        ut[0] = 0;
         ut[1] = sted();
         ut[2] = getBoareal() + " m²";
         ut[3] = getUtleiepris() + " kr/m";

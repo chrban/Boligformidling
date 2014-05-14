@@ -131,6 +131,7 @@ public class BoligsøkerListe implements Serializable {
     }
     //Returnerer en String-array for å kunne vise listens innhold i matchmakingfanen i GUI
     public String[][] tilMatchTabll(){
+        String[][] dummy = {{"Tabellen", "er", "tom", "tom", "tom", "tom"}};
         Boligsøker løper = første;
         int i = 0;
         while( løper != null ){
@@ -146,6 +147,9 @@ public class BoligsøkerListe implements Serializable {
                 ut[x++] = runner.tilTabellMedId();
             runner = runner.neste;
         }
+        if(i == 0)
+            return dummy;
+
         return ut;
     }
     //Teller opp antall Boligsøker-objekter i listen
