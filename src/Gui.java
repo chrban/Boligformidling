@@ -7,15 +7,11 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.awt.print.PrinterException;
 import java.io.*;
 import java.rmi.server.UID;
 import java.util.*;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,8 +67,8 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger, matching, kontrakt,register,hjelp;
-    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter;
+    private JMenu filmeny, rediger, matching, kontrakt,register,hjelp,status;
+    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter,statistikk;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
@@ -172,6 +168,11 @@ public class Gui extends JFrame {
         printperson.addActionListener(øre);
         printperson.setIcon(skrivutIkon);
 
+        status = new JMenu("Status");
+
+        statistikk = new JMenuItem("Statistikk");
+        statistikk.addActionListener(øre);
+
 
 
         rediger.add(angre);
@@ -189,6 +190,7 @@ public class Gui extends JFrame {
         register.add(printperson);
         kontrakt.add(visHistorikk);
         kontrakt.add(printkontrakter);
+        status.add(statistikk);
 
         menylinje = new JMenuBar();
         setJMenuBar(menylinje);
@@ -198,6 +200,7 @@ public class Gui extends JFrame {
         menylinje.add(register);
         menylinje.add(kontrakt);
         menylinje.add(hjelp);
+        menylinje.add(status);
         //Slutt menylinje
 
 
@@ -1197,12 +1200,18 @@ public class Gui extends JFrame {
         //resatt
 
 
-        søkefelt = new JTextField(20);
+
+
+        søkefelt = new JTextField("Søk..",20);
         c.gridx = 0;
         c.gridy = 1;
-        //søkefelt.setBounds(0,200,900,150);
         c.anchor = GridBagConstraints.PAGE_START;
         søkefelt.getDocument().addDocumentListener(documentListener);
+        søkefelt.requestFocus(false);
+        søkefelt.addMouseListener( new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                søkefelt.setText("");
+                revalidate(); }});
         panel3.add(søkefelt,c);
 
 
@@ -2015,7 +2024,17 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
     }
+    private class HighlightRenderer extends DefaultTableCellRenderer{
 
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if(row==table.getSelectedRow()){
+                setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
+            }
+            return this;
+        }
+    }
     private DocumentListener documentListener = new DocumentListener() {
         public void changedUpdate(DocumentEvent documentEvent) {
             søkPersonregister(søkefelt.getText());
@@ -2033,57 +2052,45 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
 
     };
-    private void søkPersonregister(String v){
-        //String v = verdi.toString();
+    private void søkPersonregister(String v) {
 
 
-        for(int rad = 0; rad <= personTabell.getRowCount() -1; rad++){
-            for(int col=0; col <= personTabell.getColumnCount()-1;col++){
+        for (int rad = 0; rad <= personTabell.getRowCount() - 1; rad++) {
+            for (int col = 0; col <= 1; col++) {
+                String r = (personTabell.getValueAt(rad, col).toString());
 
-                int r = v.compareToIgnoreCase(personTabell.getValueAt(rad,col).toString());
-
-
-                System.out.println("Lytteren hører: " + v  + "Match: " + r);
-                System.out.println(personTabell.getValueAt(rad,col).toString());
-
-
-
-                if(  r == 0  ){
-                    System.out.println("Det er match " + personTabell.getValueAt(rad,col).toString());
+                if (v.equalsIgnoreCase(r)) {
                     personTabell.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-
                     personTabell.setRowSelectionInterval(rad,rad);
-
                     for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
                         personTabell.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
-
                     }
+
                 }
             }
         }
-
-    } // end Personsøk
+    }// end Personsøk
 
     private void søkBoligregister(String v){
 
-        System.out.println("BoligLytteren hører: " + v);
         for(int rad = 0; rad <= boligTabellTabellen.getRowCount() -1; rad++){
             for(int col=0; col <= boligTabellTabellen.getColumnCount()-1;col++){
 
-                if(v.equals(boligTabellTabellen.getValueAt(rad,col))){
-                    System.out.println("Det er match");
+                String r = boligTabellTabellen.getValueAt(rad,col).toString();
+
+
+                if(v.equalsIgnoreCase(r)){
                     boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-
                     boligTabellTabellen.setRowSelectionInterval(rad,rad);
-
                     for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
                         boligTabellTabellen.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
 
                     }
+
                 }
-            }
         }
 
+    }
     } // end Boligsøk
 
 
@@ -2092,18 +2099,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-    private class HighlightRenderer extends DefaultTableCellRenderer{
 
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-            if(row==table.getSelectedRow()){
-                setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
-            }
-            return this;
-        }
-    }
 
 
     private class menyLytter implements ActionListener {
@@ -2147,11 +2143,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
 
             }
+            else if(e.getSource()==statistikk){
+                lagTabellen();
+                lagBoligTabellen();
+                JOptionPane.showMessageDialog(null,"Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount() );
+            }
 
         }
     }
-
-
 
     private class fanelytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
@@ -3057,48 +3056,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-
-    /*
-    String[][] dummy = {{"Tabellen","er","tom","tom","tom","tom"}};
-     */
-
-
-    //private TableModel tabellModell;
-    //private personTabellFabrikk vindu;
-/*
-        Utvalgslytter(TableModel m, personTabellFabrikk v)
-        {
-            tabellModell = m;
-            vindu = v;
-        }
-*/
-
-
-    /*
-    public void valueChanged(ListSelectionEvent e)
-    {
-        String utskrift = "";
-        if(e.getValueIsAdjusting()) //vent med handlig før valg er avsluttet
-            return;
-
-
-        ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-        if(!lsm.isSelectionEmpty())
-        {
-            int valgtrad = lsm.getMinSelectionIndex();
-
-            utskrift += "Navn: " + (String) tabellModell.getValueAt(valgtrad, 0 );
-            utskrift += "EtterNavn: " + (String) tabellModell.getValueAt(valgtrad,1);
-        }
-        utskriftsområde.setText(utskrift);
-       // vindu.visNavndata(navndata)
-
-
-    }//end valuechange
-}
-
-
-*/
     public void regPerson() {
 
 
@@ -3641,22 +3598,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
 
-    public void matchPåKrav() {
-        /*
-        - velge boligsøker:
-            - ved hjelp av jtable
-            - ved hjelp av navn eller id.
-
-        - hente fram boligsøker sin kravarray.
-        - sende denne med til boliglisten.
-        - det returneres en string her som kan skrives ut i et felt.
-        - hva vi gjør med bilder, vet jeg ikke enda altså. 
-
-
-        */
-
-
-    }
 
     private void visKontraktHistorie() {
         visKontraktHistorikk = new JFrame("Kontrakt historikk");
