@@ -1,32 +1,19 @@
-/*import javafx.geometry.HorizontalDirection;
-import javax.imageio.ImageIO;
-import javax.print.DocFlavor;
-*/
 import javax.swing.*;
-//import javax.swing.border.Border;
 import java.awt.*;
-
-
 import java.awt.event.*;
 import java.awt.print.PrinterException;
 import java.io.*;
-//import java.rmi.server.UID;
 import java.util.*;
 import java.util.List;
-/*import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.border.MatteBorder;
-*/
 import javax.swing.event.*;
 import javax.swing.table.*;
-//import javax.swing.DefaultRowSorter;
-//import javax.swing.text.Document;
 import java.lang.*;
-//import javax.swing.RowSorter.*;
 
 
-/**
- * Created by mac on 02.04.14.
+/*
+Filen inneholder hovedvinduet og metoder for å hente inn data ++
+Skrevet av: Christer, Kristoffer og Emil
+Siste versjon: 14/05/2014
  */
 
 public class Gui extends JFrame {
@@ -64,8 +51,7 @@ public class Gui extends JFrame {
     private JMenuBar menylinje;
     private JMenu filmeny, rediger, matching, kontrakt,register,hjelp,status;
     private JMenuItem om, lagre, angre, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter,statistikk;
-    private JScrollPane personTabellScroll;
-    private JScrollPane boligTabellScroll;
+    private JScrollPane personTabellScroll,boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
     private String valgtId, valgtBoligId, id, slettPersonFn, slettPersonEn;
     private int slettBoligId;
@@ -342,7 +328,6 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         fornavn.setToolTipText("Skriv inn fornavn");
-        fornavn.getDocument().addDocumentListener(documentListener);
         pepanel.add(fornavn, c);
 
 
@@ -358,7 +343,6 @@ public class Gui extends JFrame {
         c.gridy = 1;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        etternavn.getDocument().addDocumentListener(documentListener);
         etternavn.setToolTipText("Skriv inn etternavn");
         pepanel.add(etternavn, c);
 
@@ -1141,7 +1125,6 @@ public class Gui extends JFrame {
         registerHeader.setFont(headerFont);
         registerHeader.setForeground(headerFarge);
 
-        //c.insets = new Insets(50, 10, 50, 10);
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.PAGE_START;
