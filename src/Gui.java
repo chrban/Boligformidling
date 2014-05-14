@@ -150,7 +150,6 @@ public class Gui extends JFrame {
         //Slutt menylinje
 
 
-
         //Datatruktur
         boliger = new Boligliste();
         utleiere = new UtleierListe(boliger);
@@ -226,8 +225,6 @@ public class Gui extends JFrame {
         fane.setMnemonicAt(3, KeyEvent.VK_4);
         fane.setMnemonicAt(4, KeyEvent.VK_5);
         fane.addChangeListener(faneøre);
-
-
 
 
 
@@ -1839,6 +1836,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         boligsøkere.settInnNy(ny);
                         clearPersonFelt();
                         clearBSfelt();
+                        feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
                         return;
                     } else {
                         gyldigBox(etasjeBox);
@@ -2849,7 +2847,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
         int j = 0;
         while (j < andre.length) {
-            JOptionPane.showMessageDialog(null,Integer.toString(j));
             joina[i++] = andre[j];
             j++;
         }
@@ -2939,6 +2936,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         pris.setText("");
         utleierId.setText("");
         beskrivelse.setText("");
+        adresseFane2.setText("");
         etasjeBoxFane2.setSelectedIndex(0);
         planBoxFane2.setSelectedIndex(0);
         garasjeValgFane2.setSelected(false);
