@@ -63,7 +63,7 @@ public class Gui extends JFrame {
     private Boligliste boliger;
     private JMenuBar menylinje;
     private JMenu filmeny, rediger, matching, kontrakt,register,hjelp,status;
-    private JMenuItem om, lagre, angre, tabell, oppdaterBoligsøkerTabell, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter,statistikk;
+    private JMenuItem om, lagre, angre, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter,statistikk;
     private JScrollPane personTabellScroll;
     private JScrollPane boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
@@ -75,94 +75,67 @@ public class Gui extends JFrame {
 
 
     public Gui() {
-        super("Boligformidling for svaksynte");
+        super("BooleanFormidling");
 
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Setter vinduet maksimert
         setLocationByPlatform(true);
 
-        headerFont = new Font("Arial",Font.BOLD,50);
-        knappFont = new Font("Arial",Font.PLAIN,15);
-        header2Font = new Font("Arial",Font.BOLD,20);
-        header3Font = new Font("Arial",Font.BOLD,40);
 
-
+        //Laster inn bilder
         ImageIcon skrivutIkon = sjekkPath("icon/print.png");
+        ImageIcon personIkon = sjekkPath("icon/personadd.png");
+        ImageIcon tabellIkon = sjekkPath("icon/tabell.png");
+        ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
+        ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
+        ImageIcon matchIkon = sjekkPath("icon/match.png");
+        ImageIcon slettpersonIkon = sjekkPath("icon/personSlettBig.png");
+        ImageIcon slettboligIkon = sjekkPath("icon/boligSlettBig.png");
+        ImageIcon mailIkoin = sjekkPath("icon/mail.png");
+        ImageIcon finnmatchIkon = sjekkPath("icon/matchbolig.png");
+        ImageIcon logo = sjekkPath("icon/logo_ikon.png");
+        if (logo != null)
+            setIconImage(logo.getImage());
 
         //Oppretter Menylinjen
         øre = new menyLytter();
-
         filmeny = new JMenu("Fil");
         filmeny.setMnemonic('F');
-
-
         om = new JMenuItem("Om..");
-        // om.setMnemonic('O');
         om.addActionListener(øre);
-
-
         lagre = new JMenuItem(" Lagre");
         lagre.addActionListener(øre);
         ImageIcon lagreIkon= sjekkPath("icon/lagre.png");
         lagre.setIcon(lagreIkon);
-
         instillinger = new JMenuItem("Instillinger");
-
         avslutt = new JMenuItem("Avslutt");
-
-        tabell = new JMenuItem("Last inn tabell på nytt");
-        tabell.addActionListener(øre);
-
-
-
+        avslutt.addActionListener(øre);
         rediger = new JMenu("Rediger");
-
         hjelp = new JMenu("Hjelp");
-
-
         angre = new JMenuItem("Angre");
         angre.addActionListener(øre);
-
         klipput = new JMenuItem("Klipp ut");
-
         kopier = new JMenuItem("Kopier");
-
         liminn = new JMenuItem("Lim inn");
-
-
-
         matching = new JMenu("Matching");
-        oppdaterBoligsøkerTabell = new JMenuItem("Oppdater BS tabell");
-        oppdaterBoligsøkerTabell.addActionListener(øre);
-
         printmatch = new JMenuItem("Skriv ut Matchresultat");
         printmatch.addActionListener(øre);
         printmatch.setIcon(skrivutIkon);
-
         kontrakt = new JMenu("Kontrakt");
         visHistorikk = new JMenuItem("Vis kontrakhistorikk");
         visHistorikk.addActionListener(øre);
-
         printkontrakter = new JMenuItem("Skriv ut Kontrakter");
         printkontrakter.addActionListener(øre);
         printkontrakter.setIcon(skrivutIkon);
-
-
         register = new JMenu("Register");
-
         printbolig = new JMenuItem("skriv ut Boligregister");
         printbolig.addActionListener(øre);
         printbolig.setIcon(skrivutIkon);
-
         printperson = new JMenuItem("Skriv ut Personregister");
         printperson.addActionListener(øre);
         printperson.setIcon(skrivutIkon);
-
         status = new JMenu("Status");
-
         statistikk = new JMenuItem("Statistikk");
         statistikk.addActionListener(øre);
-
-
 
         rediger.add(angre);
         rediger.add(klipput);
@@ -172,8 +145,6 @@ public class Gui extends JFrame {
         filmeny.add(lagre);
         filmeny.add(instillinger);
         filmeny.add(avslutt);
-        rediger.add(tabell);
-        matching.add(oppdaterBoligsøkerTabell);
         matching.add(printmatch);
         register.add(printbolig);
         register.add(printperson);
@@ -194,7 +165,7 @@ public class Gui extends JFrame {
 
 
 
-
+        //Datatruktur
         boliger = new Boligliste();
         utleiere = new UtleierListe(boliger);
         boligsøkere = new BoligsøkerListe();
@@ -202,13 +173,15 @@ public class Gui extends JFrame {
         epost = new Mail();
         kontrakthistorie = new KontraktHistorikk();
         idMekking = new idGenerator();
+
+        //Lyttere
         lytter = new knappLytter();
         faneøre = new fanelytter();
         personTabellScroll = new JScrollPane(personTabell);
         boligTabellScroll = new JScrollPane(boligTabellTabellen);
 
-        
 
+        //Oppretter paneler
         panel1 = new JPanel(layout);  // FANE panel
         panel2 = new JPanel(layout);  // FANE panel
         panel3 = new JPanel(layout);  // FANE panel
@@ -223,21 +196,28 @@ public class Gui extends JFrame {
         velgBsPanel = new JPanel(layout);
         bildepanel = new JPanel(new BorderLayout());
         btpanel = new JPanel(layout);
+        bopanel.setVisible(true);
+        bspanel.setVisible(false);
+        utpanel.setVisible(false);
+        pepanel.setVisible(true);
+        tapanel.setVisible(true);
+        resultatPanel.setVisible(true);
+        velgBsPanel.setVisible(true);
 
 
-        //FARGER
 
+
+        // Farger og Fonter
+        headerFont = new Font("Arial",Font.BOLD,50);
+        knappFont = new Font("Arial",Font.PLAIN,15);
+        header2Font = new Font("Arial",Font.BOLD,20);
+        header3Font = new Font("Arial",Font.BOLD,40);
         comboboxFarge = new Color(255,255,255);
-        bakFarge = new Color(253,255,232);
-        lyseSvart = new Color(43,43,43);
-        headerFarge= new Color(46,110,109);
-        tabellFarge = new Color(204,204,187);
+        bakFarge = new Color(84,133,150);
+        headerFarge= new Color(255,255,255);
+        tabellFarge = new Color(190,218,218);
 
-
-
-
-
-
+        //Fargelegger
         panel1.setBackground(bakFarge);
         panel2.setBackground(bakFarge);
         bspanel.setBackground(bakFarge);
@@ -248,95 +228,7 @@ public class Gui extends JFrame {
         bopanel.setBackground(bakFarge);
         panel5.setBackground(bakFarge);
 
-
-
-
-
-        regPersonHeader = new JLabel("Registrer en klient");
-        regPersonHeader.setFont(headerFont);
-        regPersonHeader.setForeground(headerFarge);
-        c.gridx = 0;
-        c.gridx = 0;
-        c.weightx = 0;
-        c.weighty = 0;
-        c.insets = new Insets(20, 0, 20, 0);
-        c.anchor = GridBagConstraints.CENTER;
-        panel1.add(regPersonHeader, c);
-
-
-        c.anchor = GridBagConstraints.NORTH;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.weighty = 1;
-        c.insets = new Insets(0, 0, 0, 0);
-        panel1.add(pepanel, c);
-
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.weighty = 2;
-        c.anchor = GridBagConstraints.NORTH;
-        c.insets = new Insets(0, 50, 0, 0);
-        bspanel.setSize(bspanel.getPreferredSize());
-        panel1.add(bspanel, c);
-
-        c.weighty = 0;
-
-        c.insets = new Insets(50, 0, 0, 0);
-        panel1.add(utpanel, c);
-        // bspanel.setPreferredSize(bspanel.getPreferredSize());
-
-        c.gridx = 0;
-        c.anchor = GridBagConstraints.CENTER;
-        c.gridy = 3;
-        c.insets = new Insets(0, 20, 0, 0);
-        c.weighty = -10;
-        panel1.add(btpanel, c);
-
-
-        feedbackFane1 = new JTextArea("");
-        feedbackFane1.setEditable(false);
-        feedbackFane1.setBackground(bakFarge);
-        feedbackFane1.setPreferredSize(new Dimension(200, 20));
-        c.gridx = 0;
-        c.gridy = 4;
-
-        panel1.add(feedbackFane1, c);
-
-
-        panel2.add(bopanel);
-
-
-        //til hit
-        bopanel.setVisible(true);
-        bspanel.setVisible(false); // endre tilbake til, false
-        utpanel.setVisible(false);
-        pepanel.setVisible(true);
-        tapanel.setVisible(true);
-        resultatPanel.setVisible(true);
-        velgBsPanel.setVisible(true);
-        //oppretter Fanene
-
-
-        ImageIcon personIkon = sjekkPath("icon/personadd.png");
-        ImageIcon tabellIkon = sjekkPath("icon/tabell.png");
-        ImageIcon kontraktIkon = sjekkPath("icon/kontrakt.png");
-        ImageIcon boligIkon = sjekkPath("icon/addBoligIkon.png");
-        ImageIcon matchIkon = sjekkPath("icon/match.png");
-        ImageIcon slettpersonIkon = sjekkPath("icon/personSlettBig.png");
-        ImageIcon slettboligIkon = sjekkPath("icon/boligSlettBig.png");
-        ImageIcon mailIkoin = sjekkPath("icon/mail.png");
-        ImageIcon finnmatchIkon = sjekkPath("icon/matchbolig.png");
-
-
-
-
-        //ImageIcon logoIkon= new ImageIcon(getClass().getResource("icon/logo_ikon.png"));
-
-        ImageIcon logo = sjekkPath("icon/logo_ikon.png");
-        if (logo != null)
-            setIconImage(logo.getImage());
-
+        //Oppretter faner
         fane.addTab("Registrer Person", personIkon, panel1, "Registrere ny boligsøker eller utleier");
         fane.addTab("Registrer bolig", boligIkon, panel2, "Registrere ny bolig");
         fane.addTab("Register", tabellIkon, panel3, "Vis register");
@@ -347,15 +239,13 @@ public class Gui extends JFrame {
         fane.setMnemonicAt(2, KeyEvent.VK_3);
         fane.setMnemonicAt(3, KeyEvent.VK_4);
         fane.setMnemonicAt(4, KeyEvent.VK_5);
-
         fane.addChangeListener(faneøre);
 
 
 
 
 
-
-/*
+        /*
 
         PPPPPPPPPPPPPPPPP   EEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR      SSSSSSSSSSSSSSS      OOOOOOOOO     NNNNNNNN        NNNNNNNNEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
         P::::::::::::::::P  E::::::::::::::::::::ER::::::::::::::::R   SS:::::::::::::::S   OO:::::::::OO   N:::::::N       N::::::NE::::::::::::::::::::ER::::::::::::::::R
@@ -374,6 +264,57 @@ public class Gui extends JFrame {
         P::::::::P          E::::::::::::::::::::ER::::::R     R:::::RS:::::::::::::::SS    OO:::::::::OO   N::::::N        N::::::NE::::::::::::::::::::ER::::::R     R:::::R
         PPPPPPPPPP          EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR SSSSSSSSSSSSSSS        OOOOOOOOO     NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
 */
+        //Start fane 1 - Registrer person
+
+
+        regPersonHeader = new JLabel("Registrer en klient");
+        regPersonHeader.setFont(headerFont);
+        regPersonHeader.setForeground(headerFarge);
+        c.gridx = 0;
+        c.gridx = 0;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.insets = new Insets(20, 0, 20, 0);
+        c.anchor = GridBagConstraints.CENTER;
+        panel1.add(regPersonHeader, c);
+
+        c.anchor = GridBagConstraints.NORTH;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weighty = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        panel1.add(pepanel, c);
+
+
+        c.gridx = 0;
+        c.gridy = 2;
+        c.weighty = 2;
+        c.anchor = GridBagConstraints.NORTH;
+        c.insets = new Insets(0, 50, 0, 0);
+        bspanel.setSize(bspanel.getPreferredSize());
+        panel1.add(bspanel, c);
+
+        c.weighty = 0;
+        c.insets = new Insets(50, 0, 0, 0);
+        panel1.add(utpanel, c);
+
+        c.gridx = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 3;
+        c.insets = new Insets(0, 20, 0, 0);
+        c.weighty = -10;
+        panel1.add(btpanel, c);
+
+
+        feedbackFane1 = new JTextArea("");
+        feedbackFane1.setEditable(false);
+        feedbackFane1.setBackground(bakFarge);
+        feedbackFane1.setPreferredSize(new Dimension(200, 20));
+        c.gridx = 0;
+        c.gridy = 4;
+        panel1.add(feedbackFane1, c);
+        panel2.add(bopanel);
+
 
 
         // Reseter
@@ -386,17 +327,12 @@ public class Gui extends JFrame {
         c.weightx = 0;
 
 
-        //Inndatafelt
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-
         pepanel.add(new JLabel("Fornavn: "), c);
 
-
-        //navnLabel  = new JLabel("NAVN");
-        //navnLabel.setComponentPopupMenu();
 
 
         fornavn = new JTextField(20);
@@ -407,8 +343,6 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         fornavn.setToolTipText("Skriv inn fornavn");
         fornavn.getDocument().addDocumentListener(documentListener);
-
-        //c.ipadx = ;
         pepanel.add(fornavn, c);
 
 
@@ -795,14 +729,7 @@ public class Gui extends JFrame {
         regPersonKnapp.setVerticalTextPosition(SwingConstants.CENTER);
         regPersonKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         bspanel.add(regPersonKnapp, c);
-
-
-
-
-
-
-        // BoligtypePanel
-
+        //End fane 1
 
 
 
@@ -1088,14 +1015,19 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.EAST;
         bopanel.add(new JLabel("Beskrivelse:"), c);
 
-        beskrivelse = new JTextArea("Skriv da..", 5, 20);
+        beskrivelse = new JTextArea("Beskrivelse av bolig..", 5, 20);
         scroll = new JScrollPane(beskrivelse);
         c.gridx = 1;
         c.gridy = 14;
         c.gridheight = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
+        beskrivelse.addMouseListener( new MouseAdapter() { //Klarerer infofelstet ved museklikk
+            public void mouseClicked(MouseEvent e) {
+                beskrivelse.setText("");
+                revalidate(); }});
         bopanel.add(scroll, c);
+
 
 
         c.gridheight = 1;
@@ -1154,7 +1086,6 @@ public class Gui extends JFrame {
 
 
 
-
 /*
         RRRRRRRRRRRRRRRRR   EEEEEEEEEEEEEEEEEEEEEE       GGGGGGGGGGGGGIIIIIIIIII   SSSSSSSSSSSSSSS TTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
         R::::::::::::::::R  E::::::::::::::::::::E    GGG::::::::::::GI::::::::I SS:::::::::::::::ST:::::::::::::::::::::TE::::::::::::::::::::ER::::::::::::::::R
@@ -1190,20 +1121,17 @@ public class Gui extends JFrame {
         //resatt
 
 
-
-
         søkefelt = new JTextField("Søk..",20);
         c.gridx = 0;
         c.gridy = 1;
         c.anchor = GridBagConstraints.PAGE_START;
         søkefelt.getDocument().addDocumentListener(documentListener);
         søkefelt.requestFocus(false);
-        søkefelt.addMouseListener( new MouseAdapter() {
+        søkefelt.addMouseListener( new MouseAdapter() { //Klarerer søkefeltet ved museklikk
             public void mouseClicked(MouseEvent e) {
                 søkefelt.setText("");
                 revalidate(); }});
         panel3.add(søkefelt,c);
-
 
 
         registerHeader = new JLabel("Register");
@@ -1227,17 +1155,6 @@ public class Gui extends JFrame {
        // c.gridheight=2;
         c.insets = new Insets(5, 5, 5, 5);
         panel3.add(tapanel, c);
-
-        /*
-                c.gridx = 0;
-        c.gridy = 1;
-        c.anchor = GridBagConstraints.LINE_START;
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 10;
-        c.weighty = 40;
-        c.insets = new Insets(5, 5, 5, 5);
-        panel4.add(velgBsPanel, c);
-         */
 
 
         //RESETER
@@ -1290,7 +1207,6 @@ public class Gui extends JFrame {
         slettPerson.setVerticalTextPosition(SwingConstants.CENTER);
         slettPerson.setHorizontalTextPosition(SwingConstants.LEFT);
         slettPerson.setFont(knappFont);
-
         panel3.add(slettPerson, c);
 
         slettBoligKnapp = new JButton("Slett bolig  ");
@@ -1316,10 +1232,7 @@ public class Gui extends JFrame {
         c.ipadx = 0;
 
 
-
-
         feedbackFane3 = new JTextArea("");
-        //feedbackFane3.setPreferredSize(new Dimension(800,100));
         feedbackFane3.setBackground(bakFarge);
         feedbackFane3.setSize(500, 200);
         c.gridx = 0;
@@ -1330,7 +1243,6 @@ public class Gui extends JFrame {
         c.fill=GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         panel3.add(feedbackFane3, c);
-
 
         //RESETER
         c.gridx = 0;
@@ -1347,10 +1259,7 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 3;
         c.gridwidth=2;
-
         c.fill = GridBagConstraints.HORIZONTAL;
-        //c.insets = new Insets(0,0,10,10);
-
         c.anchor=GridBagConstraints.PAGE_END;
         panel3.add(bildepanel, c);
 
@@ -1359,27 +1268,7 @@ public class Gui extends JFrame {
         bildepanel.setBackground(bakFarge);
         panel3.setBackground(bakFarge);
         tapanel.setBackground(bakFarge);
-
-
-
-/*
-        ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
-        Image img = image.getImage();
-        Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
-        image = new ImageIcon(skalert);
-
-
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        //prøv etterpå label.setBounds();
-        bildepanel.add(label, BorderLayout.CENTER);
- */
-
-
-
-
-
-
-
+        //SLUTT FANE 3
 
 
 /*
@@ -1400,13 +1289,10 @@ M::::::M               M::::::M  A:::::A               A:::::A  T:::::::::T     
 M::::::M               M::::::M A:::::A                 A:::::A T:::::::::T          CCC::::::::::::CH:::::::H     H:::::::H
 MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT             CCCCCCCCCCCCCHHHHHHHHH     HHHHHHHHH
 
-
  */
 
-        //SLUTT FANE 3
 
         //FANE 4 - MATCHMAKING ************************************************************************************************************************************************************************
-
 
         visMatch();
         //RESETER GridBag påsan! c
@@ -1419,15 +1305,10 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.gridheight = 1;
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
-        //RESATT
-
-
 
         matchHeader = new JLabel("MachMaking");
         c.gridx = 0;
         c.gridy = 0;
-
-
         c.insets = new Insets(10, 0, 30, 0);
         matchHeader.setFont(headerFont);
         matchHeader.setForeground(headerFarge);
@@ -1448,8 +1329,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         panel4.add(finnMatch, c);
 
 
-
-        //RESETER
         c.gridx = 0;
         c.gridy = 0;
         c.weighty = 0;
@@ -1460,10 +1339,8 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
         c.ipady = 0;
-        //RESATT
 
         c.insets = new Insets(10, 60, 10, 0);
-
         c.gridx = 1;
         c.gridy = 0;
         c.anchor = GridBagConstraints.CENTER;
@@ -1472,12 +1349,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         mailLabel.setFont(headerFont);
         mailLabel.setForeground(headerFarge);
         panel4.add(mailLabel, c);
-
-
-
-
-
-
 
         feedbackMail = new JTextArea("", 15, 15);
         JScrollPane sspp = new JScrollPane(feedbackMail);
@@ -1489,16 +1360,10 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.insets = new Insets(0, 60, 0, 20);
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.SOUTHWEST;
-
-        //feedbackMail.setPreferredSize(textfelt);
-        //feedbackMail.setMinimumSize(textfelt);
-        //feedbackMail.setMaximumSize(textfelt);
-        //feedbackMail.setSize(textfelt);
+        feedbackMail.setBackground(tabellFarge);
         panel4.add(sspp, c);
         c.gridheight = 1;
         c.ipadx = 100;
-
-
 
         sendMail = new JButton("Send mail   ");
         c.gridx = 1;
@@ -1515,9 +1380,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         sendMail.setHorizontalTextPosition(SwingConstants.LEFT);
         panel4.add(sendMail, c);
 
-
-
-
         c.ipady = 0;
         c.gridx = 1;
         c.gridy = 3;
@@ -1527,8 +1389,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         mailStatusLabel = new JLabel("");
         panel4.add(mailStatusLabel, c);
 
-
-        //RESETER
         c.gridx = 0;
         c.gridy = 0;
         c.weighty = 0;
@@ -1539,7 +1399,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
         c.ipady = 0;
-        //RESATT
 
         c.gridx = 0;
         c.gridy = 1;
@@ -1550,7 +1409,6 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.insets = new Insets(0, 20, 5, 0);
         panel4.add(velgBsPanel, c);
 
-
         c.gridx = 0;
         c.gridy = 3;
         c.anchor = GridBagConstraints.LINE_START;
@@ -1559,17 +1417,10 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.weighty = 40;
         c.insets = new Insets(5, 20, 20, 0);
         panel4.add(resultatPanel, c);
-
         panel4.setBackground(bakFarge);
 
 
-
-
-
-
 /*
-
-
 KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN        NNNNNNNNTTTTTTTTTTTTTTTTTTTTTTTRRRRRRRRRRRRRRRRR                  AAA               KKKKKKKKK    KKKKKKKTTTTTTTTTTTTTTTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
 K:::::::K    K:::::K   OO:::::::::OO   N:::::::N       N::::::NT:::::::::::::::::::::TR::::::::::::::::R                A:::A              K:::::::K    K:::::KT:::::::::::::::::::::TE::::::::::::::::::::ER::::::::::::::::R
 K:::::::K    K:::::K OO:::::::::::::OO N::::::::N      N::::::NT:::::::::::::::::::::TR::::::RRRRRR:::::R              A:::::A             K:::::::K    K:::::KT:::::::::::::::::::::TE::::::::::::::::::::ER::::::RRRRRR:::::R
@@ -1590,27 +1441,15 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-
-
-
-
 */
-
-
         //Slutt fane 4
         // FANE 5 - KONTRAKTER ************************************************************************************************************************************************************************
-        //RESETER
-
-
         okpanel = new JPanel(layout);
         vkpanel = new JPanel(layout);
         kontraktTabellPanel = new JPanel(layout);
         kontraktTabellPanel.setBackground(tabellFarge);
-
         c.ipadx = 0;
-
         Dimension dim = new Dimension(20, 20);
-
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
@@ -1618,10 +1457,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.insets = new Insets(0, 0, 0, 0);
         c.gridwidth = 1;
 
-
         c.anchor = GridBagConstraints.CENTER;
         c.ipady = 0;
-
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 2;
@@ -1631,29 +1468,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         kontraktHeader.setForeground(headerFarge);
         okpanel.add(kontraktHeader,c);
 
-
         c.gridwidth = 1;
-
-
-        /*
-        c.gridx = 1;
-        c.gridy = 2;
-        c.insets = new Insets(0, 0, 5, 5);
-        velgUtleierKnapp = new JButton("Velg en eier");
-        velgUtleierKnapp.addActionListener(lytter);
-        panel5.add(velgUtleierKnapp,c);
-
-
-
-        c.gridx = 2;
-        c.gridy = 2;
-        valgtUtleier = new JTextField(10);
-        valgtUtleier.setEditable(false);
-        valgtUtleier.setText("Ingen utleier valgt");
-        panel5.add(valgtUtleier, c);
-
-        */
-
         c.gridx = 0;
         c.gridy = 2;
         c.insets = new Insets(0, 0, 20, 5);
@@ -1666,7 +1481,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.EAST;
         okpanel.add(velgLeietakerKnapp, c);
 
-
         c.ipadx = 0;
         c.gridx = 1;
         c.gridy = 2;
@@ -1676,7 +1490,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         valgtLeietaker = new JTextField(10);
         valgtLeietaker.setEditable(false);
         valgtLeietaker.setText("Ingen leietaker valgt");
-
         okpanel.add(valgtLeietaker, c);
 
         c.gridx = 0;
@@ -1692,7 +1505,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         okpanel.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
 
-
         c.ipadx = 0;
         c.gridx = 1;
         c.gridy = 3;
@@ -1704,7 +1516,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         okpanel.add(valgtBolig, c);
         valgtBolig.setVisible(false);
 
-
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
@@ -1712,7 +1523,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         utleierLabel = new JLabel("Utleier: ");
         okpanel.add(utleierLabel,c);
         utleierLabel.setVisible(false);
-
 
         c.gridx = 1;
         c.gridy = 4;
@@ -1724,14 +1534,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         okpanel.add(valgtUtleier, c);
         valgtUtleier.setVisible(false);
 
-
         startDagFelt = new JTextField(10);
         startMånedFelt = new JTextField(10);
         startÅrFelt = new JTextField(10);
         sluttDagFelt = new JTextField(10);
         sluttMånedFelt = new JTextField(10);
         sluttårFelt = new JTextField(10);
-
 
         c.gridx = 0;
         c.gridy = 5;
@@ -1743,7 +1551,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         startLabel.setFont(header2Font);
         startLabel.setForeground(headerFarge);
         okpanel.add(startLabel,c);
-
 
         c.gridwidth = 1;
         c.gridx = 0;
@@ -1783,9 +1590,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.WEST;
         okpanel.add((startÅrFelt), c);
 
-
-
-
         c.gridx = 0;
         c.gridy = 9;
         c.gridwidth = 2;
@@ -1796,7 +1600,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         sluttLabel.setFont(header2Font);
         sluttLabel.setForeground(headerFarge);
         okpanel.add(sluttLabel,c);
-
 
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 5, 3);
@@ -1831,13 +1634,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.EAST;
         okpanel.add(new JLabel("År(ÅÅÅÅ)"), c);
 
-
         c.gridx = 1;
         c.gridy = 12;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
         okpanel.add((sluttårFelt), c);
-
 
         c.insets = new Insets(0, 0, 5, 0);
         c.gridx = 1;
@@ -1851,30 +1652,16 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         lagreKontrakt.setPreferredSize(dim);
         okpanel.add(lagreKontrakt, c);
 
-
-
-
         c.ipadx = 0;
-
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(0,0,0,100);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
-
         okpanel.setBackground(bakFarge);
         vkpanel.setBackground(bakFarge);
-
-
         panel5.add(okpanel,c);
 
-
-
-
-
-
-        //viskontrakterpanel
-       // vkpanel.setPreferredSize(okpanel.getPreferredSize());
         visKontrakterLabel = new JLabel("Lagrede kontrakter");
         visKontrakterLabel.setFont(header3Font);
         visKontrakterLabel.setForeground(headerFarge);
@@ -1889,9 +1676,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.insets = new Insets(0,0,0,0);
         c.anchor = GridBagConstraints.CENTER;
         vkpanel.add(kontraktTabellPanel, c);
-
-
-
 
         c.gridx = 0;
         c.gridy = 3;
@@ -1909,13 +1693,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.ipady = 0;
         c.gridwidth = 1;
 
-
-
-
-
-
-
-
         kontraktInfoFelt = new JTextArea(10,30);
         kontraktInfoFelt.setBackground(tabellFarge);
         c.anchor = GridBagConstraints.WEST;
@@ -1924,11 +1701,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
-
         vkpanel.add(kontraktInfoFelt,c);
-
-
-
 
         c.gridx = 1;
         c.gridy = 0;
@@ -1936,24 +1709,16 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
         panel5.add(vkpanel,c);
+        //End fane 5
 
 
-        //Legger fanecontainer på vinduet med scroll, str er 80% todo: Christer endre den str!
 
-        //Dimension heleSkjermen = new Dimension(bredde-20, høyde-20);
         fane.setPreferredSize(new Dimension(1380, 1010));
         fane.setBackground(bakFarge);
-
-
-        //add(new JScrollPane(fane), BorderLayout.PAGE_START);
         JScrollPane sp = new JScrollPane();
         getContentPane().add(sp);
-        add(fane);
-        //add(new JScrollPane(getContentPane()));
-
-
-        lesFraFil();
-
+        add(fane);      //Legger faner til hovedvindu
+        lesFraFil();    //Last inn data
         visKontrakter();
     } // End GUI konstruktør
 
@@ -2155,7 +1920,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
         JOptionPane.showMessageDialog(null, "du må velge en av typene..."); //vil aldri kicke inn siden return hehe heehe
-    }
+    }//end class regPerson
 
     public void regBolig() {
 
@@ -2333,7 +2098,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
                 break;
         }
-    }
+    }//en class regBolig
 
     public void finnBilde() {
         JFileChooser filvelger = new JFileChooser();
@@ -2364,6 +2129,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     JOptionPane.showMessageDialog(null, "Personen er slettet");
                     slettPersonEn = "";
                     slettPersonFn = "";
+                    lagTabellen();
                 }
             } else {
                 id = utleiere.finnID(slettPersonFn, slettPersonEn);
@@ -2371,6 +2137,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 if (!utleiere.harBoliger(woop)) {
                     utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
                     JOptionPane.showMessageDialog(null, "Personen ble slettet");
+                    lagTabellen();
                 } else {
                     JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
                 }
@@ -2394,8 +2161,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, alternativer, alternativer[0]);
         if (svar == JOptionPane.YES_OPTION) {
-            if (boliger.slettBolig(slett))
+            if (boliger.slettBolig(slett)){
+
                 JOptionPane.showMessageDialog(null, "Boligen ble slettet");
+                lagBoligTabellen();
+            }
             else
                 JOptionPane.showMessageDialog(null, "DUUURT!");
         }
@@ -2446,7 +2216,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         feedbackMail.setText("Hei " + send.getNavn() + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
                 + sendTil.getAdresse() + "\n" + sted + "\n" + sendTil.getUtleiepris() + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
 
-    }
+    }//end sendEmail
 
     public void sendEpost() {
         String til = JOptionPane.showInputDialog(null, "Skriv inn din epostadresse");
@@ -2511,7 +2281,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             JOptionPane.showMessageDialog(null, "Du må skriver gyldige tall i datofeltene!");
         }
 
-    }
+    }//end mekkontrakt
 
     //----------------------------------------------------
     //----------------END OF REG-METODER------------------
@@ -2652,14 +2422,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = resultatTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
-
+        resultatTabell.setBackground(tabellFarge);
         velgBoligVindu.add(new JScrollPane(resultatTabell));
 
 
         velgBoligVindu.pack();
         velgBoligVindu.setVisible(true);
         velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
-    }
+    }// end visVelgBoligVindu
 
     public void visKontrakter(){
         kontraktTabellPanel.removeAll();
@@ -2687,7 +2457,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         // kontraktHistorikkTabell.setSize(new Dimension(200,100));
 
 
-        kontraktHistorikkTabell.setBackground(tabellFarge);
+
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(0,0,0,0);
@@ -2695,7 +2465,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         kontraktTabellPanel.add(kontraktScroll, c);
         revalidate();
 
-    }
+    }//end visKontrakter
 
     public void visMatch() {
         clearResultatPanel();
@@ -2715,7 +2485,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         ListSelectionModel lsm = resultatTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(resultatModell));
 
-
         if (resultatModell.getValueAt(0, 0) != null) {
             sorterer.setSortKeys(sortKeys);
         }
@@ -2728,22 +2497,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.weightx = 10;
         c.weighty = 40;
         c.insets = new Insets(0, 0, 0, 0);
-
         resultatTabell.setRowHeight(70);
-
-        resultatPanel.add(new JScrollPane(resultatTabell), c);
+        JScrollPane resultatscroll = new JScrollPane(resultatTabell);
+        resultatscroll.getViewport().setBackground(tabellFarge);
+        resultatPanel.add(resultatscroll, c);
         revalidate();
         repaint();
 
 
-    }
+    }//end class visMatch
 
     public void visBoligsøkere() {
         clearVelgBsPanel();
-
-
         boligSøkerTabellModellForMatch boligSøkerTabellModellForMatch = new boligSøkerTabellModellForMatch();
-        //boligSøkereForMatch = new JTable(boligSøkerTabellModellForMatch);
         boligSøkereForMatch = new SvartHvitRad(boligSøkerTabellModellForMatch);
         boligSøkereForMatch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -2757,10 +2523,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.weightx = 10;
         c.weighty = 40;
         c.insets = new Insets(0, 0, 0, 0);
-        velgBsPanel.add(new JScrollPane(boligSøkereForMatch), c);
-
-
-    }
+        JScrollPane boligsøkerscroll = new JScrollPane(boligSøkereForMatch);
+        boligsøkerscroll.getViewport().setBackground(tabellFarge);
+        velgBsPanel.add(boligsøkerscroll, c);
+        revalidate();
+        repaint();
+    }//end class visBoligSøkere
 
     public void visPersonInfo(){
         try {
@@ -2983,23 +2751,15 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
     private class personTabellFabrikk extends AbstractTableModel {
-
-        //  int  = boligsøkere.tellOpp();
-
-
         String[] kolonnenavn = {"Fornavn", "Etternavn", "Adrssse", "Mail", "Telefon", "Firma"};
-
         String[][] celler = joinPersonArray();
 
-
-        // THEM RULES for tabellen Altså tabellmodellen
         public int getRowCount() {
             return celler.length;
         }
 
         public int getColumnCount() {
             return celler[0].length;
-
         }
 
 
@@ -3025,7 +2785,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
         public int getColumnCount() {
             return celler[0].length;
-
         }
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
@@ -3046,9 +2805,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     public void lagTabellen()
     {
+
         personTabellFabrikk personTabellModell = new personTabellFabrikk();
         personTabell = new SvartHvitRad(personTabellModell);
         personTabell.setRowSelectionAllowed(true);
+        JScrollPane personscroll = new JScrollPane(personTabell);
+        personscroll.getViewport().setBackground(tabellFarge);
         ListSelectionModel lsm = personTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
@@ -3057,9 +2819,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     public void lagBoligTabellen() {
         boligTabellFabrikk boligTabellModell = new boligTabellFabrikk();
-        //boligTabellTabellen = new JTable(boligTabellModell);
         boligTabellTabellen = new SvartHvitRad(boligTabellModell);
+        boligTabellTabellen.setBackground(bakFarge);
+        JScrollPane boligscroll = new JScrollPane(boligTabellTabellen);
+        boligscroll.getViewport().setBackground(tabellFarge);
         ListSelectionModel lsm = boligTabellTabellen.getSelectionModel();
+
         lsm.addListSelectionListener(new Utvalgslytter(boligTabellModell));
 
 
@@ -3078,7 +2843,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         boligTabellTabellen.getColumn("Id").setMinWidth(0);
         boligTabellTabellen.getColumn("Id").setPreferredWidth(0);
 
-        // boligTabellTabellen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
     private Object[][] joinBoligArray() {
@@ -3216,23 +2980,29 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     private class fanelytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
             if (fane.getSelectedIndex() == 2) {
-                if(persontabellRadioknapp.isSelected()){
+                if (persontabellRadioknapp.isSelected()) {
                     clearPanel3();
                     lagTabellen();
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
+                    c.weightx = 100;
+                    c.weighty = 100;
+                    c.gridx = 0;
+                    c.gridy = 0;
                     c.anchor = GridBagConstraints.FIRST_LINE_START;
                     c.fill = GridBagConstraints.BOTH;
+                    /*personTabell.setBackground(tabellFarge);
                     tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    personTabellScroll.getViewport().setBackground(tabellFarge);
+                    */
+                    JScrollPane personscroll = new JScrollPane(personTabell);
+                    personscroll.getViewport().setBackground(tabellFarge);
+                    tapanel.add(personscroll, c);
+
                     slettPerson.setVisible(true);
                     slettBoligKnapp.setVisible(false);
                     revalidate();
                     repaint();
                     //gjøre no
-                }
-                else if(boligtabellRadioknapp.isSelected()){
+                } else if (boligtabellRadioknapp.isSelected()) {
                     clearPanel3();
                     lagBoligTabellen();
                     c.anchor = GridBagConstraints.CENTER;
@@ -3243,32 +3013,36 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     c.gridheight = 1;
                     c.gridwidth = 0;
                     c.weightx = 0;
-                    // resartt
-
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
+                    c.weightx = 100;
+                    c.weighty = 100;
+                    c.gridx = 0;
+                    c.gridy = 0;
                     c.anchor = GridBagConstraints.FIRST_LINE_START;
                     c.fill = GridBagConstraints.BOTH;
-                    tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
+
+
+                    JScrollPane boligscroll = new JScrollPane(boligTabellTabellen);
+                    tapanel.add(boligscroll, c);
+                    boligscroll.getViewport().setBackground(tabellFarge);
+
                     slettBoligKnapp.setVisible(true);
                     slettPerson.setVisible(false);
                     revalidate();
                     repaint();
                     //vis bolig tabell
-                }
-                else{
+                } else {
                     lagBoligTabellen();
                     clearPanel3();
                     lagTabellen();
-                    c.weightx=100;
-                    c.weighty=100;
-                    c.gridx=0;
-                    c.gridy=0;
+                    c.weightx = 100;
+                    c.weighty = 100;
+                    c.gridx = 0;
+                    c.gridy = 0;
                     c.anchor = GridBagConstraints.FIRST_LINE_START;
                     c.fill = GridBagConstraints.BOTH;
+                    personTabell.setBackground(tabellFarge);
                     tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                    personTabellScroll.getViewport().setBackground(tabellFarge);
                     persontabellRadioknapp.setSelected(true);
                     slettPerson.setVisible(true);
                     slettBoligKnapp.setVisible(false);
@@ -3281,7 +3055,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
             repaint();
         }
-    }
+    }//end class fanelytter
 
     private class minPrisLytter implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
@@ -3340,7 +3114,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             }
 
         }
-    }
+    }//end class knapplytter
 
     private class boligTypeLytter implements ActionListener { //Lytter som hører på BT-boksen og gjør som den sier!
 
@@ -3449,7 +3223,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
             }
         }
-    }
+    }// end class boligTypeLytter
 
     private class PersonTypeLytter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -3489,25 +3263,19 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 c.gridheight = 1;
                 c.gridwidth = 0;
                 c.weightx = 0;
-                // resartt
-
                 c.weightx=100;
                 c.weighty=100;
                 c.gridx=0;
                 c.gridy=0;
                 c.anchor = GridBagConstraints.FIRST_LINE_START;
                 c.fill = GridBagConstraints.BOTH;
-                tapanel.add(boligTabellScroll = new JScrollPane(boligTabellTabellen), c);
-
-
-
-
-
+                JScrollPane boligscroll = new JScrollPane(boligTabellTabellen);
+                tapanel.add(boligscroll, c);
+                boligscroll.getViewport().setBackground(tabellFarge);
                 slettBoligKnapp.setVisible(true);
                 slettPerson.setVisible(false);
                 revalidate();
                 repaint();
-
             } else if (persontabellRadioknapp.isSelected()) {
                 clearPanel3();
                 lagTabellen();
@@ -3517,19 +3285,21 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 c.gridy=0;
                 c.anchor = GridBagConstraints.FIRST_LINE_START;
                 c.fill = GridBagConstraints.BOTH;
-                tapanel.add(personTabellScroll = new JScrollPane(personTabell), c);
+                JScrollPane personscroll = new JScrollPane(personTabell);
+                personscroll.getViewport().setBackground(tabellFarge);
+                tapanel.add(personscroll, c);
                 slettPerson.setVisible(true);
                 slettBoligKnapp.setVisible(false);
                 revalidate();
                 repaint();
             }
         }
-    }
+    }// end class tabellTypeLytter
 
     private class menyLytter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == om) {
-                JOptionPane.showMessageDialog(null, boligsøkere.toString());
+                JOptionPane.showMessageDialog(null, "BooleanFormidling - Versjon 1.0 \n® 2014\n av\n\nEmil Oppegård\nKristoffer Osen\nChrister Bang\n\n kontakt: booleanformidling@bang.is");
             } else if (e.getSource() == lagre) {
                 skrivTilFil();
             } else if (e.getSource() == visHistorikk) {
@@ -3540,6 +3310,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     resultatTabell.print();
                 }
                 catch(PrinterException pe){
+                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
                 }
             }
             else if(e.getSource() == printkontrakter){
@@ -3563,16 +3334,20 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }catch(PrinterException pe){
                     JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
                 }
-
             }
             else if(e.getSource()==statistikk){
                 lagTabellen();
                 lagBoligTabellen();
                 JOptionPane.showMessageDialog(null,"Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount() );
             }
+            else if(e.getSource()==avslutt){
+                skrivTilFil();
+                System.exit(0);
+
+            }
 
         }
-    }
+    }//end class menylytter
     //----------------------------------------------------
     //-----------END OF ACTIONLISTENER-METODER------------
     //----------------------------------------------------
@@ -3693,7 +3468,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
             }
         }
-    }
+    }//end class Utvalgslytter
 
     private class HighlightRenderer extends DefaultTableCellRenderer{
 
@@ -3778,7 +3553,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
     //----------------------------------------------------
-    //---------------START OF YOLO-METODER----------------
+    //---------------START OF TABELL-METODER----------------
     //----------------------------------------------------
 
     public String[] getKolonneNavnForBoligtype(int[] krav) {
@@ -3805,8 +3580,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         return kolonnenavn1;
     }
 
-    public class SvartHvitRad extends JTable
-    {
+    public class SvartHvitRad extends JTable{
         private boolean utskrift = false;
 
 
@@ -3848,7 +3622,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             }
             return c;
         }
-    }
+    }//end of class SvartHvitRad
 
     public void skrivKontraktInfo(Kontrakt k)
     {
@@ -3874,7 +3648,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
 
     //----------------------------------------------------
-    //----------------END OF YOLO-METODER-----------------
+    //----------------END OF TABELL-METODER-----------------
     //----------------------------------------------------
 
 
