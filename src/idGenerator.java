@@ -31,7 +31,6 @@ public class idGenerator implements Serializable {
         catch(StringIndexOutOfBoundsException sioobe){
             JOptionPane.showMessageDialog(null,"Feil ved generering av ID");
         }
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
         return id;
     }
     public String setIdPåUtleier(String f, String en, String fn){
@@ -42,7 +41,6 @@ public class idGenerator implements Serializable {
         } catch (StringIndexOutOfBoundsException sioobe) {
             JOptionPane.showMessageDialog(null,"Feil ved generering av ID");
         }
-        JOptionPane.showMessageDialog(null, "Autogenrert ID: " + id);
         return id;
     }
     public String setIdPåKontrakt(Utleier u, Boligsøker s, Bolig b){
