@@ -1107,6 +1107,7 @@ public class Gui extends JFrame {
         søkefelt = new JTextField("Søk..",20);
         c.gridx = 0;
         c.gridy = 1;
+        c.weightx=50;
         c.anchor = GridBagConstraints.PAGE_START;
         søkefelt.getDocument().addDocumentListener(documentListener);
         søkefelt.requestFocus(false);
@@ -1115,13 +1116,13 @@ public class Gui extends JFrame {
                 if(søkefelt.getText().equals("Søk..")){
                     søkefelt.setText("");
                     revalidate();}}});
+        søkefelt.setMargin(new Insets(0, 13, 0, 13));
         panel3.add(søkefelt,c);
 
-
+        c.weightx=0;
         registerHeader = new JLabel("Register");
         registerHeader.setFont(headerFont);
         registerHeader.setForeground(headerFarge);
-
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.PAGE_START;

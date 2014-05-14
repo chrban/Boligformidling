@@ -208,6 +208,14 @@
       <SOURCES />
       <jarDirectory url="file://D:/../mailfilene" recursive="false" />
     </library>
+    <library name="mailfilene2">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../../mailfilene" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/../../mailfilene" recursive="false" />
+    </library>
   </component>
 </project>
 
