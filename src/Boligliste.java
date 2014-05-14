@@ -120,7 +120,12 @@ public class Boligliste implements Serializable {
         // Enebolig
        if(krav[0] == 1) {
            Iterator<Enebolig> iter = eneboliger.iterator();
-           Enebolig bolig = iter.next();
+           Enebolig bolig;
+           try{//hvis listen med enebolig er tom
+               bolig = iter.next();
+           }catch(NoSuchElementException e){
+               return dummy;
+           }
            ut = new Object[eneboliger.size()][10];
            while (iter.hasNext()) {
                specs = bolig.getSpecArray();
@@ -147,7 +152,12 @@ public class Boligliste implements Serializable {
        else if(krav[0] == 2)
         {
             Iterator<Rekkehus> iter = rekkehus.iterator();
-            Rekkehus bolig = iter.next();
+            Rekkehus bolig;
+            try{//hvis listen med rekkehus er tom
+                bolig = iter.next();
+            }catch(NoSuchElementException e){
+                return dummy;
+            }
             ut = new Object[rekkehus.size()][10];
             while (iter.hasNext()) {
                 specs = bolig.getSpecArray();
@@ -174,7 +184,12 @@ public class Boligliste implements Serializable {
         else if(krav[0] == 3)
         {
             Iterator<Leilighet> iter = leiligheter.iterator();
-            Leilighet bolig = iter.next();
+            Leilighet bolig;
+            try{//hvis listen med leiligheter er tom
+                bolig = iter.next();
+            }catch(NoSuchElementException e){
+                return dummy;
+            }
             ut = new Object[leiligheter.size()][10];
             while (iter.hasNext())
             {
@@ -206,7 +221,12 @@ public class Boligliste implements Serializable {
         // hyble
         else if(krav[0] == 4) {
             Iterator<Hybel> iter = hybler.iterator();
-            Hybel hybel = iter.next();
+           Hybel hybel;
+            try{//hvis listen med hybler er tom
+                hybel = iter.next();
+            }catch(NoSuchElementException e){
+                return dummy;
+            }
             ut = new Object[hybler.size()][10];
             while (iter.hasNext()) {
                 specs = hybel.getSpecArray();
@@ -232,7 +252,7 @@ public class Boligliste implements Serializable {
             }
         }
         if (plass == 0) {
-            JOptionPane.showInputDialog(null, "Fant ingen matcher!");
+            JOptionPane.showMessageDialog(null, "Fant ingen matcher!");
             return dummy;
         }
         //Oppretter en ny Object-array slik at vi ikke får mange rader som er tomme i GUI

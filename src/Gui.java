@@ -2156,11 +2156,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 lagBoligTabellen();
             }
             else
-                JOptionPane.showMessageDialog(null, "DUUURT!");
+                JOptionPane.showMessageDialog(null, "Error");
         }
 
     }
-
+    //Burde ha byttet navn på metoden
     public void sendEmail() {
 
         Boligsøker send = boligsøkere.getBoligsøker(valgtId);
@@ -2168,8 +2168,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             JOptionPane.showMessageDialog(null, "Velg en bolisøker");
             return;
         }
-        String n = send.getFornavn() + " " + send.getEtternavn();
-        //String epost = send.getEmail(); for å kunne sende eposten til boligsøkere
 
         Bolig sendTil = boliger.finnBolig(valgtBoligId);
         if (sendTil == null) {
