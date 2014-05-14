@@ -19,16 +19,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="activation" level="project" />
-    <orderEntry type="library" name="activation1" level="project" />
     <orderEntry type="library" name="mailfilene" level="project" />
-    <orderEntry type="library" name="mailfilene1" level="project" />
-    <orderEntry type="library" name="mailfilene2" level="project" />
-    <orderEntry type="library" name="mailfilene3" level="project" />
-    <orderEntry type="library" name="mailfilene4" level="project" />
-    <orderEntry type="library" name="mailfilene5" level="project" />
-    <orderEntry type="library" name="mailfilene6" level="project" />
-    <orderEntry type="library" name="mailfilene7" level="project" />
   </component>
 </module>
 

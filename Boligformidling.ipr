@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactManager">
+    <artifact name="Boligformidling:jar">
+      <output-path>$PROJECT_DIR$/out/artifacts/Boligformidling_jar</output-path>
+      <root id="root">
+        <element id="archive" name="Boligformidling.jar">
+          <element id="module-output" name="Boligformidling" />
+        </element>
+        <element id="library" level="project" name="mailfilene" />
+      </root>
+    </artifact>
+  </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions />
@@ -181,85 +192,13 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="activation">
-      <CLASSES>
-        <root url="jar://D:/../mailfilene/activation.jar!/" />
-        <root url="jar://D:/../mailfilene/javax.mail.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="activation1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/mailfilene/activation.jar!/" />
-        <root url="jar://$USER_HOME$/mailfilene/javax.mail.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
     <library name="mailfilene">
       <CLASSES>
-        <root url="file://D:/../mailfilene" />
+        <root url="file://$PROJECT_DIR$/../../mailfilene" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene1">
-      <CLASSES>
-        <root url="file://D:/../mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene2">
-      <CLASSES>
-        <root url="file://$USER_HOME$/mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene3">
-      <CLASSES>
-        <root url="file://$USER_HOME$/mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene4">
-      <CLASSES>
-        <root url="file://$USER_HOME$/mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene5">
-      <CLASSES>
-        <root url="file://$USER_HOME$/mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene6">
-      <CLASSES>
-        <root url="file://$USER_HOME$/mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
-    </library>
-    <library name="mailfilene7">
-      <CLASSES>
-        <root url="file://D:/../mailfilene" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/../../mailfilene" recursive="false" />
     </library>
   </component>
 </project>

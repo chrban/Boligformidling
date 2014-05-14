@@ -41,7 +41,7 @@ public class Gui extends JFrame {
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
     private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
-    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt,søkefelt;
     private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,boligsøkerOverskrift,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,navnLabel, re, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader, mailLabel, mailStatusLabel;
     private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt,feedbackMail;
     private JMenuBar menybar = new JMenuBar();
@@ -1197,6 +1197,14 @@ public class Gui extends JFrame {
         //resatt
 
 
+        søkefelt = new JTextField(20);
+        c.gridx = 0;
+        c.gridy = 1;
+        //søkefelt.setBounds(0,200,900,150);
+        c.anchor = GridBagConstraints.PAGE_START;
+        søkefelt.getDocument().addDocumentListener(documentListener);
+        panel3.add(søkefelt,c);
+
 
 
         registerHeader = new JLabel("Register");
@@ -2010,45 +2018,92 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     private DocumentListener documentListener = new DocumentListener() {
         public void changedUpdate(DocumentEvent documentEvent) {
-            printIt(documentEvent);
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
         }
 
         public void insertUpdate(DocumentEvent documentEvent) {
-            printIt(documentEvent);
-            //valider();
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
         }
 
         public void removeUpdate(DocumentEvent documentEvent) {
-            printIt(documentEvent);
+            søkPersonregister(søkefelt.getText());
+            søkBoligregister(søkefelt.getText());
         }
 
-        private void printIt(DocumentEvent documentEvent) {
-            Document source = documentEvent.getDocument();
-            int length = source.getLength();
-
-
-
-
-            /*if (type.equals(DocumentEvent.EventType.CHANGE)) {
-                typeString = "Change";
-                if(length!=0);
-                valider();
-                    System.out.println("FORANDRET, altså dett vall");
-            } else if (type.equals(DocumentEvent.EventType.INSERT)) {
-                //byttFarge((JTextField)o);
-                System.out.println("source: "+source);
-
-            } else if (type.equals(DocumentEvent.EventType.REMOVE)) {
-
-
-            }*/
-
-            //  valider();
-
-
-            System.out.println("Length: " + length);
-        }
     };
+    private void søkPersonregister(String v){
+        //String v = verdi.toString();
+
+
+        for(int rad = 0; rad <= personTabell.getRowCount() -1; rad++){
+            for(int col=0; col <= personTabell.getColumnCount()-1;col++){
+
+                int r = v.compareToIgnoreCase(personTabell.getValueAt(rad,col).toString());
+
+
+                System.out.println("Lytteren hører: " + v  + "Match: " + r);
+                System.out.println(personTabell.getValueAt(rad,col).toString());
+
+
+
+                if(  r == 0  ){
+                    System.out.println("Det er match " + personTabell.getValueAt(rad,col).toString());
+                    personTabell.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
+
+                    personTabell.setRowSelectionInterval(rad,rad);
+
+                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                        personTabell.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+
+                    }
+                }
+            }
+        }
+
+    } // end Personsøk
+
+    private void søkBoligregister(String v){
+
+        System.out.println("BoligLytteren hører: " + v);
+        for(int rad = 0; rad <= boligTabellTabellen.getRowCount() -1; rad++){
+            for(int col=0; col <= boligTabellTabellen.getColumnCount()-1;col++){
+
+                if(v.equals(boligTabellTabellen.getValueAt(rad,col))){
+                    System.out.println("Det er match");
+                    boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
+
+                    boligTabellTabellen.setRowSelectionInterval(rad,rad);
+
+                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                        boligTabellTabellen.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+
+                    }
+                }
+            }
+        }
+
+    } // end Boligsøk
+
+
+
+
+
+
+
+    private class HighlightRenderer extends DefaultTableCellRenderer{
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if(row==table.getSelectedRow()){
+                setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
+            }
+            return this;
+        }
+    }
 
 
     private class menyLytter implements ActionListener {
@@ -2092,7 +2147,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 }
 
             }
-
 
         }
     }
@@ -2146,6 +2200,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     //vis bolig tabell
                 }
                 else{
+                    lagBoligTabellen();
                     clearPanel3();
                     lagTabellen();
                     c.weightx=100;
@@ -2853,14 +2908,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             }
             return c;
         }
-    }
+    }// end class SvartHvitRad
 
 
     private void lagTabellen()
     {
-        personTabellFabrikk personTabellModell = new personTabellFabrikk(); //lager modellen
+        personTabellFabrikk personTabellModell = new personTabellFabrikk();
         personTabell = new SvartHvitRad(personTabellModell);
-        //personTabell = new JTable(personTabellModell);
+        personTabell.setRowSelectionAllowed(true);
         ListSelectionModel lsm = personTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(personTabellModell));
 
