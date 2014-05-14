@@ -3,7 +3,7 @@ import java.io.*;
 import javax.swing.JOptionPane;
 /*
 Filen inneholder metoder for å opprette og gjøre opperasjoner på en liste med utleier objekter
-Skrevet av: Emil, s198772
+Skrevet av: Kristoffer, Christer og Emil
 Sist oppdatert:
  */
 public class UtleierListe implements Serializable{
@@ -67,19 +67,8 @@ public class UtleierListe implements Serializable{
         }
         return ut;
     }
-    //Vanlig toString metode for utleierliste
-    public String toString(){
-        sorter();
-        String utleiere = "";
-        Iterator<Utleier> iterator = liste.iterator();
-        while ( iterator.hasNext() ){
-            utleiere += iterator.next().toString() + "\n";
-        }
-        return utleiere;
-    }
     //Finner en gitt utleier med hensyns på id'n som kommer i parameterlista
     public Utleier getUtleier(String i){
-        System.out.println("leter etter boligsøker");
         Iterator<Utleier> it = liste.iterator();
         Utleier retur;
         while(it.hasNext()){
@@ -106,5 +95,15 @@ public class UtleierListe implements Serializable{
                 return finn.getId();
         }
         return null;
+    }
+    //Vanlig toString metode for utleierliste
+    public String toString(){
+        sorter();
+        String utleiere = "";
+        Iterator<Utleier> iterator = liste.iterator();
+        while ( iterator.hasNext() ){
+            utleiere += iterator.next().toString() + "\n";
+        }
+        return utleiere;
     }
 }//end of class UtleierListe

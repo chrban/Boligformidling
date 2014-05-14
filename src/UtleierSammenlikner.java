@@ -5,7 +5,7 @@ import java.io.Serializable;
 /*
 Filen inneholder metoder for å lage regler for hvordan listen i UtleierListe skal kunne
 sorteres.
-Skrevet av: Emil, s198772
+Skrevet av: Emil
 Sist oppdatert: 29/4/2014
  */
 public class UtleierSammenlikner implements Comparator<Utleier>, Serializable{

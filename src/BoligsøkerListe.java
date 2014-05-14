@@ -1,13 +1,17 @@
 import javax.swing.*;
 import java.io.*;
-
+/*
+Filen inneholder listen for boligsøkerer og metoder som opperer på listen
+Skrevet av: Kristoffer, Christer og Emil
+Siste versjon:
+ */
 public class BoligsøkerListe implements Serializable {
     private Boligsøker første;
 
     public BoligsøkerListe() {
         første = null;
     }
-
+    //Legger inn nytt boligsøker objekt i listen
     public boolean settInnNy(Boligsøker b) {
 
         if (b == null)
@@ -36,6 +40,7 @@ public class BoligsøkerListe implements Serializable {
 
         }
     }
+    //Fjerner et boligsøker objekt fra listen
     public boolean fjernSøker(Boligsøker b) {
 
         Boligsøker løper = første;
@@ -59,6 +64,7 @@ public class BoligsøkerListe implements Serializable {
         }
         return false;
     }
+    //Finner ID til en boligsøker etter fornavn og etternavn
     public String finnBoligsøkerID(String n, String e){
         if(første == null)
             return "";
@@ -71,10 +77,10 @@ public class BoligsøkerListe implements Serializable {
         }
         return "";
     }
+    //Finner et boligsøker objekt etter ID
     public Boligsøker getBoligsøker(String i)
     {
         Boligsøker løper = første;
-        System.out.println("leter etter boligsøker");
 
         if(løper == null)
             return null;
@@ -89,10 +95,10 @@ public class BoligsøkerListe implements Serializable {
         }
         return null;
     }
+    //Finner kravene i form av en Int-array til en boligsøker etter ID
     public int[] getKravPåId(String inn)
     {
         Boligsøker løper = første;
-        System.out.println("get krav på id: "+inn);
 
         if(løper == null)
             return null;
@@ -106,6 +112,7 @@ public class BoligsøkerListe implements Serializable {
         }
         return null;
     }
+    //Returnere en String-array for å kunne vise listens innhold i GUI
     public String[][] tilTabell()
     {
         Boligsøker løper = første;
@@ -122,22 +129,7 @@ public class BoligsøkerListe implements Serializable {
         }
         return ut;
     }
-    public String[][] tilTabellMedId()
-    {
-        Boligsøker løper = første;
-        String[][] ut = new String[tellOpp()][6];
-        int i = 0;
-
-        if(løper == null)
-            return ut;
-
-        while(løper != null)
-        {
-            ut[i++] = løper.tilTabellMedId();
-            løper = løper.neste;
-        }
-        return ut;
-    }
+    //Returnerer en String-array for å kunne vise listens innhold i matchmakingfanen i GUI
     public String[][] tilMatchTabll(){
         Boligsøker løper = første;
         int i = 0;
@@ -156,6 +148,7 @@ public class BoligsøkerListe implements Serializable {
         }
         return ut;
     }
+    //Teller opp antall Boligsøker-objekter i listen
     public int tellOpp()
     {
         Boligsøker løper = første;
@@ -182,8 +175,7 @@ public class BoligsøkerListe implements Serializable {
         else
             return "Ingen boligsøkere registrert!";
     }
-
-}
+}//end of class BoligsøkerListe
 
 
 

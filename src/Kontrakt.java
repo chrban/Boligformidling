@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 /*
   Filen inneholder metoder og datafelt for å kunne lagre og gjøre opperasjoner på kontrakter.
-  Skrevet av: Emil, s198772
+  Skrevet av: Kristoffer, Christer og Emil
   Sist oppdatert: 11/05/2014
  */
 public class Kontrakt implements Serializable{
@@ -20,7 +20,6 @@ public class Kontrakt implements Serializable{
     private SimpleDateFormat df;
     private String id;
 
-
     public Kontrakt(Utleier e, Boligsøker l, Bolig b, Calendar s, Calendar sl){
         eier = e;
         leier = l;
@@ -31,13 +30,11 @@ public class Kontrakt implements Serializable{
         df = new SimpleDateFormat("yyyy/MM/dd");
         id = genererId(e,l,b);
     }
-
-
     private String genererId(Utleier utleier, Boligsøker leietaker, Bolig b)
     {
         String ID ="ID";
         try{
-            ID = utleier.getEtternavn().substring(0,2) + leietaker.getEtternavn().substring(0,2)+bolig.getId();
+            ID = utleier.getEtternavn().substring(0,2) + leietaker.getEtternavn().substring(0,2)+b.getId();
         }
         catch(StringIndexOutOfBoundsException SIOOBE)
         {
@@ -45,30 +42,12 @@ public class Kontrakt implements Serializable{
         }
         return ID;
     }
-
-
-  /*  private String idGenerator(String en, String fn) //fant masse gøyale måter å gjøre på. denne er kanskje litt for primitiv
-    {
-
-        String eNavn = en;
-        String fNavn = fn;
-        String id = "";
-        //todo legge inn try; gir String out of bounds exeption
-        try{id = en.substring(0,2).toUpperCase()+fn.substring(0,2).toUpperCase();}
-        catch(StringIndexOutOfBoundsException sioobe){
-            System.out.println("Får SIOOBE i idgenerator fordi navn id eller etternavn > 2 lang"); }
-
-        JOptionPane.showMessageDialog(null,"Autogenrert ID: "+ id);
-
-        return id;
-
-    }*/
+    //getMetoder for forskjellige datafelt, mangle blir ikke brukt, men de er her om det i fremtiden ved en
+    // oppdatering av programmet skulle får bruk for dem.
     public String getId()
     {
         return id;
     }
-    //getMetoder for forskjellige datafelt, mangle blir ikke brukt, men de er her om det i fremtiden ved en
-    // oppdatering av programmet skulle får bruk for dem.
     public Utleier getUtleier(){
         return eier;
     }
@@ -89,16 +68,6 @@ public class Kontrakt implements Serializable{
     }
     public Calendar getKontraktSlutt(){
         return slutt;
-    }
-    public String toString(){
-
-        return "_______________LEIEKONTRAKT_______________"+
-               "\n\n Denne leiekontrakten gjelder for følgende parter:\n\n"+
-               "Utleier: " + eier.getFornavn() + " " + eier.getEtternavn()+
-               "\nLeieteker: " + leier.getFornavn()+ " "+ leier.getEtternavn() +
-               "\n\nGjelder for bolig med adresse: "+bolig.getAdresse() +
-               "\n\nDet er tegnet kontrakt fra: " + df.format(start.getTime()) + " \nTil: " + df.format(slutt.getTime()) +
-               "\n\nKontrakten ble tegnet: " + df.format(lagret.getTime());
     }
     //end of getMetoder
     //setMetodene har i oppgave å sette bolig og boligsøker sine boolean felt til true, slik at disse ikke lengre
@@ -122,5 +91,15 @@ public class Kontrakt implements Serializable{
         ut[4] = id;
 
         return ut;
+    }
+    public String toString(){
+
+        return "_______________LEIEKONTRAKT_______________"+
+                "\n\n Denne leiekontrakten gjelder for følgende parter:\n\n"+
+                "Utleier: " + eier.getFornavn() + " " + eier.getEtternavn()+
+                "\nLeieteker: " + leier.getFornavn()+ " "+ leier.getEtternavn() +
+                "\n\nGjelder for bolig med adresse: "+bolig.getAdresse() +
+                "\n\nDet er tegnet kontrakt fra: " + df.format(start.getTime()) + " \nTil: " + df.format(slutt.getTime()) +
+                "\n\nKontrakten ble tegnet: " + df.format(lagret.getTime());
     }
 }//End of class Kontrakter

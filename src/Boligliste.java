@@ -3,6 +3,12 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 
+/*
+Filen inneholder lister for alle boligtyper og metoder som opperer på listene
+Skrevet av: Kristoffer, Christer og Emil
+Siste versjon: 13/05/2014.
+ */
+
 public class Boligliste implements Serializable {
 
     private SortedSet<Enebolig> eneboliger;
@@ -10,37 +16,14 @@ public class Boligliste implements Serializable {
     private SortedSet<Hybel> hybler;
     private SortedSet<Rekkehus> rekkehus;
 
-
-   // private SortedSet<? extends Bolig> boliger;
-
-
     public Boligliste()
     {
         eneboliger = new TreeSet<>();
         leiligheter = new TreeSet<>();
         hybler = new TreeSet<>();
         rekkehus = new TreeSet<>();
-
-        /* Enebolig en = new Enebolig("Adresse22",11,1, 1, 2000, 206500, "PdIKK", "img/eneboliger/kjipe/rwanda_mudhut.jpg",  1, -1, -1, 10);
-        Enebolig to = new Enebolig("Adresse22",12,1, 1, 2000, 20600, "PIdKK", "img/eneboliger/swære/Schloss_oslo.jgp",  1, -1, -1, 10);
-        Enebolig tre = new Enebolig("22",24,15, 13, 2000, 2000, "PIKdK", "img/eneboliger/swære/1067206-7-1306195722399.jgp",  1, -1, -1, 10);
-        Enebolig fire = new Enebolig("Adredesse",24,51, 51, 255000, 256000, "PIKK", "img/eneboliger/vanlige/hus_drag.jpg",  1, -1, -1, 10);
-        System.out.println( en.getId() + " " + to.getId()+" ");
-
-        if(leggTil(en))
-            System.out.println("lagt til en");
-
-        if(leggTil(to));
-            System.out.println("lagt til to");
-
-        if(leggTil(tre));
-             System.out.println("lagt til tre");
-
-        if(leggTil(fire));
-            System.out.println("lagt til fire");
-
-        System.out.println(eneboliger.size()); */
     }
+    //Legger inn ny bolig, pluss at den gir ny bolig en unik ID
     public boolean leggTil(Bolig b){
         if(b instanceof Enebolig){
             if(erUnik(b)){
@@ -48,7 +31,6 @@ public class Boligliste implements Serializable {
                     b.setId(1);
                 if(!eneboliger.isEmpty()) {
                     int eId = eneboliger.first().getId() + 1;
-                    System.out.println("bolig lagres med id: " + eId);
                     b.setId(eId);
                 }
                 return eneboliger.add((Enebolig)b);
@@ -59,7 +41,6 @@ public class Boligliste implements Serializable {
                     b.setId(1000);
                 else if(!rekkehus.isEmpty()) {
                     int rId = rekkehus.first().getId() + 1;
-                    System.out.println("bolig lagres med id: " + rId);
                     b.setId(rId);
                 }
                 return rekkehus.add((Rekkehus)b);
@@ -70,7 +51,6 @@ public class Boligliste implements Serializable {
                     b.setId(2000);
                 else if(!leiligheter.isEmpty()) {
                     int lId = leiligheter.first().getId() + 1;
-                    System.out.println("bolig lagres med id: " + lId);
                     b.setId(lId);
                 }
                 return leiligheter.add((Leilighet)b);
@@ -81,7 +61,6 @@ public class Boligliste implements Serializable {
                     b.setId(3000);
                 else if(!hybler.isEmpty()) {
                     int hId = hybler.first().getId() + 1;
-                    System.out.println("bolig lagres med id: " + hId);
                     b.setId(hId);
                 }
                 return hybler.add((Hybel)b);
@@ -89,6 +68,7 @@ public class Boligliste implements Serializable {
         }JOptionPane.showMessageDialog(null,"Bolig er allerde lagt til!");
         return false;
     }
+    //Sletter bolig fra registeret
     public boolean slettBolig(Bolig b){
         if(b instanceof Enebolig){
             eneboliger.remove(b);
@@ -105,7 +85,7 @@ public class Boligliste implements Serializable {
         }
         return false;
     }
-
+    //Sjekker om en bolig er unik eller om det allerde finnes et slikt bolig-objekt i noen av listene
     public boolean erUnik(Bolig b){
         Iterator<? extends Bolig> it;
         String[] spec;
@@ -144,6 +124,8 @@ public class Boligliste implements Serializable {
         }
         return true;
     }
+    //Finner boliger som kan passe for en boligsøkers krav, returnerer en Object-array med informasjon om alle
+    //bolig-objektene som var ideelle
     public Object[][] matchPåKrav(int[] krav)
     {
         DecimalFormat df = new DecimalFormat("0.00");
@@ -153,14 +135,13 @@ public class Boligliste implements Serializable {
         double matches = 0;
         double matchkoeffisient;
         double urelevante = 0;
-        int teller = 0;
         Object[][] dummy = {{"Fant","desverre","ingen","passende","bolig","for","valgt","boligsøker","!"}};
-        Object[][] initial = {{"Velg","en","søker","for","å","finne","match",2,"!"}};
+        Object[][] initial = {{"Velg","en","søker","for","å","finne","match","!","!"}};
 
        if(krav==null)
             return initial; //Når det kjøres for første gang.
 
-        // enebol
+        // Enebolig
        if(krav[0] == 1) {
            Iterator<Enebolig> iter = eneboliger.iterator();
            Enebolig bolig = iter.next();
@@ -178,16 +159,15 @@ public class Boligliste implements Serializable {
                        matchkoeffisient = matches / (5 - urelevante);
                        ut[plass] = bolig.tilMatchTabell();
                        ut[plass++][0] = df.format(matchkoeffisient);
-                       teller++;
                    }
                }
                matchkoeffisient = 0;
                matches = 0;
                urelevante = 0;
                bolig = iter.next();
-
            }
        }
+       //Rekkehus
        else if(krav[0] == 2)
         {
             Iterator<Rekkehus> iter = rekkehus.iterator();
@@ -206,14 +186,12 @@ public class Boligliste implements Serializable {
                         matchkoeffisient = matches / (5 - urelevante);
                         ut[plass] = bolig.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
-                        teller++;
                     }
                 }
                 matchkoeffisient = 0;
                 matches = 0;
                 urelevante = 0;
                 bolig = iter.next();
-
             }
         }
         // leileiheiget
@@ -241,7 +219,6 @@ public class Boligliste implements Serializable {
                         matchkoeffisient = matches/(5-urelevante);
                         ut[plass] = bolig.tilMatchTabell();
                         ut[plass++][0] = df.format(matchkoeffisient);
-                        teller++;
                     }
                     matchkoeffisient = 0;
                     matches = 0;
@@ -250,7 +227,6 @@ public class Boligliste implements Serializable {
                 bolig = iter.next();
             }
         }
-
         // hyble
         else if(krav[0] == 4) {
             Iterator<Hybel> iter = hybler.iterator();
@@ -280,38 +256,35 @@ public class Boligliste implements Serializable {
             }
         }
         if (plass == 0) {
-            FrameWork.showFrame("Melding", "Fant ingen matcher!");
+            JOptionPane.showInputDialog(null, "Fant ingen matcher!");
             return dummy;
         }
-
+        //Oppretter en ny Object-array slik at vi ikke får mange rader som er tomme i GUI
         Object[][] temp = new Object[plass][10];
         for(int i = 0; i < temp.length; i++){
             temp[i] = ut[i];
         }
 
         return temp;
-    }
-
+    }//end of matchPåKrav
+    
+    //Start of boligTilTabllMetoder
+    //Metodene returnerer Object-array for å kunne vise informasjon om boligene i GUI
     public Object[][] eneboligerTilTabell()
     {
         Object[][] ut = new Object[eneboliger.size()][8];
-        System.out.println("Lengden på eneboliger i tilTabellmetoden er : " + eneboliger.size());
 
         Enebolig enebolig;
         Iterator<Enebolig> iter = eneboliger.iterator();
         int i = 0;
 
-
         while(iter.hasNext())
         {
             enebolig = iter.next();
             ut[i++] = enebolig.tilTabell();
-            System.out.println(i);
         }
-        System.out.println(eneboliger.size() + "er lwngden på eneboliger som blir retrunert fra listen");
         return ut;
     }
-
     public Object[][] rekkehusTilTabell()
     {
         Object[][] ut = new Object[rekkehus.size()][8];
@@ -326,7 +299,6 @@ public class Boligliste implements Serializable {
         }
         return ut;
     }
-
     public Object[][] leiligheterTilTabell()
     {
         Object[][] ut = new Object[leiligheter.size()][8];
@@ -341,7 +313,6 @@ public class Boligliste implements Serializable {
         }
         return ut;
     }
-
     public Object[][] hyblerTilTabell()
     {
         Object[][] ut = new Object[hybler.size()][8];
@@ -356,44 +327,11 @@ public class Boligliste implements Serializable {
         }
         return ut;
     }
-
-    public Object[][] alleBoligerTilEnkelTabell()
-    {
-        int lengde = eneboliger.size() + rekkehus.size()+leiligheter.size()+hybler.size();
-        Object[][] ut = new Object[lengde][4];
-
-        Enebolig enebolig;
-        Iterator<Enebolig> eiter = eneboliger.iterator();
-        int i = 0;
-
-        while(eiter.hasNext())
-        {
-            enebolig = eiter.next();
-            ut[i++] = enebolig.tilEnkelTabell();
-        }
-        return ut;
-    }
-
-
-    /* public String[][] tilTabell()
-    {
-        String[][] ut = new String[liste.size()][6];
-        Utleier utleier;
-        Iterator<Utleier> iter = liste.iterator();
-        int i = 0;
-
-        while(iter.hasNext())
-        {
-            utleier = iter.next();
-            ut[i++] = utleier.tilTabell();
-        }
-        return ut;
-    }*/
-
+    //end of boligTilTabellMetoder
+    //Finner og returnerer en bolig etter ID
     public Bolig finnBolig(String inn)
     {
-        System.out.println("leter etter boligsøker");
-        int id = 0;
+        int id;
         try{
             id = Integer.parseInt(inn);
         }
@@ -401,7 +339,6 @@ public class Boligliste implements Serializable {
         {
             return null;
         }
-
 
         Iterator<Rekkehus> it = rekkehus.iterator();
         Rekkehus re = null;
@@ -433,12 +370,7 @@ public class Boligliste implements Serializable {
         }
         return null;
     }
-
-    public void duvet()
-    {
-
-    }
-
+    //Finner og returnerer en boligs utleiers ID
     public String finnUtleier(Bolig b){
         if(b instanceof Enebolig){
             Iterator<Enebolig> iter = eneboliger.iterator();
@@ -475,7 +407,7 @@ public class Boligliste implements Serializable {
         return null;
     }
 
-
+    //Sjekker om en Utleier har boliger registrert på seg
     public boolean harBolig(Utleier b){
         Iterator<Enebolig> ite = eneboliger.iterator();
         Enebolig ene = null;
@@ -507,9 +439,4 @@ public class Boligliste implements Serializable {
         }
         return false;
     }
-    /*public TreeSet<? extends Bolig> getBoligerAvType(int  t)
-    {
-
-    }
-*/
-}
+}//end of class Boligliste

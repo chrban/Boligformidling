@@ -2,7 +2,7 @@ import java.io.*;
 /*
 Filen inneholder metoder for å skrive alle toString'ene til nyopprettet kontrakter til en fil og lese fra den.
 Dette gjøres for at firma skal kunne ha en oversikt historikken over inngåtte kontrakter
-Skrevet av: Emil, s198772
+Skrevet av: Emil
 Sist oppdatert: 11/05/2014
  */
 public class KontraktHistorikk {
@@ -22,8 +22,6 @@ public class KontraktHistorikk {
             bw.newLine();
             bw.write(n);
             bw.close();
-            System.out.println();
-
         }catch (IOException ioe){
             ioe.printStackTrace();
         }

@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.io.Serializable;
 /*
 Filen inneholder metoder for å lage og gjøre opperasjoner på en liste av Kontrakt objekter.
-Skrevet av: Emil, s198772.
-
+Skrevet av: Kristoffer, Christer og Emil
 Sist oppdatert: 10/04/2014
  */
 public class KontraktListe implements Serializable {
@@ -37,26 +36,6 @@ public class KontraktListe implements Serializable {
             return true;
         }
     }
-
-    public Kontrakt finnKontrakt(String id)
-    {
-        System.out.println("leter etter kontrakt med id:" + id);
-        Kontrakt løper = første;
-
-        if(løper == null)
-            return null;
-
-        while(løper != null)
-        {
-            if(løper.getId().equals(id))
-                return løper;
-
-            løper = løper.neste;
-        }
-        return null;
-    }
-
-
     //Denne metoden fjerner en gitt kontrakt, samtidig som den setter bolig til ikke utleid.
     //Denne metoden blir kun brukt når en boligsøker ønsker å slette seg selv og informasjon om seg fra programmet
     public boolean fjernKontrakt(Boligsøker b){
@@ -92,6 +71,24 @@ public class KontraktListe implements Serializable {
         return false;
     }
     //Teller opp antall kontrakter i listen slik at arrayen i neste metode får riktig lengde
+    //Finner kontrakt etter ID
+    public Kontrakt finnKontrakt(String id)
+    {
+        Kontrakt løper = første;
+
+        if(løper == null)
+            return null;
+
+        while(løper != null)
+        {
+            if(løper.getId().equals(id))
+                return løper;
+
+            løper = løper.neste;
+        }
+        return null;
+    }
+    //Teller opp antall kontrakt-objekter i listen
     public int tellOpp()
     {
         Kontrakt løper = første;
@@ -108,25 +105,6 @@ public class KontraktListe implements Serializable {
 
         return i;
     }
-
-    public String toString()
-    {
-        String ut = "";
-        Kontrakt løper = første;
-
-        if(løper == null)
-            return "Finner ingen registrerte kontrakter";
-
-        while(løper != null)
-        {
-            ut += løper.toString();
-            løper = løper.neste;
-        }
-
-        return ut;
-    }
-
-
     //I GUI blir det brukt JTable til å vise informasjon, da må informasjonen komme i form av en Stringarray, denne
     // metoden returnerer en slik array.
     public String[][] tilTabell()
@@ -150,4 +128,20 @@ public class KontraktListe implements Serializable {
         }
         return ut;
     }
-}
+    public String toString()
+    {
+        String ut = "";
+        Kontrakt løper = første;
+
+        if(løper == null)
+            return "Finner ingen registrerte kontrakter";
+
+        while(løper != null)
+        {
+            ut += løper.toString();
+            løper = løper.neste;
+        }
+
+        return ut;
+    }
+}//enf of class KontraktListe

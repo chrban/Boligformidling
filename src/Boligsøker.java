@@ -1,22 +1,18 @@
-import javax.swing.*;
 import java.io.Serializable;
 
-/**
- * Created by Kristoffer on 04.04.2014.
+/*
+Filen inneholder datafelt og metoder for klassen Boligsøker
+Skrevet av: Kristoffer, Christer og Emil
+Siste versjon:
  */
 public class Boligsøker extends Person implements Serializable
 {
     int[] Krav;
-
     Boligsøker neste;
-
     // datafelt for krav
-    int boligtype, by, rom, minPris, maxPris, parkering, antEtasjer, kjeller,
+    private int boligtype, by, rom, minPris, maxPris, parkering, antEtasjer, kjeller,
         heis, balkong, delerBadMed, delerKjøkkenMed;
     private boolean harBolig;
-
-
-    public Boligsøker (){}
 
     public Boligsøker(String id, String fn, String en, String a, String t, String e, int blgtp, int b, int r, int
                       map, int mip, int p, int ae, int k, int h,
@@ -30,25 +26,27 @@ public class Boligsøker extends Person implements Serializable
         Krav = new int[12];
         harBolig = false;
     }
-
-   public int[] getKrav()
-   {
+    //Start of getMetoder
+    //getKrav legger alle kravene en boligsøker har om en bolig i en Int-array og returnerer den
+    public int[] getKrav()
+    {
        Krav[0]= boligtype;   Krav[1] = by;             Krav[2] = rom;      Krav[3] = parkering;
        Krav[4] = antEtasjer; Krav[5] = kjeller;        Krav[6] = heis;     Krav[7] = balkong;
        Krav[8] = delerBadMed;Krav[9] = delerKjøkkenMed;Krav[10] = minPris; Krav[11] = maxPris;
 
        return Krav;
    }
-   public String getNavn()
-   {
+    public String getNavn()
+    {
        return super.getFornavn() + " " + super.getEtternavn();
-   }
-   public String getId(){
+    }
+    public String getId(){
        return super.getId();
    }
-
-   public String[] tilTabell()
-   {
+    //end of getMetoder
+    //Returnerer en String-array med informasjon om en boligsøker
+    public String[] tilTabell()
+    {
        String[] ut = new String[6];
 
        ut[0] = super.getFornavn();
@@ -60,7 +58,7 @@ public class Boligsøker extends Person implements Serializable
 
        return ut;
    }
-
+    //Returnerer en String-array med informasjon om en boligsøker + ID
     public String[] tilTabellMedId()
     {
         String[] ut = new String[6];
@@ -80,17 +78,7 @@ public class Boligsøker extends Person implements Serializable
     public boolean harBolig(){
         return harBolig;
     }
-
-   public String toString()
-   {
-
-       return super.toString() +
-               "\nBoligsøker ID: "+getId()+
-               "Adresse: " + getAdresse()+
-               "\nMail: " + getEmail()+
-               "\nTlf: " + getTlf()+
-               "\nKrav: " + transform(getKrav());
-   }
+    //Endrer int-verdier til riktig String verdi
     private String transform(int[]i)
     {
         String ut = "Søker etter ";
@@ -134,7 +122,16 @@ public class Boligsøker extends Person implements Serializable
         ut += " i prisklassen " + minPris + " til " + maxPris;
         return ut;
         }
-}
+    public String toString()
+     {
+        return super.toString() +
+                "\nBoligsøker ID: "+getId()+
+                "Adresse: " + getAdresse()+
+                "\nMail: " + getEmail()+
+                "\nTlf: " + getTlf()+
+                "\nKrav: " + transform(getKrav());
+    }
+}//end of class Boligsøker
 
 //Visualisering av kravArray:
 // krav = {by, rom, minPris, maksPris, prakering, antEtasjer, kjeller, minTomt, maxTomt, heis, balkong, delerBadMed, delerKjøkkenMed}

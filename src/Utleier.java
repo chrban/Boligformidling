@@ -1,7 +1,8 @@
 import java.io.*;
-
-/**
- * Created by mac on 02.04.14.
+/*
+Filen inneholder datafelt og metoder for klassen Utleier
+Skrevet av: Kristoffer, Christer og Emil
+Siste versjon:
  */
 public class Utleier extends Person implements Serializable
 {
@@ -12,7 +13,7 @@ public class Utleier extends Person implements Serializable
         super(id, fn, en, a, t, e);
         firma = f;
     }
-
+    //Start of getMetoder
     public String getFornavn()
     {
         return super.getFornavn();
@@ -27,7 +28,8 @@ public class Utleier extends Person implements Serializable
     {
         return super.getFornavn() + " " + super.getEtternavn();
     }
-
+    //end of getMetoder
+    //Returnerer en String-array med informasjon om en utleier
     public String[] tilTabell()
     {
     String[] ut = new String[6];
@@ -41,7 +43,7 @@ public class Utleier extends Person implements Serializable
 
     return ut;
     }
-
+    //Returnerer en String-array med informasjon om en utliere + utleierens ID
     public String[] tilTabellMedId()
     {
         String[] ut = new String[7];
@@ -56,8 +58,6 @@ public class Utleier extends Person implements Serializable
 
         return ut;
     }
-
-
     public String toString()
     {
         return super.toString() + "\nFirma: " + firma.substring(0,1).toUpperCase()+firma.substring(1)+
@@ -67,25 +67,4 @@ public class Utleier extends Person implements Serializable
                 "\nTlf: " + getTlf();
 
     }
-
-
-
-
-    //klasser som kan være nødvendige:
-    /*
-    public Bolig harBolig(Bolig b)
-    {
-        return Bolig;
-    }
-    public Bolig harBolig(String bolignummer)
-    {
-        return Bolig;
-    }
-
-    public Boligliste getBoliger()
-    {
-        return boliger;
-    }
-
-    */
-}
+}//end of class Utleier

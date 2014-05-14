@@ -184,7 +184,7 @@
       <module fileurl="file://$PROJECT_DIR$/Boligformidling.iml" filepath="$PROJECT_DIR$/Boligformidling.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VcsDirectoryMappings">
@@ -194,11 +194,11 @@
   <component name="libraryTable">
     <library name="mailfilene">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../mailfilene" />
+        <root url="file://D:/../mailfilene" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/../../mailfilene" recursive="false" />
+      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
     </library>
   </component>
 </project>

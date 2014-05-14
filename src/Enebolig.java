@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-/**
- * Created by Kristoffer on 02.04.2014.
+/*
+Filen inneholder datafelt og metoder for klassen Enebolig
+Skrevet av: Kristoffer, Christer og Emil.
+Sist versjon:
  */
 public class Enebolig extends Bolig implements Serializable
 {
@@ -11,9 +13,6 @@ public class Enebolig extends Bolig implements Serializable
     private int tomtstørrelse;
     private int parkering;
     private int[] specArray;
-    private static int eneboligid = 1;
-
-    public Enebolig(){}
 
     public Enebolig(String ad, int s, int b, int r, int by, int u, String id, String sti,  int e, int park, int k, int t, String be)
     {
@@ -23,104 +22,15 @@ public class Enebolig extends Bolig implements Serializable
         kjeller = k;
         tomtstørrelse = t;
         parkering = park;
-        System.out.println("konstparkering"+parkering);
-        System.out.println("kostkjeller :" +kjeller);
     }
 
     public void setId(int i)
     {
         super.setId(i);
     }
-
-    public int[] getSpecArray(){
-
-
-        specArray = new int[Konstanter.SPEC_LENGDE];
-
-        specArray[1] = super.getSted();
-        specArray[2] = super.getRom();
-        specArray[3] = parkering;
-        specArray[4] = etasjer;
-        specArray[5] = kjeller;
-        specArray[6] = Konstanter.URELEVANT;
-        specArray[7] = Konstanter.URELEVANT;
-        specArray[8] = Konstanter.URELEVANT;
-        specArray[9] = Konstanter.URELEVANT;
-        specArray[10] = super.getUtleiepris();
-
-        return specArray;
-    }
-
-
-    public String[] getUnikArray()
-    {
-        String [] unik = new String[4];
-
-
-        unik [0] = getEierID();
-        unik [1] = getAdresse();
-        unik [2] = Integer.toString(getBoareal());
-        unik [3] = Integer.toString(getUtleiepris());
-
-        return unik;
-    }
-
-
-    public Object[] tilTabell()
-    {
-        Object[] ut = new Object[9];
-
-        ut[0] = sted();
-        ut[1] = getBoareal() + " m²";
-        ut[2] = getUtleiepris() + " kr/m";
-        ut[3] = getAdresse();
-        ut[4] = Integer.toString(super.getRom());
-        ut[5] = getBooleanVerdiPark();
-        ut[6] = getBooleanVerdiKjeller();
-        ut[7] = super.getBildesti();
-        ut[8] = super.getId();
-
-        return ut;
-    }
-
-    public Object[] tilMatchTabell()
-    {
-        Object[] ut = new Object [10];
-        ut[0] = new Integer(0);
-        ut[1] = sted();
-        ut[2] = getBoareal() + " m²";
-        ut[3] = getUtleiepris() + " kr/m";
-        ut[4] = getAdresse();
-        ut[5] = Integer.toString(super.getRom());
-        ut[6] = getBooleanVerdiPark();
-        ut[7] = getBooleanVerdiKjeller();
-
-        ImageIcon image = new ImageIcon(getBildesti());
-        Image img = image.getImage();
-        Image skalert = img.getScaledInstance(90, 70, Image.SCALE_SMOOTH);
-        image = new ImageIcon(skalert);
-
-        ut[8] = image;
-        ut[9] = super.getId();
-
-        return ut;
-    }
-
-    public Object[] tilEnkelTabell()
-    {
-        Object[] ut = new Object[4];
-
-        ut[0] = super.getId();
-        ut[1] = sted();
-        ut[2] = "Enebolig";
-        ut[3] = getAdresse();
-
-        return ut;
-    }
-
+    //start of getMetoder
     public boolean getBooleanVerdiPark()
     {
-        System.out.println("parkering"+parkering);
         if(parkering == 1)
             return true;
 
@@ -129,29 +39,11 @@ public class Enebolig extends Bolig implements Serializable
 
     public boolean getBooleanVerdiKjeller()
     {
-        System.out.println("kjeller :" +kjeller);
         if(kjeller == 1)
             return true;
 
         return false;
     }
-
-    public boolean erLik(String[] andre)
-    {
-        String [] specs = getUnikArray();
-        int lik = 0;
-
-        for(int i = 0; i <= 3; i++)
-            if(andre[i].equals(specs[i]))
-                lik++;
-
-        if(lik == 4)
-            return true;
-
-        return false;
-    }
-
-
     public String sted()
     {
         String sted = "";
@@ -181,20 +73,92 @@ public class Enebolig extends Bolig implements Serializable
         }
         return sted;
     }
-    public void skrivIdTilFil(){
-        try {
-            DataOutputStream ut = new DataOutputStream(new FileOutputStream("id.data"));
-            ut.writeInt(eneboligid);
-        }catch(IOException ioe){
-            JOptionPane.showMessageDialog(null, "Feil med lesing fra idfil");
-        }
-    }
+    //Returnerer en Int-array med Enebolig-objektets spesifikasjoner
+    public int[] getSpecArray(){
 
-    /*
-    public datatype[] specs()
-    {
-        returner array med spesifikasjoner om boligen(både fra super- og subklassen) for sammenlikning med boligsøkers krav.
+
+        specArray = new int[Konstanter.SPEC_LENGDE];
+
+        specArray[1] = super.getSted();
+        specArray[2] = super.getRom();
+        specArray[3] = parkering;
+        specArray[4] = etasjer;
+        specArray[5] = kjeller;
+        specArray[6] = Konstanter.URELEVANT;
+        specArray[7] = Konstanter.URELEVANT;
+        specArray[8] = Konstanter.URELEVANT;
+        specArray[9] = Konstanter.URELEVANT;
+        specArray[10] = super.getUtleiepris();
+
+        return specArray;
     }
-    */
-    
-}
+    //Returnerer en String-array for å kunne sjekke om Enebolig-objektet er likt andre Enebolig-objekter
+    public String[] getUnikArray()
+    {
+        String [] unik = new String[4];
+
+
+        unik [0] = getEierID();
+        unik [1] = getAdresse();
+        unik [2] = Integer.toString(getBoareal());
+        unik [3] = Integer.toString(getUtleiepris());
+
+        return unik;
+    }
+    //end of getMetoder
+    //Returnerer Object-array for å kunne vise informasjon om Enebolig-objektet i GUI
+    public Object[] tilTabell()
+    {
+        Object[] ut = new Object[9];
+
+        ut[0] = sted();
+        ut[1] = getBoareal() + " m²";
+        ut[2] = getUtleiepris() + " kr/m";
+        ut[3] = getAdresse();
+        ut[4] = Integer.toString(super.getRom());
+        ut[5] = getBooleanVerdiPark();
+        ut[6] = getBooleanVerdiKjeller();
+        ut[7] = super.getBildesti();
+        ut[8] = super.getId();
+
+        return ut;
+    }
+    //Returnerer Object-array for å kunne vise informasjon om Enebolig-objektet i matchmakingfanen i GUI
+    public Object[] tilMatchTabell()
+    {
+        Object[] ut = new Object [10];
+        ut[0] = new Integer(0);
+        ut[1] = sted();
+        ut[2] = getBoareal() + " m²";
+        ut[3] = getUtleiepris() + " kr/m";
+        ut[4] = getAdresse();
+        ut[5] = Integer.toString(super.getRom());
+        ut[6] = getBooleanVerdiPark();
+        ut[7] = getBooleanVerdiKjeller();
+
+        ImageIcon image = new ImageIcon(getBildesti());
+        Image img = image.getImage();
+        Image skalert = img.getScaledInstance(90, 70, Image.SCALE_SMOOTH);
+        image = new ImageIcon(skalert);
+
+        ut[8] = image;
+        ut[9] = super.getId();
+
+        return ut;
+    }
+    //Returnerer true eller false om Enebolig-objektet er likt andre Enebolig-objekter
+    public boolean erLik(String[] andre)
+    {
+        String [] specs = getUnikArray();
+        int lik = 0;
+
+        for(int i = 0; i <= 3; i++)
+            if(andre[i].equals(specs[i]))
+                lik++;
+
+        if(lik == 4)
+            return true;
+
+        return false;
+    }
+}//end of class Eneboliger

@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.Date;
-
+/*
+Filen inneholder alle datafelt og metoder som er til felles for alle
+boligtypene.
+Skrevet av: Kristoffer, Christer, Emil.
+ */
 
 abstract class Bolig implements Serializable, Comparable<Object>
 {
@@ -36,11 +40,12 @@ abstract class Bolig implements Serializable, Comparable<Object>
         utleid = false;
         beskrivelse = be;
     }
-
+    //setter id på bolig
     public void setId(int i)
     {
         id = i;
     }
+    //get metoder for klassen Bolig
     public int getId(){return id;}
     public String getAdresse()
     {
@@ -66,31 +71,32 @@ abstract class Bolig implements Serializable, Comparable<Object>
         return lagtUt;
     }
     public String getBildesti(){return bildesti;}
-    public void setTilUtleid(){
-        utleid = true;
-    }
-    public void setTilIkkeUtleid(){
-        utleid = false;
-    }
     public String getEierID(){
         return eierID;
     }
     public boolean getUtleid(){
         return utleid;
     }
-
-
-    public int compareTo(Object o)// MÅ LEGGE INN ORDENTLIGE KONSTANTER
+    //end of get metoder
+    //setter boligen til utleid
+    public void setTilUtleid(){
+        utleid = true;
+    }
+    //setter boligen til ikke lengre utleid
+    public void setTilIkkeUtleid(){
+        utleid = false;
+    }
+    //sammenligner to bolig objekter på id
+    public int compareTo(Object o)
     {
         Bolig b = (Bolig) o;
         if(b.getId()> id)
-            return new Integer(1);
+            return 1;
         else if(b.getId() == id)
-            return new Integer(0);
+            return 0;
         else
-            return new Integer(-1);
+            return -1;
     }
-
     public String toString()
     {
         String ut = "";
@@ -117,9 +123,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
 
         return "Informasjon om bolig: \nAdresse: " + adresse + "\nBy: " + by + "\nPris: " + utleiepris + "\nStatus: " + utleid + "\nBeskrivelse av bolig: " + beskrivelse + "\nEierID: " + eierID;
     }
-
-
-}
+}//end of class Bolig
 
 
 
