@@ -2173,7 +2173,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             JOptionPane.showMessageDialog(null, "Velg en bolig");
             return;
         }
-        JOptionPane.showMessageDialog(null, valgtBoligId);
 
         int stedInt = sendTil.getSted();
         String sted = "";
@@ -2199,8 +2198,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
 
-        feedbackMail.setText("Hei " + send.getNavn() + ".\nVi har funnet en bolig som vi tror passer for deg: \nBolig: "
-                + sendTil.getAdresse() + "\n" + sted + "\n" + sendTil.getUtleiepris() + "\nHvis denne passer for deg, send oss en tilbakemedlig\n Mvh. BoligFormidling.");
+        feedbackMail.setText("Hei " + send.getNavn() + ".\n\nVi har funnet en bolig som vi tror \npasser for deg. \nBolig med adr.: "
+                + sendTil.getAdresse() + "\ni " + sted + "\nPrisen pr. mnd er: " + sendTil.getUtleiepris() + ",-\n\nHvis denne virker interessant\n" +
+                "for deg, send oss en tilbakemedlig.\n\nMvh \nBooleanFormidling AS\nPilestredet 35, 0367 Oslo\nTlf. 815 493 00\nbooleanformidling@bang.is");
 
     }//end sendEmail
 
