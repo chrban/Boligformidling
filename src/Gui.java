@@ -1024,8 +1024,10 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         beskrivelse.addMouseListener( new MouseAdapter() { //Klarerer infofelstet ved museklikk
             public void mouseClicked(MouseEvent e) {
-                beskrivelse.setText("");
-                revalidate(); }});
+                if(beskrivelse.getText().equals("Beskrivelse av bolig..")) {
+                    beskrivelse.setText("");
+                    revalidate();
+                }}});
         bopanel.add(scroll, c);
 
 
@@ -1129,8 +1131,9 @@ public class Gui extends JFrame {
         søkefelt.requestFocus(false);
         søkefelt.addMouseListener( new MouseAdapter() { //Klarerer søkefeltet ved museklikk
             public void mouseClicked(MouseEvent e) {
-                søkefelt.setText("");
-                revalidate(); }});
+                if(søkefelt.getText().equals("Søk..")){
+                    søkefelt.setText("");
+                    revalidate();}}});
         panel3.add(søkefelt,c);
 
 
