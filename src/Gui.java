@@ -2416,10 +2416,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         //sorter på matchkoefisient
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
-        List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        List<TableRowSorter.SortKey> sortKeys = new ArrayList();
+        sortKeys.add(new RowSorter.SortKey(0,SortOrder.DESCENDING));
         sorterer.setSortKeys(sortKeys);
         resultatTabell.setRowSorter(sorterer);
+
+
 
         //valg
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2477,12 +2479,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         resultatTabell = new SvartHvitRad(resultatModell);
 
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
-
-
-        List<TableRowSorter.SortKey> sortKeys
-                = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
-        ));
+        List<TableRowSorter.SortKey> sortKeys = new ArrayList();
+        sortKeys.add(new RowSorter.SortKey(0,SortOrder.DESCENDING));
+        resultatTabell.setRowSorter(sorterer);
 
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = resultatTabell.getSelectionModel();
