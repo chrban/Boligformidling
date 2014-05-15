@@ -194,11 +194,19 @@
   <component name="libraryTable">
     <library name="mailfilene">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../mailfilene" />
+        <root url="file://D:/../mailfilene" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/../../mailfilene" recursive="false" />
+      <jarDirectory url="file://D:/../mailfilene" recursive="false" />
+    </library>
+    <library name="mailfilene1">
+      <CLASSES>
+        <root url="file://$USER_HOME$/mailfilene" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$USER_HOME$/mailfilene" recursive="false" />
     </library>
   </component>
 </project>
