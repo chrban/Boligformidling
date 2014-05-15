@@ -58,6 +58,8 @@ public class Gui extends JFrame {
     private Font headerFont,header2Font, header3Font,knappFont;
     private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
     private fanelytter faneøre;
+    private Scanner input = new Scanner(System.in);
+
 
 
     public Gui() {
@@ -1813,6 +1815,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 balkong = 1;
 
 
+
+
+
             if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || t.equals("") || t.length() < 2 || ad.length() < 2 || ad.equals("") || email.equals("") || email.length() < 2 || bt == 0 || by == 0 || rom == 0) {
 
                 gyldig(fornavn);
@@ -2040,7 +2045,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             kjøkkenInt = 1;
 
         String sti = null;
-        try{sti = bildesti.getText();}
+        try{sti = bildesti.getText();
+
+        }
         catch(NullPointerException npe){
 
         }
@@ -2560,6 +2567,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         feedbackFane3.setText(ut);
 
         clearBildePanel();
+        String sti = valgtBolig.getBildesti();
+        String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
+        System.out.println("skitten " + sti);
+        System.out.println("ren     " + renska);
+
 
         ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
         Image img = image.getImage();
