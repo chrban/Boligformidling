@@ -47,17 +47,13 @@ public class Boligliste implements Serializable {
     //Sletter bolig fra registeret
     public boolean slettBolig(Bolig b){
         if(b instanceof Enebolig){
-            eneboliger.remove(b);
-            return true;
+            return eneboliger.remove(b);
         }else if(b instanceof Rekkehus){
-            rekkehus.remove(b);
-            return true;
+            return rekkehus.remove(b);
         }else if(b instanceof Leilighet){
-            leiligheter.remove(b);
-            return true;
+            return leiligheter.remove(b);
         }else if(b instanceof Hybel){
-            hybler.remove(b);
-            return true;
+            return hybler.remove(b);
         }
         return false;
     }
@@ -126,7 +122,7 @@ public class Boligliste implements Serializable {
            }catch(NoSuchElementException e){
                return dummy;
            }
-           ut = new Object[eneboliger.size()][10];
+           ut = new Object[eneboliger.size()][Konstanter.TIL_MATCH];
            while (iter.hasNext()) {
                specs = bolig.getSpecArray();
                if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1]) {
@@ -158,7 +154,7 @@ public class Boligliste implements Serializable {
             }catch(NoSuchElementException e){
                 return dummy;
             }
-            ut = new Object[rekkehus.size()][10];
+            ut = new Object[rekkehus.size()][Konstanter.TIL_MATCH];
             while (iter.hasNext()) {
                 specs = bolig.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1]) {
@@ -190,13 +186,12 @@ public class Boligliste implements Serializable {
             }catch(NoSuchElementException e){
                 return dummy;
             }
-            ut = new Object[leiligheter.size()][10];
+            ut = new Object[leiligheter.size()][Konstanter.TIL_MATCH];
             while (iter.hasNext())
             {
                 specs = bolig.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !bolig.getUtleid() && krav[1] == specs[1])
                 {
-                    ut = new Object[leiligheter.size()][10];
                     for(int i = 1; i <= 8; i++) {
                         if(krav[i] == 0)
                             urelevante++;
@@ -227,11 +222,10 @@ public class Boligliste implements Serializable {
             }catch(NoSuchElementException e){
                 return dummy;
             }
-            ut = new Object[hybler.size()][10];
+            ut = new Object[hybler.size()][Konstanter.TIL_MATCH];
             while (iter.hasNext()) {
                 specs = hybel.getSpecArray();
                 if (krav[10] < specs[10] && krav[11] > specs[10] && !hybel.getUtleid() && krav[1] == specs[1]) {
-                    ut = new Object[hybler.size()][10];
                     for (int i = 1; i <= 5; i++)// av krav
                     {
                         if (krav[i] == 0)
@@ -256,7 +250,7 @@ public class Boligliste implements Serializable {
             return dummy;
         }
         //Oppretter en ny Object-array slik at vi ikke får mange rader som er tomme i GUI
-        Object[][] temp = new Object[plass][10];
+        Object[][] temp = new Object[plass][Konstanter.TIL_MATCH];
         for(int i = 0; i < temp.length; i++){
             temp[i] = ut[i];
         }
@@ -268,7 +262,7 @@ public class Boligliste implements Serializable {
     //Metodene returnerer Object-array for å kunne vise informasjon om boligene i GUI
     public Object[][] eneboligerTilTabell()
     {
-        Object[][] ut = new Object[eneboliger.size()][8];
+        Object[][] ut = new Object[eneboliger.size()][Konstanter.BOLIG_TIL_TABELL];
 
         Enebolig enebolig;
         Iterator<Enebolig> iter = eneboliger.iterator();
@@ -283,7 +277,7 @@ public class Boligliste implements Serializable {
     }
     public Object[][] rekkehusTilTabell()
     {
-        Object[][] ut = new Object[rekkehus.size()][8];
+        Object[][] ut = new Object[rekkehus.size()][Konstanter.BOLIG_TIL_TABELL];
         Rekkehus rekkehuset;
         Iterator<Rekkehus> iter = rekkehus.iterator();
         int i = 0;
@@ -297,7 +291,7 @@ public class Boligliste implements Serializable {
     }
     public Object[][] leiligheterTilTabell()
     {
-        Object[][] ut = new Object[leiligheter.size()][8];
+        Object[][] ut = new Object[leiligheter.size()][Konstanter.BOLIG_TIL_TABELL];
         Leilighet leilighet;
         Iterator<Leilighet> iter = leiligheter.iterator();
         int i = 0;
@@ -311,7 +305,7 @@ public class Boligliste implements Serializable {
     }
     public Object[][] hyblerTilTabell()
     {
-        Object[][] ut = new Object[hybler.size()][8];
+        Object[][] ut = new Object[hybler.size()][Konstanter.BOLIG_TIL_TABELL];
         Hybel hybel;
         Iterator<Hybel> iter = hybler.iterator();
         int i = 0;

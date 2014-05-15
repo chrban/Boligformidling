@@ -42,7 +42,7 @@ public class KontraktListe implements Serializable {
 
         if(første == null)
             return false;
-        Bolig bo = null;
+        Bolig bo;
 
         Kontrakt løper = første;
         if(første != null && første.getBoligsøker() == b){
@@ -109,7 +109,7 @@ public class KontraktListe implements Serializable {
     // metoden returnerer en slik array.
     public String[][] tilTabell()
     {
-        String[][] ut = new String[tellOpp()][4];
+        String[][] ut = new String[tellOpp()][Konstanter.UNIK_LENGDE];
 
         String[][] dummy = {{"Det er", "ikke","registrert", "noen","kontrakter"}};
 

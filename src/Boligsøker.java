@@ -23,7 +23,7 @@ public class Boligsøker extends Person implements Serializable
         boligtype = blgtp; by = b; rom = r; minPris = mip; maxPris = map; parkering = p; antEtasjer = ae;
         kjeller = k; heis = h; balkong = blkng;
         delerBadMed = dbm; delerKjøkkenMed= dkm;
-        Krav = new int[12];
+        Krav = new int[Konstanter.KRAV_LENGDE];
         harBolig = false;
     }
     //Start of getMetoder
@@ -47,7 +47,7 @@ public class Boligsøker extends Person implements Serializable
     //Returnerer en String-array med informasjon om en boligsøker
     public String[] tilTabell()
     {
-       String[] ut = new String[6];
+       String[] ut = new String[Konstanter.BOLIGSØKER_LENDGE];
 
        ut[0] = super.getFornavn();
        ut[1] = super.getEtternavn();
@@ -61,7 +61,7 @@ public class Boligsøker extends Person implements Serializable
     //Returnerer en String-array med informasjon om en boligsøker + ID
     public String[] tilTabellMedId()
     {
-        String[] ut = new String[6];
+        String[] ut = new String[Konstanter.BOLIGSØKER_LENDGE];
 
         ut[0] = super.getId();
         ut[1] = super.getFornavn();

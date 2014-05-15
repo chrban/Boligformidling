@@ -116,7 +116,7 @@ public class BoligsøkerListe implements Serializable {
     public String[][] tilTabell()
     {
         Boligsøker løper = første;
-        String[][] ut = new String[tellOpp()][6];
+        String[][] ut = new String[tellOpp()][Konstanter.BOLIGSØKER_LENDGE];
         int i = 0;
 
         if(løper == null)
@@ -140,7 +140,7 @@ public class BoligsøkerListe implements Serializable {
             løper=løper.neste;
         }
         Boligsøker runner = første;
-        String[][] ut = new String[i][6];
+        String[][] ut = new String[i][Konstanter.BOLIGSØKER_LENDGE];
         int x = 0;
         while(runner != null){
             if(!runner.harBolig())

@@ -32,7 +32,7 @@ public class Utleier extends Person implements Serializable
     //Returnerer en String-array med informasjon om en utleier
     public String[] tilTabell()
     {
-    String[] ut = new String[6];
+    String[] ut = new String[Konstanter.UTLEIER_LENDGE];
 
     ut[0] = super.getFornavn();
     ut[1] = super.getEtternavn();
@@ -46,7 +46,7 @@ public class Utleier extends Person implements Serializable
     //Returnerer en String-array med informasjon om en utliere + utleierens ID
     public String[] tilTabellMedId()
     {
-        String[] ut = new String[7];
+        String[] ut = new String[Konstanter.UTLEIER_LENDGE_ID];
 
         ut[0] = super.getId();
         ut[1] = super.getFornavn();

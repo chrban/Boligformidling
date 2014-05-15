@@ -71,7 +71,7 @@ public class Kontrakt implements Serializable{
     //denne metoden returnerer en Stringarray med informasjon om kontrakten.
     public String[] tilTabell()
     {
-        String [] ut = new String[5];
+        String [] ut = new String[Konstanter.UNIK_LENGDE_LEILIGHET];
         ut[0] = eier.getNavn();
         ut[1] = leier.getNavn();
         ut[2] = df.format(start.getTime());

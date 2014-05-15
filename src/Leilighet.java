@@ -92,7 +92,7 @@ public class Leilighet extends Bolig implements Serializable
     //returnerer en String-array for å kunne sjekke om Leilighet-objektet er likt andre Leilighet-objekter
     public String[] getUnikArray()
     {
-        String[] unik = new String[5];
+        String[] unik = new String[Konstanter.UNIK_LENGDE_LEILIGHET];
 
         unik[0] = getEierID();
         unik[1] = getAdresse();
@@ -106,7 +106,7 @@ public class Leilighet extends Bolig implements Serializable
     //returnerer en Object-array for å kunne vise informasjon om Leilighet-objektet i JTables i GUI
     public Object[] tilTabell()
     {
-        Object[] ut = new Object[9];
+        Object[] ut = new Object[Konstanter.TIL_TABELL];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
@@ -123,7 +123,7 @@ public class Leilighet extends Bolig implements Serializable
     //returnerer en Objekt-array for å kunne vise inforamsjon om Leilighet-objektet i matchmakingfanen i GUI
     public Object[] tilMatchTabell()
     {
-        Object[] ut = new Object[10];
+        Object[] ut = new Object[Konstanter.TIL_MATCH];
 
         ut[0] = 0;
         ut[1] = sted();

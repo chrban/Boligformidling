@@ -38,7 +38,7 @@ public class UtleierListe implements Serializable{
     //denne moten returnerer en slik Stringarray
     public String[][] tilTabell()
     {
-        String[][] ut = new String[liste.size()][6];
+        String[][] ut = new String[liste.size()][Konstanter.UTLEIER_LENDGE];
         Utleier utleier;
         sorter();
         Iterator<Utleier> iter = liste.iterator();
@@ -54,7 +54,7 @@ public class UtleierListe implements Serializable{
     //Samme metode som over, bare at den tar med id'n til utleieren
     public String[][] tilTabellMedId()
     {
-        String[][] ut = new String[liste.size()][7];
+        String[][] ut = new String[liste.size()][Konstanter.UTLEIER_LENDGE_ID];
         Utleier utleier;
         sorter();
         Iterator<Utleier> iter = liste.iterator();

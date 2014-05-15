@@ -90,7 +90,7 @@ public class Enebolig extends Bolig implements Serializable
     //Returnerer en String-array for å kunne sjekke om Enebolig-objektet er likt andre Enebolig-objekter
     public String[] getUnikArray()
     {
-        String [] unik = new String[4];
+        String [] unik = new String[Konstanter.UNIK_LENGDE];
 
 
         unik [0] = getEierID();
@@ -104,7 +104,7 @@ public class Enebolig extends Bolig implements Serializable
     //Returnerer Object-array for å kunne vise informasjon om Enebolig-objektet i GUI
     public Object[] tilTabell()
     {
-        Object[] ut = new Object[9];
+        Object[] ut = new Object[Konstanter.TIL_TABELL];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
@@ -121,7 +121,7 @@ public class Enebolig extends Bolig implements Serializable
     //Returnerer Object-array for å kunne vise informasjon om Enebolig-objektet i matchmakingfanen i GUI
     public Object[] tilMatchTabell()
     {
-        Object[] ut = new Object [10];
+        Object[] ut = new Object[Konstanter.TIL_MATCH];
         ut[0] = 0;
         ut[1] = sted();
         ut[2] = getBoareal() + " m²";

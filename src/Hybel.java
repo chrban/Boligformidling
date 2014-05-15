@@ -79,7 +79,7 @@ public class Hybel extends Bolig implements Serializable {
     //retunerer en String-array for å kunne sammenligne Hybel-objekter
     public String[] getUnikArray()
     {
-        String[] unik = new String[4];
+        String[] unik = new String[Konstanter.UNIK_LENGDE];
 
         unik[0] = getEierID();
         unik[1] = getAdresse();
@@ -92,7 +92,7 @@ public class Hybel extends Bolig implements Serializable {
     //returnerer en Objekt-array for å kunne vise informasjon om hybel-objektet i JTables i GUI
     public Object[] tilTabell()
     {
-        Object[] ut = new Object[9];
+        Object[] ut = new Object[Konstanter.TIL_TABELL];
 
         ut[0] = sted();
         ut[1] = getBoareal() + " m²";
@@ -109,7 +109,7 @@ public class Hybel extends Bolig implements Serializable {
     //returnerer en Objekt-array for å kunne vise informasjon om hybel-objektet i matchingsfanen i GUI
     public Object[] tilMatchTabell()
     {
-        Object[] ut = new Object[8];
+        Object[] ut = new Object[Konstanter.TIL_MATCH];
 
         ut[0] = 0;
         ut[1] = sted();
