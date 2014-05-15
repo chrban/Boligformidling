@@ -1858,11 +1858,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     }*/
                 }
 
-               /*if (bt == 3 && plan == 0) {
-                    feedbackFane1.setText("Velg ønsket etasje");
-                    gyldigBox(planBox);
-                    return;
-                }*/
+  /*              do{
+                    Scanner sc = new Scanner()
+
+                }while
+*/
 
                 Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                 boligsøkere.settInnNy(ny);
