@@ -1755,14 +1755,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     plan = Integer.parseInt((String) planBox.getSelectedItem());
             } catch (NumberFormatException nfe) {
 
-                if(romBox.isVisible())
-                    rom = 0;
-
-                if(planBox.isVisible())
-                    plan = 0;
-
-                if(etasjeBox.isVisible())
-                    antE = 0;
+                return;
 
             }
 
@@ -1827,7 +1820,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
 
-            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || t.equals("") || t.length() < 2 || ad.length() < 2 || ad.equals("") || email.equals("") || email.length() < 2 || bt == 0 || by == 0) {
+            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || t.equals("") || t.length() < 2 || ad.length() < 2 || ad.equals("") || email.equals("") || email.length() < 2 || bt == 0 || by == 0 || rom == 0) {
 
                 gyldig(fornavn);
                 gyldig(etternavn);
@@ -1852,17 +1845,17 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         clearBSfelt();
                         feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
                         return;
-                    } /*else {
+                    } else {
                         gyldigBox(etasjeBox);
                         return;
-                    }*/
+                    }
                 }
 
-  /*              do{
-                    Scanner sc = new Scanner()
-
-                }while
-*/
+               if (bt == 3 && plan == 0) {
+                    feedbackFane1.setText("Velg ønsket etasje");
+                    gyldigBox(planBox);
+                    return;
+                }
 
                 Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                 boligsøkere.settInnNy(ny);
