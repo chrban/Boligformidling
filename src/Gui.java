@@ -2409,10 +2409,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         //sorter på matchkoefisient
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
-        List<TableRowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        List<TableRowSorter.SortKey> sortKeys = new ArrayList();
+        sortKeys.add(new RowSorter.SortKey(0,SortOrder.DESCENDING));
         sorterer.setSortKeys(sortKeys);
         resultatTabell.setRowSorter(sorterer);
+
+
 
         //valg
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2470,12 +2472,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         resultatTabell = new SvartHvitRad(resultatModell);
 
         TableRowSorter<resultatTabellModell> sorterer = new TableRowSorter<>(resultatModell);
-
-
-        List<TableRowSorter.SortKey> sortKeys
-                = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING
-        ));
+        List<TableRowSorter.SortKey> sortKeys = new ArrayList();
+        sortKeys.add(new RowSorter.SortKey(0,SortOrder.DESCENDING));
+        resultatTabell.setRowSorter(sorterer);
 
         resultatTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = resultatTabell.getSelectionModel();
@@ -2573,11 +2572,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String sti = valgtBolig.getBildesti();
         //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
         //48
-        String renska = sti.substring(49,sti.length());
+
 
 
        // ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
-        ImageIcon image = new ImageIcon(renska);
+        ImageIcon image = new ImageIcon(sti);
         Image img = image.getImage();
         Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
         image = new ImageIcon(skalert);
