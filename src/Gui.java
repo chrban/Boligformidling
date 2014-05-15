@@ -20,12 +20,12 @@ public class Gui extends JFrame {
     private JTabbedPane fane = new JTabbedPane();
     private GridBagLayout layout = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
-    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp,velgBoligKnapp,finnMatch, velgUtleier,sendMail,slettPerson,slettBoligKnapp;
-    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti,valgtUtleier, valgtLeietaker,valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt,søkefelt;
-    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel,tomtArealLabel, antEgtLabel,antEgtLabelFane2, utleierLabel, kontraktHeader,regPersonHeader,planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel,sluttLabel, visKontrakterLabel,matchHeader, mailLabel, mailStatusLabel;
-    private JTextArea beskrivelse,feedbackFane1,feedbackFane3, kontraktInfoFelt,feedbackMail;
-    private JRadioButton utleier, boligsøker,persontabellRadioknapp,boligtabellRadioknapp;
-    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel,tapanel,panel5,okpanel,vkpanel,resultatPanel,velgBsPanel,bildepanel, btpanel, kontraktTabellPanel;
+    private JButton regBoligKnapp, regPersonKnapp, regUtleierKnapp, finnBildeKnapp, oppdaterKontrakter, lagreKontrakt, velgUtleierKnapp, velgLeietakerKnapp, velgBoligKnapp, finnMatch, velgUtleier, sendMail, slettPerson, slettBoligKnapp;
+    private JTextField fornavn, etternavn, adresse, adresseFane2, mail, firma, tlf, boareal, pris, byggår, tomtAreal, utleierId, bildesti, valgtUtleier, valgtLeietaker, valgtBolig, startDagFelt, startMånedFelt, startÅrFelt, sluttDagFelt, sluttMånedFelt, sluttårFelt, søkefelt;
+    private JLabel boligtypeLabel, minPris, maxPris, firmaLabel, tomtArealLabel, antEgtLabel, antEgtLabelFane2, utleierLabel, kontraktHeader, regPersonHeader, planLabel, regBoligHeader, planLabelFane2, romLabelFane2, registerHeader, startLabel, sluttLabel, visKontrakterLabel, matchHeader, mailLabel, mailStatusLabel;
+    private JTextArea beskrivelse, feedbackFane1, feedbackFane3, kontraktInfoFelt, feedbackMail;
+    private JRadioButton utleier, boligsøker, persontabellRadioknapp, boligtabellRadioknapp;
+    private JPanel panel1, bspanel, utpanel, panel2, bopanel, panel3, panel4, pepanel, tapanel, panel5, okpanel, vkpanel, resultatPanel, velgBsPanel, bildepanel, btpanel, kontraktTabellPanel;
     private JComboBox boligtypeBox, byBox, romBox, etasjeBox, planBox, boligtypeBoxFane2, byBoxFane2, romBoxFane2, etasjeBoxFane2, planBoxFane2;
     private JCheckBox kjellerValg, heisValg, garasjeValg, røykerValg, husdyrValg, badValg, kjøkkenValg, balkongValg, kjellerValgFane2, heisValgFane2, garasjeValgFane2, badValgFane2, kjøkkenValgFane2, balkongValgFane2;
     private JSlider minPrisSlider, maxPrisSlider;
@@ -34,7 +34,7 @@ public class Gui extends JFrame {
     private String[] romValg = {"Velg ant. rom..", "1", "2", "3", "4", "5", "6"};
     private String[] etasjeValg = {"Velg ant. etg..", "1", "2", "3"};
     private String[] planValg = {"Velg ant. plan", "1", "2", "3", "4", "5", "6", "7"};
-    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell,resultatTabell,boligSøkereForMatch;
+    private JTable personTabell, boligTabellTabellen, kontraktHistorikkTabell, utleierValgTabell, leietakerValgTabell, resultatTabell, boligSøkereForMatch;
     private JScrollPane scroll;
     private PersonTypeLytter radioLytter;
     private tabellTypeLytter radioTabellLytter;
@@ -49,17 +49,16 @@ public class Gui extends JFrame {
     private menyLytter øre;
     private Boligliste boliger;
     private JMenuBar menylinje;
-    private JMenu filmeny, rediger, matching, kontrakt,register,hjelp,status;
-    private JMenuItem om, lagre, angre, visHistorikk,klipput,kopier,liminn,instillinger,avslutt,printmatch,printperson,printbolig,printkontrakter,statistikk;
-    private JScrollPane personTabellScroll,boligTabellScroll;
+    private JMenu filmeny, rediger, matching, kontrakt, register, hjelp, status;
+    private JMenuItem om, lagre, angre, visHistorikk, klipput, kopier, liminn, instillinger, avslutt, printmatch, printperson, printbolig, printkontrakter, statistikk;
+    private JScrollPane personTabellScroll, boligTabellScroll;
     private JFrame velgUtleierVindu, velgLeietakerVindu, velgBoligVindu, visKontraktHistorikk;
     private String valgtId, valgtBoligId, id, slettPersonFn, slettPersonEn;
     private int slettBoligId;
-    private Font headerFont,header2Font, header3Font,knappFont;
-    private Color bakFarge, headerFarge,lyseSvart, comboboxFarge, tabellFarge;
+    private Font headerFont, header2Font, header3Font, knappFont;
+    private Color bakFarge, headerFarge, lyseSvart, comboboxFarge, tabellFarge;
     private fanelytter faneøre;
     private Scanner input = new Scanner(System.in);
-
 
 
     public Gui() {
@@ -92,7 +91,7 @@ public class Gui extends JFrame {
         om.addActionListener(øre);
         lagre = new JMenuItem(" Lagre");
         lagre.addActionListener(øre);
-        ImageIcon lagreIkon= sjekkPath("icon/lagre.png");
+        ImageIcon lagreIkon = sjekkPath("icon/lagre.png");
         lagre.setIcon(lagreIkon);
         instillinger = new JMenuItem("Instillinger");
         avslutt = new JMenuItem("Avslutt");
@@ -192,17 +191,15 @@ public class Gui extends JFrame {
         velgBsPanel.setVisible(true);
 
 
-
-
         // Farger og Fonter
-        headerFont = new Font("Arial",Font.BOLD,50);
-        knappFont = new Font("Arial",Font.PLAIN,15);
-        header2Font = new Font("Arial",Font.BOLD,20);
-        header3Font = new Font("Arial",Font.BOLD,40);
-        comboboxFarge = new Color(255,255,255);
-        bakFarge = new Color(84,133,150);
-        headerFarge= new Color(255,255,255);
-        tabellFarge = new Color(190,218,218);
+        headerFont = new Font("Arial", Font.BOLD, 50);
+        knappFont = new Font("Arial", Font.PLAIN, 15);
+        header2Font = new Font("Arial", Font.BOLD, 20);
+        header3Font = new Font("Arial", Font.BOLD, 40);
+        comboboxFarge = new Color(255, 255, 255);
+        bakFarge = new Color(84, 133, 150);
+        headerFarge = new Color(255, 255, 255);
+        tabellFarge = new Color(190, 218, 218);
 
         //Fargelegger
         panel1.setBackground(bakFarge);
@@ -301,7 +298,6 @@ public class Gui extends JFrame {
         panel2.add(bopanel);
 
 
-
         // Reseter
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
@@ -317,7 +313,6 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         pepanel.add(new JLabel("Fornavn: "), c);
-
 
 
         fornavn = new JTextField(20);
@@ -448,7 +443,6 @@ public class Gui extends JFrame {
         regUtleierKnapp.setVerticalTextPosition(SwingConstants.CENTER);
         regUtleierKnapp.setHorizontalTextPosition(SwingConstants.LEFT);
         pepanel.add(regUtleierKnapp, c);
-
 
 
         //BOLISØKER PANEL (bspanel)
@@ -1005,14 +999,15 @@ public class Gui extends JFrame {
         c.gridheight = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.WEST;
-        beskrivelse.addMouseListener( new MouseAdapter() { //Klarerer infofelstet ved museklikk
+        beskrivelse.addMouseListener(new MouseAdapter() { //Klarerer infofelstet ved museklikk
             public void mouseClicked(MouseEvent e) {
-                if(beskrivelse.getText().equals("Beskrivelse av bolig..")) {
+                if (beskrivelse.getText().equals("Beskrivelse av bolig..")) {
                     beskrivelse.setText("");
                     revalidate();
-                }}});
+                }
+            }
+        });
         bopanel.add(scroll, c);
-
 
 
         c.gridheight = 1;
@@ -1106,22 +1101,25 @@ public class Gui extends JFrame {
         //resatt
 
 
-        søkefelt = new JTextField("Søk..",20);
+        søkefelt = new JTextField("Søk..", 20);
         c.gridx = 0;
         c.gridy = 1;
-        c.weightx=50;
+        c.weightx = 50;
         c.anchor = GridBagConstraints.PAGE_START;
         søkefelt.getDocument().addDocumentListener(documentListener);
         søkefelt.requestFocus(false);
-        søkefelt.addMouseListener( new MouseAdapter() { //Klarerer søkefeltet ved museklikk
+        søkefelt.addMouseListener(new MouseAdapter() { //Klarerer søkefeltet ved museklikk
             public void mouseClicked(MouseEvent e) {
-                if(søkefelt.getText().equals("Søk..")){
+                if (søkefelt.getText().equals("Søk..")) {
                     søkefelt.setText("");
-                    revalidate();}}});
+                    revalidate();
+                }
+            }
+        });
         søkefelt.setMargin(new Insets(0, 13, 0, 13));
-        panel3.add(søkefelt,c);
+        panel3.add(søkefelt, c);
 
-        c.weightx=0;
+        c.weightx = 0;
         registerHeader = new JLabel("Register");
         registerHeader.setFont(headerFont);
         registerHeader.setForeground(headerFarge);
@@ -1138,7 +1136,7 @@ public class Gui extends JFrame {
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 10;
         c.weighty = 40;
-       // c.gridheight=2;
+        // c.gridheight=2;
         c.insets = new Insets(5, 5, 5, 5);
         panel3.add(tapanel, c);
 
@@ -1156,13 +1154,12 @@ public class Gui extends JFrame {
         //resatt
 
 
-
         radioTabellLytter = new tabellTypeLytter();
         radioTabell = new ButtonGroup();
 
         persontabellRadioknapp = new JRadioButton("Personregister", false);
         persontabellRadioknapp.addActionListener(radioTabellLytter);
-        c.insets = new Insets(10,50,50,0);
+        c.insets = new Insets(10, 50, 50, 0);
         c.gridx = 1;
         c.gridy = 1;
         panel3.add(persontabellRadioknapp, c);
@@ -1172,7 +1169,7 @@ public class Gui extends JFrame {
         boligtabellRadioknapp.addActionListener(radioTabellLytter);
         c.gridx = 2;
         c.gridy = 1;
-        c.insets = new Insets(10,0,50,50);
+        c.insets = new Insets(10, 0, 50, 50);
         panel3.add(boligtabellRadioknapp, c);
 
 
@@ -1183,11 +1180,11 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 2;
         c.ipady = 30;
-        c.gridwidth=2;
+        c.gridwidth = 2;
         c.ipady = 30;
-        c.insets = new Insets(0,50,0,30);
+        c.insets = new Insets(0, 50, 0, 30);
         c.anchor = GridBagConstraints.PAGE_START;
-        c.fill=GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         slettPerson.setVisible(false);
         slettPerson.setIcon(slettpersonIkon);
         slettPerson.setVerticalTextPosition(SwingConstants.CENTER);
@@ -1200,11 +1197,11 @@ public class Gui extends JFrame {
         c.gridx = 1;
         c.gridy = 2;
         c.anchor = GridBagConstraints.PAGE_START;
-        c.gridwidth=2;
+        c.gridwidth = 2;
         c.ipady = 30;
-        c.insets = new Insets(0,50,0,50);
+        c.insets = new Insets(0, 50, 0, 50);
         c.anchor = GridBagConstraints.PAGE_START;
-        c.fill=GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         slettBoligKnapp.setVisible(false);
         slettBoligKnapp.setIcon(slettboligIkon);
         slettBoligKnapp.setVerticalTextPosition(SwingConstants.CENTER);
@@ -1213,8 +1210,8 @@ public class Gui extends JFrame {
         panel3.add(slettBoligKnapp, c);
 
         //reset
-        c.gridwidth=1;
-        c.insets = new Insets(0,0,0,0);
+        c.gridwidth = 1;
+        c.insets = new Insets(0, 0, 0, 0);
         c.ipadx = 0;
 
 
@@ -1225,8 +1222,8 @@ public class Gui extends JFrame {
         c.gridy = 3;
         c.weightx = 10;
         c.weighty = 5;
-        c.insets = new Insets(2,40,40,0);
-        c.fill=GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(2, 40, 40, 0);
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         panel3.add(feedbackFane3, c);
 
@@ -1244,11 +1241,10 @@ public class Gui extends JFrame {
 
         c.gridx = 1;
         c.gridy = 3;
-        c.gridwidth=2;
+        c.gridwidth = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.anchor=GridBagConstraints.PAGE_END;
+        c.anchor = GridBagConstraints.PAGE_END;
         panel3.add(bildepanel, c);
-
 
 
         bildepanel.setBackground(bakFarge);
@@ -1359,7 +1355,7 @@ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAATTTTTTTTTTT     
         c.insets = new Insets(20, 60, 20, 40);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
-        sendMail.setMargin(new Insets(0,0,0,0));
+        sendMail.setMargin(new Insets(0, 0, 0, 0));
         sendMail.addActionListener(lytter);
         sendMail.setIcon(mailIkoin);
         sendMail.setVerticalTextPosition(SwingConstants.CENTER);
@@ -1452,7 +1448,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         kontraktHeader = new JLabel("Opprett kontrakt");
         kontraktHeader.setFont(header3Font);
         kontraktHeader.setForeground(headerFarge);
-        okpanel.add(kontraktHeader,c);
+        okpanel.add(kontraktHeader, c);
 
         c.gridwidth = 1;
         c.gridx = 0;
@@ -1461,7 +1457,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.ipadx = 100;
         velgLeietakerKnapp = new JButton("Velg en Leietaker");
         velgLeietakerKnapp.addActionListener(lytter);
-        velgLeietakerKnapp.setMargin(new Insets(0,5,0,5));
+        velgLeietakerKnapp.setMargin(new Insets(0, 5, 0, 5));
         velgLeietakerKnapp.setPreferredSize(dim);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
@@ -1486,7 +1482,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.anchor = GridBagConstraints.EAST;
         velgBoligKnapp = new JButton("Velg en Bolig");
         velgBoligKnapp.addActionListener(lytter);
-        velgBoligKnapp.setMargin(new Insets(0,10,0,10));
+        velgBoligKnapp.setMargin(new Insets(0, 10, 0, 10));
         velgBoligKnapp.setPreferredSize(dim);
         okpanel.add(velgBoligKnapp, c);
         velgBoligKnapp.setVisible(false);
@@ -1507,7 +1503,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
         utleierLabel = new JLabel("Utleier: ");
-        okpanel.add(utleierLabel,c);
+        okpanel.add(utleierLabel, c);
         utleierLabel.setVisible(false);
 
         c.gridx = 1;
@@ -1530,13 +1526,13 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.gridx = 0;
         c.gridy = 5;
         c.gridwidth = 2;
-        c.insets = new Insets(30,30, 15, 0);
+        c.insets = new Insets(30, 30, 15, 0);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
         startLabel = new JLabel("Kontrakten starter:");
         startLabel.setFont(header2Font);
         startLabel.setForeground(headerFarge);
-        okpanel.add(startLabel,c);
+        okpanel.add(startLabel, c);
 
         c.gridwidth = 1;
         c.gridx = 0;
@@ -1585,7 +1581,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         sluttLabel = new JLabel("Kontrakten slutter");
         sluttLabel.setFont(header2Font);
         sluttLabel.setForeground(headerFarge);
-        okpanel.add(sluttLabel,c);
+        okpanel.add(sluttLabel, c);
 
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 5, 3);
@@ -1641,25 +1637,25 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,0,0,100);
+        c.insets = new Insets(0, 0, 0, 100);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
         okpanel.setBackground(bakFarge);
         vkpanel.setBackground(bakFarge);
-        panel5.add(okpanel,c);
+        panel5.add(okpanel, c);
 
         visKontrakterLabel = new JLabel("Lagrede kontrakter");
         visKontrakterLabel.setFont(header3Font);
         visKontrakterLabel.setForeground(headerFarge);
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,0,40,0);
+        c.insets = new Insets(0, 0, 40, 0);
         c.anchor = GridBagConstraints.CENTER;
         vkpanel.add(visKontrakterLabel, c);
 
         c.gridx = 0;
         c.gridy = 1;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
         c.anchor = GridBagConstraints.CENTER;
         vkpanel.add(kontraktTabellPanel, c);
 
@@ -1667,36 +1663,35 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         c.gridy = 3;
         c.ipadx = 100;
         c.gridwidth = 2;
-        c.insets = new Insets(30,0,30,0);
+        c.insets = new Insets(30, 0, 30, 0);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
         oppdaterKontrakter = new JButton("Oppdater Register");
         oppdaterKontrakter.addActionListener(lytter);
-        oppdaterKontrakter.setMargin(new Insets(0,0,0,0));
+        oppdaterKontrakter.setMargin(new Insets(0, 0, 0, 0));
         oppdaterKontrakter.setPreferredSize(dim);
         vkpanel.add(oppdaterKontrakter, c);
         c.ipadx = 0;
         c.ipady = 0;
         c.gridwidth = 1;
 
-        kontraktInfoFelt = new JTextArea(10,30);
+        kontraktInfoFelt = new JTextArea(10, 30);
         kontraktInfoFelt.setBackground(tabellFarge);
         c.anchor = GridBagConstraints.WEST;
 
-        c.insets = new Insets(0,0,10,0);
+        c.insets = new Insets(0, 0, 10, 0);
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
-        vkpanel.add(kontraktInfoFelt,c);
+        vkpanel.add(kontraktInfoFelt, c);
 
         c.gridx = 1;
         c.gridy = 0;
-        c.insets = new Insets(0,80,0,0);
+        c.insets = new Insets(0, 80, 0, 0);
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.NORTH;
-        panel5.add(vkpanel,c);
+        panel5.add(vkpanel, c);
         //End fane 5
-
 
 
         fane.setPreferredSize(new Dimension(1380, 1010));
@@ -1717,7 +1712,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         if (boligsøker.isSelected()) {
 
-            int bt, by, rom, minPris, maxPris, park, antE, kjeller,heis, balkong, dbm, dkm, plan;
+            int bt, by, rom, minPris, maxPris, park, antE, kjeller, heis, balkong, dbm, dkm, plan;
 
             park = 0;
             heis = 0;
@@ -1739,32 +1734,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             String bType = (String) boligtypeBox.getSelectedItem();
             String byInn = (String) byBox.getSelectedItem();
 
-            try {
-                if (romBox.isVisible())
-                    rom = Integer.parseInt((String) romBox.getSelectedItem());
 
-                minPris = minPrisSlider.getValue();
-
-                maxPris = maxPrisSlider.getValue();
-
-                if (etasjeBox.isVisible()) {
-                    antE = Integer.parseInt((String) etasjeBox.getSelectedItem());
-                }
-
-                if (planBox.isVisible())
-                    plan = Integer.parseInt((String) planBox.getSelectedItem());
-            } catch (NumberFormatException nfe) {
-
-                if(romBox.isVisible())
-                    rom = 0;
-
-                if(planBox.isVisible())
-                    plan = 0;
-
-                if(etasjeBox.isVisible())
-                    antE = 0;
-
-            }
 
 
             switch (bType) {
@@ -1809,6 +1779,37 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     break;
             }
 
+            try {
+                if (romBox.isVisible())
+                    rom = Integer.parseInt((String) romBox.getSelectedItem());
+
+                minPris = minPrisSlider.getValue();
+
+                maxPris = maxPrisSlider.getValue();
+
+                if (etasjeBox.isVisible()) {
+                    antE = Integer.parseInt((String) etasjeBox.getSelectedItem());
+                }
+
+                if (planBox.isVisible())
+                    plan = Integer.parseInt((String) planBox.getSelectedItem());
+            } catch (NumberFormatException nfe) {
+
+                if (romBox.isVisible())
+                    gyldigBox(romBox);
+
+                if (planBox.isVisible())
+                    gyldigBox(planBox);
+
+                if (etasjeBox.isVisible())
+                    gyldigBox(etasjeBox);
+
+                gyldigBox(byBox);
+
+                return;
+
+            }
+
 
             if (garasjeValg.isSelected())
                 park = 1;
@@ -1824,52 +1825,48 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 balkong = 1;
 
 
-
-
-
-            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || t.equals("") || t.length() < 2 || ad.length() < 2 || ad.equals("") || email.equals("") || email.length() < 2 || bt == 0 || by == 0) {
-
-                gyldig(fornavn);
-                gyldig(etternavn);
-                gyldig(adresse);
-                gyldig(tlf);
-                gyldig(mail);
-                gyldigBox(boligtypeBox);
-                gyldigBox(byBox);
-                gyldigBox(romBox);
-                gyldigBox(etasjeBox);
-                gyldigBox(romBox);
-                gyldigBox(planBox);
-            } else {
-                String id = idMekking.setIdPåBoligsøker(enavn, fnavn);
-
-                if (bt == 1 || bt == 2) //hvis enebolig
-                {
-                    if (antE != 0) {
+            if (gyldigtlf(t) && gyldigTekst(fnavn, fornavn) && gyldigTekst(enavn, etternavn) && gyldigMail(email, mail) && gyldigAdresse(ad, adresse)) {
+                if (bt != 0 && by != 0) {
+                    if (bt != 1 && bt != 2 && bt != 3) {
                         Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                         boligsøkere.settInnNy(ny);
                         clearPersonFelt();
                         clearBSfelt();
                         feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
                         return;
-                    } /*else {
-                        gyldigBox(etasjeBox);
+
+                    } else if (bt == 1 || bt == 2 && antE != 0) {
+                        Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
+                        boligsøkere.settInnNy(ny);
+                        clearPersonFelt();
+                        clearBSfelt();
+                        feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
                         return;
-                    }*/
+                    }else if(bt == 3){
+                        Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
+                        boligsøkere.settInnNy(ny);
+                        clearPersonFelt();
+                        clearBSfelt();
+                        feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
+                    }
+                }
+                else {
+                    gyldigBox(boligtypeBox);
+                    gyldigBox(byBox);
+                    gyldigBox(romBox);
+                    gyldigBox(etasjeBox);
+                    gyldigBox(romBox);
+                    gyldigBox(planBox);
                 }
 
-  /*              do{
-                    Scanner sc = new Scanner()
+            } else {
+                gyldigtlf(t);
+                gyldigTekst(fnavn, fornavn);
+                gyldigTekst(enavn, etternavn);
+                gyldigMail(email, mail);
+                gyldigAdresse(ad, adresse);
 
-                }while
-*/
 
-                Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
-                boligsøkere.settInnNy(ny);
-                clearPersonFelt();
-                clearBSfelt();
-                feedbackFane1.setText("Ny boligsøker registrert med id: " + ny.getId());
-                return;
             }
 
 
@@ -1890,14 +1887,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             String firm = firma.getText();
 
 
-            if (fnavn.equals("") || fnavn.length() < 2 || enavn.equals("") || enavn.length() < 2 || ad.equals("") || ad.length() < 2 || t.equals("") || t.length() < 2 || email.equals("") || email.length() < 2 || firm.equals("") || firm.length() < 2) {
-                gyldig(fornavn);
-                gyldig(etternavn);
-                gyldig(adresse);
-                gyldig(tlf);
-                gyldig(mail);
-                gyldig(firma);
-            } else {
+            if (gyldigtlf(t) && gyldigTekst(fnavn, fornavn) && gyldigTekst(enavn, etternavn) && gyldigTekst(firm, firma) && gyldigMail(email, mail) && gyldigAdresse(ad, adresse)) {
 
                 String id = idMekking.setIdPåUtleier(firm, enavn, fnavn);
 
@@ -1908,13 +1898,23 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 feedbackFane1.setText("Utleier registrert med id: " + ny.getId());
 
                 return;
+            } else {
+                feedbackFane1.setText("Kontroller inpput!");
+                gyldigtlf(t);
+                gyldigTekst(fnavn, fornavn);
+                gyldigTekst(enavn, etternavn);
+                gyldigTekst(firm, firma);
+                gyldigMail(email, mail);
+                gyldigAdresse(ad, adresse);
             }
+
             feedbackFane1.setText("Du må skrive inn i alle feltene");
             return;
 
         }
         JOptionPane.showMessageDialog(null, "du må velge en av typene..."); //vil aldri intreffe
     }//end class regPerson
+
 
     public void regBolig() {
 
@@ -1927,179 +1927,174 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String beskrivelseString = beskrivelse.getText();
 
 
-        if (arealString.equals("") || adr.equals("") || årString.equals("") || utPrisString.equals("") || utId.equals("")) {
-            gyldig(adresseFane2);
-            gyldig(boareal);
-            gyldig(byggår);
-            gyldig(pris);
-            gyldig(utleierId);
-            return;
-        }
+        if (gyldigAdresse(adr, adresseFane2) && gyldigInt(arealString, boareal) && gyldigÅr(årString, byggår) && gyldigInt(utPrisString, pris) && gyldigTekst(utId, utleierId)) {
 
 
-        int areal;
-        int år;
-        int upris;
-        int tomtareal = 0;
-        String valg = (String)boligtypeBoxFane2.getSelectedItem();
-        int btype;
-        switch(valg){
-            case "Enebolig":    btype = 1;
-                break;
-            case "Rekkehus":
-                btype = 2;
-                break;
-            case "Leilighet":
-                btype = 3;
-                break;
-            case "Hybel":
-                btype = 4;
-                break;
-            case "Velg boligtype..":
-                btype = 0;
-                break;
-            default:
-                btype = 0;
-                break;
-        }
-        try {
-            areal = Integer.parseInt(arealString);
-            år = Integer.parseInt(årString);
-            upris = Integer.parseInt(utPrisString);
-            if (btype == 1 || btype == 2) {
-                try {
-                    tomtareal = Integer.parseInt(tAreal);
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
+            int areal;
+            int år;
+            int upris;
+            int tomtareal = 0;
+            String valg = (String) boligtypeBoxFane2.getSelectedItem();
+            int btype;
+            switch (valg) {
+                case "Enebolig":
+                    btype = 1;
+                    break;
+                case "Rekkehus":
+                    btype = 2;
+                    break;
+                case "Leilighet":
+                    btype = 3;
+                    break;
+                case "Hybel":
+                    btype = 4;
+                    break;
+                case "Velg boligtype..":
+                    btype = 0;
+                    break;
+                default:
+                    btype = 0;
+                    break;
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
-            return;
-        }
+            try {
+                areal = Integer.parseInt(arealString);
+                år = Integer.parseInt(årString);
+                upris = Integer.parseInt(utPrisString);
+                if (btype == 1 || btype == 2) {
+                    try {
+                        tomtareal = Integer.parseInt(tAreal);
+                    } catch (NumberFormatException nfe) {
+                        nfe.printStackTrace();
+                    }
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
+                return;
+            }
 
 
-        // Comboboxer
-        String by = (String) byBoxFane2.getSelectedItem();
-        int byvalg;
-        switch (by) {
-            case "Oslo":
-                byvalg = 1;
-                break;
-            case "Bergen":
-                byvalg = 2;
-                break;
-            case "Stavanger":
-                byvalg = 3;
-                break;
-            case "Trondheim":
-                byvalg = 4;
-                break;
-            case "Kristiansand":
-                byvalg = 5;
-                break;
-            case "Tromsø":
-                byvalg = 6;
-                break;
-            case "Velg by..":
-                byvalg = 0;
-                break;
-            default:
-                byvalg = 0;
-                break;
-        }
-        int rom = 0;
-        int antetasjer;
-        int plan = 0;
+            // Comboboxer
+            String by = (String) byBoxFane2.getSelectedItem();
+            int byvalg;
+            switch (by) {
+                case "Oslo":
+                    byvalg = 1;
+                    break;
+                case "Bergen":
+                    byvalg = 2;
+                    break;
+                case "Stavanger":
+                    byvalg = 3;
+                    break;
+                case "Trondheim":
+                    byvalg = 4;
+                    break;
+                case "Kristiansand":
+                    byvalg = 5;
+                    break;
+                case "Tromsø":
+                    byvalg = 6;
+                    break;
+                case "Velg by..":
+                    byvalg = 0;
+                    break;
+                default:
+                    byvalg = 0;
+                    break;
+            }
+            int rom = 0;
+            int antetasjer;
+            int plan = 0;
 
 
-        if (btype != 4)
-            if (romBoxFane2.getSelectedIndex() == 0)
-                gyldigBox(romBoxFane2);
+            if (btype != 4)
+                if (romBoxFane2.getSelectedIndex() == 0)
+                    gyldigBox(romBoxFane2);
+                else
+                    rom = Integer.parseInt((String) romBoxFane2.getSelectedItem());
+
+
+            if (etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
+                antetasjer = 0;
             else
-                rom = Integer.parseInt((String)romBoxFane2.getSelectedItem());
+                antetasjer = Integer.parseInt((String) etasjeBoxFane2.getSelectedItem());
 
 
-        if (etasjeBoxFane2.getSelectedItem().equals("Velg ant. etg.."))
-            antetasjer = 0;
-        else
-            antetasjer = Integer.parseInt((String) etasjeBoxFane2.getSelectedItem());
+            if (btype == 3)
+                if (planBoxFane2.getSelectedIndex() == 0)
+                    gyldigBox(planBoxFane2);
+                else plan = Integer.parseInt((String) planBoxFane2.getSelectedItem());
 
 
-        if (btype == 3)
-            if (planBoxFane2.getSelectedIndex() == 0)
-                gyldigBox(planBoxFane2);
-            else plan = Integer.parseInt((String) planBoxFane2.getSelectedItem());
+            int kjeller = -1;
+            int heis = -1;
+            int garasje = -1;
+            int badInt = -1;
+            int kjøkkenInt = -1;
+            int balkong = -1;
 
+            if (kjellerValgFane2.isSelected())
+                kjeller = 1;
+            if (heisValgFane2.isSelected())
+                heis = 1;
+            if (garasjeValgFane2.isSelected())
+                garasje = 1;
+            if (balkongValgFane2.isSelected())
+                balkong = 1;
+            if (badValgFane2.isSelected())
+                badInt = 1;
+            if (kjøkkenValgFane2.isSelected())
+                kjøkkenInt = 1;
 
-        int kjeller = -1;
-        int heis = -1;
-        int garasje = -1;
-        int badInt = -1;
-        int kjøkkenInt = -1;
-        int balkong = -1;
+            String sti = null;
+            try {
+                sti = bildesti.getText();
 
-        if (kjellerValgFane2.isSelected())
-            kjeller = 1;
-        if (heisValgFane2.isSelected())
-            heis = 1;
-        if (garasjeValgFane2.isSelected())
-            garasje = 1;
-        if (balkongValgFane2.isSelected())
-            balkong = 1;
-        if (badValgFane2.isSelected())
-            badInt = 1;
-        if (kjøkkenValgFane2.isSelected())
-            kjøkkenInt = 1;
+            } catch (NullPointerException npe) {
+                JOptionPane.showMessageDialog(null, "Kunne ikke hente bilde");
+            }
 
-        String sti = null;
-        try{sti = bildesti.getText();
+            int id = 0;
 
-        }
-        catch(NullPointerException npe){
-            JOptionPane.showMessageDialog(null, "Kunne ikke hente bilde");
-        }
+            switch (btype) {
+                case 1:
+                    id = idMekking.setIdPåBolig(1);
+                    Enebolig nyEnebolig = new Enebolig(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
+                    if (boliger.leggTil(nyEnebolig)) {
+                        JOptionPane.showMessageDialog(null, "Registrering vellykket!");
+                        clearBoligfelt();
+                    } else
+                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                    break;
+                case 2:
+                    id = idMekking.setIdPåBolig(2);
+                    Rekkehus nyttRekkehus = new Rekkehus(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
+                    if (boliger.leggTil(nyttRekkehus)) {
+                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                        clearBoligfelt();
 
-        int id = 0;
-
-        switch(btype){
-            case 1:      id = idMekking.setIdPåBolig(1);
-                Enebolig nyEnebolig = new Enebolig(id, adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal,beskrivelseString);
-                if(boliger.leggTil(nyEnebolig)) {
-                    JOptionPane.showMessageDialog(null, "Registrering vellykket!");
-                    clearBoligfelt();
-                }
-                else
-                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                break;
-            case 2:      id = idMekking.setIdPåBolig(2);
-                Rekkehus nyttRekkehus = new Rekkehus(id, adr,byvalg, areal, rom, år, upris, utId, sti, antetasjer,garasje, kjeller, tomtareal,beskrivelseString);
-                if(boliger.leggTil(nyttRekkehus)) {
-                    JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                    clearBoligfelt();
-
-                }
-                else
-                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                break;
-            case 3:      id = idMekking.setIdPåBolig(3);
-                Leilighet nyLeilighet = new Leilighet(id, adr,byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
-                if(boliger.leggTil(nyLeilighet)) {
-                    JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                    clearBoligfelt();
-                }
-                else
-                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                break;
-            case 4:      id = idMekking.setIdPåBolig(4);
-                Hybel nyHybel = new Hybel(id,adr,byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt,beskrivelseString);
-                if(boliger.leggTil(nyHybel)) {
-                    JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                    clearBoligfelt();
-                }
-                else
-                    JOptionPane.showMessageDialog(null,"Ble ikke registrert!");
-                break;
+                    } else
+                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                    break;
+                case 3:
+                    id = idMekking.setIdPåBolig(3);
+                    Leilighet nyLeilighet = new Leilighet(id, adr, byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
+                    if (boliger.leggTil(nyLeilighet)) {
+                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                        clearBoligfelt();
+                    } else
+                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                    break;
+                case 4:
+                    id = idMekking.setIdPåBolig(4);
+                    Hybel nyHybel = new Hybel(id, adr, byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt, beskrivelseString);
+                    if (boliger.leggTil(nyHybel)) {
+                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                        clearBoligfelt();
+                    } else
+                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                    break;
+            }
         }
     }//end class regBolig
 
@@ -2164,16 +2159,16 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         int svar = JOptionPane.showOptionDialog(null, "Sikker på at du vil slette boligen med " + slett.getAdresse() + "?", "Slett bolig", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, alternativer, alternativer[0]);
         if (svar == JOptionPane.YES_OPTION) {
-            if (boliger.slettBolig(slett)){
+            if (boliger.slettBolig(slett)) {
 
                 JOptionPane.showMessageDialog(null, "Boligen ble slettet");
                 lagBoligTabellen();
-            }
-            else
+            } else
                 JOptionPane.showMessageDialog(null, "Error");
         }
 
     }
+
     //Burde ha byttet navn på metoden
     public void sendEmail() {
 
@@ -2224,15 +2219,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         mailStatusLabel.setText("sender mail...");
 
-        if(epost.sendMail(til, feedbackMail.getText()))
+        if (epost.sendMail(til, feedbackMail.getText()))
             mailStatusLabel.setText("Mail Sendt!");
         else
             mailStatusLabel.setText("Sending mislykket");
 
     }
 
-    public void mekkKontrakt()
-    {
+    public void mekkKontrakt() {
         Boligsøker leietaker = boligsøkere.getBoligsøker(valgtLeietaker.getText());
         Bolig bolig = boliger.finnBolig(valgtBolig.getText());
         Utleier utleier = utleiere.getUtleier(valgtUtleier.getText());
@@ -2267,9 +2261,15 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     if (kontrakter.leggTil(ny)) {
                         kontrakthistorie.skrivTilTekstFil(ny.toString());
                         JOptionPane.showMessageDialog(null, "Kontrakt lagret");
-                        valgtLeietaker.setText(null); valgtBolig.setText(null); valgtUtleier.setText(null);
-                        sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
-                        startMånedFelt.setText(null); startDagFelt.setText(null);
+                        valgtLeietaker.setText(null);
+                        valgtBolig.setText(null);
+                        valgtUtleier.setText(null);
+                        sluttårFelt.setText(null);
+                        sluttMånedFelt.setText(null);
+                        sluttDagFelt.setText(null);
+                        startÅrFelt.setText(null);
+                        startMånedFelt.setText(null);
+                        startDagFelt.setText(null);
                         visKontrakter();
                         clearKontraktfelt();
                     }
@@ -2303,9 +2303,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 String r = (personTabell.getValueAt(rad, col).toString());
 
                 if (v.equalsIgnoreCase(r)) {
-                    personTabell.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-                    personTabell.setRowSelectionInterval(rad,rad);
-                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                    personTabell.scrollRectToVisible(personTabell.getCellRect(rad, 0, true));
+                    personTabell.setRowSelectionInterval(rad, rad);
+                    for (int i = 0; i <= personTabell.getColumnCount() - 1; i++) {
                         personTabell.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
                     }
 
@@ -2314,18 +2314,18 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
     }// end Personsøk
 
-    private void søkBoligregister(String v){
+    private void søkBoligregister(String v) {
 
-        for(int rad = 0; rad <= boligTabellTabellen.getRowCount() -1; rad++){
-            for(int col=0; col <= boligTabellTabellen.getColumnCount()-1;col++){
+        for (int rad = 0; rad <= boligTabellTabellen.getRowCount() - 1; rad++) {
+            for (int col = 0; col <= boligTabellTabellen.getColumnCount() - 1; col++) {
 
-                String r = boligTabellTabellen.getValueAt(rad,col).toString();
+                String r = boligTabellTabellen.getValueAt(rad, col).toString();
 
 
-                if(v.equalsIgnoreCase(r)){
-                    boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad,0,true));
-                    boligTabellTabellen.setRowSelectionInterval(rad,rad);
-                    for(int i=0; i<= personTabell.getColumnCount() -1 ;i++){
+                if (v.equalsIgnoreCase(r)) {
+                    boligTabellTabellen.scrollRectToVisible(personTabell.getCellRect(rad, 0, true));
+                    boligTabellTabellen.setRowSelectionInterval(rad, rad);
+                    for (int i = 0; i <= personTabell.getColumnCount() - 1; i++) {
                         boligTabellTabellen.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
 
                     }
@@ -2436,7 +2436,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         velgBoligVindu.setLocationRelativeTo(velgBoligKnapp);
     }// end visVelgBoligVindu
 
-    public void visKontrakter(){
+    public void visKontrakter() {
         kontraktTabellPanel.removeAll();
 
         kontraktTabellModell kmodell = new kontraktTabellModell();
@@ -2447,8 +2447,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         ListSelectionModel lsm = kontraktHistorikkTabell.getSelectionModel();
         lsm.addListSelectionListener(new Utvalgslytter(kmodell));
 
-        TableColumn utleierkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 0);
-        TableColumn leietakerkolonne = kontraktHistorikkTabell.getColumnModel().getColumn( 1);
+        TableColumn utleierkolonne = kontraktHistorikkTabell.getColumnModel().getColumn(0);
+        TableColumn leietakerkolonne = kontraktHistorikkTabell.getColumnModel().getColumn(1);
 
         // utleierkolonne.setPreferredWidth(40);
         //leietakerkolonne.setPreferredWidth(40);
@@ -2457,15 +2457,14 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         JScrollPane kontraktScroll = new JScrollPane(kontraktHistorikkTabell);
 
-        kontraktScroll.setPreferredSize(new Dimension(500,250));
+        kontraktScroll.setPreferredSize(new Dimension(500, 250));
         kontraktScroll.getViewport().setBackground(tabellFarge);
         // kontraktHistorikkTabell.setSize(new Dimension(200,100));
 
 
-
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
 
         kontraktTabellPanel.add(kontraktScroll, c);
         revalidate();
@@ -2532,7 +2531,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         repaint();
     }//end class visBoligSøkere
 
-    public void visPersonInfo(){
+    public void visPersonInfo() {
         try {
             String id = utleiere.finnID(slettPersonFn, slettPersonEn);
             if (id != null) {
@@ -2579,6 +2578,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String sti = valgtBolig.getBildesti();
         //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
         //48
+        String renska = sti.substring(49,sti.length());
 
 
 
@@ -2690,9 +2690,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
         public Class getColumnClass(int k) {
-            for(int i = 0;i<getRowCount();i++){
-                Object value = getValueAt(i,k);
-                if(value != null)
+            for (int i = 0; i < getRowCount(); i++) {
+                Object value = getValueAt(i, k);
+                if (value != null)
                     return value.getClass();
             }
             return Object.class;
@@ -2727,9 +2727,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         {
             return boligkolonnenavn[kolonne];
         }
-        public Class getColumnClass( int k )
-        {
-            return getValueAt( 0, k ).getClass();
+
+        public Class getColumnClass(int k) {
+            return getValueAt(0, k).getClass();
         }
 
     }
@@ -2783,21 +2783,23 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     }
 
-    private class kontraktTabellModell extends AbstractTableModel
-    {
-        String[] kolonnenavn = {"Utleier", "Leietaker", "Startdato", "Sluttdato","ID"};
+    private class kontraktTabellModell extends AbstractTableModel {
+        String[] kolonnenavn = {"Utleier", "Leietaker", "Startdato", "Sluttdato", "ID"};
 
         Object[][] celler = kontrakter.tilTabell();
 
         public int getRowCount() {
             return celler.length;
         }
+
         public int getColumnCount() {
             return celler[0].length;
         }
+
         public Object getValueAt(int rad, int kolonne) {
             return celler[rad][kolonne];
         }
+
         public String getColumnName(int kolonne)//for kolonnenavn
         {
             return kolonnenavn[kolonne];
@@ -2812,8 +2814,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     //---------------START OF LAGTABELLER-----------------
     //----------------------------------------------------
 
-    public void lagTabellen()
-    {
+    public void lagTabellen() {
 
         personTabellFabrikk personTabellModell = new personTabellFabrikk();
         personTabell = new SvartHvitRad(personTabellModell);
@@ -2949,6 +2950,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         badValg.setSelected(false);
         feedbackFane1.setText("");
     }
+
     private void clearBoligfelt() {
         boligtypeBoxFane2.setSelectedIndex(0);
         byBoxFane2.setSelectedIndex(0);
@@ -2987,8 +2989,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         mail.setBackground(Color.WHITE);
         firma.setBackground(Color.WHITE);
     }
-    private void clearKontraktfelt()
-    {
+
+    private void clearKontraktfelt() {
         sluttårFelt.setText("");
         sluttMånedFelt.setText("");
         sluttDagFelt.setText("");
@@ -3301,10 +3303,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 c.gridheight = 1;
                 c.gridwidth = 0;
                 c.weightx = 0;
-                c.weightx=100;
-                c.weighty=100;
-                c.gridx=0;
-                c.gridy=0;
+                c.weightx = 100;
+                c.weighty = 100;
+                c.gridx = 0;
+                c.gridy = 0;
                 c.anchor = GridBagConstraints.FIRST_LINE_START;
                 c.fill = GridBagConstraints.BOTH;
                 JScrollPane boligscroll = new JScrollPane(boligTabellTabellen);
@@ -3317,10 +3319,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             } else if (persontabellRadioknapp.isSelected()) {
                 clearPanel3();
                 lagTabellen();
-                c.weightx=100;
-                c.weighty=100;
-                c.gridx=0;
-                c.gridy=0;
+                c.weightx = 100;
+                c.weighty = 100;
+                c.gridx = 0;
+                c.gridy = 0;
                 c.anchor = GridBagConstraints.FIRST_LINE_START;
                 c.fill = GridBagConstraints.BOTH;
                 JScrollPane personscroll = new JScrollPane(personTabell);
@@ -3342,43 +3344,35 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 skrivTilFil();
             } else if (e.getSource() == visHistorikk) {
                 visKontraktFil();
-            }
-            else if(e.getSource() == printmatch){
+            } else if (e.getSource() == printmatch) {
                 try {
                     resultatTabell.print();
+                } catch (PrinterException pe) {
+                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
                 }
-                catch(PrinterException pe){
-                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
-                }
-            }
-            else if(e.getSource() == printkontrakter){
-                try{
+            } else if (e.getSource() == printkontrakter) {
+                try {
                     kontraktHistorikkTabell.print();
+                } catch (PrinterException pe) {
+                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
                 }
-                catch (PrinterException pe){
-                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
-                }
-            }
-            else if(e.getSource()==printbolig) {
+            } else if (e.getSource() == printbolig) {
                 try {
                     boligTabellTabellen.print();
                 } catch (PrinterException pe) {
                     JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
                 }
-            }
-            else if(e.getSource()==printperson){
-                try{
+            } else if (e.getSource() == printperson) {
+                try {
                     personTabell.print();
-                }catch(PrinterException pe){
-                    JOptionPane.showMessageDialog(null,"Feil ved utskrift.");
+                } catch (PrinterException pe) {
+                    JOptionPane.showMessageDialog(null, "Feil ved utskrift.");
                 }
-            }
-            else if(e.getSource()==statistikk){
+            } else if (e.getSource() == statistikk) {
                 lagTabellen();
                 lagBoligTabellen();
-                JOptionPane.showMessageDialog(null,"Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount() );
-            }
-            else if(e.getSource()==avslutt){
+                JOptionPane.showMessageDialog(null, "Antall boliger i register:\t" + boligTabellTabellen.getRowCount() + "\nAntall registrerte personer:\t" + personTabell.getRowCount());
+            } else if (e.getSource() == avslutt) {
                 skrivTilFil();
                 System.exit(0);
 
@@ -3435,9 +3429,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     int valgtRad = lsm.getMinSelectionIndex();
                     valgtRad = resultatTabell.convertRowIndexToModel(valgtRad);
                     int id;
-                    try{
-                        id = (int) tabellmodell.getValueAt(valgtRad,9);
-                    }catch(NullPointerException npe){
+                    try {
+                        id = (int) tabellmodell.getValueAt(valgtRad, 9);
+                    } catch (NullPointerException npe) {
                         return;
                     }
                     String stringId = Integer.toString(id);
@@ -3449,9 +3443,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         valgtUtleier.setVisible(true);
                         utleierLabel.setVisible(true);
                         velgBoligVindu.dispose();
-                    }
-                    else if(fane.getSelectedIndex() == 3)
-                    {
+                    } else if (fane.getSelectedIndex() == 3) {
                         valgtBoligId = stringId;
                         sendEmail();
                     }
@@ -3495,12 +3487,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     slettBoligId = (int) tabellmodell.getValueAt(valgtRad, 8);
                     visBoligInfo();
                 }
-            }
-
-            else if(tabellmodell instanceof kontraktTabellModell){
-                if(!lsm.isSelectionEmpty()){
+            } else if (tabellmodell instanceof kontraktTabellModell) {
+                if (!lsm.isSelectionEmpty()) {
                     int valgtRad = lsm.getMaxSelectionIndex();
-                    String kid = (String)tabellmodell.getValueAt(valgtRad,4);
+                    String kid = (String) tabellmodell.getValueAt(valgtRad, 4);
                     Kontrakt k = kontrakter.finnKontrakt(kid);
                     skrivKontraktInfo(k);
                 }
@@ -3508,12 +3498,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
     }//end class Utvalgslytter
 
-    private class HighlightRenderer extends DefaultTableCellRenderer{
+    private class HighlightRenderer extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            if(row==table.getSelectedRow()){
+            if (row == table.getSelectedRow()) {
                 setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK));
             }
             return this;
@@ -3524,8 +3514,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     //-------------START OF TOGGLE-METODER----------------
     //----------------------------------------------------
 
-    private void togler()
-    {
+    private void togler() {
         garasjeValg.setVisible(false);
         kjellerValg.setVisible(false);
         etasjeBox.setVisible(false);
@@ -3565,14 +3554,85 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     //-------------START OF GYLDIG-METODER----------------
     //----------------------------------------------------
 
-    private boolean gyldig(JTextField f) {
-        if (f.getText().isEmpty() || f.getDocument().getLength() < 2 || f.getText().equals("")) {
+
+    private boolean gyldigTekst(String s, JTextField f) {
+
+        if (s.isEmpty() || s.length() < 2 || s.equals("") || !s.matches("[A-Å][a-å]+")) {
             f.setBackground(Color.RED);
-            return true;
-        } else {
-            f.setBackground(Color.WHITE);
             return false;
         }
+        else {
+            f.setBackground(Color.WHITE);
+            return true;
+        }
+
+
+    }
+
+
+    private boolean gyldigAdresse(String s, JTextField f) {
+        if (s.isEmpty() || s.length() < 2 || s.equals("") || !s.matches("^[_A-Åa-å\\s0-9-]+")) {
+            f.setBackground(Color.RED);
+            return false;
+        } else
+            f.setBackground(Color.WHITE);
+        return true;
+    }
+
+
+    private boolean gyldigMail(String s, JTextField f) {
+        if (s.isEmpty() || s.length() < 2 || s.equals("") || !s.matches("[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9\\-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+            f.setBackground(Color.RED);
+            return false;
+        } else
+            f.setBackground(Color.WHITE);
+        return true;
+    }
+
+
+
+
+    private boolean gyldigInt(String s,JTextField f){
+        if(s.matches("\\d")){
+            f.setBackground(Color.WHITE);
+            return true;
+        }
+        else{
+            f.setBackground(Color.RED);
+            feedbackFane1.setText("Feil input");
+            return false;
+        }
+
+    }
+    private boolean gyldigÅr(String s,JTextField f){
+        if(s.matches("\\d{4}")){
+            f.setBackground(Color.WHITE);
+            return true;
+        }
+        else{
+            f.setBackground(Color.RED);
+            feedbackFane1.setText("Feil input");
+            return false;
+        }
+
+    }
+
+
+
+
+
+
+    private boolean gyldigtlf(String f){
+        if(f.matches("\\+47\\d{8}") || f.matches("\\d{8}") || f.matches("\\00\\d{8}") ){
+         tlf.setBackground(Color.WHITE);
+        return true;
+        }
+        else{
+            tlf.setBackground(Color.RED);
+            feedbackFane1.setText("Feil i tlf felt!");
+            return false;
+        }
+
     }
 
     private boolean gyldigBox(JComboBox f) {
