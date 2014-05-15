@@ -2580,11 +2580,11 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String sti = valgtBolig.getBildesti();
         //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
         //48
-        String renska = sti.substring(49,sti.length());
+
 
 
        // ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
-        ImageIcon image = new ImageIcon(renska);
+        ImageIcon image = new ImageIcon(sti);
         Image img = image.getImage();
         Image skalert = img.getScaledInstance(350, 310, Image.SCALE_SMOOTH);
         image = new ImageIcon(skalert);
