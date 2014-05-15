@@ -13,7 +13,6 @@ Siste versjon: 12/05/2014
 public class Mail
 {
     public boolean sendMail(String epost, String tekst){
-        String to = epost;
         final String from = "kamera@bang.is";
         final String brukernavn = "bangis5";
         final String password = "Svarten1975";
@@ -33,7 +32,7 @@ public class Mail
         try{
             MimeMessage message = new MimeMessage(session);
             message.setFrom( new InternetAddress(from));
-            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(epost));
             message.setSubject("BoligMatch");
             message.setText(tekst);
 

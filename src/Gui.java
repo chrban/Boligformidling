@@ -1831,7 +1831,6 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 gyldigBox(etasjeBox);
                 gyldigBox(romBox);
                 gyldigBox(planBox);
-
             } else {
                 String id = idMekking.setIdPåBoligsøker(enavn, fnavn);
 
@@ -2049,7 +2048,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         }
         catch(NullPointerException npe){
-
+            JOptionPane.showMessageDialog(null, "Kunne ikke hente bilde");
         }
 
         int id = 0;
@@ -2263,6 +2262,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         sluttårFelt.setText(null); sluttMånedFelt.setText(null); sluttDagFelt.setText(null); startÅrFelt.setText(null);
                         startMånedFelt.setText(null); startDagFelt.setText(null);
                         visKontrakter();
+                        clearKontraktfelt();
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Disse datoene samsvarer ikke!");
@@ -2552,6 +2552,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             }
 
         } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Feil med parsing");
         }
     }
 
@@ -2569,10 +2570,8 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         clearBildePanel();
         String sti = valgtBolig.getBildesti();
         //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
-        System.out.println("skitten " + sti);
         //48
         String renska = sti.substring(49,sti.length());
-        System.out.println("ren     " + renska);
 
 
        // ImageIcon image = new ImageIcon(valgtBolig.getBildesti());

@@ -19,9 +19,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="mailfilene" level="project" />
-    <orderEntry type="library" name="mailfilene1" level="project" />
-    <orderEntry type="library" name="mailfilene2" level="project" />
+    <orderEntry type="library" name="activation" level="application" />
+    <orderEntry type="library" name="javax.mail" level="application" />
   </component>
 </module>
 

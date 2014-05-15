@@ -27,7 +27,6 @@ Siste versjon:
         //start of getMetoder
         public boolean getBooleanVerdiPark()
         {
-            System.out.println("parkering"+parkering);
             if(parkering == 1)
                 return true;
 
@@ -36,7 +35,6 @@ Siste versjon:
 
         public boolean getBooleanVerdiKjeller()
         {
-            System.out.println("kjeller :" +kjeller);
             if(kjeller == 1)
                 return true;
 
