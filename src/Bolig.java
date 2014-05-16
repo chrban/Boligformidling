@@ -1,5 +1,8 @@
+import javax.swing.*;
 import java.io.*;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 /*
 Filen inneholder alle datafelt og metoder som er til felles for alle
 boligtypene.
@@ -15,7 +18,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private int rom;
     private int byggAr;
     private int utleiepris;
-    private Date lagtUt;
+    private Calendar lagtUt;
     private String eierID;
     private String bildesti;
     private boolean utleid;
@@ -30,7 +33,8 @@ abstract class Bolig implements Serializable, Comparable<Object>
         rom = r;
         byggAr = by;
         utleiepris = u;
-        lagtUt = new Date();
+        lagtUt = new GregorianCalendar();
+        lagtUt = lagtUt.getInstance();
         eierID = e;
         bildesti = sti;
         utleid = false;
@@ -57,22 +61,20 @@ abstract class Bolig implements Serializable, Comparable<Object>
     {
         return utleiepris;
     }
-    public Date getLagtUt()
+    public Calendar getLagtUt()
     {
         return lagtUt;
     }
     public String getBildesti(){
-
-        String sti;
-        try{
-            sti = bildesti.substring(49,bildesti.length());
-        }
-        catch (StringIndexOutOfBoundsException sioobe)
-        {
-            sti = bildesti;
+        String[] sti;
+        String os = System.getProperty("os.name");
+        if(os.startsWith("Windows")) {
+            sti = bildesti.split("ing\\\\");
+        }else{
+            sti = bildesti.split("ing.");
         }
 
-        return sti;
+        return sti[1];
     }
     public String getEierID(){
         return eierID;
@@ -102,7 +104,6 @@ abstract class Bolig implements Serializable, Comparable<Object>
     }
     public String toString()
     {
-        String ut = "";
         String by = "";
         switch(sted){
             case 1: by = "Oslo";
