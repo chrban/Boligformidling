@@ -63,13 +63,13 @@ abstract class Bolig implements Serializable, Comparable<Object>
     }
     public String getBildesti(){
 
-        String sti = "";
+        String sti;
         try{
             sti = bildesti.substring(49,bildesti.length());
         }
         catch (StringIndexOutOfBoundsException sioobe)
         {
-            sti = " ";
+            sti = bildesti;
         }
 
         return sti;

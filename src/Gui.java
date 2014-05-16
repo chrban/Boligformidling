@@ -2576,10 +2576,9 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
         clearBildePanel();
 
-        String sti;
+        String sti = valgtBolig.getBildesti();
 
         try {
-            sti = valgtBolig.getBildesti();
             //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
             //48
             String renska = sti.substring(49, sti.length());
@@ -2587,7 +2586,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         }
         catch(StringIndexOutOfBoundsException sioobe)
         {
-            sti = " ";
+            sti = valgtBolig.getBildesti();
         }
 
        // ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
