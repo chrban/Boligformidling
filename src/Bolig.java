@@ -18,7 +18,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     private int rom;
     private int byggAr;
     private int utleiepris;
-    private Calendar lagtUt;
+    private Date lagtUt;
     private String eierID;
     private String bildesti;
     private boolean utleid;
@@ -33,8 +33,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         rom = r;
         byggAr = by;
         utleiepris = u;
-        lagtUt = new GregorianCalendar();
-        lagtUt = lagtUt.getInstance();
+        lagtUt = new Date();
         eierID = e;
         bildesti = sti;
         utleid = false;
@@ -61,7 +60,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
     {
         return utleiepris;
     }
-    public Calendar getLagtUt()
+    public Date getLagtUt()
     {
         return lagtUt;
     }
