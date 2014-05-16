@@ -2575,12 +2575,20 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         feedbackFane3.setText(ut);
 
         clearBildePanel();
-        String sti = valgtBolig.getBildesti();
-        //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
-        //48
-        String renska = sti.substring(49,sti.length());
 
+        String sti;
 
+        try {
+            sti = valgtBolig.getBildesti();
+            //String renska = sti.replaceAll("(\\w+)(?:\\.\\w+)*$", "");
+            //48
+            String renska = sti.substring(49, sti.length());
+
+        }
+        catch(StringIndexOutOfBoundsException sioobe)
+        {
+            sti = " ";
+        }
 
        // ImageIcon image = new ImageIcon(valgtBolig.getBildesti());
         ImageIcon image = new ImageIcon(sti);

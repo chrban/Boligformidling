@@ -62,7 +62,17 @@ abstract class Bolig implements Serializable, Comparable<Object>
         return lagtUt;
     }
     public String getBildesti(){
-        return bildesti.substring(49,bildesti.length());
+
+        String sti = "";
+        try{
+            sti = bildesti.substring(49,bildesti.length());
+        }
+        catch (StringIndexOutOfBoundsException sioobe)
+        {
+            sti = " ";
+        }
+
+        return sti;
     }
     public String getEierID(){
         return eierID;

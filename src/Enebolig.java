@@ -131,10 +131,18 @@ public class Enebolig extends Bolig implements Serializable
         ut[6] = getBooleanVerdiPark();
         ut[7] = getBooleanVerdiKjeller();
 
-        ImageIcon image = new ImageIcon(getBildesti());
-        Image img = image.getImage();
-        Image skalert = img.getScaledInstance(90, 70, Image.SCALE_SMOOTH);
-        image = new ImageIcon(skalert);
+        ImageIcon image;
+
+        try {
+            image = new ImageIcon(getBildesti());
+            Image img = image.getImage();
+            Image skalert = img.getScaledInstance(90, 70, Image.SCALE_SMOOTH);
+            image = new ImageIcon(skalert);
+        }
+        catch (StringIndexOutOfBoundsException sioobe)
+        {
+            image = null;
+        }
 
         ut[8] = image;
         ut[9] = super.getId();
