@@ -71,7 +71,7 @@ abstract class Bolig implements Serializable, Comparable<Object>
         if(os.startsWith("Windows")) {
             sti = bildesti.split("ing\\\\");
         }else{
-            sti = bildesti.split("ing.");
+            sti = bildesti.split("Boligformidling\\S");
         }
 
         return sti[1];

@@ -7,6 +7,7 @@
         <element id="archive" name="Boligformidling.jar">
           <element id="module-output" name="Boligformidling" />
         </element>
+        <element id="library" level="project" name="mailfilene" />
       </root>
     </artifact>
   </component>

@@ -58,7 +58,6 @@ public class Gui extends JFrame {
     private Font headerFont, header2Font, header3Font, knappFont;
     private Color bakFarge, headerFarge, lyseSvart, comboboxFarge, tabellFarge;
     private fanelytter faneøre;
-    private Scanner input = new Scanner(System.in);
 
 
     public Gui() {
@@ -833,7 +832,6 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         tomtAreal.setVisible(false);
         bopanel.add(tomtAreal, c);
-
 
         c.gridx = 0;
         c.gridy = 6;
@@ -2194,7 +2192,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     public void slettBoligsøker() {
         String[] alternativer = {"Ja", "Nei"};
-        if (slettPersonFn.equals("") || slettPersonEn.equals("")) {
+        if (slettPersonFn.equals("") || slettPersonEn.equals("") || slettPersonFn == null || slettPersonEn == null ){
             JOptionPane.showMessageDialog(null, "DUUUURT");
             return;
         }
