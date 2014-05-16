@@ -31,6 +31,7 @@ public class idGenerator implements Serializable {
         catch(StringIndexOutOfBoundsException sioobe){
             JOptionPane.showMessageDialog(null,"Feil ved generering av ID");
         }
+        JOptionPane.showMessageDialog(null, id);
         return id;
     }
     public String setIdPåUtleier(String f, String en, String fn){

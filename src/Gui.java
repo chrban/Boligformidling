@@ -1831,6 +1831,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
             if (gyldigtlf(t) && gyldigTekst(fnavn, fornavn) && gyldigTekst(enavn, etternavn) && gyldigMail(email, mail) && gyldigAdresse(ad, adresse)) {
                 if (bt != 0 && by != 0) {
+                    id = idMekking.setIdPåBoligsøker(fnavn, enavn);
                     if (bt != 1 && bt != 2 && bt != 3) {
                         Boligsøker ny = new Boligsøker(id, fnavn, enavn, ad, t, email, bt, by, rom, maxPris, minPris, park, antE, kjeller, heis, balkong, dbm, dkm);
                         boligsøkere.settInnNy(ny);
@@ -3694,7 +3695,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
     private boolean gyldigTekst(String s, JTextField f) {
 
-        if (s.isEmpty() || s.length() < 2 || s.equals("") || !s.matches("[A-Å][a-å]+")) {
+        if (s.isEmpty() || s.length() < 2 || s.equals("") || !s.matches("^[a-åA-Å][a-åA-Å\\s]*")) {
             f.setBackground(Color.RED);
             return false;
         }
