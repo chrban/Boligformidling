@@ -785,6 +785,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         byBoxFane2.setBackground(comboboxFarge);
         byBoxFane2.setForeground(lyseSvart);
+        byBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(byBoxFane2, c);
 
         c.gridx = 0;
@@ -808,7 +809,7 @@ public class Gui extends JFrame {
         c.gridy = 4;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.EAST;
-        bopanel.add(new JLabel("Boareal"), c);
+        bopanel.add(new JLabel("Boareal, m²"), c);
 
         boareal = new JTextField(20);
         c.gridx = 1;
@@ -817,7 +818,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         bopanel.add(boareal, c);
 
-        tomtArealLabel = new JLabel("Tomtareal:");
+        tomtArealLabel = new JLabel("Tomtareal, m²");
         c.gridx = 0;
         c.gridy = 5;
         c.fill = GridBagConstraints.NONE;
@@ -878,6 +879,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         romBoxFane2.setBackground(comboboxFarge);
         romBoxFane2.setForeground(lyseSvart);
+        romBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(romBoxFane2, c);
         romBoxFane2.setVisible(false);
 
@@ -899,6 +901,7 @@ public class Gui extends JFrame {
         etasjeBoxFane2.setBackground(comboboxFarge);
         etasjeBoxFane2.setForeground(lyseSvart);
         etasjeBoxFane2.setVisible(false);
+        etasjeBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(etasjeBoxFane2, c);
 
         c.gridx = 0;
@@ -917,6 +920,7 @@ public class Gui extends JFrame {
         c.anchor = GridBagConstraints.WEST;
         planBoxFane2.setBackground(comboboxFarge);
         planBoxFane2.setForeground(lyseSvart);
+        planBoxFane2.addActionListener(new boligTypeLytter());
         bopanel.add(planBoxFane2, c);
         planBoxFane2.setVisible(false);
 
@@ -1916,6 +1920,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }//end class regPerson
 
 
+
+
+
+
     public void regBolig() {
 
         String adr = adresseFane2.getText();
@@ -1927,10 +1935,10 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
         String beskrivelseString = beskrivelse.getText();
 
 
-        if (gyldigAdresse(adr, adresseFane2) && gyldigInt(arealString, boareal) && gyldigÅr(årString, byggår) && gyldigInt(utPrisString, pris) && gyldigTekst(utId, utleierId)) {
+//
 
 
-            int areal;
+            int areal = 0;
             int år;
             int upris;
             int tomtareal = 0;
@@ -1955,7 +1963,12 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 default:
                     btype = 0;
                     break;
+
             }
+
+
+
+
             try {
                 areal = Integer.parseInt(arealString);
                 år = Integer.parseInt(årString);
@@ -1965,12 +1978,22 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                         tomtareal = Integer.parseInt(tAreal);
                     } catch (NumberFormatException nfe) {
                         nfe.printStackTrace();
+                        gyldigTallverdi(tomtareal,tomtAreal);
                     }
                 }
+
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Du må skrive inn skikkelige verdier!");
-                return;
+
+                år = 0;
+                areal = 0;
+                upris = 0;
+
             }
+
+
+
+
+
 
 
             // Comboboxer
@@ -2054,49 +2077,107 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 JOptionPane.showMessageDialog(null, "Kunne ikke hente bilde");
             }
 
+
+
+
+
             int id = 0;
 
-            switch (btype) {
-                case 1:
-                    id = idMekking.setIdPåBolig(1);
-                    Enebolig nyEnebolig = new Enebolig(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
-                    if (boliger.leggTil(nyEnebolig)) {
-                        JOptionPane.showMessageDialog(null, "Registrering vellykket!");
-                        clearBoligfelt();
-                    } else
-                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
-                    break;
-                case 2:
-                    id = idMekking.setIdPåBolig(2);
-                    Rekkehus nyttRekkehus = new Rekkehus(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
-                    if (boliger.leggTil(nyttRekkehus)) {
-                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                        clearBoligfelt();
 
-                    } else
-                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
-                    break;
-                case 3:
-                    id = idMekking.setIdPåBolig(3);
-                    Leilighet nyLeilighet = new Leilighet(id, adr, byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
-                    if (boliger.leggTil(nyLeilighet)) {
-                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                        clearBoligfelt();
-                    } else
-                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
-                    break;
-                case 4:
-                    id = idMekking.setIdPåBolig(4);
-                    Hybel nyHybel = new Hybel(id, adr, byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt, beskrivelseString);
-                    if (boliger.leggTil(nyHybel)) {
-                        JOptionPane.showMessageDialog(null, "Registrering vellykket");
-                        clearBoligfelt();
-                    } else
-                        JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
-                    break;
+
+        if (gyldigAdresse(adr, adresseFane2) && gyldigInt(arealString, boareal) && gyldigÅr(årString, byggår) && gyldigTallverdi(upris, pris) && gyldigID(utId, utleierId)) {
+            if( byvalg != 0 && btype != 0  ) {
+
+
+                switch (btype) {
+                    case 1: // enebolig
+                        if(tomtareal != 0 && rom != 0 && antetasjer != 0) {
+
+                            id = idMekking.setIdPåBolig(1);
+                            Enebolig nyEnebolig = new Enebolig(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
+                            if (boliger.leggTil(nyEnebolig)) {
+                                JOptionPane.showMessageDialog(null, "Registrering vellykket!");
+                                clearBoligfelt();
+                            } else
+                                JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                        }
+                        else{
+                            gyldigTallverdi(tomtareal,tomtAreal);
+                            gyldigBox(romBoxFane2);
+                            gyldigBox(etasjeBoxFane2);
+                        }
+
+
+
+                        break;
+
+                    case 2: // rekkehus
+                        if(tomtareal != 0 && rom != 0 && antetasjer != 0) {
+                            id = idMekking.setIdPåBolig(2);
+                            Rekkehus nyttRekkehus = new Rekkehus(id, adr, byvalg, areal, rom, år, upris, utId, sti, antetasjer, garasje, kjeller, tomtareal, beskrivelseString);
+                            if (boliger.leggTil(nyttRekkehus)) {
+                                JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                                clearBoligfelt();
+
+                            } else
+                                JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                        }
+                        else{
+                            gyldigTallverdi(tomtareal,tomtAreal);
+                            gyldigBox(romBoxFane2);
+                            gyldigBox(etasjeBoxFane2);
+                        }
+                        break;
+                    case 3: // Leilighet
+                        if( rom != 0 && plan != 0  ) {
+
+                            id = idMekking.setIdPåBolig(3);
+                            Leilighet nyLeilighet = new Leilighet(id, adr, byvalg, areal, rom, år, upris, utId, sti, plan, balkong, heis, beskrivelseString);
+                            if (boliger.leggTil(nyLeilighet)) {
+                                JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                                clearBoligfelt();
+                            } else
+                                JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                        }
+                        else{
+                            gyldigBox(romBoxFane2);
+                            gyldigBox(planBoxFane2);
+                        }
+                        break;
+                    case 4:
+                        id = idMekking.setIdPåBolig(4);
+                        Hybel nyHybel = new Hybel(id, adr, byvalg, areal, rom, år, upris, utId, sti, badInt, kjøkkenInt, beskrivelseString);
+                        if (boliger.leggTil(nyHybel)) {
+                            JOptionPane.showMessageDialog(null, "Registrering vellykket");
+                            clearBoligfelt();
+                        } else
+                            JOptionPane.showMessageDialog(null, "Ble ikke registrert!");
+                        break;
+                }// end switch
+            }else{//end andre if
+                gyldigBox(boligtypeBoxFane2);
+                gyldigBox(byBoxFane2);
             }
         }
+        else {// end første if
+            gyldigAdresse(adr, adresseFane2);
+            gyldigInt(arealString, boareal);
+            gyldigÅr(årString, byggår);
+            gyldigInt(utPrisString, pris);
+            gyldigTekst(utId, utleierId);
+            gyldigBox(boligtypeBoxFane2);
+            gyldigBox(byBoxFane2);
+            gyldigTallverdi(tomtareal,tomtAreal);
+
+        }
+
     }//end class regBolig
+
+
+
+
+
+
 
     public void finnBilde() {
         JFileChooser filvelger = new JFileChooser();
@@ -2127,7 +2208,22 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     JOptionPane.showMessageDialog(null, "Personen er slettet");
                     slettPersonEn = "";
                     slettPersonFn = "";
+                    //Laster inn tabell på nytt
+                    clearPanel3();
                     lagTabellen();
+                    c.weightx = 100;
+                    c.weighty = 100;
+                    c.gridx = 0;
+                    c.gridy = 0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    JScrollPane personscroll = new JScrollPane(personTabell);
+                    personscroll.getViewport().setBackground(tabellFarge);
+                    tapanel.add(personscroll, c);
+                    slettPerson.setVisible(true);
+                    slettBoligKnapp.setVisible(false);
+                    revalidate();
+                    repaint();
                 }
             } else {
                 id = utleiere.finnID(slettPersonFn, slettPersonEn);
@@ -2135,7 +2231,30 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                 if (!utleiere.harBoliger(woop)) {
                     utleiere.fjernUtleier(slettPersonFn, slettPersonEn);
                     JOptionPane.showMessageDialog(null, "Personen ble slettet");
-                    lagTabellen();
+                    //Laster inn tabell på nytt
+                    clearPanel3();
+                    lagBoligTabellen();
+                    c.anchor = GridBagConstraints.CENTER;
+                    c.gridx = 0;
+                    c.gridy = 0;
+                    c.gridwidth = 1;
+                    c.insets = new Insets(0, 0, 0, 0);
+                    c.gridheight = 1;
+                    c.gridwidth = 0;
+                    c.weightx = 0;
+                    c.weightx = 100;
+                    c.weighty = 100;
+                    c.gridx = 0;
+                    c.gridy = 0;
+                    c.anchor = GridBagConstraints.FIRST_LINE_START;
+                    c.fill = GridBagConstraints.BOTH;
+                    JScrollPane boligscroll = new JScrollPane(boligTabellTabellen);
+                    tapanel.add(boligscroll, c);
+                    boligscroll.getViewport().setBackground(tabellFarge);
+                    slettBoligKnapp.setVisible(true);
+                    slettPerson.setVisible(false);
+                    revalidate();
+                    repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "Personen har boliger registrert på seg!");
                 }
@@ -3176,6 +3295,13 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             if (romBox.getSelectedIndex() != 0) romBox.setForeground(Color.BLACK);
             if (etasjeBox.getSelectedIndex() != 0) etasjeBox.setForeground(Color.BLACK);
             if (planBox.getSelectedIndex() != 0) planBox.setForeground(Color.BLACK);
+            if (romBoxFane2.getSelectedIndex() != 0) romBoxFane2.setForeground(Color.BLACK);
+            if (byBoxFane2.getSelectedIndex() != 0) byBoxFane2.setForeground(Color.BLACK);
+            if (romBoxFane2.getSelectedIndex() != 0) romBoxFane2.setForeground(Color.BLACK);
+            if (etasjeBoxFane2.getSelectedIndex() != 0) etasjeBoxFane2.setForeground(Color.BLACK);
+            if (planBoxFane2.getSelectedIndex() != 0) planBoxFane2.setForeground(Color.BLACK);
+
+
 
 
             switch (typenTil) {
@@ -3226,6 +3352,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             switch (boligTypeFane2) {
                 case "Enebolig":
                     toglerFane2();
+                    boligtypeBoxFane2.setForeground(Color.BLACK);
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -3238,6 +3365,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     break;
                 case "Rekkehus":
                     toglerFane2();
+                    boligtypeBoxFane2.setForeground(Color.BLACK);
                     garasjeValgFane2.setVisible(true);
                     kjellerValgFane2.setVisible(true);
                     etasjeBoxFane2.setVisible(true);
@@ -3250,6 +3378,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     break;
                 case "Leilighet":
                     toglerFane2();
+                    boligtypeBoxFane2.setForeground(Color.BLACK);
                     heisValgFane2.setVisible(true);
                     balkongValgFane2.setVisible(true);
                     planLabelFane2.setVisible(true);
@@ -3260,6 +3389,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
                     break;
                 case "Hybel":
                     toglerFane2();
+                    boligtypeBoxFane2.setForeground(Color.BLACK);
                     badValgFane2.setVisible(true);
                     kjøkkenValgFane2.setVisible(true);
                     revalidate();
@@ -3573,9 +3703,22 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
             f.setBackground(Color.WHITE);
             return true;
         }
-
-
     }
+
+    private boolean gyldigID(String s, JTextField f) {
+
+        if (s.isEmpty() || s.equals("") || !s.matches("[A-Å0-9-]{6}")) {
+            f.setBackground(Color.RED);
+            return false;
+        }
+        else {
+            f.setBackground(Color.WHITE);
+            return true;
+        }
+    }
+
+
+
 
 
     private boolean gyldigAdresse(String s, JTextField f) {
@@ -3601,7 +3744,7 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
 
 
     private boolean gyldigInt(String s,JTextField f){
-        if(s.matches("\\d")){
+        if(s.matches("\\d+")){
             f.setBackground(Color.WHITE);
             return true;
         }
@@ -3614,6 +3757,22 @@ KKKKKKKKK    KKKKKKK     OOOOOOOOO     NNNNNNNN         NNNNNNN      TTTTTTTTTTT
     }
     private boolean gyldigÅr(String s,JTextField f){
         if(s.matches("\\d{4}")){
+            if(Integer.parseInt(s) <= 2016 && Integer.parseInt(s) > 0 ) {
+                f.setBackground(Color.WHITE);
+                return true;
+            }
+        }
+        else{
+            f.setBackground(Color.RED);
+            feedbackFane1.setText("Feil input");
+            return false;
+        }
+        f.setBackground(Color.RED);
+        feedbackFane1.setText("Feil input");
+        return false;
+    }
+    private boolean gyldigTallverdi(int s,JTextField f){
+        if(s > 0){
             f.setBackground(Color.WHITE);
             return true;
         }
