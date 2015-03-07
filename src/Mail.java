@@ -13,14 +13,14 @@ Siste versjon: 12/05/2014
 public class Mail
 {
     public boolean sendMail(String epost, String tekst){
-        final String from = "kamera@bang.is";
-        final String brukernavn = "bangis5";
-        final String password = "Svarten1975";
+        final String from = "mail@adresse";
+        final String brukernavn = "username";
+        final String password = "password";
         String host = "localhost";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.domeneshop.no");
+        props.put("mail.smtp.host", "smtp.domene.no");
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getDefaultInstance(props, new Authenticator(){
