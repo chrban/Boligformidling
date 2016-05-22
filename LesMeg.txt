@@ -1,0 +1,18 @@
+For å starte programmet:
+Naviger til mmappen "Boligformidling"
+
+Kjør filen: "Boligformidling.jar"
+
+
+Fag: Programutvikling
+Prosjektoppgave - 16.05.2014
+Faglærer: Eva HAdler Vihovde
+Fagnr: DATS1600 / ITPE1600
+
+
+
+Av gruppen:
+
+Kristoffer Gard Osen, s198754, Dataingeniør
+Christer Erik Bang, s198737, Dataingeniør
+Emil oppegård, s198772, Dataingeniør
